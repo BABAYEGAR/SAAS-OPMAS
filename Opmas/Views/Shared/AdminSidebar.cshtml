@@ -18,26 +18,26 @@
                 </ul>
             </li>
             <li>
-                <a><i class="fa fa-edit"></i> Institutions <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("Create", "Institution")">Add Institutions</a>
+                        <a href="@Url.Action("Create", "Institutions")">Add Institutions</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institution")">Institutions</a>
+                        <a href="@Url.Action("Index", "Institutions")">Institutions</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institution")">Education</a>
+                        <a href="@Url.Action("Index", "Institutions")">Education</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institution")">Cooperation</a>
+                        <a href="@Url.Action("Index", "Institutions")">Cooperation</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institution")">Government</a>
+                        <a href="@Url.Action("Index", "Institutions")">Government</a>
                     </li>
                 </ul>
             </li>
-            <li>
+            @*<li>
                 <a><i class="fa fa-desktop"></i> Subscritions <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
@@ -47,9 +47,9 @@
                         <a href="media_gallery.html">Subscriptions</a>
                     </li>
                 </ul>
-            </li>
+            </li>*@
             <li>
-                <a><i class="fa fa-table"></i> Packages <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
                         <a href="@Url.Action("Create", "Package")">Add Package</a>
@@ -60,26 +60,20 @@
                 </ul>
             </li>
             <li>
-                <a><i class="fa fa-bar-chart-o"></i> Application Users <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-users"></i> Administrative Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="AdminDashboard.cshtml ">Add Application-User</a>
+                        <a href="AdminDashboard.cshtml ">Add Administrative-User</a>
                     </li>
                     <li>
-                        <a href="chartjs2.html">Active Application Users</a>
+                        <a href="chartjs2.html">Active Administrative Users</a>
                     </li>
                     <li>
-                        <a href="morisjs.html">Inactive Application Users</a>
-                    </li>
-                    <li>
-                        <a href="echarts.html">ECharts</a>
-                    </li>
-                    <li>
-                        <a href="other_charts.html">Other Charts</a>
+                        <a href="morisjs.html">Inactive Administrative Users</a>
                     </li>
                 </ul>
             </li>
-            <li>
+            @*<li>
                 <a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
@@ -89,7 +83,7 @@
                         <a href="fixed_footer.html">Fixed Footer</a>
                     </li>
                 </ul>
-            </li>
+            </li>*@
         </ul>
     </div>
     <div class="menu_section">

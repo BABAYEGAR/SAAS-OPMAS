@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
-    <Compile Include="DataContext\AccessDataContext\SubscriptionDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeEducationalQualificationDataContext.cs" />
@@ -83,6 +82,14 @@
     <Compile Include="Migrations\201611190409289_ThirdMigrate.Designer.cs">
       <DependentUpon>201611190409289_ThirdMigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611191709319_FourthMigrate.cs" />
+    <Compile Include="Migrations\201611191709319_FourthMigrate.Designer.cs">
+      <DependentUpon>201611191709319_FourthMigrate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611191753433_FifthMigrate.cs" />
+    <Compile Include="Migrations\201611191753433_FifthMigrate.Designer.cs">
+      <DependentUpon>201611191753433_FifthMigrate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +109,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611190409289_ThirdMigrate.resx">
       <DependentUpon>201611190409289_ThirdMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611191709319_FourthMigrate.resx">
+      <DependentUpon>201611191709319_FourthMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611191753433_FifthMigrate.resx">
+      <DependentUpon>201611191753433_FifthMigrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

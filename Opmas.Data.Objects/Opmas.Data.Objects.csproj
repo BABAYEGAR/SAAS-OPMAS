@@ -67,7 +67,6 @@
     <Compile Include="Entities.SystemManagement\Unit.cs" />
     <Compile Include="Entities.SystemManagement\Institution.cs" />
     <Compile Include="Entities.AccessManagement\Package.cs" />
-    <Compile Include="Entities.AccessManagement\Subscription.cs" />
     <Compile Include="Entities.User\AppUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

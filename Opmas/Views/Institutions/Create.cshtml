@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.SystemManagement.Institution
+@section css {
+    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
+}
+@using (Html.BeginForm("Create", "Institutions", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    <fieldset>
+        <legend>New Institution</legend>
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label" })<span class="req">*</span>
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Motto, new { @class = "control-label" })<span class="req">*</span>
+            @Html.EditorFor(model => model.Motto, new {htmlAttributes = new {@class = "form-control"}})
+        </div>
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Logo, new {@class = "control-label"})
+            <input type="file" name="logo" id="logo" style="width: 100%;"/>
+        </div>
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Location, new { @class = "control-label" })<span class="req">*</span>
+            @Html.EditorFor(model => model.Location, new {htmlAttributes = new {@class = "form-control"}})
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.ContactNumber, new { @class = "control-label" })<span class="req">*</span>
+            @Html.EditorFor(model => model.ContactNumber, new {htmlAttributes = new {@class = "form-control"}})
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.ContactEmail, new { @class = "control-label" })<span class="req">*</span>
+            @Html.EditorFor(model => model.ContactEmail, new {htmlAttributes = new {@class = "form-control"}})
+        </div>
+        <div class="form-group col-md-12">
+            @Html.LabelFor(m => m.InstitutionCategory, new { @class = "control-label" }) <span class="req">*</span>
+            @Html.DropDownListFor(m=>m.InstitutionCategory, EnumHelper.GetSelectList(typeof(InstitutionCategory)), "select an institution category", new { @class = "form-control select-dropdown" })
+        </div>
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.PackageId, "Package", new {@class = "control-label"})
+            @Html.DropDownList("PackageId", null, new {@class = "form-control select-dropdown" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success pull-right"/>
+            </div>
+        </div>
+    </fieldset>
+}
+@section scripts {
+    <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
+            });
+
+
+    </script>
+}

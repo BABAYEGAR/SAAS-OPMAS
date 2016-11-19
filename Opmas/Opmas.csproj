@@ -200,7 +200,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationManagement\ApplicationManagementController.cs" />
-    <Compile Include="Controllers\ApplicationManagement\InstitutionController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\InstitutionsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\PackageController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -5098,11 +5098,14 @@
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
     <Content Include="Views\ApplicationManagement\AdminDashboard.cshtml" />
     <Content Include="Views\ApplicationManagement\DashboardMainContent.cshtml" />
-    <Content Include="Views\Institution\Create.cshtml" />
-    <Content Include="Views\Subscription\CreateSubscription.cshtml" />
     <Content Include="Views\Package\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
+    <Content Include="Views\Institutions\Create.cshtml" />
+    <Content Include="Views\Institutions\Delete.cshtml" />
+    <Content Include="Views\Institutions\Details.cshtml" />
+    <Content Include="Views\Institutions\Edit.cshtml" />
+    <Content Include="Views\Institutions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
