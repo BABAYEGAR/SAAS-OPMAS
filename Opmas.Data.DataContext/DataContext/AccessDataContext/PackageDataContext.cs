@@ -13,5 +13,7 @@ namespace Opmas.Data.DataContext.DataContext.AccessDataContext
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
+
+        public System.Data.Entity.DbSet<Opmas.Data.Objects.Entities.AccessManagement.Package> Packages { get; set; }
     }
 }

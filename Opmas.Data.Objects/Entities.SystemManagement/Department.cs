@@ -11,7 +11,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         [ForeignKey("FacultyId")]
         public virtual Faculty Faculty { get; set; }
 
-        public long UniversityId { get; set; }
+        public long InstitutionId { get; set; }
 
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }

@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.DataContext.DataContext.SystemDataContext
@@ -13,6 +14,7 @@ namespace Opmas.Data.DataContext.DataContext.SystemDataContext
         public virtual DbSet<Institution> Universities { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

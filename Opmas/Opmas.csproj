@@ -200,6 +200,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationManagement\ApplicationManagementController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\InstitutionController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\PackageController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -5096,10 +5098,12 @@
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
     <Content Include="Views\ApplicationManagement\AdminDashboard.cshtml" />
     <Content Include="Views\ApplicationManagement\DashboardMainContent.cshtml" />
+    <Content Include="Views\Institution\Create.cshtml" />
+    <Content Include="Views\Subscription\CreateSubscription.cshtml" />
+    <Content Include="Views\Package\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Institution\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
