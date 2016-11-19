@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{16270421-F7E0-4158-9544-CFA63722EF24}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Opmas.Data.DataContext</RootNamespace>
+    <AssemblyName>Opmas.Data.DataContext</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
+    <Compile Include="DataContext\AccessDataContext\SubscriptionDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeeEducationalQualificationDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeeMedicalDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\StateDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\LgaDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeePastExperienceDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeeWorkDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeePersonalDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\UniversityDataContext.cs" />
+    <Compile Include="DataContext\UserDataContext\AppUserDataContext.cs" />
+    <Compile Include="Migrations\201611181305376_FirstMigration.cs" />
+    <Compile Include="Migrations\201611181305376_FirstMigration.Designer.cs">
+      <DependentUpon>201611181305376_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611190113426_FirstMigration1.cs" />
+    <Compile Include="Migrations\201611190113426_FirstMigration1.Designer.cs">
+      <DependentUpon>201611190113426_FirstMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611181305376_FirstMigration.resx">
+      <DependentUpon>201611181305376_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611190113426_FirstMigration1.resx">
+      <DependentUpon>201611190113426_FirstMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Opmas.Data.Objects\Opmas.Data.Objects.csproj">
+      <Project>{f66834ab-d691-4595-855a-ad0fd040567e}</Project>
+      <Name>Opmas.Data.Objects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

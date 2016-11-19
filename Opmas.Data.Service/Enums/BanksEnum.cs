@@ -1,0 +1,34 @@
+﻿namespace Opmas.Data.Service.Enums
+{
+    public enum BanksEnum
+    {
+        Access,
+        Citibank,
+        Diamond,
+        DynamicStandardBank,
+        Ecobank,
+        Fidelity,
+        FirstBank,
+        FirstCityMonumentBank,
+        GuarantyTrustBank,
+        HeritageBankPlc,
+        KeystoneBankLimited,
+        ProvidusBankPlc,
+        SkyeBank,
+        StanbicIbtcBankNigeriaLimited,
+        StandardCharteredBank,
+        SterlingBank,
+        SuntrustBankNigeriaLimited,
+        UnionBankofNigeria,
+        UnitedBankforAfrica,
+        UnityBankPlc,
+        WemaBank,
+        ZenithBank,
+        NonInterestBanks,
+        JaizBank,
+        FsdhMerchantBank,
+        CoronationMerchantBank,
+        RandMerchantBank,
+        FbnMerchantBankLimited
+    }
+}
