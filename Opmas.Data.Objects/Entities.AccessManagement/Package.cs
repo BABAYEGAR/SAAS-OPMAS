@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.Objects.Entities.AccessManagement
 {
-    public class Package
+    public class Package : Transport
     {
         public long PackageId { get; set; }
         public string Name { get; set; }

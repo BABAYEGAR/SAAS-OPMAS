@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201611190149302_SecondMigrate.Designer.cs">
       <DependentUpon>201611190149302_SecondMigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611190409289_ThirdMigrate.cs" />
+    <Compile Include="Migrations\201611190409289_ThirdMigrate.Designer.cs">
+      <DependentUpon>201611190409289_ThirdMigrate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611190149302_SecondMigrate.resx">
       <DependentUpon>201611190149302_SecondMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611190409289_ThirdMigrate.resx">
+      <DependentUpon>201611190409289_ThirdMigrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

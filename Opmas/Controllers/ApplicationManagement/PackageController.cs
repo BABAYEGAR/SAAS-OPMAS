@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Opmas.Data.DataContext.DataContext.AccessDataContext;
+using Opmas.Data.Objects.Entities.AccessManagement;
 
 namespace Opmas.Controllers.ApplicationManagement
 {
     public class PackageController : Controller
     {
+        private PackageDataContext _db = new PackageDataContext();
         // GET: Package
         public ActionResult Index()
         {
-            return View();
+            
+            return View(_db.Packages.ToList());
         }
 
         // GET: Package/Details/5
@@ -28,18 +32,20 @@ namespace Opmas.Controllers.ApplicationManagement
 
         // POST: Package/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Package package,FormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                package.DateCreated = DateTime.Now;
+                package.DateLastModified = DateTime.Now;
+                package.Amount = long.Parse(collection["Amount"]);
+                package.Name = collection["Name"];
+                _db.Packages.Add(package);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(package);
         }
 
         // GET: Package/Edit/5
