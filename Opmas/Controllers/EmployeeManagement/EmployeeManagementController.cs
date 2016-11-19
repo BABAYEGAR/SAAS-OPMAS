@@ -191,7 +191,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 Session["Employee"] = employee;
             }
             SavaEmployeeData();
-            return View("PersonalData");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
