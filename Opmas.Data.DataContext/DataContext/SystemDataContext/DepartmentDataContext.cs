@@ -10,7 +10,7 @@ namespace Opmas.Data.DataContext.DataContext.SystemDataContext
         {
         }
 
-        public virtual DbSet<University> Universities { get; set; }
+        public virtual DbSet<Institution> Universities { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
 

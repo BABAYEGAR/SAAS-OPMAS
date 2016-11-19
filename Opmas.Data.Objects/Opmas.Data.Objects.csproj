@@ -65,7 +65,7 @@
     <Compile Include="Entities.SystemManagement\Faculty.cs" />
     <Compile Include="Entities.SystemManagement\Transport.cs" />
     <Compile Include="Entities.SystemManagement\Unit.cs" />
-    <Compile Include="Entities.SystemManagement\University.cs" />
+    <Compile Include="Entities.SystemManagement\Institution.cs" />
     <Compile Include="Entities.AccessManagement\Package.cs" />
     <Compile Include="Entities.AccessManagement\Subscription.cs" />
     <Compile Include="Entities.User\AppUser.cs" />

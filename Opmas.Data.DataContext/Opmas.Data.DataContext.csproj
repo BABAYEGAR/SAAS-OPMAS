@@ -65,7 +65,7 @@
     <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
-    <Compile Include="DataContext\SystemDataContext\UniversityDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\InstitutionDataContext.cs" />
     <Compile Include="DataContext\UserDataContext\AppUserDataContext.cs" />
     <Compile Include="Migrations\201611181305376_FirstMigration.cs" />
     <Compile Include="Migrations\201611181305376_FirstMigration.Designer.cs">

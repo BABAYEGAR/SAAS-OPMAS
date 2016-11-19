@@ -13,7 +13,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
 
         public long UniversityId { get; set; }
 
-        [ForeignKey("UniversityId")]
-        public virtual University University { get; set; }
+        [ForeignKey("InstitutionId")]
+        public virtual Institution Institution { get; set; }
     }
 }
