@@ -56,6 +56,7 @@
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeEducationalQualificationDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeMedicalDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\BankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\StateDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\LgaDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeePastExperienceDataContext.cs" />
@@ -90,6 +91,14 @@
     <Compile Include="Migrations\201611191753433_FifthMigrate.Designer.cs">
       <DependentUpon>201611191753433_FifthMigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611201325277_SixthMigrate.cs" />
+    <Compile Include="Migrations\201611201325277_SixthMigrate.Designer.cs">
+      <DependentUpon>201611201325277_SixthMigrate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611251259412_Seventhigrate.cs" />
+    <Compile Include="Migrations\201611251259412_Seventhigrate.Designer.cs">
+      <DependentUpon>201611251259412_Seventhigrate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611191753433_FifthMigrate.resx">
       <DependentUpon>201611191753433_FifthMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201325277_SixthMigrate.resx">
+      <DependentUpon>201611201325277_SixthMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611251259412_Seventhigrate.resx">
+      <DependentUpon>201611251259412_Seventhigrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -12,14 +12,9 @@ namespace Opmas.Controllers.EmployeeManagement
     public class EmployeeManagementController : Controller
     {
         private readonly StateDataContext _db = new StateDataContext();
-        private readonly EmployeeBankDataContext _dbc = new EmployeeBankDataContext();
-        private readonly EmployeeEducationalQualificationDataContext _dbd = new EmployeeEducationalQualificationDataContext();
-        private readonly EmployeePersonalDataContext _dbe = new EmployeePersonalDataContext();
-        private readonly EmployeePastExperienceDataContext _dbf = new EmployeePastExperienceDataContext();
-        private readonly EmployeeWorkDataContext _dbg = new EmployeeWorkDataContext();
-        private readonly EmployeeMedicalDataContext _dbh = new EmployeeMedicalDataContext();
-        private readonly EmployeeDataContext _dbi = new EmployeeDataContext();
-        private Employee employee = new Employee();
+        private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
+        private readonly BankDataContext _dbBanks = new BankDataContext();
+        private Employee _employee = new Employee();
         /// <summary>
         /// Sends Json responds object to view with lga of the state requested via an Ajax call
         /// </summary>
@@ -63,9 +58,8 @@ namespace Opmas.Controllers.EmployeeManagement
 
             //store data in a session
             //Session["EmployeePersonalData"] = personalData;
-            employee.EmployeePersonalData = new List<EmployeePersonalData>();
-            employee.EmployeePersonalData.Add(personalData);
-            Session["Employee"] = employee;
+            _employee.EmployeePersonalData = new List<EmployeePersonalData> {personalData};
+            Session["Employee"] = _employee;
 
             //return next view
             return View("EducationalQualification");
@@ -80,12 +74,15 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult EducationalQualification(FormCollection collectedValues)
         {
-            employee = Session["Employee"] as Employee;
+            _employee = Session["Employee"] as Employee;
             //collect data from form using form collection
-            if (employee != null)
+            if (_employee != null)
             {
-                employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
-                employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification()
+                if (_employee.EmployeeEducationalQualifications == null)
+                {
+                    _employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
+                }
+                _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification()
                 {
                     ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
                     DegreeAttained = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"])),
@@ -93,10 +90,10 @@ namespace Opmas.Controllers.EmployeeManagement
                     Location = collectedValues["Location"],
                     StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
-                    FakeId = employee.EmployeeEducationalQualifications.Count + 1
+                    FakeId = _employee.EmployeeEducationalQualifications.Count + 1
                 });
                 //store data in a session
-                Session["Employee"] = employee;
+                Session["Employee"] = _employee;
             }
             return View("EducationalQualification");
         }
@@ -110,11 +107,14 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult PastWorkExperience(FormCollection collectedValues)
         {
-            employee = Session["Employee"] as Employee;
-            if (employee != null)
+            _employee = Session["Employee"] as Employee;
+            if (_employee != null)
             {
-                employee.EmployeePastWorkExperiences = new List<EmployeePastWorkExperience>();
-                employee.EmployeePastWorkExperiences.Add(new EmployeePastWorkExperience()
+                if (_employee.EmployeePastWorkExperiences == null)
+                {
+                    _employee.EmployeePastWorkExperiences = new List<EmployeePastWorkExperience>();
+                }
+                _employee.EmployeePastWorkExperiences.Add(new EmployeePastWorkExperience()
                 {
                     EmployerName = collectedValues["EmployerName"],
                     EmployerLocation = collectedValues["EmployerLocation"],
@@ -123,17 +123,18 @@ namespace Opmas.Controllers.EmployeeManagement
                     ReasonForLeaving = collectedValues["ReasonForLeaving"],
                     StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
-                    FakeId = employee.EmployeePastWorkExperiences.Count + 1
+                    FakeId = _employee.EmployeePastWorkExperiences.Count + 1
 
                 });
                 //store data in a session
-                Session["Employee"] = employee;
+                Session["Employee"] = _employee;
             }
             return View("PastWorkExperience");
         }
         // GET: EmployeeManagement/BankData
         public ActionResult BankData()
         {
+            ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
             return View();
         }
         // POST: EmployeeManagement/BankData
@@ -141,22 +142,26 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult BankData(FormCollection collectedValues)
         {
-            employee = Session["Employee"] as Employee;
+            _employee = Session["Employee"] as Employee;
             //append data to list
-            if (employee != null)
+            if (_employee != null)
             {
-                employee.EmployeeBankDatas = new List<EmployeeBankData>();
-                employee.EmployeeBankDatas.Add(new EmployeeBankData()
+                if (_employee.EmployeeBankDatas == null)
                 {
-                    BankName = typeof(BanksEnum).GetEnumName(int.Parse(collectedValues["BankName"])),
+                    _employee.EmployeeBankDatas = new List<EmployeeBankData>();
+                }
+                _employee.EmployeeBankDatas.Add(new EmployeeBankData()
+                {
+                    BankId = Convert.ToInt64(collectedValues["BankId"]),
                     AccountNumber = collectedValues["AccountNumber"],
                     AccountName = collectedValues["AccountName"],
                     AccountType = typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"])),
-                    FakeId = employee.EmployeeBankDatas.Count + 1
+                    FakeId = _employee.EmployeeBankDatas.Count + 1
                 });
                 //store data in a session
-                Session["Employee"] = employee;
+                Session["Employee"] = _employee;
             }
+            ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
             return View("BankData");
         }
 
@@ -170,7 +175,7 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult MedicalData(EmployeeMedicalData medicalData,EmployeeWorkData workData,FormCollection collectedValues)
         {
-            employee = Session["Employee"] as Employee;
+            _employee = Session["Employee"] as Employee;
             //collect data from form
             //medical data
             medicalData.BloodGroup = typeof(BloodGroup).GetEnumName(int.Parse(collectedValues["BloodGroup"]));
@@ -181,14 +186,12 @@ namespace Opmas.Controllers.EmployeeManagement
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
             //store data in a session
-            if (employee != null)
+            if (_employee != null)
             {
-                employee.EmployeeMedicalDatas = new List<EmployeeMedicalData>();
-                employee.EmployeeMedicalDatas.Add(medicalData);
+                _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};
 
-                employee.EmployeeWorkDatas = new List<EmployeeWorkData>();
-                employee.EmployeeWorkDatas.Add(workData);
-                Session["Employee"] = employee;
+                _employee.EmployeeWorkDatas = new List<EmployeeWorkData> {workData};
+                Session["Employee"] = _employee;
             }
             SavaEmployeeData();
             return RedirectToAction("Index", "Home");
@@ -201,8 +204,8 @@ namespace Opmas.Controllers.EmployeeManagement
             if (employeeData != null)
             {
                 employeeData.DateCreated = DateTime.Now;
-                employee.DateLastModified = DateTime.Now;
-                _dbi.Employees.Add(employee);
+                _employee.DateLastModified = DateTime.Now;
+                _dbEmployee.Employees.Add(_employee);
                 
 
                 if (employeeData.EmployeeBankDatas != null)
@@ -214,7 +217,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     }
                     foreach (var employeeDataEmployeeBankData in employeeData.EmployeeBankDatas)
                     {
-                        _dbc.EmployeeBankDatas.Add(employeeDataEmployeeBankData);
+                        _dbEmployee.EmployeeBankDatas.Add(employeeDataEmployeeBankData);
                        // _dbc.SaveChanges();
                     }
                 }
@@ -229,7 +232,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     foreach (
                         var employeeDataEmployeeEducationalQualification in employeeData.EmployeeEducationalQualifications)
                     {
-                        _dbd.EmployeeEducationalQualifications.Add(employeeDataEmployeeEducationalQualification);
+                        _dbEmployee.EmployeeEducationalQualifications.Add(employeeDataEmployeeEducationalQualification);
                         //_dbd.SaveChanges();
                     }
                 }
@@ -238,7 +241,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 if (employeePersonalData != null)
                 {
                     employeePersonalData.EmployeeId = employeeData.EmployeeId;
-                    _dbe.EmployeePersonalDatas.Add(employeeData.EmployeePersonalData.FirstOrDefault());
+                    _dbEmployee.EmployeePersonalDatas.Add(employeeData.EmployeePersonalData.FirstOrDefault());
                     //_dbe.SaveChanges();
                 }
 
@@ -251,7 +254,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     }
                     foreach (var employeeDataEmployeePastWorkExperience in employeeData.EmployeePastWorkExperiences)
                     {
-                        _dbf.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
+                        _dbEmployee.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
                         //_dbf.SaveChanges();
                     }
                 }
@@ -260,7 +263,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 if (employeeWorkData != null)
                 {
                     employeeWorkData.EmployeeId = employeeData.EmployeeId;
-                    _dbg.EmployeeWorkData.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
+                    _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
                     //_dbg.SaveChanges();
                 }
 
@@ -268,12 +271,45 @@ namespace Opmas.Controllers.EmployeeManagement
                 if (employeeMedicalData != null)
                 {
                     employeeMedicalData.EmployeeId = employeeData.EmployeeId;
-                    _dbh.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
+                    _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
                    // _dbh.SaveChanges();
                 }
-                _dbi.SaveChanges();
+                _dbEmployee.SaveChanges();
 
             }
         }
+
+        public ActionResult RemoveEducationalQualification(long fakeId)
+        {
+            var employeeData = Session["Employee"] as Employee;
+            if (employeeData != null)
+            {
+                employeeData.EmployeeEducationalQualifications.RemoveAll(n=>n.FakeId == fakeId);
+                
+            }
+            return View("EducationalQualification");
+        }
+        public ActionResult RemoveBankData(long fakeId)
+        {
+            var employeeData = Session["Employee"] as Employee;
+            if (employeeData != null)
+            {
+                employeeData.EmployeeBankDatas.RemoveAll(n => n.FakeId == fakeId);
+
+            }
+            ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
+            return View("BankData");
+        }
+        public ActionResult RemovePastWorkExperience(long fakeId)
+        {
+            var employeeData = Session["Employee"] as Employee;
+            if (employeeData != null)
+            {
+                employeeData.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
+
+            }
+            return View("PastWorkExperience");
+        }
+
     }
 }

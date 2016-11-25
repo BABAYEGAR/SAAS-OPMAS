@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\AccountTypeEnum.cs" />
-    <Compile Include="Enums\BanksEnum.cs" />
     <Compile Include="Enums\BloodGroup.cs" />
     <Compile Include="Enums\ClassOfDegreeEnum.cs" />
     <Compile Include="Enums\DegreeTypeEnum.cs" />

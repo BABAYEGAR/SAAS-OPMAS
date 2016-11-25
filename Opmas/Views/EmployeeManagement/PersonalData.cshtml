@@ -5,8 +5,8 @@
 }
 
 @section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 }
 
 <header class="@ViewBag.HeaderClass">
@@ -25,72 +25,72 @@
     <div class="row hidden-xs">
         <ul class="progressbar">
             <li class="active">
-                Step One <br />
+                Step One <br/>
                 <small>Personal Data</small>
 
             </li>
             <li>
-                Step Two <br />
+                Step Two <br/>
                 <small>Educational Qualification</small>
             </li>
             <li>
-                Step Three <br />
+                Step Three <br/>
                 <small>Past Work Experience</small>
             </li>
             <li>
-                Step Four <br />
+                Step Four <br/>
                 <small>Bank Data</small>
             </li>
             <li>
-                Step Five <br />
+                Step Five <br/>
                 <small>Medical Data</small>
 
             </li>
             <li>
-                Confirmation <br />
+                Confirmation <br/>
                 <small>Review of Employee Info</small>
             </li>
             <li>
-                Completed <br />
+                Completed <br/>
                 <small>Registration Complete</small>
             </li>
         </ul>
     </div>
-    <hr />
+    <hr/>
     <div class="row">
         <div class="col-md-12">
-            @using (Html.BeginForm("PersonalData", "EmployeeManagement", FormMethod.Post, new { @class = "form" }))
+            @using (Html.BeginForm("PersonalData", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(false, "", new {@class = "text-danger"})
                 <fieldset>
                     <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Firstname, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control", @placeholder = "Please enter your first name" })
+                        @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.Firstname, new {@class = "form-control", placeholder = "Please enter your first name"})
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Lastname, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control", @placeholder = "Please enter your last name" })
+                        @Html.LabelFor(m => m.Lastname, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.Lastname, new {@class = "form-control", placeholder = "Please enter your last name"})
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Middlename, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Middlename, new { @class = "form-control", @placeholder = "Please enter your middle name" })
+                        @Html.LabelFor(m => m.Middlename, new {@class = "control-label"})
+                        @Html.TextBoxFor(m => m.Middlename, new {@class = "form-control", placeholder = "Please enter your middle name"})
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control dob", @placeholder = "Please enter your date of birth" })
+                        @Html.LabelFor(m => m.DateOfBirth, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.DateOfBirth, new {@class = "form-control dob", placeholder = "Please enter your date of birth"})
                     </div>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.PlaceOfBirth, "Place Of Birth:", new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.PlaceOfBirth, new { @class = "form-control", @placeholder = "Please enter your place of birth" })
+                        @Html.LabelFor(m => m.PlaceOfBirth, "Place Of Birth:", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.PlaceOfBirth, new {@class = "form-control", placeholder = "Please enter your place of birth"})
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.Gender, new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.LabelFor(m => m.Gender, new {@class = "control-label"}) <span class="req">*</span>
                         <div>
                             <label class="radio-inline">@Html.RadioButtonFor(m => m.Gender, "Male") Male</label>
                             <label class="radio-inline">@Html.RadioButtonFor(m => m.Gender, "Female") Female</label>
@@ -99,14 +99,14 @@
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(m => m.State, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.StateId, (SelectList)ViewBag.State, "--Please select your state--", new { @class = "form-control select-dropdown", @id = "state" })
+                        @Html.LabelFor(m => m.State, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.DropDownListFor(m => m.StateId, (SelectList) ViewBag.State, "--Please select your state--", new {@class = "form-control select-dropdown", id = "state"})
 
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(m => m.Lga, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.LgaId, new SelectList(string.Empty, "Value", "Text"), "--Please select your local government area--", new { @class = "form-control select-dropdown", @id = "lga" })
+                        @Html.LabelFor(m => m.Lga, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.DropDownListFor(m => m.LgaId, new SelectList(string.Empty, "Value", "Text"), "--Please select your local government area--", new {@class = "form-control select-dropdown", id = "lga"})
 
                     </div>
 
@@ -114,39 +114,39 @@
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.PrimaryAddress, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextAreaFor(m => m.PrimaryAddress, new { @class = "form-control", @placeholder = "Please enter your primary address" })
+                        @Html.LabelFor(m => m.PrimaryAddress, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextAreaFor(m => m.PrimaryAddress, new {@class = "form-control", placeholder = "Please enter your primary address"})
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.SecondaryAddress, new { @class = "control-label" })
-                        @Html.TextAreaFor(m => m.SecondaryAddress, new { @class = "form-control", @placeholder = "Please enter your secondary address" })
+                        @Html.LabelFor(m => m.SecondaryAddress, new {@class = "control-label"})
+                        @Html.TextAreaFor(m => m.SecondaryAddress, new {@class = "form-control", placeholder = "Please enter your secondary address"})
                     </div>
-                    
+
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Email, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Please enter your personal email" })
+                        @Html.LabelFor(m => m.Email, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Please enter your personal email"})
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.HomePhone, "Home Number:", new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", @placeholder = "Please enter your home number" })
+                        @Html.LabelFor(m => m.HomePhone, "Home Number:", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.HomePhone, new {@class = "form-control", placeholder = "Please enter your home number"})
                     </div>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.MobilePhone, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control", @placeholder = "Please enter your mobile number" })
+                        @Html.LabelFor(m => m.MobilePhone, new {@class = "control-label"})
+                        @Html.TextBoxFor(m => m.MobilePhone, new {@class = "form-control", placeholder = "Please enter your mobile number"})
                     </div>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.WorkPhone, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control", @placeholder = "Please enter your work number" })
+                        @Html.LabelFor(m => m.WorkPhone, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.WorkPhone, new {@class = "form-control", placeholder = "Please enter your work number"})
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(m => m.PostalCode, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", @placeholder = "Please enter your postal code" })
+                        @Html.LabelFor(m => m.PostalCode, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.PostalCode, new {@class = "form-control", placeholder = "Please enter your postal code"})
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-12">
-                        @Html.Label("MaritalStatus", "Marital Status:", new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.Label("MaritalStatus", "Marital Status:", new {@class = "control-label"}) <span class="req">*</span>
                         <div>
                             <label class="radio-inline">@Html.RadioButton("MaritalStatus", "Married") Married</label>
                             <label class="radio-inline">@Html.RadioButton("MaritalStatus", "Single") Single</label>
@@ -158,11 +158,11 @@
                     <div class="clearfix"></div>
 
                 </fieldset>
-                <hr />
+                <hr/>
 
                 <div class="col-md-12">
-                    <a href="@Url.Action("Index","Registration")" class="btn btn-default">Cancel</a>
-                    <input type="submit" value="Next" class="btn btn-brown pull-right" />
+                    <a href="@Url.Action("Index", "Registration")" class="btn btn-default">Cancel</a>
+                    <input type="submit" value="Next" class="btn btn-brown pull-right"/>
                 </div>
             }
         </div>
@@ -206,13 +206,14 @@
 
                 //loads assigned lga for state on change/select
                 $('#state').on('change', function() { getLgaForState(); });
+
                 //Ajax call for Lga assigned to state
                 function getLgaForState() {
 
                     $("#lga").empty();
                     $.ajax({
                         type: 'GET',
-                        url: '@Url.Action("GetLgaForState","EmployeeManagement")',
+                        url: '@Url.Action("GetLgaForState", "EmployeeManagement")',
                         dataType: 'json',
                         data: { id: $("#state").val() },
                         success: function(lga) {

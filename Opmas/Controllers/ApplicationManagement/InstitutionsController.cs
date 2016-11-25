@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
+using Opmas.Data.Factory.ApplicationManagement;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Service.Enums;
 using Opmas.Data.Service.FileUploader;
@@ -23,6 +24,12 @@ namespace Opmas.Controllers.ApplicationManagement
             return View(db.Institutions.ToList());
         }
 
+        // GET: InstitutionsByCategory
+        public ActionResult GetInstitutionsByCategory(string category)
+        {
+            var institutions = new InstitutionFactory().GetListOfInstitutionsByCategory(category);
+            return View("Index",institutions);
+        }
         // GET: Institutions/Details/5
         public ActionResult Details(long? id)
         {

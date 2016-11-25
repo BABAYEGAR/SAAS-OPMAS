@@ -9,7 +9,9 @@ namespace Opmas.Data.Objects.Entities.Employee
         public long EmployeeBankDataId { get; set; }
         [Required]
         [DisplayName("Bank Name")]
-        public string BankName { get; set; }
+        public long BankId { get; set; }
+        [ForeignKey("BankId")]
+        public virtual Bank Bank { get; set; }
         [Required]
         [DisplayName("Account Name")]
         public string AccountName { get; set; }

@@ -1,6 +1,6 @@
 ﻿@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
-@model EmployeeEducationalQualification
+@model Opmas.Data.Objects.Entities.Employee.EmployeeEducationalQualification
 @{
     ViewBag.Title = "Step Two: Employee Educational Qualification";
     ViewBag.HeaderClass = "page-header";
@@ -10,7 +10,7 @@
     var educationaQualification = employee.EmployeeEducationalQualifications;
 }
 @section css {
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
     <style>
         .sponsor-name { display: none; }
 
@@ -106,7 +106,7 @@
                         @Html.DropDownList("ClassOfDegree", EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), "select your class of degree", new {@class = "form-control select-dropdown", id = "Role"})
                     </div>
                     <div class="clearfix"></div>
-                   
+
                     <div class="form-group col-md-12">
                         <div class="table-responsive">
                             <table class="table table-condensed table-hover" id="appusers">
@@ -137,10 +137,10 @@
                                                 @Html.DisplayFor(modelItem => item.InstitutionName)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                                @Html.DisplayFor(modelItem => item.StartDate.ToShortDateString())
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                                @Html.DisplayFor(modelItem => item.EndDate.ToShortDateString())
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.EndDate)
@@ -149,7 +149,7 @@
                                                 @Html.DisplayFor(modelItem => item.ClassOfDegree)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "btn btn-primary"}) |
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-primary"})
                                             </td>
 
                                         </tr>
@@ -169,7 +169,7 @@
 
                         <a href="@Url.Action("PersonalData", "EmployeeManagement")" class="btn btn-default">Back</a>
                         <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
-                        <input type="submit" value="Add" class="btn btn-success pull-right" />
+                        <input type="submit" value="Add" class="btn btn-success pull-right"/>
                         @if ((educationaQualification != null) && (educationaQualification.Count > 0))
                         {
                             <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>

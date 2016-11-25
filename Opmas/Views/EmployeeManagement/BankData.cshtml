@@ -1,13 +1,18 @@
-﻿@using Opmas.Data.Objects.Entities.Employee
+﻿@using Opmas.Data.Factory.EmployeeManagement
+@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
-@model EmployeeBankData
+@model Opmas.Data.Objects.Entities.Employee.EmployeeBankData
 @{
     ViewBag.Title = "Step Four: Employee Bank Data";
     ViewBag.HeaderClass = "page-header";
 }
 @{
+    var bankData = new List<EmployeeBankData> {new EmployeeBankData()};
     var employee = Session["Employee"] as Employee;
-    var bankData = employee.EmployeeBankDatas;
+    if (employee != null)
+    {
+        bankData = employee.EmployeeBankDatas;
+    }
 }
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
@@ -24,33 +29,33 @@
     <div class="row hidden-xs">
         <ul class="progressbar">
             <li>
-                Step One <br />
+                Step One <br/>
                 <small>Personal Data</small>
 
             </li>
             <li>
-                Step Two <br />
+                Step Two <br/>
                 <small>Educational Qualification</small>
             </li>
             <li>
-                Step Three <br />
+                Step Three <br/>
                 <small>Past Work Experience</small>
             </li>
             <li class="active">
-                Step Four <br />
+                Step Four <br/>
                 <small>Bank Data</small>
             </li>
             <li>
-                Step Five <br />
+                Step Five <br/>
                 <small>Medical Data</small>
 
             </li>
             <li>
-                Confirmation <br />
+                Confirmation <br/>
                 <small>Review of Employee Info</small>
             </li>
             <li>
-                Completed <br />
+                Completed <br/>
                 <small>Registration Complete</small>
             </li>
         </ul>
@@ -66,8 +71,10 @@
                     <legend>Employee Bank Data</legend>
 
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.BankName, new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownList("BankName", EnumHelper.GetSelectList(typeof(BanksEnum)), "select your bank", new {@class = "form-control select-dropdown"})
+                        @Html.LabelFor(m => m.Bank, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.DropDownListFor(m => m.BankId, (SelectList) ViewBag.Bank, "--Please select your bank--", new {@class = "form-control select-dropdown", id = "bank"})
+
+
                     </div>
                     <div class="clearfix"></div>
 
@@ -90,11 +97,12 @@
 
                     <div class="form-group col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-condensed table-hover" id="appusers">
+                            <table class="table table-condensed table-hover">
                                 <thead>
                                 <tr>
+
                                     <th>
-                                        @Html.DisplayNameFor(model => model.BankName)
+                                        @Html.DisplayNameFor(model => model.BankId)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.AccountName)
@@ -109,30 +117,36 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @if (bankData != null)
+                                @if (bankData != null)
+                                {
+                                    foreach (var item in bankData)
                                     {
-                                        foreach (var item in bankData)
-                                        {
-                                            <tr>
+                                        <tr>
+                                            @if (item != null)
+                                            {
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.BankName)
+                                                    @(new BankFactory().GetBankById(item.BankId).Name)
                                                 </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.AccountName)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.AccountNumber)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.AccountType)
-                                                </td>
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.FakeId }, new { @class = "btn btn-primary" }) |
-                                                </td>
+                                            }
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountType)
+                                            </td>
+                                            <td>
+                                                @if (item != null)
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveBankData", new {item.FakeId}, new {@class = "btn btn-primary"})
+                                                }
+                                            </td>
 
-                                            </tr>
-                                        }
+                                        </tr>
                                     }
+                                }
                                 </tbody>
                             </table>
                         </div>
@@ -146,7 +160,7 @@
                     <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-default">Back</a>
                     <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
 
-                    <input type="submit" value="Add" class="btn btn-success pull-right" />
+                    <input type="submit" value="Add" class="btn btn-success pull-right"/>
                     @if ((bankData != null) && (bankData.Count > 0))
                     {
                         <a href="@Url.Action("MedicalData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>

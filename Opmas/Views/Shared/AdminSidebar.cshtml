@@ -1,4 +1,5 @@
-﻿<!-- sidebar menu -->
+﻿@using Opmas.Data.Service.Enums
+<!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
         <h3>General</h3>
@@ -27,13 +28,13 @@
                         <a href="@Url.Action("Index", "Institutions")">Institutions</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institutions")">Education</a>
+                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Education.ToString()}) ">Education</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institutions")">Cooperation</a>
+                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Cooperations.ToString()})">Cooperation</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institutions")">Government</a>
+                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Government.ToString()})">Government</a>
                     </li>
                 </ul>
             </li>
