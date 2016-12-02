@@ -18,6 +18,11 @@
         employeeMedicalData = employee.EmployeeMedicalDatas.SingleOrDefault();
     }
 }
+<style>
+    h1, h2, h3 {
+    color: #00004d;
+}
+</style>
 <!-- Page content -->
 <div class="page-content">
 
@@ -40,15 +45,9 @@
 
                         <div class="clearfix"></div>
                         <div class="col-md-4">
-                            <asp:Image ID="companyLogo" CssClass="img-circle center-block profile-avatar margin-bottom-15" ImageUrl="../../images/avatar.png" Width="200px"/>
-                            <h2 class="text-center" style="font-size: 12pt;"></h2>
-
-                        </div>
-
-                        <div class="col-md-4">
-
+                          
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Firstname</strong><br/>
+                                <strong >Firstname</strong><br/>
                                 <label>@employeePersonalData.Firstname</label>
 
 
@@ -56,27 +55,27 @@
 
 
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Middlename</strong><br/>
+                                <strong >Middlename</strong><br/>
                                 <label>@employeePersonalData.Middlename</label>
 
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Lastname</strong><br/>
+                                <strong >Lastname</strong><br/>
                                 <label>@employeePersonalData.Lastname</label>
 
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Gender</strong><br/>
+                                <strong >Gender</strong><br/>
                                 <label>@employeePersonalData.Gender</label>
 
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Date of Birth</strong><br/>
+                                <strong >Date of Birth</strong><br/>
                                 <label>@employeePersonalData.DateOfBirth</label>
                             </h4>
 
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Place of Birth #</strong><br/>
+                                <strong >Place of Birth #</strong><br/>
                                 <label>@employeePersonalData.PlaceOfBirth</label>
                             </h4>
                             <div class="margin-bottom-30"></div>
@@ -87,33 +86,33 @@
 
 
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Primary Address</strong><br/>
+                                <strong >Primary Address</strong><br/>
                                 <label>@employeePersonalData.PrimaryAddress</label>
                             </h4>
 
 
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Secondary Address</strong><br/>
+                                <strong >Secondary Address</strong><br/>
                                 <label>@employeePersonalData.SecondaryAddress</label>
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Home Phone Number</strong><br/>
+                                <strong >Home Phone Number</strong><br/>
                                 <label>@employeePersonalData.HomePhone</label>
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Mobile Number</strong><br/>
+                                <strong >Mobile Number</strong><br/>
                                 <label>@employeePersonalData.MobilePhone</label>
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Work Number</strong><br/>
+                                <strong >Work Number</strong><br/>
                                 <label>@employeePersonalData.WorkPhone</label>
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Email Number</strong><br/>
+                                <strong >Email Number</strong><br/>
                                 <label>@employeePersonalData.Email</label>
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Marital Status</strong><br/>
+                                <strong >Marital Status</strong><br/>
                                 <label>@employeePersonalData.MaritalStatus</label>
                             </h4>
 
@@ -388,14 +387,14 @@
                         @if (employeeMedicalData != null)
                         {
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Blood Group:</strong><br/>
+                                <strong >Blood Group</strong><br/>
                                 <label>@employeeMedicalData.BloodGroup</label>
 
 
                             </h4>
 
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Genotype:</strong><br/>
+                                <strong >Genotype</strong><br/>
                                 <label>@employeeMedicalData.Genotype</label>
 
 
@@ -404,19 +403,19 @@
                         @if (employeeWorkData != null)
                         {
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Employement Type:</strong><br/>
+                                <strong >Employement Type</strong><br/>
                                 <label>@employeeWorkData.EmploymentType</label>
 
 
                             </h4>
 
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Employmente Date:</strong><br/>
+                                <strong >Employmente Date</strong><br/>
                                 <label>@employeeWorkData.EmploymentDate</label>
 
                             </h4>
                             <h4>
-                                <strong style="color: #4D6099; font-size: 12pt;">Employement Position:</strong><br/>
+                                <strong >Employement Position</strong><br/>
                                 <label>@employeeWorkData.PositionHeld</label>
 
                             </h4>
