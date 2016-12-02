@@ -193,13 +193,21 @@ namespace Opmas.Controllers.EmployeeManagement
                 _employee.EmployeeWorkDatas = new List<EmployeeWorkData> {workData};
                 Session["Employee"] = _employee;
             }
-            SavaEmployeeData();
-            return RedirectToAction("Index", "Home");
+        
+            return RedirectToAction("ReviewEmployeeData");
         }
         // GET: EmployeeManagement/ReviewEmployeeData
         public ActionResult ReviewEmployeeData()
         {  
             return View();
+        }
+        // POST: EmployeeManagement/ReviewEmployeeData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReviewEmployeeDatas()
+        {
+            SavaEmployeeData();
+            return RedirectToAction("Index","Home");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
