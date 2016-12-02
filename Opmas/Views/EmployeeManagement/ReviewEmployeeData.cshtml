@@ -21,7 +21,7 @@
 <style>
     h1, h2, h3 { color: #00004d; }
     label{font-size: 12px; font-weight: normal}
-    strong{font-size: 14px; font-weight: bold}
+    strong{font-size: 14px; font-weight: bold;color: #000099}
 </style>
 <!-- Page content -->
 <div class="page-content">
@@ -120,10 +120,11 @@
                             </h4>
 
                         </div>
-                        <div class="col-md-12 ">
-                            @Html.ActionLink("Edit", "PersonalData", new {}, new {@class = "btn btn-default pull-right"})
+                      
+                    </div>
+                    <div class="col-md-12 ">
+                        @Html.ActionLink("Edit", "PersonalData", new { }, new { @class = "btn btn-default pull-right" })
 
-                        </div>
                     </div>
                 </div>
             }
@@ -216,7 +217,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-condensed table-hover" id="appusers">
+                            <table class="table table-condensed table-hover">
                                 <thead>
                                 <tr>
                                     <th>
