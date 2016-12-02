@@ -196,6 +196,11 @@ namespace Opmas.Controllers.EmployeeManagement
             SavaEmployeeData();
             return RedirectToAction("Index", "Home");
         }
+        // GET: EmployeeManagement/ReviewEmployeeData
+        public ActionResult ReviewEmployeeData()
+        {  
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public void SavaEmployeeData()

@@ -1,0 +1,419 @@
+﻿@using Opmas.Data.Factory.EmployeeManagement
+@using Opmas.Data.Objects.Entities.Employee
+@{
+    var employee = Session["Employee"] as Employee;
+    var educationaQualification = employee.EmployeeEducationalQualifications;
+    var bankData = employee.EmployeeBankDatas;
+    var pastWorkExperienceSession = employee.EmployeePastWorkExperiences;
+}
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+            <div class="row">
+                <!-- Simple panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h2>
+                                <strong>Personal Data</strong>
+                            </h2>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="clearfix"></div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-md-4">
+                                    <asp:Image runat="server" ID="companyLogo" CssClass="img-circle center-block profile-avatar margin-bottom-15" ImageUrl="../../images/avatar.png" Width="200px" />
+                                    <h2 class="text-center" style="font-size: 12pt;"></h2>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Firstname:</strong><br />
+                                        <asp:Label ID="lblCompanyName" runat="server" Text="Label"></asp:Label>
+
+
+                                    </h4>
+
+
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Middlename:</strong><br />
+                                        <asp:Label ID="lblBusinessType" runat="server" Text="Label"></asp:Label>
+
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Lastname:</strong><br />
+                                        <asp:Label ID="lblBusinessAddress" runat="server" Text="Label"></asp:Label>
+
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Gender:</strong><br />
+                                        <asp:Label ID="lblBusinessAddress" runat="server" Text="Label"></asp:Label>
+
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Date of Birth #:</strong><br />
+                                        <asp:Label ID="lblBusinessregistrationNumber" runat="server" Text="Label"></asp:Label>
+                                    </h4>
+
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Place of Birth #:</strong><br />
+                                        <asp:Label ID="lblBusinessregistrationNumber" runat="server" Text="Label"></asp:Label>
+                                    </h4>
+                                    <div class="margin-bottom-30"></div>
+
+
+                                </div>
+                                <div class="col-md-4" id="otherDetails" runat="server">
+
+
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Primary Address:</strong><br />
+                                        <asp:Label ID="lblRegistrationYear" runat="server" Text="Label"></asp:Label>
+                                    </h4>
+
+
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Secondary Address:</strong><br />
+                                        <asp:Label ID="lblFacebook" runat="server" Text=""></asp:Label>
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Home Phone Number:</strong><br />
+                                        <asp:Label ID="lblTwitter" runat="server" Text=""></asp:Label>
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Mobile Number:</strong><br />
+                                        <asp:Label ID="lblInstagram" runat="server" Text=""></asp:Label>
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Work Number:</strong><br />
+                                        <asp:Label ID="lblInstagram" runat="server" Text=""></asp:Label>
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Email Number:</strong><br />
+                                        <asp:Label ID="lblInstagram" runat="server" Text=""></asp:Label>
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: blue; font-size: 12pt;">Marital Status:</strong><br />
+                                        <asp:Label ID="lblInstagram" runat="server" Text=""></asp:Label>
+                                    </h4>
+
+                                </div>
+                                <div class="col-md-12 ">
+                                    <asp:Button runat="server" Text="Edit" ID="btnEditVendorDetails" PostBackUrl="Vendor.aspx?review=true" CssClass="btn btn-p pull-right"></asp:Button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Simple panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h2>
+                                <strong>Educational Qualification</strong>
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-hover" id="appusers">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayName("Institution Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Start Date")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("End Date")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Class Of Degree")
+                                                    </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (educationaQualification != null)
+                                                {
+                                                    foreach (var item in educationaQualification)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.InstitutionName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ClassOfDegree)
+                                                            </td>
+                                                            <td>
+                                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new { item.FakeId }, new { @class = "btn btn-primary" })
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <asp:Button runat="server" CssClass="btn bg-teal-400 pull-right" Text="Edit" ID="editvendorReference" OnClick="editvendorReference_OnClick" PostBackUrl="References.aspx?isReview=true" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+     
+            <div class="row">
+                <!-- Simple panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h2>
+                                <strong>Past Work Experience</strong>
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-hover" id="appusers">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayName("Employer Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Employer Location")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Start Date")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("End Date")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Position Held")
+                                                    </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (pastWorkExperienceSession != null)
+                                                {
+                                                    foreach (var item in pastWorkExperienceSession)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.EmployerName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.EmployerLocation)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PositionHeld)
+                                                            </td>
+                                                            <td>
+                                                                @Html.ActionLink("Remove", "RemovePastWorkExperience", new { item.FakeId }, new { @class = "btn btn-primary" })
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <asp:Button runat="server" CssClass="btn bg-teal-400 pull-right" Text="Edit" ID="editvendorReference" OnClick="editvendorReference_OnClick" PostBackUrl="References.aspx?isReview=true" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Simple panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h2>
+                                <strong>Bank Data</strong>
+                            </h2>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="col-md-4">
+
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-hover">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>
+                                                        @Html.DisplayName("Bank Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Account Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Account Number")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Account Type")
+                                                    </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (bankData != null)
+                                                {
+                                                    foreach (var item in bankData)
+                                                    {
+                                                        <tr>
+                                                            @if (item != null)
+                                                            {
+                                                                <td>
+                                                                    @(new BankFactory().GetBankById(item.BankId).Name)
+                                                                </td>
+                                                            }
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.AccountName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.AccountNumber)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.AccountType)
+                                                            </td>
+                                                            <td>
+                                                                @if (item != null)
+                                                                {
+                                                                    @Html.ActionLink("Remove", "RemoveBankData", new { item.FakeId }, new { @class = "btn btn-primary" })
+                                                                }
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                    </div>
+
+                                </div>
+
+
+                            </div><hr />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Simple panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h2>
+                                <strong>Medial & Other data</strong>
+                            </h2>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <h4>
+                                        <strong style="color: green; font-size: 12pt;">Blood Group:</strong><br />
+                                        <asp:Label ID="lblSurname" runat="server" Text="Label"></asp:Label>
+
+
+                                    </h4>
+
+                                    <h4>
+                                        <strong style="color: green; font-size: 12pt;">Genotype:</strong><br />
+                                        <asp:Label ID="lblFirstname" runat="server" Text="Label"></asp:Label>
+
+
+                                    </h4>
+
+                                    <h4>
+                                        <strong style="color: green; font-size: 12pt;">Employement Type:</strong><br />
+                                        <asp:Label ID="lblMiddlename" runat="server" Text="Label"></asp:Label>
+
+
+                                    </h4>
+
+                                    <h4>
+                                        <strong style="color: green; font-size: 12pt;">Employmente Date:</strong><br />
+                                        <asp:Label ID="lblPosition" runat="server" Text="Label"></asp:Label>
+
+                                    </h4>
+                                    <h4>
+                                        <strong style="color: green; font-size: 12pt;">Employement Position:</strong><br />
+                                        <asp:Label ID="lblEmail" runat="server" Text="Label"></asp:Label>
+
+                                    </h4>
+                                    <div class="margin-bottom-30"></div>
+
+
+                                </div>
+                                <div class="col-md-12 ">
+                                    <asp:Button runat="server" Text="Edit" ID="btnEditVendorContact" PostBackUrl="ContactPersonDetails.aspx?review=true" CssClass="btn btn-success pull-right"></asp:Button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+    </div>
