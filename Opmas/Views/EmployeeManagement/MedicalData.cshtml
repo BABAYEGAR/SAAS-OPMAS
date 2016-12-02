@@ -67,13 +67,13 @@
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.BloodGroup, new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownList("BloodGroup", EnumHelper.GetSelectList(typeof(BloodGroup)), "select your bank", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownList("BloodGroup", EnumHelper.GetSelectList(typeof(BloodGroup)), "select your blood group", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.Genotype, new {@class = "control-label"})<span class="req">*</span>
-                        @Html.DropDownList("Genotype", EnumHelper.GetSelectList(typeof(Genotype)), "select your bank", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownList("Genotype", EnumHelper.GetSelectList(typeof(Genotype)), "select your genotype", new {@class = "form-control select-dropdown"})
                     </div>
                 </fieldset>
                 <div class="clearfix"></div>

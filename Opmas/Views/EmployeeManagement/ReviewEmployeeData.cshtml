@@ -19,9 +19,9 @@
     }
 }
 <style>
-    h1, h2, h3 {
-    color: #00004d;
-}
+    h1, h2, h3 { color: #00004d; }
+    label{font-size: 12px; font-weight: normal}
+    strong{font-size: 14px; font-weight: bold}
 </style>
 <!-- Page content -->
 <div class="page-content">
@@ -45,20 +45,23 @@
 
                         <div class="clearfix"></div>
                         <div class="col-md-4">
-                          
+
                             <h4>
                                 <strong >Firstname</strong><br/>
                                 <label>@employeePersonalData.Firstname</label>
 
 
                             </h4>
+                            @if (employeePersonalData.Middlename != null)
+                            {
+                                <h4>
+                                    <strong>Middlename</strong><br />
+                                    <label>@employeePersonalData.Middlename</label>
 
+                                </h4>
+                            }
 
-                            <h4>
-                                <strong >Middlename</strong><br/>
-                                <label>@employeePersonalData.Middlename</label>
-
-                            </h4>
+                          
                             <h4>
                                 <strong >Lastname</strong><br/>
                                 <label>@employeePersonalData.Lastname</label>
