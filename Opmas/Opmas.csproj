@@ -5107,6 +5107,7 @@
     <Content Include="Views\Institutions\Edit.cshtml" />
     <Content Include="Views\Institutions\Index.cshtml" />
     <Content Include="Views\EmployeeManagement\ReviewEmployeeData.cshtml" />
+    <Content Include="Views\EmployeeManagement\ListOfEmployees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,5 +19,7 @@ namespace Opmas.Data.DataContext.DataContext.SystemDataContext
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
+
+        public System.Data.Entity.DbSet<Opmas.Data.Objects.Entities.Employee.Employee> Employees { get; set; }
     }
 }

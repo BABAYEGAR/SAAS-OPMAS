@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ApplicationManagement\InstitutionFactory.cs" />
     <Compile Include="EmployeeManagement\BankFactory.cs" />
+    <Compile Include="EmployeeManagement\EmployeeFactory.cs" />
     <Compile Include="EmployeeManagement\StateFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

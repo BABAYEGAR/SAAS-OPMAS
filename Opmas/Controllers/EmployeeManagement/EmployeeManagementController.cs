@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
+using BhuInfo.Data.Service.Encryption;
+using BhuInfo.Data.Service.TextFormatter;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.Factory.EmployeeManagement;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.EmployeeManagement
@@ -321,6 +325,30 @@ namespace Opmas.Controllers.EmployeeManagement
                 employeeData.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
 
             }
+            return View("PastWorkExperience");
+        }
+        public ActionResult ConvertEmployeeToApplicationUser(long employeeId)
+        {
+            var employee = _dbEmployee.EmployeePersonalDatas.Find(employeeId);
+            AppUser appUser = new AppUser();
+            appUser.Firstname = employee.Firstname;
+            appUser.Lastname = employee.Lastname;
+            appUser.Middlename = employee.Middlename;
+            appUser.Email = employee.Email;
+            appUser.CreatedById = 1;
+            appUser.LastModifiedById = 1;
+            appUser.DateCreated  = DateTime.Now;
+            appUser.DateLastModified = DateTime.Now;
+            appUser.Role = UserType.Employee.ToString();
+            appUser.EmployeeId = employeeId;
+            appUser.Mobile = employee.MobilePhone;
+
+            //generate password and convert to md5 hash
+            var password = Membership.GeneratePassword(8, 1);
+            var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+            appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+
+            
             return View("PastWorkExperience");
         }
 
