@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201611251259412_Seventhigrate.Designer.cs">
       <DependentUpon>201611251259412_Seventhigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612031823007_NewMigrate1.cs" />
+    <Compile Include="Migrations\201612031823007_NewMigrate1.Designer.cs">
+      <DependentUpon>201612031823007_NewMigrate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -130,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611251259412_Seventhigrate.resx">
       <DependentUpon>201611251259412_Seventhigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612031823007_NewMigrate1.resx">
+      <DependentUpon>201612031823007_NewMigrate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
