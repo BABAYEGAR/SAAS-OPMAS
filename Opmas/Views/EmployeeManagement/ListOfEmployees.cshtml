@@ -1,19 +1,27 @@
-﻿@model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
+﻿@using Opmas.Data.Factory.EmployeeManagement
+@model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
 
 @{
-    ViewBag.Title = "ListOfEmployees";
+    ViewBag.Title = "Employees";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
 }
 
-<h2>ListOfEmployees</h2>
+<h2></h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "PersonalData")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
+            @Html.DisplayName("Firstname")
+        </th>
+        <th>
+            @Html.DisplayName("Lastname")
+        </th>
+        <th>
+            @Html.DisplayName("Email")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateCreated)
@@ -21,28 +29,19 @@
         <th>
             @Html.DisplayNameFor(model => model.DateLastModified)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastModifiedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateLastModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastModifiedBy)
-        </th>
-        <th></th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
+            @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)
+        </td>
+        <td>
+            @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Lastname)
+        </td>
+        <td>
+            @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateCreated)
@@ -55,7 +54,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
+            @Html.ActionLink("Manage", "Details", new { id=item.EmployeeId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
         </td>
     </tr>

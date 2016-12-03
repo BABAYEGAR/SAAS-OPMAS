@@ -1,0 +1,447 @@
+﻿@using Opmas.Data.Factory.EmployeeManagement
+@using Opmas.Data.Objects.Entities.Employee
+@{
+    List<EmployeeEducationalQualification> educationaQualification = null;
+    List<EmployeeBankData> bankData = null;
+    List<EmployeePastWorkExperience> pastWorkExperienceSession = null;
+    EmployeePersonalData employeePersonalData = null;
+    EmployeeWorkData employeeWorkData = null;
+    EmployeeMedicalData employeeMedicalData = null;
+    if (Model != null)
+    {
+        educationaQualification = Model.EmployeeEducationalQualifications;
+        bankData = Model.EmployeeBankDatas;
+        pastWorkExperienceSession = Model.EmployeePastWorkExperiences;
+        employeePersonalData = Model.EmployeePersonalData.SingleOrDefault();
+        employeeWorkData = Model.EmployeeWorkDatas.SingleOrDefault();
+        employeeMedicalData = Model.EmployeeMedicalDatas.SingleOrDefault();
+    }
+}
+<style>
+    h1, h2, h3 { color: #00004d; }
+    label{font-size: 12px; font-weight: normal}
+    strong{font-size: 14px; font-weight: bold;color: #000099}
+</style>
+<!-- Page content -->
+<div class="page-content">
+
+<!-- Main content -->
+<div class="content-wrapper">
+<div class="row">
+    <!-- Simple panel -->
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h2>
+                    <strong>Personal Data</strong>
+                </h2>
+            </div>
+            @if (employeePersonalData != null)
+            {
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="clearfix"></div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+
+                            <h4>
+                                <strong >Firstname</strong><br/>
+                                <label>@employeePersonalData.Firstname</label>
+
+
+                            </h4>
+                            @if (employeePersonalData.Middlename != null)
+                            {
+                                <h4>
+                                    <strong>Middlename</strong><br />
+                                    <label>@employeePersonalData.Middlename</label>
+
+                                </h4>
+                            }
+
+                          
+                            <h4>
+                                <strong >Lastname</strong><br/>
+                                <label>@employeePersonalData.Lastname</label>
+
+                            </h4>
+                            <h4>
+                                <strong >Gender</strong><br/>
+                                <label>@employeePersonalData.Gender</label>
+
+                            </h4>
+                            <h4>
+                                <strong >Date of Birth</strong><br/>
+                                <label>@employeePersonalData.DateOfBirth</label>
+                            </h4>
+
+                            <h4>
+                                <strong >Place of Birth #</strong><br/>
+                                <label>@employeePersonalData.PlaceOfBirth</label>
+                            </h4>
+                            <div class="margin-bottom-30"></div>
+
+
+                        </div>
+                        <div class="col-md-4" id="otherDetails">
+
+
+                            <h4>
+                                <strong >Primary Address</strong><br/>
+                                <label>@employeePersonalData.PrimaryAddress</label>
+                            </h4>
+
+
+                            <h4>
+                                <strong >Secondary Address</strong><br/>
+                                <label>@employeePersonalData.SecondaryAddress</label>
+                            </h4>
+                            <h4>
+                                <strong >Home Phone Number</strong><br/>
+                                <label>@employeePersonalData.HomePhone</label>
+                            </h4>
+                            <h4>
+                                <strong >Mobile Number</strong><br/>
+                                <label>@employeePersonalData.MobilePhone</label>
+                            </h4>
+                            <h4>
+                                <strong >Work Number</strong><br/>
+                                <label>@employeePersonalData.WorkPhone</label>
+                            </h4>
+                            <h4>
+                                <strong >Email Number</strong><br/>
+                                <label>@employeePersonalData.Email</label>
+                            </h4>
+                            <h4>
+                                <strong >Marital Status</strong><br/>
+                                <label>@employeePersonalData.MaritalStatus</label>
+                            </h4>
+
+                        </div>
+                      
+                    </div>
+                    <div class="col-md-12 ">
+                        @Html.ActionLink("Edit", "PersonalData", new { }, new { @class = "btn btn-default pull-right" })
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Simple panel -->
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h2>
+                    <strong>Educational Qualification</strong>
+                </h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover" id="appusers">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("#")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Institution Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Start Date")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("End Date")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Class Of Degree")
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if (educationaQualification != null)
+                                {
+                                    foreach (var item in educationaQualification)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FakeId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InstitutionName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ClassOfDegree)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 ">
+                            @Html.ActionLink("Edit", "EducationalQualification", new {}, new {@class = "btn btn-default pull-right"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Simple panel -->
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h2>
+                    <strong>Past Work Experience</strong>
+                </h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("#")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Employer Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Employer Location")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Start Date")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("End Date")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Position Held")
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if (pastWorkExperienceSession != null)
+                                {
+                                    foreach (var item in pastWorkExperienceSession)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FakeId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmployerName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmployerLocation)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PositionHeld)
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 ">
+                            @Html.ActionLink("Edit", "PastWorkExperience", new {}, new {@class = "btn btn-default pull-right"})
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- Simple panel -->
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h2>
+                    <strong>Bank Data</strong>
+                </h2>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="col-md-4">
+
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("#")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Bank Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Account Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Account Number")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Account Type")
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if (bankData != null)
+                                {
+                                    foreach (var item in bankData)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FakeId)
+                                            </td>
+                                            @if (item != null)
+                                            {
+                                                <td>
+                                                    @(new BankFactory().GetBankById(item.BankId).Name)
+                                                </td>
+                                            }
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountType)
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 ">
+                            @Html.ActionLink("Edit", "BankData", new {}, new {@class = "btn btn-default pull-right"})
+
+                        </div>
+
+                    </div>
+
+
+                </div><hr/>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- Simple panel -->
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h2>
+                    <strong>Medical & Work data</strong>
+                </h2>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        @if (employeeMedicalData != null)
+                        {
+                            <h4>
+                                <strong >Blood Group</strong><br/>
+                                <label>@employeeMedicalData.BloodGroup</label>
+
+
+                            </h4>
+
+                            <h4>
+                                <strong >Genotype</strong><br/>
+                                <label>@employeeMedicalData.Genotype</label>
+
+
+                            </h4>
+                        }
+                        @if (employeeWorkData != null)
+                        {
+                            <h4>
+                                <strong >Employement Type</strong><br/>
+                                <label>@employeeWorkData.EmploymentType</label>
+
+
+                            </h4>
+
+                            <h4>
+                                <strong >Employmente Date</strong><br/>
+                                <label>@employeeWorkData.EmploymentDate</label>
+
+                            </h4>
+                            <h4>
+                                <strong >Employement Position</strong><br/>
+                                <label>@employeeWorkData.PositionHeld</label>
+
+                            </h4>
+                        }
+
+
+                        <div class="margin-bottom-30"></div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-12 ">
+                    @Html.ActionLink("Edit", "MedicalData", new {}, new {@class = "btn btn-default pull-right"})
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="col-md-12 ">
+    @Html.ActionLink("Convert To Application User", "MedicalData", new { }, new { @class = "btn btn-primary pull-right" })
+
+</div>
+</div>
+<!-- /page content -->
+</div>

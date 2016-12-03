@@ -12,6 +12,17 @@ namespace Opmas.Data.Factory.EmployeeManagement
     {
         private readonly EmployeeDataContext _employee = new EmployeeDataContext();
         /// <summary>
+        /// This method rerieves an employees data
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public Employee GetEmployee(long employeeId)
+        {
+            var employee =
+                _employee.Employees.SingleOrDefault(n => n.EmployeeId == employeeId);
+            return employee;
+        }
+        /// <summary>
         /// This method rerieves an employees personal data
         /// </summary>
         /// <param name="employeeId"></param>

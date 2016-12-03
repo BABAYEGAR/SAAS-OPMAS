@@ -5108,6 +5108,7 @@
     <Content Include="Views\Institutions\Index.cshtml" />
     <Content Include="Views\EmployeeManagement\ReviewEmployeeData.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEmployees.cshtml" />
+    <Content Include="Views\EmployeeManagement\ConvertEmployeeToAppUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

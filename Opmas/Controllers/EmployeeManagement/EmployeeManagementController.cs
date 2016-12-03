@@ -327,9 +327,15 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             return View("PastWorkExperience");
         }
+        // GET: EmployeeManagement/ConvertEmployeeToAppUser
+        public ActionResult ConvertEmployeeToAppUser()
+        {
+            return View();
+        }
         public ActionResult ConvertEmployeeToApplicationUser(long employeeId)
         {
             var employee = _dbEmployee.EmployeePersonalDatas.Find(employeeId);
+            var employees = _dbEmployee.Employees.ToList();
             AppUser appUser = new AppUser();
             appUser.Firstname = employee.Firstname;
             appUser.Lastname = employee.Lastname;
@@ -349,7 +355,7 @@ namespace Opmas.Controllers.EmployeeManagement
             appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
 
             
-            return View("PastWorkExperience");
+            return View("ListOfEmployees",employees);
         }
 
     }
