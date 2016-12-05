@@ -6,8 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using BhuInfo.Data.Service.Encryption;
+using BhuInfo.Data.Service.TextFormatter;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Service.Enums;
+using Opmas.Data.Service.FileUploader;
 
 namespace Opmas.Controllers.UserManagement
 {
@@ -49,10 +54,24 @@ namespace Opmas.Controllers.UserManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile,Password,Role,AppUserImage,FingerPrint,RememberMe,EmployeeId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] AppUser appUser)
+        public ActionResult Create([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile")] AppUser appUser,FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
+                HttpPostedFileBase profileImage = Request.Files["avatar-2"];
+                appUser.EmployeeId = 0;
+                appUser.DateLastModified = DateTime.Now;
+                appUser.DateCreated = DateTime.Now;
+                appUser.LastModifiedBy = 0;
+                appUser.CreatedBy = 0;
+                appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
+                //generate password and convert to md5 hash
+                var password = Membership.GeneratePassword(8, 1);
+                var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+
+
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
