@@ -11,6 +11,7 @@ namespace Opmas.Data.DataContext.DataContext.UserDataContext
         {
         }
         public virtual DbSet<AppUser> AppUsers { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

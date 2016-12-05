@@ -1,10 +1,12 @@
 ﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.DataContext.DataContext.UserDataContext
 @using Opmas.Data.Factory.EmployeeManagement
 @using Opmas.Data.Objects.Entities.Employee
 @model Opmas.Data.Objects.Entities.Employee.Employee
 @{
     var employeeId = Model.EmployeeId;
     EmployeeDataContext dbEmployee = new EmployeeDataContext();
+    AppUserDataContext appuser = new AppUserDataContext();
     var educationaQualification = dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == employeeId).ToList();
     var bankData = dbEmployee.EmployeeBankDatas.Where(n => n.EmployeeId == employeeId).ToList();
     var pastWorkExperienceSession = dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == employeeId).ToList();
@@ -434,17 +436,30 @@
             </div>
         </div>
     </div>
-</div><div class="col-md-12 ">
-          @using (Html.BeginForm("ConvertEmployeeToApplicationUser", "EmployeeManagement", FormMethod.Post, null))
-          {
-              @Html.AntiForgeryToken()
-              @Html.Hidden("EmployeeId", Model.EmployeeId)
-              <div class="col-md-12">
-                  <input type="submit" value="Convert Employee" id="submitComment" class="btn btn-primary btn-sm pull-right" />
-
-              </div>
-          }
 </div>
+    @foreach (var item in appuser.AppUsers.ToList())
+    {
+        if (item.EmployeeId == employeeId)
+        {
+            <div class="col-md-12 ">
+             
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12 ">
+                @using (Html.BeginForm("ConvertEmployeeToApplicationUser", "EmployeeManagement", FormMethod.Post, null))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("EmployeeId", Model.EmployeeId)
+                    <div class="col-md-12">
+                        <input type="submit" value="Convert Employee" id="submitComment" class="btn btn-primary btn-sm pull-right" />
+
+                    </div>
+                }
+            </div>
+        }
+    }
 </div>
 <!-- /page content -->
 </div>

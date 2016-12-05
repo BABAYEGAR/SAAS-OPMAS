@@ -205,6 +205,7 @@
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserManagement\AppUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5109,6 +5110,11 @@
     <Content Include="Views\EmployeeManagement\ReviewEmployeeData.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEmployees.cshtml" />
     <Content Include="Views\EmployeeManagement\ConvertEmployeeToAppUser.cshtml" />
+    <Content Include="Views\AppUsers\Create.cshtml" />
+    <Content Include="Views\AppUsers\Delete.cshtml" />
+    <Content Include="Views\AppUsers\Details.cshtml" />
+    <Content Include="Views\AppUsers\Edit.cshtml" />
+    <Content Include="Views\AppUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,7 @@ using System.Web.Security;
 using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.TextFormatter;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.EmployeeManagement;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
@@ -356,8 +357,8 @@ namespace Opmas.Controllers.EmployeeManagement
             appUser.Lastname = employee.Lastname;
             appUser.Middlename = employee.Middlename;
             appUser.Email = employee.Email;
-            appUser.CreatedById = 1;
-            appUser.LastModifiedById = 1;
+            appUser.CreatedBy = 1;
+            appUser.LastModifiedBy = 1;
             appUser.DateCreated  = DateTime.Now;
             appUser.DateLastModified = DateTime.Now;
             appUser.Role = UserType.Employee.ToString();
