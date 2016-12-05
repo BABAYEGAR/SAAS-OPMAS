@@ -13,6 +13,6 @@ namespace Opmas.Data.Objects.Entities.Employee
         public List<EmployeePastWorkExperience> EmployeePastWorkExperiences { get; set; }
         public List<EmployeeMedicalData> EmployeeMedicalDatas { get; set; }
         public List<EmployeeWorkData> EmployeeWorkDatas { get; set; }
-        public List<AppUser> AppUsers { get; set; }
+        public IEnumerable<AppUser> AppUsers { get; set; }
     }
 }

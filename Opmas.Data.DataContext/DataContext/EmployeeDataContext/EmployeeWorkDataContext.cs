@@ -6,7 +6,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
     public class EmployeeWorkDataContext : DbContext
     {
         public EmployeeWorkDataContext()
-            : base("name=SAAS-OPMAS")
+            : base("name=Opmas")
         {
         }
 

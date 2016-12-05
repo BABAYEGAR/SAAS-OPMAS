@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\AppUserDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeEducationalQualificationDataContext.cs" />
@@ -67,41 +68,9 @@
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionDataContext.cs" />
     <Compile Include="DataContext\UserDataContext\AppUserDataContext.cs" />
-    <Compile Include="Migrations\201611181305376_FirstMigration.cs" />
-    <Compile Include="Migrations\201611181305376_FirstMigration.Designer.cs">
-      <DependentUpon>201611181305376_FirstMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611190113426_FirstMigration1.cs" />
-    <Compile Include="Migrations\201611190113426_FirstMigration1.Designer.cs">
-      <DependentUpon>201611190113426_FirstMigration1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611190149302_SecondMigrate.cs" />
-    <Compile Include="Migrations\201611190149302_SecondMigrate.Designer.cs">
-      <DependentUpon>201611190149302_SecondMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611190409289_ThirdMigrate.cs" />
-    <Compile Include="Migrations\201611190409289_ThirdMigrate.Designer.cs">
-      <DependentUpon>201611190409289_ThirdMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611191709319_FourthMigrate.cs" />
-    <Compile Include="Migrations\201611191709319_FourthMigrate.Designer.cs">
-      <DependentUpon>201611191709319_FourthMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611191753433_FifthMigrate.cs" />
-    <Compile Include="Migrations\201611191753433_FifthMigrate.Designer.cs">
-      <DependentUpon>201611191753433_FifthMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611201325277_SixthMigrate.cs" />
-    <Compile Include="Migrations\201611201325277_SixthMigrate.Designer.cs">
-      <DependentUpon>201611201325277_SixthMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611251259412_Seventhigrate.cs" />
-    <Compile Include="Migrations\201611251259412_Seventhigrate.Designer.cs">
-      <DependentUpon>201611251259412_Seventhigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612031823007_NewMigrate1.cs" />
-    <Compile Include="Migrations\201612031823007_NewMigrate1.Designer.cs">
-      <DependentUpon>201612031823007_NewMigrate1.cs</DependentUpon>
+    <Compile Include="Migrations\201612051330386_FirstMigrate.cs" />
+    <Compile Include="Migrations\201612051330386_FirstMigrate.Designer.cs">
+      <DependentUpon>201612051330386_FirstMigrate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,39 +80,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611181305376_FirstMigration.resx">
-      <DependentUpon>201611181305376_FirstMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611190113426_FirstMigration1.resx">
-      <DependentUpon>201611190113426_FirstMigration1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611190149302_SecondMigrate.resx">
-      <DependentUpon>201611190149302_SecondMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611190409289_ThirdMigrate.resx">
-      <DependentUpon>201611190409289_ThirdMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611191709319_FourthMigrate.resx">
-      <DependentUpon>201611191709319_FourthMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611191753433_FifthMigrate.resx">
-      <DependentUpon>201611191753433_FifthMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611201325277_SixthMigrate.resx">
-      <DependentUpon>201611201325277_SixthMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611251259412_Seventhigrate.resx">
-      <DependentUpon>201611251259412_Seventhigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612031823007_NewMigrate1.resx">
-      <DependentUpon>201612031823007_NewMigrate1.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Opmas.Data.Objects\Opmas.Data.Objects.csproj">
       <Project>{f66834ab-d691-4595-855a-ad0fd040567e}</Project>
       <Name>Opmas.Data.Objects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612051330386_FirstMigrate.resx">
+      <DependentUpon>201612051330386_FirstMigrate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

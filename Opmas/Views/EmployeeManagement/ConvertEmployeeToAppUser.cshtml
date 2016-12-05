@@ -1,21 +1,17 @@
-﻿@using Opmas.Data.Factory.EmployeeManagement
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Factory.EmployeeManagement
 @using Opmas.Data.Objects.Entities.Employee
+@model Opmas.Data.Objects.Entities.Employee.Employee
 @{
-    List<EmployeeEducationalQualification> educationaQualification = null;
-    List<EmployeeBankData> bankData = null;
-    List<EmployeePastWorkExperience> pastWorkExperienceSession = null;
-    EmployeePersonalData employeePersonalData = null;
-    EmployeeWorkData employeeWorkData = null;
-    EmployeeMedicalData employeeMedicalData = null;
-    if (Model != null)
-    {
-        educationaQualification = Model.EmployeeEducationalQualifications;
-        bankData = Model.EmployeeBankDatas;
-        pastWorkExperienceSession = Model.EmployeePastWorkExperiences;
-        employeePersonalData = Model.EmployeePersonalData.SingleOrDefault();
-        employeeWorkData = Model.EmployeeWorkDatas.SingleOrDefault();
-        employeeMedicalData = Model.EmployeeMedicalDatas.SingleOrDefault();
-    }
+    var employeeId = Model.EmployeeId;
+    EmployeeDataContext dbEmployee = new EmployeeDataContext();
+    var educationaQualification = dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == employeeId).ToList();
+    var bankData = dbEmployee.EmployeeBankDatas.Where(n => n.EmployeeId == employeeId).ToList();
+    var pastWorkExperienceSession = dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == employeeId).ToList();
+    var employeePersonalData = dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
+    var employeeWorkData = dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
+    var employeeMedicalData = dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
+
 }
 <style>
     h1, h2, h3 { color: #00004d; }
@@ -172,7 +168,7 @@
                                     {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.FakeId)
+                                                @item.FakeId
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.InstitutionName)
@@ -439,8 +435,15 @@
         </div>
     </div>
 </div><div class="col-md-12 ">
-    @Html.ActionLink("Convert To Application User", "MedicalData", new { }, new { @class = "btn btn-primary pull-right" })
+          @using (Html.BeginForm("ConvertEmployeeToApplicationUser", "EmployeeManagement", FormMethod.Post, null))
+          {
+              @Html.AntiForgeryToken()
+              @Html.Hidden("EmployeeId", Model.EmployeeId)
+              <div class="col-md-12">
+                  <input type="submit" value="Convert Employee" id="submitComment" class="btn btn-primary btn-sm pull-right" />
 
+              </div>
+          }
 </div>
 </div>
 <!-- /page content -->

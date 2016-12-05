@@ -6,7 +6,7 @@ namespace Opmas.Data.DataContext.DataContext.SystemDataContext
     public class DepartmentDataContext : DbContext
     {
         public DepartmentDataContext()
-            : base("name=SAAS-OPMAS")
+            : base("name=Opmas")
         {
         }
 

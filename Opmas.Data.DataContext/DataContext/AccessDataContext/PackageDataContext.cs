@@ -5,7 +5,7 @@ namespace Opmas.Data.DataContext.DataContext.AccessDataContext
     public class PackageDataContext : DbContext
     {
         public PackageDataContext()
-            : base("name=SAAS-OPMAS")
+            : base("name=Opmas")
         {
         }
 

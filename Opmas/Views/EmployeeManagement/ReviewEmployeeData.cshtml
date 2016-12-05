@@ -439,6 +439,14 @@
             </div>
         </div>
     </div>
+    @using (Html.BeginForm("ReviewEmployeeDatas","EmployeeManagement", FormMethod.Post, null))
+    {
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right" />
+
+    </div>
+    }
 </div>
 </div>
 <!-- /page content -->

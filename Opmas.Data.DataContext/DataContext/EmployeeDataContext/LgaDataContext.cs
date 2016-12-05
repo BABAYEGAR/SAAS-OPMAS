@@ -6,7 +6,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
     public class LgaDataContext : DbContext
     {
         public LgaDataContext()
-            : base("name=SAAS-OPMAS")
+            : base("name=Opmas")
         {
         }
 

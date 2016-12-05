@@ -6,7 +6,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
     public partial class EmployeeBankDataContext : DbContext
     {
         public EmployeeBankDataContext()
-            : base("name=SAAS-OPMAS")
+            : base("name=Opmas")
         {
         }
         public virtual DbSet<Employee> Employees { get; set; }

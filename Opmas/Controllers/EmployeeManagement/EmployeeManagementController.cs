@@ -17,6 +17,7 @@ namespace Opmas.Controllers.EmployeeManagement
     {
         private readonly StateDataContext _db = new StateDataContext();
         private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
+        private readonly AppUserDataContext _dbAppUser = new AppUserDataContext();
         private readonly BankDataContext _dbBanks = new BankDataContext();
         private Employee _employee = new Employee();
         /// <summary>
@@ -202,26 +203,30 @@ namespace Opmas.Controllers.EmployeeManagement
         }
         // GET: EmployeeManagement/ReviewEmployeeData
         public ActionResult ReviewEmployeeData()
-        {  
-            return View();
+        {
+            var employeeData = Session["Employee"] as Employee;
+            return View(employeeData);
         }
         // POST: EmployeeManagement/ReviewEmployeeData
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ReviewEmployeeDatas()
         {
-            SavaEmployeeData();
+            var employeeData = Session["Employee"] as Employee;
+            SavaEmployeeData(employeeData);
             return RedirectToAction("Index","Home");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public void SavaEmployeeData()
+    
+        public void SavaEmployeeData(Employee employeeData)
         {
-            var employeeData = Session["Employee"] as Employee;
+           
             if (employeeData != null)
             {
-                employeeData.DateCreated = DateTime.Now;
+                _employee.DateCreated = DateTime.Now;
                 _employee.DateLastModified = DateTime.Now;
+                _employee.LastModifiedBy = 1;
+                _employee.CreatedBy = 1;
+                
                 _dbEmployee.Employees.Add(_employee);
                 
 
@@ -327,14 +332,24 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             return View("PastWorkExperience");
         }
-        // GET: EmployeeManagement/ConvertEmployeeToAppUser
-        public ActionResult ConvertEmployeeToAppUser()
+        // GET: EmployeeManagement/ListOfEmployees
+        public ActionResult ListOfEmployees()
         {
-            return View();
+            return View(_dbEmployee.Employees.ToList());
         }
-        public ActionResult ConvertEmployeeToApplicationUser(long employeeId)
+        // GET: EmployeeManagement/ConvertEmployeeToAppUser
+        public ActionResult ConvertEmployeeToAppUser(long employeeId)
         {
-            var employee = _dbEmployee.EmployeePersonalDatas.Find(employeeId);
+            var employee = _dbEmployee.Employees.Find(employeeId);
+            ViewBag.employeeId = employeeId;
+            return View(employee);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConvertEmployeeToApplicationUser(FormCollection collectedValue)
+        {
+            long employeeId = Convert.ToInt64(collectedValue["EmployeeId"]);
+            var employee = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n=>n.EmployeeId == employeeId);
             var employees = _dbEmployee.Employees.ToList();
             AppUser appUser = new AppUser();
             appUser.Firstname = employee.Firstname;
@@ -353,8 +368,11 @@ namespace Opmas.Controllers.EmployeeManagement
             var password = Membership.GeneratePassword(8, 1);
             var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
             appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-
             
+            //add and save user
+            _dbAppUser.AppUsers.Add(appUser);
+            _dbAppUser.SaveChanges();
+
             return View("ListOfEmployees",employees);
         }
 

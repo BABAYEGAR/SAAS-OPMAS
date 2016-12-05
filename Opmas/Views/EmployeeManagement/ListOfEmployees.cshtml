@@ -50,12 +50,7 @@
             @Html.DisplayFor(modelItem => item.DateLastModified)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastModifiedBy)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Manage", "Details", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
+            @Html.ActionLink("Manage", "ConvertEmployeeToAppUser",new {employeeId = item.EmployeeId},new {@class= "btn btn-success"})
         </td>
     </tr>
 }

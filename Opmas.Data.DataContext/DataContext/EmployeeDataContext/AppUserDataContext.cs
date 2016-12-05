@@ -2,7 +2,7 @@ using System.Data.Entity;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
 
-namespace Opmas.Data.DataContext.DataContext.UserDataContext
+namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
 {
     public class AppUserDataContext : DbContext
     {
@@ -10,10 +10,11 @@ namespace Opmas.Data.DataContext.DataContext.UserDataContext
             : base("name=Opmas")
         {
         }
-        public virtual DbSet<AppUser> AppUsers { get; set; }
 
+        public virtual DbSet<AppUser> AppUsers { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
         }
     }
 }
