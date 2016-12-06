@@ -59,7 +59,7 @@ namespace Opmas.Controllers.UserManagement
             if (ModelState.IsValid)
             {
                 HttpPostedFileBase profileImage = Request.Files["avatar-2"];
-                appUser.EmployeeId = 0;
+                appUser.EmployeeId = 9;
                 appUser.DateLastModified = DateTime.Now;
                 appUser.DateCreated = DateTime.Now;
                 appUser.LastModifiedBy = 0;

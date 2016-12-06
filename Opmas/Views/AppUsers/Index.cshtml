@@ -10,11 +10,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee.EmployeeId)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Firstname)
         </th>
@@ -31,40 +28,13 @@
             @Html.DisplayNameFor(model => model.Mobile)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Role)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AppUserImage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FingerPrint)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RememberMe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateLastModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastModifiedBy)
-        </th>
-        <th></th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Firstname)
         </td>
@@ -81,36 +51,12 @@
             @Html.DisplayFor(modelItem => item.Mobile)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Role)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AppUserImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FingerPrint)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RememberMe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateLastModified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastModifiedBy)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AppUserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AppUserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AppUserId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.AppUserId },new {@class="btn btn-primary"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.AppUserId }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AppUserId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
