@@ -75,6 +75,14 @@
     <Compile Include="Migrations\201612051342207_TenthMigrate.Designer.cs">
       <DependentUpon>201612051342207_TenthMigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612062156582_NewMigrate11.cs" />
+    <Compile Include="Migrations\201612062156582_NewMigrate11.Designer.cs">
+      <DependentUpon>201612062156582_NewMigrate11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612062159418_Migrate12.cs" />
+    <Compile Include="Migrations\201612062159418_Migrate12.Designer.cs">
+      <DependentUpon>201612062159418_Migrate12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,6 +102,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612051342207_TenthMigrate.resx">
       <DependentUpon>201612051342207_TenthMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612062156582_NewMigrate11.resx">
+      <DependentUpon>201612062156582_NewMigrate11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612062159418_Migrate12.resx">
+      <DependentUpon>201612062159418_Migrate12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
