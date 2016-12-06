@@ -9,7 +9,8 @@
 <h2></h2>
 
 @section css {
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="~/Content/fileinput.min.css" rel="stylesheet"/>
 }
 @using (Html.BeginForm())
 {
@@ -17,34 +18,47 @@
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
     <fieldset>
         <legend>New Application User</legend>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
-            @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
+        <div class="col-md-9">
 
-        </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
+                @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Middlename, new {@class = "control-label col-md-3"})
-            @Html.EditorFor(model => model.Middlename, new {htmlAttributes = new {@class = "form-control"}})
-        </div>
+            </div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
-            @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
-        </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Middlename, new {@class = "control-label col-md-3"})
+                @Html.EditorFor(model => model.Middlename, new {htmlAttributes = new {@class = "form-control"}})
+            </div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
-            @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
-        </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
+                @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
+            </div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
-            @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
+                @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+            </div>
+
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
+                @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
+                @Html.DropDownListFor(m => m.Role, EnumHelper.GetSelectList(typeof(UserType)), "select Role", new {@class = "form-control select-dropdown"})
+            </div>
         </div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Role, new { @class = "control-label col-md-3" })
-            @Html.DropDownListFor(m => m.Role, EnumHelper.GetSelectList(typeof(UserType)), "select an institution category", new { @class = "form-control select-dropdown" })
+        <div class="col-md-3">
+            <div class="row">
+                <!-- the avatar markup -->
+                <div id="kv-avatar-errors-2" class="center-block" style="display: none; width: 800px;"></div>
+                <div class="kv-avatar center-block" style="width: 200px">
+                    <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
+                </div>
+                <!-- include other inputs if needed and include a form submit (save) button -->
+            </div>
         </div>
 
         <div class="form-group">
@@ -56,12 +70,38 @@
 }
 @section scripts {
     <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
+    <script src="~/Scripts/fileinput.js"></script>
     <script>
         $(document)
             .ready(function() {
 
                 // Init select2 for dropdown select
                 $('.select-dropdown').select2();
+
+                //image uploader
+                var btnCust = '<button type="button" class="btn btn-default" title="Add picture tags" ' +
+                    'onclick="alert(\'Call your custom code here.\')">' +
+                    '<i class="glyphicon glyphicon-tag"></i>' +
+                    '</button>';
+                $("#avatar-2")
+                    .fileinput({
+                        overwriteInitial: true,
+                        maxFileSize: 1500,
+                        showClose: false,
+                        showCaption: false,
+                        showBrowse: false,
+                        browseOnZoneClick: true,
+                        removeLabel: '',
+                        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                        removeTitle: 'Cancel or reset changes',
+                        elErrorContainer: '#kv-avatar-errors-2',
+                        msgErrorClass: 'alert alert-block alert-danger',
+                        defaultPreviewContent:
+                            '<img src="../../Opmas/Content/img/default_avatar_male.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
+                        layoutTemplates: { main2: '{preview} ' + btnCust + ' {remove} {browse}' },
+                        allowedFileExtensions: ["jpg", "png", "gif"]
+                    });
+
             });
 
 

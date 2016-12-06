@@ -220,9 +220,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fileinput.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\img\default_avatar_male.jpg" />
     <Content Include="Content\img\group_header.jpg" />
     <Content Include="Content\img\header.jpg" />
     <Content Include="Content\ManagementDashboard\build\css\custom.css" />
@@ -4500,6 +4502,7 @@
     <Content Include="Content\ManagementDashboard\vendors\validator\README.md" />
     <Content Include="Content\ManagementDashboard\vendors\validator\validator.jquery.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
