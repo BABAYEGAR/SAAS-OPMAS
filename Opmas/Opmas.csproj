@@ -5118,6 +5118,7 @@
     <Content Include="Views\AppUsers\Details.cshtml" />
     <Content Include="Views\AppUsers\Edit.cshtml" />
     <Content Include="Views\AppUsers\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
