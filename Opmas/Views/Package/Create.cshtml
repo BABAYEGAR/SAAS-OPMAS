@@ -1,37 +1,32 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdminForm.cshtml";
+    ViewBag.Header = "Packages";
+    ViewBag.Subheader = "Create a new package";
 }
 <!-- page content -->
 @model Opmas.Data.Objects.Entities.AccessManagement.Package
-@using (Html.BeginForm("Create", "Package", FormMethod.Post, new {@class = "form"}))
+@using (Html.BeginForm("Create", "Package", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-    <fieldset>
-        <legend>New Package</legend>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Name, new {@class = "control-label"})
-            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
+            </div>
         </div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Amount, new {@class = "control-label"})
-            @Html.EditorFor(model => model.Amount, new {htmlAttributes = new {@class = "form-control"}})
-        </div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.StartDate, new {@class = "control-label"})
-            @Html.EditorFor(model => model.StartDate, new {htmlAttributes = new {@class = "form-control"}})
-        </div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.EndDate, new {@class = "control-label"})
-            @Html.EditorFor(model => model.EndDate, new {htmlAttributes = new {@class = "form-control"}})
-        </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            @Html.LabelFor(model => model.Amount, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.EditorFor(model => model.Amount, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
+            </div>
+        </div>
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                 <input type="submit" value="Create" class="btn btn-success pull-right"/>
             </div>
         </div>
-    </fieldset>
 }
-
 <!-- /page content -->

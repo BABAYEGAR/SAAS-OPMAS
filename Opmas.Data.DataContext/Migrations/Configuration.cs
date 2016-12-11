@@ -5,14 +5,14 @@ namespace Opmas.Data.DataContext.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Opmas.Data.DataContext.DataContext.EmployeeDataContext.EmployeeDataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Opmas.Data.DataContext.DataContext.SystemDataContext.InstitutionDataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Opmas.Data.DataContext.DataContext.EmployeeDataContext.EmployeeDataContext context)
+        protected override void Seed(Opmas.Data.DataContext.DataContext.SystemDataContext.InstitutionDataContext context)
         {
             //  This method will be called after migrating to the latest version.
 

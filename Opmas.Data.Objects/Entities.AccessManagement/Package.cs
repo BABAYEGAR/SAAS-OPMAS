@@ -13,12 +13,6 @@ namespace Opmas.Data.Objects.Entities.AccessManagement
         public string Name { get; set; }
         [Required]
         public double Amount { get; set; }
-        [DisplayName("Start Date")]
-        [Required]
-        public DateTime StartDate { get; set; }
-        [DisplayName("End Date")]
-        [Required]
-        public DateTime EndDate { get; set; }
         public IEnumerable<Institution> Institutions { get; set; }
     }
 }

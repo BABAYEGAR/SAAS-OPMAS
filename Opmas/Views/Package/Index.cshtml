@@ -1,39 +1,36 @@
 ﻿@model IEnumerable<Opmas.Data.Objects.Entities.AccessManagement.Package>
 @{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdminListItems.cshtml";
 }
-<p>
-    @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
-</p>
-<table class="table table-condensed table-hover">
+<table id="datatable" class="table table-striped table-bordered">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>Action</th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.PackageId}, new {@class = "btn btn-primary"}) |
-                @Html.ActionLink("Details", "Details", new {id = item.PackageId}, new {@class = "btn btn-default"}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.PackageId}, new {@class = "btn btn-danger"})
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PackageId }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PackageId }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PackageId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
     </tbody>
 
 </table>

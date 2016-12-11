@@ -83,6 +83,14 @@
     <Compile Include="Migrations\201612062159418_Migrate12.Designer.cs">
       <DependentUpon>201612062159418_Migrate12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612112238056_InstitutionMigrateOne.cs" />
+    <Compile Include="Migrations\201612112238056_InstitutionMigrateOne.Designer.cs">
+      <DependentUpon>201612112238056_InstitutionMigrateOne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612112241061_PackageMigrateOne.cs" />
+    <Compile Include="Migrations\201612112241061_PackageMigrateOne.Designer.cs">
+      <DependentUpon>201612112241061_PackageMigrateOne.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612062159418_Migrate12.resx">
       <DependentUpon>201612062159418_Migrate12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612112238056_InstitutionMigrateOne.resx">
+      <DependentUpon>201612112238056_InstitutionMigrateOne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612112241061_PackageMigrateOne.resx">
+      <DependentUpon>201612112241061_PackageMigrateOne.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
