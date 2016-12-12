@@ -96,68 +96,47 @@ namespace Opmas.Data.Factory.EmployeeManagement
         }
 
         /// <summary>
-        ///     This gets all active employees
+        ///     This gets all employees by their status
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Employee> GetAllActiveEmployees()
+        public IEnumerable<Employee> GetAllEmployeesByStatus(string status)
         {
-            var allEmployees = _employeeWorkData.Employees.ToList();
-            var activeEmployees =
-                allEmployees.FindAll(
-                    n =>
-                        n.EmployeeWorkDatas.Where(m => m.EmploymentStatus == EmploymentStatus.Active.ToString()) !=
-                        null);
+            var allEmployees = _employee.Employees.ToList();
+            var allEmployeesWorkData = _employee.EmployeeWorkDatas.ToList();
+            List<Employee> employees = new List<Employee>();
+            foreach (var item in allEmployeesWorkData)
+            {
+                if (item.EmploymentStatus == status)
+                {
+                    var employee = _employee.Employees.Find(item.EmployeeId);
+                    employees.Add(employee);
+                    
+                }
+            }
 
-            return activeEmployees;
+            return employees;
         }
-
         /// <summary>
-        ///     This gets all on leave employees
+        ///     This gets all employees by their status
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Employee> GetAllOnleaveEmployees()
+        public IEnumerable<Employee> GetAllInactiveEmployees(string status)
         {
-            var allEmployees = _employeeWorkData.Employees.ToList();
-            var onLeaveEmployees =
-                allEmployees.FindAll(
-                    n =>
-                        n.EmployeeWorkDatas.Where(m => m.EmploymentStatus == EmploymentStatus.OnLeave.ToString()) !=
-                        null);
+            var allEmployees = _employee.Employees.ToList();
+            var allEmployeesWorkData = _employee.EmployeeWorkDatas.ToList();
+            List<Employee> employees = new List<Employee>();
+            foreach (var item in allEmployeesWorkData)
+            {
+                if (item.EmploymentStatus != status)
+                {
+                    var employee = _employee.Employees.Find(item.EmployeeId);
+                    employees.Add(employee);
 
-            return onLeaveEmployees;
-            ;
+                }
+            }
+
+            return employees;
         }
 
-        /// <summary>
-        ///     This gets all Retired employees
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Employee> GetAllRetiredEmployees()
-        {
-            var allEmployees = _employeeWorkData.Employees.ToList();
-            var retiredEmployees =
-                allEmployees.FindAll(
-                    n =>
-                        n.EmployeeWorkDatas.Where(m => m.EmploymentStatus == EmploymentStatus.Retired.ToString()) !=
-                        null);
-
-            return retiredEmployees;
-        }
-
-        /// <summary>
-        ///     This gets all Suspended employees
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Employee> GetAllSuspendedEmployees()
-        {
-            var allEmployees = _employeeWorkData.Employees.ToList();
-            var suspendedEmployees =
-                allEmployees.FindAll(
-                    n =>
-                        n.EmployeeWorkDatas.Where(m => m.EmploymentStatus == EmploymentStatus.Suspended.ToString()) !=
-                        null);
-
-            return suspendedEmployees;
-        }
     }
 }

@@ -11,10 +11,10 @@
                         <a href="@Url.Action("ListOfEmployees","EmployeeManagement")">Employees</a>
                     </li>
                     <li>
-                        <a href="index2.html">Active Employee</a>
+                        <a href="@Url.Action("ListOfEmployeesByStatus","EmployeeManagement",new {status =EmploymentStatus.Active})">Active Employee</a>
                     </li>
                     <li>
-                        <a href="index3.html">Inactive Employee</a>
+                        <a href="@Url.Action("ListOfEmployeesInactive","EmployeeManagement",new {status =EmploymentStatus.Active})">Inactive Employee</a>
                     </li>
                 </ul>
             </li>

@@ -376,6 +376,18 @@ namespace Opmas.Controllers.EmployeeManagement
 
             return View("ListOfEmployees",employees);
         }
+        // GET: EmployeeManagement/ListOfEmployeesByStatus
+        public ActionResult ListOfEmployeesByStatus(string status)
+        {
+            var employees  = new EmployeeFactory().GetAllEmployeesByStatus(status);
+            return View(employees.ToList());
+        }
+        // GET: EmployeeManagement/ListOfEmployeesInactive
+        public ActionResult ListOfEmployeesInactive(string status)
+        {
+            var employees = new EmployeeFactory().GetAllInactiveEmployees(status);
+            return View("ListOfEmployeesByStatus",employees);
+        }
 
     }
 }

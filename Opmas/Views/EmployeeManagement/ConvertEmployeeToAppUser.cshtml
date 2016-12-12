@@ -14,6 +14,8 @@
     var employeeWorkData = dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
     var employeeMedicalData = dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
 
+    var appusersExist = appuser.AppUsers.SingleOrDefault(n => n.EmployeeId == employeeId);
+
 }
 <style>
     h1, h2, h3 { color: #00004d; }
@@ -437,9 +439,7 @@
         </div>
     </div>
 </div>
-    @foreach (var item in appuser.AppUsers.ToList())
-    {
-        if (item.EmployeeId == employeeId)
+        @if (appusersExist != null)
         {
             <div class="col-md-12 ">
              
@@ -459,7 +459,7 @@
                 }
             </div>
         }
-    }
+    
 </div>
 <!-- /page content -->
 </div>

@@ -5124,6 +5124,7 @@
     <Content Include="Views\Shared\_LayoutAdminForm.cshtml" />
     <Content Include="Views\Shared\AdminNavigationBar.cshtml" />
     <Content Include="Views\Shared\AdminFooter.cshtml" />
+    <Content Include="Views\EmployeeManagement\ListOfEmployeesByStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
