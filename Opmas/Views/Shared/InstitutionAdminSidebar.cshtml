@@ -19,23 +19,6 @@
                 </ul>
             </li>
             <li>
-                <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Create", "Institutions")">Add Institutions</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "Institutions")">All Institutions</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Cooperations.ToString()})">Active Intitutions</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Government.ToString()})">Inactive Institutions</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
                 <a><i class="fa fa-desktop"></i> Faculties <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
