@@ -2,10 +2,6 @@
 @{
     Layout = "~/Views/Shared/_LayoutSystemAdminListItems.cshtml";
 }
-
-@*<p>
-    @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
-</p>*@
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -36,9 +32,9 @@
                     @Html.DisplayFor(modelItem => item.ContactEmail)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.InstitutionId }, new { @class = "btn btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.InstitutionId }, new { @class = "btn btn-default" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.InstitutionId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.InstitutionId }, new { @class = "btn btn-xs btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.InstitutionId }, new { @class = "btn btn-xs btn-default" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.InstitutionId }, new { @class = "btn btn-xs btn-danger" })
                 </td>
             </tr>
         }
