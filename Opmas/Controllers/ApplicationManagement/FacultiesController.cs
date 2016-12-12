@@ -49,10 +49,14 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FacultyId,Name,InstitutionId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] Faculty faculty)
+        public ActionResult Create([Bind(Include = "FacultyId,Name,InstitutionId")] Faculty faculty)
         {
             if (ModelState.IsValid)
             {
+                faculty.DateCreated = DateTime.Now;
+                faculty.DateLastModified = DateTime.Now;
+                faculty.LastModifiedBy = 0;
+                faculty.CreatedBy = 0;
                 db.Faculties.Add(faculty);
                 db.SaveChanges();
                 return RedirectToAction("Index");
