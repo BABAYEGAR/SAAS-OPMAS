@@ -13,8 +13,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-    <fieldset>
-        <legend>New Institution</legend>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -55,12 +54,6 @@
             </div>
         </div>
         <div class="form-group col-md-12">
-            @Html.LabelFor(m => m.InstitutionCategory, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12" }) <span class="req">*</span>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.DropDownListFor(m => m.InstitutionCategory, EnumHelper.GetSelectList(typeof(InstitutionCategory)), "select an institution category", new {@class = "form-control col-md-7 col-xs-12 select-dropdown" })
-            </div>
-        </div>
-        <div class="form-group col-md-12">
             @Html.LabelFor(model => model.PackageId, "Package", new {@class = "control-label  col-md-3 col-sm-3 col-xs-12" })
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.DropDownList("PackageId", null, new {@class = "form-control col-md-7 col-xs-12 select-dropdown" })
@@ -72,7 +65,7 @@
                 <input type="submit" value="Create" class="btn btn-success pull-right"/>
             </div>
         </div>
-    </fieldset>
+
 }
 @section scripts {
     <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>

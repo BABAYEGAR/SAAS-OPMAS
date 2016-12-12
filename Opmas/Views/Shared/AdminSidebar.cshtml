@@ -39,16 +39,13 @@
                         <a href="@Url.Action("Create", "Institutions")">Add Institutions</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Institutions")">Institutions</a>
+                        <a href="@Url.Action("Index", "Institutions")">All Institutions</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Education.ToString()}) ">Education</a>
+                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Cooperations.ToString()})">Active Intitutions</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Cooperations.ToString()})">Cooperation</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Government.ToString()})">Government</a>
+                        <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Government.ToString()})">Inactive Institutions</a>
                     </li>
                 </ul>
             </li>

@@ -25,9 +25,9 @@ namespace Opmas.Controllers.ApplicationManagement
         }
 
         // GET: InstitutionsByCategory
-        public ActionResult GetInstitutionsByCategory(string category)
+        public ActionResult GetInstitutionsByCategory()
         {
-            var institutions = new InstitutionFactory().GetListOfInstitutionsByCategory(category);
+            var institutions = new InstitutionFactory().GetListOfInstitutions();
             return View("Index",institutions);
         }
         // GET: Institutions/Details/5
@@ -63,7 +63,6 @@ namespace Opmas.Controllers.ApplicationManagement
             if (ModelState.IsValid)
             {
                 institution.Logo = new FileUploader().UploadFile(logo, UploadType.Logo);
-                institution.InstitutionCategory = typeof(InstitutionCategory).GetEnumName(int.Parse(collectedValues["InstitutionCategory"]));
                 db.Institutions.Add(institution);
                 db.SaveChanges();
                 return RedirectToAction("Index");

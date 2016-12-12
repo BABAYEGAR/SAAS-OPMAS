@@ -14,8 +14,6 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public string Motto { get; set; }
         public string Logo { get; set; }
         public string Location { get; set; }
-        [DisplayName("Institution Category")]
-        public string InstitutionCategory { get; set; }
         [Required]
         [DisplayName("Contact Number")]
         public string ContactNumber { get; set; }

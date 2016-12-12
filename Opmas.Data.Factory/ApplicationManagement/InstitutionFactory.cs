@@ -12,11 +12,14 @@ namespace Opmas.Data.Factory.ApplicationManagement
     public class InstitutionFactory
     {
         private readonly InstitutionDataContext _db = new InstitutionDataContext();
-
-        public IEnumerable<Institution> GetListOfInstitutionsByCategory(string category)
+        /// <summary>
+        /// This method retrieves the list of all institutions
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Institution> GetListOfInstitutions()
         {
             var allInstitutions = _db.Institutions.ToList();
-            var institutions = allInstitutions.Where(n => n.InstitutionCategory == category);
+            var institutions = allInstitutions;
             return institutions;
         }
     }
