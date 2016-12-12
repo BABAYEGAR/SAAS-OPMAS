@@ -5,30 +5,16 @@
         <h3>General</h3>
         <ul class="nav side-menu">
             <li>
-                <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-users"></i> Administrative Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("ListOfEmployees","EmployeeManagement")">Employees</a>
+                        <a href="@Url.Action("Create","AppUsers")">Add Administrative User</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEmployeesByStatus","EmployeeManagement",new {status =EmploymentStatus.Active})">Active Employee</a>
+                        <a href="@Url.Action("Index","AppUsers")">Active Administrative Users</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEmployeesInactive","EmployeeManagement",new {status =EmploymentStatus.Active})">Inactive Employee</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a><i class="fa fa-users"></i> Application Users <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Create","AppUsers")">Add Application User</a>
-                    </li>
-                    <li>
-                        <a href="chartjs2.html">Active Administrative Users</a>
-                    </li>
-                    <li>
-                        <a href="morisjs.html">Inactive Administrative Users</a>
+                        <a href="@Url.Action("Index","AppUsers")">Inactive Administrative Users</a>
                     </li>
                 </ul>
             </li>

@@ -53,6 +53,7 @@
     <Compile Include="Enums\InstitutionCategory.cs" />
     <Compile Include="Enums\MaritalStatusEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />
+    <Compile Include="Enums\AdminUserType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="FileUploader\FileUploader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -55,7 +55,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
             <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.DropDownListFor(m => m.Role, EnumHelper.GetSelectList(typeof(UserType)), "select Role", new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
+                @Html.DropDownListFor(m => m.Role, EnumHelper.GetSelectList(typeof(AdminUserType)), "select administrative Role", new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
             </div>
         </div>
     </div>

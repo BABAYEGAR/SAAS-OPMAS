@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<Opmas.Data.Objects.Entities.User.AppUser>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Application Users";
+    ViewBag.Header = "List Of Application Users";
+    Layout = "~/Views/Shared/_LayoutSystemAdminListItems.cshtml";
 }
 
-<h2>Application Users</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create",null,new { @class = "btn btn-success" })
-</p>
-<table class="table table-bordered">
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Firstname)
@@ -32,33 +29,35 @@
         </th>
         <th>Action</th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Middlename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lastname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mobile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AppUserId },new {@class="btn btn-primary"}) |
-            @Html.ActionLink("Details", "Details", new { id=item.AppUserId }, new { @class = "btn btn-default" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AppUserId }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Middlename)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mobile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AppUserId }, new { @class = "btn btn-xs btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AppUserId }, new { @class = "btn btn-xs btn-default" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AppUserId }, new { @class = "btn btn-xs btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

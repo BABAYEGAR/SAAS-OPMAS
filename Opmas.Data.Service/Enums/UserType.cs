@@ -2,8 +2,7 @@
 {
     public enum UserType
     {
-        SystemAdministrator,
-        InstitutionAdministrator,
+        ViceChancellor,
         Registrar,
         Dean,
         HOD,
