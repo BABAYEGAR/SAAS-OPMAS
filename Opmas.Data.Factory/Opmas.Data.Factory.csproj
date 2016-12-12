@@ -64,6 +64,10 @@
       <Project>{f66834ab-d691-4595-855a-ad0fd040567e}</Project>
       <Name>Opmas.Data.Objects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Opmas.Data.Service\Opmas.Data.Service.csproj">
+      <Project>{F27D00FF-6BB6-479B-84B9-A33C04B44D08}</Project>
+      <Name>Opmas.Data.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
