@@ -2,7 +2,8 @@
 {
     public enum UserType
     {
-        Administrator,
+        SystemAdministrator,
+        InstitutionAdministrator,
         Registrar,
         Dean,
         HOD,

@@ -200,6 +200,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationManagement\ApplicationManagementController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\DepartmentsController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\FacultiesController.cs" />
     <Compile Include="Controllers\ApplicationManagement\InstitutionsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\PackageController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
@@ -5125,6 +5127,18 @@
     <Content Include="Views\Shared\AdminNavigationBar.cshtml" />
     <Content Include="Views\Shared\AdminFooter.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEmployeesByStatus.cshtml" />
+    <Content Include="Views\EmployeeManagement\EditPersonalData.cshtml" />
+    <Content Include="Views\Shared\InstitutionAdminSidebar.cshtml" />
+    <Content Include="Views\Faculties\Create.cshtml" />
+    <Content Include="Views\Faculties\Delete.cshtml" />
+    <Content Include="Views\Faculties\Details.cshtml" />
+    <Content Include="Views\Faculties\Edit.cshtml" />
+    <Content Include="Views\Faculties\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
