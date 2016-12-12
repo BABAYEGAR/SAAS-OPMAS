@@ -10,6 +10,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
     {
         public long InstitutionId { get; set; }
         [Required]
+        [DisplayName("Institution Name")]
         public string Name { get; set; }
         public string Motto { get; set; }
         public string Logo { get; set; }

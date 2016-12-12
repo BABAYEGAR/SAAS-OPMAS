@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Department>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Departments";
+    ViewBag.Header = "List Of Departments";
+    Layout = "~/Views/Shared/_LayoutInstitutionAdminListItems.cshtml";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Faculty.Name)
@@ -23,24 +19,26 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Faculty.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Institution.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DepartmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentId })
-        </td>
-    </tr>
-}
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Faculty.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-default" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
