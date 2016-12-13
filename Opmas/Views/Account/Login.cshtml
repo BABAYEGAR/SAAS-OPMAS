@@ -1,45 +1,41 @@
-﻿@using Opmas.Models
-@model Opmas.Models.LoginViewModel
-    @{ 
-        Layout = "~/Views/Shared/_LayoutLogin.cshtml";
-    }
-            @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-                <h1>Login Form</h1>
-                <div>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control",placeholder = "Enter Your Email" })
-                    </div>
-                    <div>
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
-                    </div>
-                    <div>
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
+﻿@model Opmas.Models.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    <h1>Login Form</h1>
+    <div>
+        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Enter Your Email"})
+    </div>
+    <div>
+        @Html.PasswordFor(m => m.Password, new {@class = "form-control", placeholder = "Enter your password"})
+    </div>
+    <div>
+        @Html.CheckBoxFor(m => m.RememberMe)
+        @Html.LabelFor(m => m.RememberMe)
 
-                    </div>
-                    <div>
-                        <a class="btn btn-default submit" href="index.html">Log in</a>
-                        <a class="reset_pass" href="#">Lost your password?</a>
-                    </div>
-                    <div class="clearfix"></div>
+    </div>
+    <div>
+        <a class="btn btn-default submit" href="index.html">Log in</a>
+    </div>
+    <div class="clearfix"></div>
 
-              <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
+    <div class="separator">
+        <p class="change_link">
+            <a href="#">Lost your password?</a>
+        </p>
 
-                <div class="clearfix"></div>
-                <br />
+        <div class="clearfix"></div>
+        <br/>
 
-                  <div>
-                      <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                      <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                  </div>
-              </div>
-                    @* Enable this once you have account confirmation enabled for password reset functionality
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                        </p>*@
-                    }
+        <div>
+            <h1>
+                <i class="fa fa-paw"></i> OPMaS!
+            </h1>
+            <p>©2016 All Rights Reserved. OPMaS!. Privacy and Terms</p>
+        </div>
+    </div>
+}

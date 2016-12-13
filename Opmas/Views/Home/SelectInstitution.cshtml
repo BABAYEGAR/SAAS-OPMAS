@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "SelectInstitution";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@section css {
+    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+}
+@using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    <h1>Login Form</h1>
+    <div class="form-group">
+        <div>
+            @Html.DropDownList("Institution", (SelectList) ViewBag.Institutions, new {@class = "form-control select-dropdown"})
+        </div>
+    </div>
+    <div>
+        <a class="btn btn-default submit" href="index.html">Next</a>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="separator">
+        <p class="change_link">
+            <a href="#">Lost your password?</a>
+        </p>
+
+        <div class="clearfix"></div>
+        <br/>
+
+        <div>
+            <h1>
+                <i class="fa fa-paw"></i> OPMaS!
+            </h1>
+            <p>©2016 All Rights Reserved. OPMaS!. Privacy and Terms</p>
+        </div>
+    </div>
+}
+@section scripts {
+    <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
+
+            });
+
+
+    </script>
+}

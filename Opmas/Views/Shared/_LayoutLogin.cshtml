@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> Sign In | </title>
+    <title>@ViewBag.Title</title>
 
     <!-- Bootstrap -->
     <link href="~/Content/ManagementDashboard/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +20,7 @@
 
     <!-- Custom Theme Style -->
     <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
+    @RenderSection("css", false)
 </head>
 
 <body class="login">
@@ -36,3 +37,4 @@
         </div>
 </body>
 </html>
+@RenderSection("scripts", false)
