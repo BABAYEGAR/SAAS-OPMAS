@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.AccessManagement;
+using Opmas.Data.Objects.Entities.User;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
 {
@@ -24,6 +25,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public string ContactEmail { get; set; }
         public IEnumerable<Faculty> Faculties { get; set; }
         public IEnumerable<Department> Departments { get; set; }
+        public IEnumerable<AppUser> AppUsers { get; set; }
         [DisplayName("Package")]
         public long PackageId { get; set; }
 

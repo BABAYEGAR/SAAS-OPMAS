@@ -1,0 +1,209 @@
+﻿@using Opmas.Data.Objects.Entities.Employee
+@model Opmas.Data.Objects.Entities.Employee.EmployeePastWorkExperience
+@{
+    ViewBag.Title = "Step Three: Employee Past Experience Data";
+    ViewBag.HeaderClass = "page-header";
+}
+@{
+    var employee = Session["Employee"] as Employee;
+    var pastWorkExperienceSession = employee.EmployeePastWorkExperiences;
+}
+@section css {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+}
+
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="tagline">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row hidden-xs">
+        <ul class="progressbar">
+            <li>
+                Step One <br/>
+                <small>Personal Data</small>
+
+            </li>
+            <li>
+                Step Two <br/>
+                <small>Educational Qualification</small>
+            </li>
+            <li class="active">
+                Step Three <br/>
+                <small>Past Work Experience</small>
+            </li>
+            <li>
+                Step Four <br/>
+                <small>Bank Data</small>
+            </li>
+            <li>
+                Step Five <br/>
+                <small>Medical Data</small>
+
+            </li>
+            <li>
+                Confirmation <br/>
+                <small>Review of Employee Info</small>
+            </li>
+            <li>
+                Completed <br/>
+                <small>Registration Complete</small>
+            </li>
+        </ul>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("PastWorkExperience", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+                <fieldset>
+                    <legend>Employee Past Work Experience</legend>
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.EmployerName, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.EmployerName, new {@class = "form-control", placeholder = "Please enter the employer name"})
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.EmployerLocation, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextAreaFor(m => m.EmployerLocation, new {@class = "form-control", placeholder = "Please enter the employer location"})
+                    </div>
+                    <div class="form-group col-md-12">
+
+                        @Html.LabelFor(m => m.EmployerContact, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.EmployerContact, new {@class = "form-control", placeholder = "Please enter the employer contact"})
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.StartDate, new {@class = "control-label"})<span class="req">*</span>
+                        @Html.TextBoxFor(m => m.StartDate, new {@class = "form-control startDate", placeholder = "Please select start date"})
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select end date"})
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.PositionHeld, "Position Held:", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.PositionHeld, new {@class = "form-control", placeholder = "Please enter the position held"})
+                    </div>
+                    <div class="form-group col-md-12">
+
+                        @Html.LabelFor(m => m.ReasonForLeaving, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextAreaFor(m => m.ReasonForLeaving, new {@class = "form-control", placeholder = "Please your reasons for leaving"})
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover" id="appusers">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployerName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployerLocation)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StartDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EndDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PositionHeld)
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if (pastWorkExperienceSession != null)
+                                {
+                                    foreach (var item in pastWorkExperienceSession)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmployerName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmployerLocation)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PositionHeld)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Remove", "RemovePastWorkExperience", new {item.FakeId}, new {@class = "btn btn-primary"})
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <hr/>
+
+                <div class="col-md-12">
+
+                    <a href="@Url.Action("EducationalQualification", "EmployeeManagement")" class="btn btn-default">Back</a>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
+                    <input type="submit" value="Add" class="btn btn-success pull-right"/>
+                    @if ((pastWorkExperienceSession != null) && (pastWorkExperienceSession.Count > 0))
+                    {
+                        <a href="@Url.Action("BankData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/plugins/moment/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script>
+
+        $(document)
+            .ready(function() {
+                // init datepicker for issue date
+                $('.startDate').datepicker();
+
+                // init datepicker for expiry date
+                $('.endDate').datepicker();
+
+                // set start date of expiry based on selected date of issue
+                $('.startDate')
+                    .datepicker()
+                    .on('changeDate',
+                        function(e) {
+
+                            // apply selected date as start date for expiry
+                            $('.endDate').datepicker('setStartDate', e.date);
+                        });
+
+
+            });
+    </script>
+}
