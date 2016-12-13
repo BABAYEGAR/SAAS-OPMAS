@@ -299,7 +299,11 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// This method remove an educational qualification from a session list
+        /// </summary>
+        /// <param name="fakeId"></param>
+        /// <returns></returns>
         public ActionResult RemoveEducationalQualification(long fakeId)
         {
             var employeeData = Session["Employee"] as Employee;
@@ -307,6 +311,17 @@ namespace Opmas.Controllers.EmployeeManagement
                 employeeData.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
             return View("EducationalQualification");
         }
+        /// <summary>
+        /// This method removes an educational qualification from a saved list
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemoveEducationalQualificationFromDatabase(long id)
+        {
+              var educationalQualifications =   _dbEmployee.EmployeeEducationalQualifications.ToList().RemoveAll(n => n.EmployeeEducationalQualificationId == id);
+            return View("ListOfEducationalQualification");
+        }
+
 
         public ActionResult RemoveBankData(long fakeId)
         {
@@ -358,6 +373,7 @@ namespace Opmas.Controllers.EmployeeManagement
             appUser.Role = UserType.Employee.ToString();
             appUser.EmployeeId = employeeId;
             appUser.Mobile = employee.MobilePhone;
+            appUser.InstitutionId = 1;
 
             //generate password and convert to md5 hash
             var password = Membership.GeneratePassword(8, 1);
@@ -390,9 +406,10 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeePersonalData = _dbEmployee.EmployeePersonalDatas.Find(id);
+            var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n=>n.EmployeeId == id);
             if (employeePersonalData == null)
                 return HttpNotFound();
+            ViewBag.State = new SelectList(_db.States, "StateId", "Name");
             return View(employeePersonalData);
         }
 
@@ -405,12 +422,16 @@ namespace Opmas.Controllers.EmployeeManagement
             [Bind(
                  Include =
                      "EmployeePersonalDataId,Firstname,Middlename,Lastname,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
-             )] EmployeePersonalData employeePersonalData)
+             )] EmployeePersonalData employeePersonalData,FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
-                employeePersonalData.DateOfBirth = Convert.ToDateTime("DateOfBirth");
+                employeePersonalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
+                var employeeId = collectedValues["EmployeeId"];
+                var employee = _dbEmployee.Employees.Find(employeeId);
+                employee.DateLastModified = DateTime.Now;
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
+                _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
                 return RedirectToAction("EditPersonalData");
             }
@@ -422,7 +443,7 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeeMedicalData = _dbEmployee.EmployeeMedicalDatas.Find(id);
+            var employeeMedicalData = _dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n=>n.EmployeeId == id);
             if (employeeMedicalData == null)
                 return HttpNotFound();
             return View(employeeMedicalData);
@@ -433,37 +454,42 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult EditMedicalData([Bind(
                  Include =
-                     "EmployeeMedicalDataId,EmployeeWorkDataId")]EmployeeMedicalData medicalData, EmployeeWorkData workData,
-            FormCollection collectedValues)
+                     "EmployeeMedicalDataId")]EmployeeMedicalData medicalData,FormCollection collectedValues)
         {
             var employeeId = collectedValues["EmployeeId"];
-            //collect data from form
-
             //medical data
             medicalData.BloodGroup = typeof(BloodGroup).GetEnumName(int.Parse(collectedValues["BloodGroup"]));
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
             medicalData.EmployeeId = Convert.ToInt64(employeeId);
-            //work data
-            workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
-            workData.PositionHeld = collectedValues["EmploymentPosition"];
-            workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
-            workData.EmploymentStatus = EmploymentStatus.Active.ToString();
-            workData.EmploymentStatus = EmploymentStatus.Active.ToString();
-            workData.EmployeeId = Convert.ToInt64(employeeId);
+
             //update data
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
-            _dbEmployee.Entry(workData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
             return RedirectToAction("ReviewEmployeeData");
         }
-
-        // GET: EmployeeManagement/EditEducationalQualification
-        public ActionResult EditEducationalQualification()
+        // GET: EmployeeManagement/ListOfEducationalQualification
+        public ActionResult ListOfEducationalQualification(long? id)
         {
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == id);
+            if (educationalQualification == null)
+                return HttpNotFound();
+            return View(educationalQualification);
+        }
+        // GET: EmployeeManagement/EditEducationalQualification
+        public ActionResult EditEducationalQualification(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == id);
+            if (educationalQualification == null)
+                return HttpNotFound();
+            return View(educationalQualification);
         }
 
+ 
         // POST: EmployeeManagement/EditEducationalQualification
         [HttpPost]
         [ValidateAntiForgeryToken]
