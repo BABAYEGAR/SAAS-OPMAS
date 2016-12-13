@@ -396,7 +396,7 @@ namespace Opmas.Controllers.EmployeeManagement
             return View(employeePersonalData);
         }
 
-        // POST: EmployeeManagement/Edit/5
+        // POST: EmployeeManagement/EditPersonalData/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

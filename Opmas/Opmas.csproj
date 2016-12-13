@@ -5122,10 +5122,10 @@
     <Content Include="Views\AppUsers\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_LayoutSystemAdminListItems.cshtml" />
-    <Content Include="Views\Shared\AdminMenuFooterButtons.cshtml" />
+    <Content Include="Views\Shared\FooterButtons.cshtml" />
     <Content Include="Views\Shared\_LayoutSystemAdminForm.cshtml" />
-    <Content Include="Views\Shared\AdminNavigationBar.cshtml" />
-    <Content Include="Views\Shared\AdminFooter.cshtml" />
+    <Content Include="Views\Shared\NavigationBar.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEmployeesByStatus.cshtml" />
     <Content Include="Views\EmployeeManagement\EditPersonalData.cshtml" />
     <Content Include="Views\Shared\InstitutionAdminSidebar.cshtml" />
@@ -5141,11 +5141,12 @@
     <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutInstitutionAdminListItems.cshtml" />
     <Content Include="Views\Shared\_LayoutInstitutionAdminForm.cshtml" />
-    <Content Include="Views\Shared\EmployeeAdminSidebar.cshtml" />
+    <Content Include="Views\Shared\UserSidebar.cshtml" />
     <Content Include="Views\EmployeeManagement\EditEducationalQualification.cshtml" />
     <Content Include="Views\EmployeeManagement\EditBankData .cshtml" />
     <Content Include="Views\EmployeeManagement\EditMedicalData.cshtml" />
     <Content Include="Views\EmployeeManagement\EditPastWorkExperience.cshtml" />
+    <Content Include="Views\Shared\_LayoutUserForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
