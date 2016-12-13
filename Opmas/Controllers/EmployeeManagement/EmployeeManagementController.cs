@@ -109,6 +109,37 @@ namespace Opmas.Controllers.EmployeeManagement
             return View("EducationalQualification");
         }
 
+        // GET: EmployeeManagement/CreateSingleEducationalQualification
+        public ActionResult CreateSingleEducationalQualification()
+        {
+            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.SingleOrDefault();
+            return View(educationalQualification);
+        }
+
+        // POST: EmployeeManagement/EducationalQualification
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSingleEducationalQualification([Bind(
+                 Include =
+                     "EmployeeEducationalQualificationId,InstitutionName,Location,StartDate,EndDate")]FormCollection collectedValues,EmployeeEducationalQualification educationalQualification)
+        {
+
+            educationalQualification.ClassOfDegree =
+                typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
+            educationalQualification.DegreeAttained =
+                typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+            educationalQualification.InstitutionName = collectedValues["InstitutionName"];
+            educationalQualification.Location = collectedValues["Location"];
+            educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
+            educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
+            educationalQualification.FakeId = 0;
+            educationalQualification.EmployeeId = 9;
+
+            _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
+            _dbEmployee.SaveChanges();
+
+            return View("ListOfEducationalQualification");
+        }
         // GET: EmployeeManagement/PastWorkExperience
         public ActionResult PastWorkExperience()
         {

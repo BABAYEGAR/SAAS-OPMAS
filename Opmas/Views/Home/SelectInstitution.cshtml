@@ -5,24 +5,24 @@
 @section css {
     <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 }
-@using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Get))
+@using (Html.BeginForm("SelectInstitution", "Home", new {ViewBag.ReturnUrl}, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-    <h1>Login Form</h1>
+    <h1>Select Institution</h1>
     <div class="form-group">
         <div>
-            @Html.DropDownList("Institution", (SelectList) ViewBag.Institutions, new {@class = "form-control select-dropdown"})
+            @Html.DropDownList("InstitutionId", (SelectList) ViewBag.Institutions, new {@class = "form-control select-dropdown"})
         </div>
     </div>
     <div>
-        <a class="btn btn-default submit" href="index.html">Next</a>
+        <input type="submit" value="Next" class="btn btn-default submit" />
     </div>
     <div class="clearfix"></div>
 
     <div class="separator">
         <p class="change_link">
-            <a href="#">Lost your password?</a>
+            <a href="#">Back to Master Home!</a>
         </p>
 
         <div class="clearfix"></div>

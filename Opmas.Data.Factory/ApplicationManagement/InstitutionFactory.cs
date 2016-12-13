@@ -22,5 +22,6 @@ namespace Opmas.Data.Factory.ApplicationManagement
             var institutions = allInstitutions;
             return institutions;
         }
+
     }
 }

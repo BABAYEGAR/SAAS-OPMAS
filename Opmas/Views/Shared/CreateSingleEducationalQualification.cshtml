@@ -1,0 +1,86 @@
+﻿@using Opmas.Data.Service.Enums
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutModalForm.cshtml";
+}
+@section css {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+}
+
+@using (Html.BeginForm("CreateSingleEducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    <div class="form-group">
+        @Html.Label("InstitutionName", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBox("Institution Name", null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter the institution name"})
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.Label("Location", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextArea("Location", null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter the institution location"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("StartDate", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBox("StartDate", null, new {@class = "form-control startDate col-md-7 col-xs-12", placeholder = "Please select a start date"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("EndDate", "End Date:", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBox("EndDate", null, new {@class = "form-control endDate col-md-7 col-xs-12", placeholder = "Please selectan end date"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("DegreeAttained", "Degree Attained:", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownList("DegreeAttained", EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown col-md-7 col-xs-12", id = "Role"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("ClassOfDegree", "Class Of Degree:", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownList("ClassOfDegree", EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), "select your class of degree", new {@class = "form-control select-dropdown col-md-7 col-xs-12", id = "Role"})
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+}
+
+
+@section scripts {
+    <script src="~/Scripts/plugins/moment/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script>
+
+        $(document)
+            .ready(function() {
+
+                // init datepicker for start date
+                $('.startDate').datepicker();
+
+                // init datepicker for end date
+                $('.endDate').datepicker();
+
+                // set start date of expiry based on selected date of end
+                $('.startDate')
+                    .datepicker()
+                    .on('changeDate',
+                        function(e) {
+
+                            // apply selected date as start date for expiry
+                            $('.endDate').datepicker('setStartDate', e.date);
+                        });
+            });
+    </script>
+}

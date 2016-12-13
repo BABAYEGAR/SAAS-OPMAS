@@ -6,7 +6,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-    <h1>Login Form</h1>
+    <h1>Login</h1>
     <div>
         @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Enter Your Email"})
     </div>
@@ -19,7 +19,7 @@
 
     </div>
     <div>
-        <a class="btn btn-default submit" href="index.html">Log in</a>
+        <input type="submit" value="Login" class="btn btn-default submit" />
     </div>
     <div class="clearfix"></div>
 

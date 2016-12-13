@@ -17,6 +17,8 @@
     <link href="~/Content/ManagementDashboard/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="~/Content/ManagementDashboard/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="~/Content/ManagementDashboard/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -24,59 +26,69 @@
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <!-- Select2 -->
+    <link href="~/Content/ManagementDashboard/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="~/Content/ManagementDashboard/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="~/Content/ManagementDashboard/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="~/Content/ManagementDashboard/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
+    @RenderSection("css", false)
 </head>
 
 <body class="nav-md">
 <div class="container body">
-<div class="main_container">
-<div class="col-md-3 left_col">
-    <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title">
-                <i class="fa fa-paw"></i> <span>OPMaS</span></a>
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title">
+                        <i class="fa fa-paw"></i> <span>OPMaS</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile">
+                    <div class="profile_pic">
+                        <img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                @{ Html.RenderPartial("UserSidebar"); }
+                <!-- /sidebar menu -->
+                <!-- /menu footer buttons -->
+                @{ Html.RenderPartial("FooterButtons"); }
+                <!-- /menu footer buttons -->
+            </div>
         </div>
 
-        <div class="clearfix"></div>
+        <!-- top navigation -->
+        @{ Html.RenderPartial("NavigationBar"); }
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>
+                            <small>@ViewBag.Header</small>
+                        </h3>
+                    </div>
 
-        <!-- menu profile quick info -->
-        <div class="profile">
-            <div class="profile_pic">
-                <img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="..." class="img-circle profile_img">
-            </div>
-            <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-            </div>
-        </div>
-        <!-- /menu profile quick info -->
-
-        <br/>
-
-        <!-- sidebar menu -->
-        @{ Html.RenderPartial("UserSidebar"); }
-        <!-- /sidebar menu -->
-        <!-- /menu footer buttons -->
-        @{ Html.RenderPartial("FooterButtons"); }
-        <!-- /menu footer buttons -->
-    </div>
-</div>
-
-    <!-- top navigation -->
-    @{ Html.RenderPartial("NavigationBar"); }
-    <!-- /top navigation -->
-<!-- page content -->
-<div class="right_col" role="main">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h3>
-                  <small>@ViewBag.Header</small>
-                </h3>
-            </div>
-
-            @*<div class="title_right">
+                    @*<div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for...">
@@ -86,57 +98,57 @@
                     </div>
                 </div>
             </div>*@
-        </div>
+                </div>
 
-        <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>
                            
-                        </h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
                                     <li>
-                                        <a href="#">Settings 1</a>
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="#">Settings 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Settings 2</a>
+                                        <a class="close-link">
+                                            <i class="fa fa-close"></i>
+                                        </a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li>
-                                <a class="close-link">
-                                    <i class="fa fa-close"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        @RenderBody()
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                @RenderBody()
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        @{ Html.RenderPartial("Footer"); }
+        <!-- /footer content -->
     </div>
-</div>
-<!-- /page content -->
-<!-- footer content -->
-@{ Html.RenderPartial("Footer"); }
-<!-- /footer content -->
-</div>
 </div>
 
 <!-- jQuery -->
@@ -167,9 +179,33 @@
 <script src="~/Content/ManagementDashboard/vendors/pdfmake/build/vfs_fonts.js"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="~/Content/ManagementDashboard/build/js/custom.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="~/Content/ManagementDashboard/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="~/Content/ManagementDashboard/vendors/moment/min/moment.min.js"></script>
+    <script src="~/Content/ManagementDashboard/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="~/Content/ManagementDashboard/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="~/Content/ManagementDashboard/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="~/Content/ManagementDashboard/vendors/google-code-prettify/src/prettify.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="~/Content/ManagementDashboard/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <!-- Switchery -->
+    <script src="~/Content/ManagementDashboard/vendors/switchery/dist/switchery.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/Content/ManagementDashboard/vendors/select2/dist/js/select2.full.min.js"></script>
+    <!-- Parsley -->
+    <script src="~/Content/ManagementDashboard/vendors/parsleyjs/dist/parsley.min.js"></script>
+    <!-- Autosize -->
+    <script src="~/Content/ManagementDashboard/vendors/autosize/dist/autosize.min.js"></script>
+    <!-- jQuery autocomplete -->
+    <script src="~/Content/ManagementDashboard/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <!-- starrr -->
+    <script src="~/Content/ManagementDashboard/vendors/starrr/dist/starrr.js"></script>
 
-<!-- Datatables -->
+    <!-- Custom Theme Scripts -->
+    <script src="~/Content/ManagementDashboard/build/js/custom.min.js"></script>
+
 <script>
     $(document)
         .ready(function() {
@@ -259,3 +295,4 @@
 <!-- /Datatables -->
 </body>
 </html>
+@RenderSection("scripts", false)

@@ -5151,6 +5151,9 @@
     <Content Include="Views\EmployeeManagement\ListOfPastWorkExperience.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfBankData.cshtml" />
     <Content Include="Views\Home\SelectInstitution.cshtml" />
+    <Content Include="Views\EmployeeManagement\CreateSingleEducationalQualification.cshtml" />
+    <Content Include="Views\Shared\CreateSingleEducationalQualification.cshtml" />
+    <Content Include="Views\Shared\_LayoutModalForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

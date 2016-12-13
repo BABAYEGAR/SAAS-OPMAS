@@ -1,4 +1,4 @@
-﻿@using Opmas.Data.Factory.EmployeeManagement
+﻿@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeeEducationalQualification>
 
 @{
@@ -6,54 +6,162 @@
     ViewBag.Header = "Educational Qualifications";
     ViewBag.Subheader = "List Of Educational Qualifications";
     Layout = "~/Views/Shared/_LayoutUserListItems.cshtml";
-
+    var data = Model.SingleOrDefault();
 }
-
+@section css {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+}
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InstitutionName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassOfDegree)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DegreeAttained)
-            </th>
-            <th>Action</th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InstitutionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassOfDegree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DegreeAttained)
+        </th>
+        <th>Action</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InstitutionName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClassOfDegree)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DegreeAttained)
-                </td>
-                <td>
-                    @Html.ActionLink("Remove", "ConvertEmployeeToAppUser", new { employeeId = item.EmployeeId }, new { @class = "btn btn-xs btn-success" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitutionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassOfDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DegreeAttained)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-success"})|
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                    Add
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                @using (Html.BeginForm("CreateSingleEducationalQualification", "EmployeeManagement", FormMethod.Post, new {enctype = "multipart/form-data"}))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3">
+                                            @Html.Label("Institution Name", new {@class = "control-label"}) <span class="req">*</span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.TextBox("InstitutionName", null, new {@class = "form-control", placeholder = "Please enter the institution name"})
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3">
+                                            @Html.Label("Location", new {@class = "control-label"})<span class="req">*</span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.TextArea("Location", null, new {@class = "form-control", placeholder = "Please enter the institution location"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3">
+                                            @Html.Label("StartDate", new {@class = "control-label"})<span class="req">*</span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.TextBox("StartDate", null, new {@class = "form-control startDate", placeholder = "Please select a start date"})
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3">
+                                            @Html.Label("EndDate", "End Date:", new {@class = "control-label"}) <span class="req">*</span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.TextBox("EndDate", null, new {@class = "form-control endDate", placeholder = "Please selectan end date"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3">
+                                            @Html.Label("DegreeAttained", "Degree Attained:", new {@class = "control-label"}) <span class="req">*</span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.DropDownList("DegreeAttained", EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "Role"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3">
+                                            @Html.Label("ClassOfDegree", "Class Of Degree:", new {@class = "control-label"}) <span class="req">*</span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @Html.DropDownList("ClassOfDegree", EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), "select your class of degree", new {@class = "form-control select-dropdown", id = "Role"})
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Create" class="btn btn-success pull-right"/>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+    }
     </tbody>
 
 </table>
+@section scripts {
+    <script src="~/Scripts/plugins/moment/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script>
+
+        $(document)
+            .ready(function() {
+
+                // init datepicker for start date
+                $('.startDate').datepicker();
+
+                // init datepicker for end date
+                $('.endDate').datepicker();
+
+                // set start date of expiry based on selected date of end
+                $('.startDate')
+                    .datepicker()
+                    .on('changeDate',
+                        function(e) {
+
+                            // apply selected date as start date for expiry
+                            $('.endDate').datepicker('setStartDate', e.date);
+                        });
+            });
+    </script>
+}
