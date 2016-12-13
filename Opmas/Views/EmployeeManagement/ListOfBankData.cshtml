@@ -1,0 +1,57 @@
+﻿@using Opmas.Data.Factory.EmployeeManagement
+@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeeBankData>
+
+@{
+    ViewBag.Title = "List";
+    ViewBag.Header = "Bank Data";
+    ViewBag.Subheader = "List Of Bank Data";
+    Layout = "~/Views/Shared/_LayoutUserListItems.cshtml";
+
+}
+
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountType)
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @foreach (var bankItem in Model)
+                {
+                    <td>
+                        @(new BankFactory().GetBankById(bankItem.EmployeeId).Name)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountType)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-success"})
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -478,6 +478,26 @@ namespace Opmas.Controllers.EmployeeManagement
                 return HttpNotFound();
             return View(educationalQualification);
         }
+        // GET: EmployeeManagement/ListOfPastWorkExperience
+        public ActionResult ListOfPastWorkExperience(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == id);
+            if (pastWorkExperience == null)
+                return HttpNotFound();
+            return View(pastWorkExperience);
+        }
+        // GET: EmployeeManagement/ListOfBankData
+        public ActionResult ListOfBankData(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var bankData = _dbEmployee.EmployeeBankDatas.Where(n => n.EmployeeId == id);
+            if (bankData == null)
+                return HttpNotFound();
+            return View(bankData);
+        }
         // GET: EmployeeManagement/EditEducationalQualification
         public ActionResult EditEducationalQualification(long? id)
         {

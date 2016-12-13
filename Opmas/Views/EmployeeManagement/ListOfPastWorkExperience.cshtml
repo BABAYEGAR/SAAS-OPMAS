@@ -1,10 +1,10 @@
 ﻿@using Opmas.Data.Factory.EmployeeManagement
-@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeeEducationalQualification>
+@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeePastWorkExperience>
 
 @{
     ViewBag.Title = "List";
-    ViewBag.Header = "Educational Qualifications";
-    ViewBag.Subheader = "List Of Educational Qualifications";
+    ViewBag.Header = "Past Work Experience";
+    ViewBag.Subheader = "List Of Past Work Experienc";
     Layout = "~/Views/Shared/_LayoutUserListItems.cshtml";
 
 }
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.InstitutionName)
+                @Html.DisplayNameFor(model => model.EmployerName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)
@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClassOfDegree)
+                @Html.DisplayNameFor(model => model.EmployerContact)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DegreeAttained)
+                @Html.DisplayNameFor(model => model.PositionHeld)
             </th>
             <th>Action</th>
         </tr>
@@ -35,7 +35,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.InstitutionName)
+                    @Html.DisplayFor(modelItem => item.EmployerName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)
@@ -44,10 +44,10 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClassOfDegree)
+                    @Html.DisplayFor(modelItem => item.EmployerContact)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DegreeAttained)
+                    @Html.DisplayFor(modelItem => item.PositionHeld)
                 </td>
                 <td>
                     @Html.ActionLink("Remove", "ConvertEmployeeToAppUser", new { employeeId = item.EmployeeId }, new { @class = "btn btn-xs btn-success" })

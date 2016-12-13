@@ -1,7 +1,8 @@
 ﻿@model Opmas.Data.Objects.Entities.Employee.EmployeePersonalData
 @{
-    ViewBag.Title = "Personal Data";
-    ViewBag.Header = "Edit Personal Data";
+    ViewBag.Title = "Edit";
+    ViewBag.Header = "Personal Data";
+    ViewBag.Subheader = "Edit Personal Data";
     Layout = "~/Views/Shared/_LayoutUserForm.cshtml";
 }
 
@@ -20,7 +21,6 @@
                 @Html.HiddenFor(m => m.EmployeeId)
                 @Html.HiddenFor(m => m.EmployeePersonalDataId)
                 <fieldset>
-                    <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Firstname, new {@class = "form-control", placeholder = "Please enter your first name"})

@@ -5148,6 +5148,8 @@
     <Content Include="Views\EmployeeManagement\EditPastWorkExperience.cshtml" />
     <Content Include="Views\Shared\_LayoutUserForm.cshtml" />
     <Content Include="Views\Shared\_LayoutUserListItems.cshtml" />
+    <Content Include="Views\EmployeeManagement\ListOfPastWorkExperience.cshtml" />
+    <Content Include="Views\EmployeeManagement\ListOfBankData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
