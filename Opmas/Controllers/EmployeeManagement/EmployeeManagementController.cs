@@ -121,7 +121,7 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleEducationalQualification([Bind(
                  Include =
-                     "EmployeeEducationalQualificationId,InstitutionName,Location,StartDate,EndDate")]FormCollection collectedValues,EmployeeEducationalQualification educationalQualification)
+                     "EmployeeEducationalQualificationId,InstitutionName,Location")]FormCollection collectedValues,EmployeeEducationalQualification educationalQualification)
         {
 
             educationalQualification.ClassOfDegree =
@@ -129,7 +129,6 @@ namespace Opmas.Controllers.EmployeeManagement
             educationalQualification.DegreeAttained =
                 typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
             educationalQualification.InstitutionName = collectedValues["InstitutionName"];
-            educationalQualification.Location = collectedValues["Location"];
             educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
             educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
             educationalQualification.FakeId = 0;
@@ -139,6 +138,24 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.SaveChanges();
 
             return View("ListOfEducationalQualification");
+        }
+        // POST: EmployeeManagement/CreateSingleBankData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSingleBankData([Bind(
+                 Include =
+                     "EmployeeBankDataId,BankId,AccountName,AccountNumber")]FormCollection collectedValues, EmployeeBankData employeeBankData)
+        {
+
+            employeeBankData.AccountType =
+                typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"]));
+            employeeBankData.FakeId = 0;
+            employeeBankData.EmployeeId = 9;
+
+            _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
+            _dbEmployee.SaveChanges();
+
+            return View("ListOfBankData");
         }
         // GET: EmployeeManagement/PastWorkExperience
         public ActionResult PastWorkExperience()
@@ -525,6 +542,7 @@ namespace Opmas.Controllers.EmployeeManagement
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var bankData = _dbEmployee.EmployeeBankDatas.Where(n => n.EmployeeId == id);
+            ViewBag.Banks = new SelectList(_dbBanks.Banks, "BankId", "Name");
             if (bankData == null)
                 return HttpNotFound();
             return View(bankData);
