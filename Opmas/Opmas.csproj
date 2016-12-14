@@ -5053,6 +5053,15 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UploadedFiles\Logo\131240526357000792.jpg" />
+    <Content Include="UploadedFiles\Logo\131240549106003283.jpg" />
+    <Content Include="UploadedFiles\Logo\131240549574895049.jpg" />
+    <Content Include="UploadedFiles\Logo\131240556592861617.jpg" />
+    <Content Include="UploadedFiles\Logo\131259775935867003.png" />
+    <Content Include="UploadedFiles\ProfileImage\131258772047104931.JPG" />
+    <Content Include="UploadedFiles\ProfileImage\131262285628655796.jpg" />
+    <Content Include="UploadedFiles\ProfileImage\131262288270000555.jpg" />
+    <Content Include="UploadedFiles\ProfileImage\131262294730509246.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5154,7 +5163,7 @@
     <Content Include="Views\Shared\CreateSingleBankData.cshtml" />
     <Content Include="Views\Shared\CreateSinglePastWorkExperience.cshtml" />
     <Content Include="Views\Shared\_LayoutUserDashboard.cshtml" />
-    <Content Include="Views\EmployeeManagement\EmployeeIndex.cshtml" />
+    <Content Include="Views\Home\EmployeeIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutSystemAdminDashboard.cshtml" />
     <Content Include="Views\Home\SystemAdminIndex.cshtml" />
   </ItemGroup>

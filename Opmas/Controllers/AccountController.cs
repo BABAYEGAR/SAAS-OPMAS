@@ -83,7 +83,7 @@ namespace Opmas.Controllers
                 Session["opmasloggedinuser"] = appuser;
                 if (appuser.Role == UserType.Employee.ToString())
                 {
-                    return RedirectToAction("EmployeeIndex","EmployeeManagement");
+                    return RedirectToAction("EmployeeIndex","Home");
                 }
                 if (appuser.Role == UserType.Dean.ToString())
                 {

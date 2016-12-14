@@ -29,6 +29,12 @@ namespace Opmas.Controllers
         {
             return View();
         }
+
+        // GET: Index
+        public ActionResult EmployeeIndex()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View();

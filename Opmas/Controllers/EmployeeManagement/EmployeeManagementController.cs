@@ -24,11 +24,6 @@ namespace Opmas.Controllers.EmployeeManagement
         private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
         private Employee _employee = new Employee();
 
-        // GET: Index
-        public ActionResult EmployeeIndex()
-        {
-            return View();
-        }
 
         #region Fetch data
 
