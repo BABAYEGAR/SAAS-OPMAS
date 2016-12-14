@@ -157,37 +157,19 @@ namespace Opmas.Controllers.EmployeeManagement
 
             return View("ListOfBankData");
         }
-        // GET: EmployeeManagement/PastWorkExperience
-        public ActionResult PastWorkExperience()
-        {
-            return View();
-        }
-
         // POST: EmployeeManagement/PastWorkExperience
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PastWorkExperience(FormCollection collectedValues)
+        public ActionResult CreateSinglePastWorkExperience([Bind(
+                 Include ="EmployeePastWorkExperienceId,EmployerName,EmployerLocation,EmployerContact,PositionHeld,ReasonForLeaving,StartDate,EndDate")]FormCollection collectedValues,
+            EmployeePastWorkExperience pastWorkExperience)
         {
-            _employee = Session["Employee"] as Employee;
-            if (_employee != null)
-            {
-                if (_employee.EmployeePastWorkExperiences == null)
-                    _employee.EmployeePastWorkExperiences = new List<EmployeePastWorkExperience>();
-                _employee.EmployeePastWorkExperiences.Add(new EmployeePastWorkExperience
-                {
-                    EmployerName = collectedValues["EmployerName"],
-                    EmployerLocation = collectedValues["EmployerLocation"],
-                    EmployerContact = collectedValues["EmployerContact"],
-                    PositionHeld = collectedValues["PositionHeld"],
-                    ReasonForLeaving = collectedValues["ReasonForLeaving"],
-                    StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
-                    EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
-                    FakeId = _employee.EmployeePastWorkExperiences.Count + 1
-                });
-                //store data in a session
-                Session["Employee"] = _employee;
-            }
-            return View("PastWorkExperience");
+            pastWorkExperience.FakeId = 0;
+            pastWorkExperience.EmployeeId = 9;
+
+            _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
+            _dbEmployee.SaveChanges();
+            return View("ListOfPastWorkExperience");
         }
 
         // GET: EmployeeManagement/BankData
@@ -360,17 +342,41 @@ namespace Opmas.Controllers.EmployeeManagement
             return View("EducationalQualification");
         }
         /// <summary>
-        /// This method removes an educational qualification from a saved list
+        /// This method remove an educational qualification by its id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult RemoveEducationalQualificationFromDatabase(long id)
+        public ActionResult RemoveEducationalQualificationById(long id)
         {
-              var educationalQualifications =   _dbEmployee.EmployeeEducationalQualifications.ToList().RemoveAll(n => n.EmployeeEducationalQualificationId == id);
+            var educaionalQualification = _dbEmployee.EmployeeEducationalQualifications.Find(id);
+            _dbEmployee.EmployeeEducationalQualifications.Remove(educaionalQualification);
+            _dbEmployee.SaveChanges();
             return View("ListOfEducationalQualification");
         }
-
-
+        /// <summary>
+        /// This method remove a past work experience by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemovePastWorkExperienceById(long id)
+        {
+            var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Find(id);
+            _dbEmployee.EmployeePastWorkExperiences.Remove(pastWorkExperience);
+            _dbEmployee.SaveChanges();
+            return View("ListOfPastWorkExperience");
+        }
+        /// <summary>
+        /// This method remove a bank data by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemoveBankDataById(long id)
+        {
+            var bankData = _dbEmployee.EmployeeBankDatas.Find(id);
+            _dbEmployee.EmployeeBankDatas.Remove(bankData);
+            _dbEmployee.SaveChanges();
+            return View("ListOfBankData");
+        }
         public ActionResult RemoveBankData(long fakeId)
         {
             var employeeData = Session["Employee"] as Employee;
