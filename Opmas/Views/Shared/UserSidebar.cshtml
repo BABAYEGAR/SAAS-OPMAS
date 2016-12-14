@@ -1,4 +1,8 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.Enums
+@{
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+}
 <!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
@@ -8,22 +12,22 @@
                 <a><i class="fa fa-users"></i> Record Management <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("EditPersonalData","EmployeeManagement")">Personal Data</a>
+                        <a href="@Url.Action("EditPersonalData","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Personal Data</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEducationalQualification","EmployeeManagement")">Educational Qualification</a>
+                        <a href="@Url.Action("ListOfEducationalQualification","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Educational Qualification</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfPastWorkExperience","EmployeeManagement")">Past Work Experience</a>
+                        <a href="@Url.Action("ListOfPastWorkExperience","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Past Work Experience</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfBankData","EmployeeManagement")">Bank Data</a>
+                        <a href="@Url.Action("ListOfBankData","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Bank Data</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfBankData","EmployeeManagement")">Medical Data</a>
+                        <a href="@Url.Action("ListOfBankData","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Medical Data</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("EditMedicalData","EmployeeManagement")">Work Data</a>
+                        <a href="@Url.Action("EditMedicalData","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Work Data</a>
                     </li>
                 </ul>
             </li>

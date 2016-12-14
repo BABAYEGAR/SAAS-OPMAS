@@ -1,4 +1,8 @@
-﻿<div class="top_nav">
+﻿@using Opmas.Data.Objects.Entities.User
+@{
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+}
+<div class="top_nav">
     <div class="nav_menu">
         <nav>
             <div class="nav toggle">
@@ -42,7 +46,7 @@
                             <a>
                                 <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
                                 <span>
-                                    <span>John Smith</span>
+                                    <span>@loggedinuser.DisplayName</span>
                                     <span class="time">3 mins ago</span>
                                 </span>
                                 <span class="message">
