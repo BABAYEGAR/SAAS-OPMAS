@@ -8,6 +8,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Opmas.Data.DataContext.DataContext.SystemDataContext;
+using Opmas.Data.DataContext.DataContext.UserDataContext;
+using Opmas.Data.Factory.AuthenticationManagement;
+using Opmas.Data.Service.Enums;
 using Opmas.Models;
 
 namespace Opmas.Controllers
@@ -17,6 +21,7 @@ namespace Opmas.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly AppUserDataContext _db = new AppUserDataContext();
 
         public AccountController()
         {
@@ -71,6 +76,31 @@ namespace Opmas.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+            var appuser = new AuthenticationFactory().AuthenticateAppUserLogin(model.Email, model.Password);
+            if (appuser != null)
+            {       
+                Session["opmasloggedinuser"] = appuser;
+                if (appuser.Role == UserType.Employee.ToString())
+                {
+                    return RedirectToAction("EmployeeIndex","EmployeeManagement");
+                }
+                if (appuser.Role == UserType.Dean.ToString())
+                {
+                    return RedirectToAction("");
+                }
+                if (appuser.Role == UserType.HOD.ToString())
+                {
+                    return RedirectToAction("");
+                }
+                if (appuser.Role == UserType.ViceChancellor.ToString())
+                {
+                    return RedirectToAction("");
+                }
+                if (appuser.Role == UserType.Registrar.ToString())
+                {
+                    return RedirectToAction("");
+                }
             }
 
             // This doesn't count login failures towards account lockout

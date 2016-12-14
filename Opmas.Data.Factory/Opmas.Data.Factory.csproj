@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationManagement\AppUserFactory.cs" />
     <Compile Include="ApplicationManagement\InstitutionFactory.cs" />
+    <Compile Include="AuthenticationManagement\AuthenticationFactory.cs" />
     <Compile Include="EmployeeManagement\BankFactory.cs" />
     <Compile Include="EmployeeManagement\EmployeeFactory.cs" />
     <Compile Include="EmployeeManagement\StateFactory.cs" />

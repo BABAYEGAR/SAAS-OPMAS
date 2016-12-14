@@ -24,6 +24,13 @@ namespace Opmas.Controllers.EmployeeManagement
         private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
         private Employee _employee = new Employee();
 
+        // GET: Index
+        public ActionResult EmployeeIndex()
+        {
+            return View();
+        }
+
+
         /// <summary>
         ///     Sends Json responds object to view with lga of the state requested via an Ajax call
         /// </summary>

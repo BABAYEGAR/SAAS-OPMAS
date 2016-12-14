@@ -5153,6 +5153,8 @@
     <Content Include="Views\Shared\_LayoutModalForm.cshtml" />
     <Content Include="Views\Shared\CreateSingleBankData.cshtml" />
     <Content Include="Views\Shared\CreateSinglePastWorkExperience.cshtml" />
+    <Content Include="Views\Shared\_LayoutUserDashboard.cshtml" />
+    <Content Include="Views\EmployeeManagement\EmployeeIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
