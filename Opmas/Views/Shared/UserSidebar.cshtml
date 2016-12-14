@@ -2,6 +2,11 @@
 @using Opmas.Data.Service.Enums
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser == null)
+    {
+        new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        return;
+    }
 }
 <!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -25,9 +30,6 @@
                     </li>
                     <li>
                         <a href="@Url.Action("EditMedicalData","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Medical Data</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("","EmployeeManagement",new {id = loggedinuser.EmployeeId})">Work Data</a>
                     </li>
                 </ul>
             </li>

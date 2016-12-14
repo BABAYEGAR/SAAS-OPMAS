@@ -30,6 +30,7 @@ namespace Opmas.Controllers.EmployeeManagement
             return View();
         }
 
+        #region Fetch data
 
         /// <summary>
         ///     Sends Json responds object to view with lga of the state requested via an Ajax call
@@ -42,6 +43,30 @@ namespace Opmas.Controllers.EmployeeManagement
             var lgas = new StateFactory().GetLgaForState(id);
             return Json(lgas, JsonRequestBehavior.AllowGet);
         }
+
+        // GET: EmployeeManagement/ListOfEmployeesByStatus
+        public ActionResult ListOfEmployeesByStatus(string status)
+        {
+            var employees = new EmployeeFactory().GetAllEmployeesByStatus(status);
+            return View(employees.ToList());
+        }
+
+        // GET: EmployeeManagement/ListOfEmployeesInactive
+        public ActionResult ListOfEmployeesInactive(string status)
+        {
+            var employees = new EmployeeFactory().GetAllInactiveEmployees(status);
+            return View("ListOfEmployeesByStatus", employees);
+        }
+
+        // GET: EmployeeManagement/ListOfEmployees
+        public ActionResult ListOfEmployees()
+        {
+            return View(_dbEmployee.Employees.ToList());
+        }
+
+        #endregion
+
+        #region Employee Process  
 
         // GET: EmployeeManagement/PersonalData
         public ActionResult PersonalData()
@@ -114,81 +139,6 @@ namespace Opmas.Controllers.EmployeeManagement
                 Session["Employee"] = _employee;
             }
             return View("EducationalQualification");
-        }
-
-        // GET: EmployeeManagement/CreateSingleEducationalQualification
-        public ActionResult CreateSingleEducationalQualification()
-        {
-            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.SingleOrDefault();
-            return View(educationalQualification);
-        }
-
-        // POST: EmployeeManagement/EducationalQualification
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateSingleEducationalQualification([Bind(
-                 Include =
-                     "EmployeeEducationalQualificationId,InstitutionName,Location")]FormCollection collectedValues,EmployeeEducationalQualification educationalQualification)
-        {
-            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            if (loggedinuser != null)
-            {
-                educationalQualification.ClassOfDegree =
-                    typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
-                educationalQualification.DegreeAttained =
-                    typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-                educationalQualification.InstitutionName = collectedValues["InstitutionName"];
-                educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
-                educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                educationalQualification.FakeId = 0;
-
-                if (loggedinuser.EmployeeId != null)
-                {
-                    educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
-                }
-            }
-
-            _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
-            _dbEmployee.SaveChanges();
-
-            return View("ListOfEducationalQualification");
-        }
-        // POST: EmployeeManagement/CreateSingleBankData
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateSingleBankData([Bind(
-                 Include =
-                     "EmployeeBankDataId,BankId,AccountName,AccountNumber")]FormCollection collectedValues, EmployeeBankData employeeBankData)
-        {
-            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            if (loggedinuser != null)
-            {
-                employeeBankData.AccountType =
-                    typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"]));
-                employeeBankData.FakeId = 0;
-                if (loggedinuser.EmployeeId != null) { employeeBankData.EmployeeId = (long) loggedinuser.EmployeeId;}
-            }
-            _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
-            _dbEmployee.SaveChanges();
-
-            return View("ListOfBankData");
-        }
-        // POST: EmployeeManagement/PastWorkExperience
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateSinglePastWorkExperience([Bind(
-                 Include ="EmployeePastWorkExperienceId,EmployerName,EmployerLocation,EmployerContact,PositionHeld,ReasonForLeaving,StartDate,EndDate")]FormCollection collectedValues,
-            EmployeePastWorkExperience pastWorkExperience)
-        {
-            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            if (loggedinuser != null)
-            {
-                pastWorkExperience.FakeId = 0;
-                if (loggedinuser.EmployeeId != null) { pastWorkExperience.EmployeeId = (long) loggedinuser.EmployeeId;}
-            }
-            _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
-            _dbEmployee.SaveChanges();
-            return View("ListOfPastWorkExperience");
         }
 
         // GET: EmployeeManagement/BankData
@@ -348,8 +298,139 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.SaveChanges();
             }
         }
+
+        #endregion
+
+        #region single employee data  
+
+        // GET: EmployeeManagement/CreateSingleEducationalQualification
+        public ActionResult CreateSingleEducationalQualification()
+        {
+            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.SingleOrDefault();
+            return View(educationalQualification);
+        }
+
+        // POST: EmployeeManagement/EducationalQualification
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSingleEducationalQualification([Bind(
+                                                                      Include =
+                                                                          "EmployeeEducationalQualificationId,InstitutionName,Location"
+                                                                  )] FormCollection collectedValues,
+            EmployeeEducationalQualification educationalQualification)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                educationalQualification.ClassOfDegree =
+                    typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
+                educationalQualification.DegreeAttained =
+                    typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                educationalQualification.InstitutionName = collectedValues["InstitutionName"];
+                educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                educationalQualification.FakeId = 0;
+
+                if (loggedinuser.EmployeeId != null)
+                    educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
+            }
+
+            _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
+            _dbEmployee.SaveChanges();
+
+            return View("ListOfEducationalQualification");
+        }
+
+        // POST: EmployeeManagement/CreateSingleBankData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSingleBankData([Bind(
+                                                      Include =
+                                                          "EmployeeBankDataId,BankId,AccountName,AccountNumber")] FormCollection collectedValues, EmployeeBankData employeeBankData)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                employeeBankData.AccountType =
+                    typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"]));
+                employeeBankData.FakeId = 0;
+                if (loggedinuser.EmployeeId != null) employeeBankData.EmployeeId = (long) loggedinuser.EmployeeId;
+            }
+            _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
+            _dbEmployee.SaveChanges();
+
+            return View("ListOfBankData");
+        }
+
+        // POST: EmployeeManagement/PastWorkExperience
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSinglePastWorkExperience([Bind(
+                                                                Include =
+                                                                    "EmployeePastWorkExperienceId,EmployerName,EmployerLocation,EmployerContact,PositionHeld,ReasonForLeaving,StartDate,EndDate"
+                                                            )] FormCollection collectedValues,
+            EmployeePastWorkExperience pastWorkExperience)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                pastWorkExperience.FakeId = 0;
+                if (loggedinuser.EmployeeId != null) pastWorkExperience.EmployeeId = (long) loggedinuser.EmployeeId;
+            }
+            _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
+            _dbEmployee.SaveChanges();
+            return View("ListOfPastWorkExperience");
+        }
+
+        #endregion
+
+        #region Remove employee data by Id
+
         /// <summary>
-        /// This method remove an educational qualification from a session list
+        ///     This method remove an educational qualification by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemoveEducationalQualificationById(long id)
+        {
+            var educaionalQualification = _dbEmployee.EmployeeEducationalQualifications.Find(id);
+            _dbEmployee.EmployeeEducationalQualifications.Remove(educaionalQualification);
+            _dbEmployee.SaveChanges();
+            return RedirectToAction("ListOfEducationalQualification", new {id = educaionalQualification.EmployeeId});
+        }
+
+        /// <summary>
+        ///     This method remove a past work experience by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemovePastWorkExperienceById(long id)
+        {
+            var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Find(id);
+            _dbEmployee.EmployeePastWorkExperiences.Remove(pastWorkExperience);
+            _dbEmployee.SaveChanges();
+            return RedirectToAction("ListOfPastWorkExperience", new {id = pastWorkExperience.EmployeeId});
+        }
+
+        /// <summary>
+        ///     This method remove a bank data by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemoveBankDataById(long id)
+        {
+            var bankData = _dbEmployee.EmployeeBankDatas.Find(id);
+            _dbEmployee.EmployeeBankDatas.Remove(bankData);
+            _dbEmployee.SaveChanges();
+            return RedirectToAction("ListOfBankData", new {id = bankData.EmployeeId});
+        }
+
+        #endregion
+
+        #region Remove employee data from session
+
+        /// <summary>
+        ///     This method remove an educational qualification from a session list
         /// </summary>
         /// <param name="fakeId"></param>
         /// <returns></returns>
@@ -360,42 +441,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 employeeData.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
             return View("EducationalQualification");
         }
-        /// <summary>
-        /// This method remove an educational qualification by its id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult RemoveEducationalQualificationById(long id)
-        {
-            var educaionalQualification = _dbEmployee.EmployeeEducationalQualifications.Find(id);
-            _dbEmployee.EmployeeEducationalQualifications.Remove(educaionalQualification);
-            _dbEmployee.SaveChanges();
-            return View("ListOfEducationalQualification");
-        }
-        /// <summary>
-        /// This method remove a past work experience by its id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult RemovePastWorkExperienceById(long id)
-        {
-            var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Find(id);
-            _dbEmployee.EmployeePastWorkExperiences.Remove(pastWorkExperience);
-            _dbEmployee.SaveChanges();
-            return View("ListOfPastWorkExperience");
-        }
-        /// <summary>
-        /// This method remove a bank data by its id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult RemoveBankDataById(long id)
-        {
-            var bankData = _dbEmployee.EmployeeBankDatas.Find(id);
-            _dbEmployee.EmployeeBankDatas.Remove(bankData);
-            _dbEmployee.SaveChanges();
-            return View("ListOfBankData");
-        }
+
         public ActionResult RemoveBankData(long fakeId)
         {
             var employeeData = Session["Employee"] as Employee;
@@ -413,11 +459,9 @@ namespace Opmas.Controllers.EmployeeManagement
             return View("PastWorkExperience");
         }
 
-        // GET: EmployeeManagement/ListOfEmployees
-        public ActionResult ListOfEmployees()
-        {
-            return View(_dbEmployee.Employees.ToList());
-        }
+        #endregion
+
+        #region Convert employee to application user
 
         // GET: EmployeeManagement/ConvertEmployeeToAppUser
         public ActionResult ConvertEmployeeToAppUser(long employeeId)
@@ -460,26 +504,16 @@ namespace Opmas.Controllers.EmployeeManagement
             return View("ListOfEmployees", employees);
         }
 
-        // GET: EmployeeManagement/ListOfEmployeesByStatus
-        public ActionResult ListOfEmployeesByStatus(string status)
-        {
-            var employees = new EmployeeFactory().GetAllEmployeesByStatus(status);
-            return View(employees.ToList());
-        }
+        #endregion
 
-        // GET: EmployeeManagement/ListOfEmployeesInactive
-        public ActionResult ListOfEmployeesInactive(string status)
-        {
-            var employees = new EmployeeFactory().GetAllInactiveEmployees(status);
-            return View("ListOfEmployeesByStatus", employees);
-        }
+        #region Edit Employee data
 
         // GET: EmployeeManagement/EditPersonalData/5
         public ActionResult EditPersonalData(long? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n=>n.EmployeeId == id);
+            var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeePersonalData == null)
                 return HttpNotFound();
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
@@ -495,7 +529,7 @@ namespace Opmas.Controllers.EmployeeManagement
             [Bind(
                  Include =
                      "EmployeePersonalDataId,Firstname,Middlename,Lastname,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
-             )] EmployeePersonalData employeePersonalData,FormCollection collectedValues)
+             )] EmployeePersonalData employeePersonalData, FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
@@ -506,7 +540,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
-                return RedirectToAction("EditPersonalData");
+                return RedirectToAction("EmployeeIndex");
             }
             return View(employeePersonalData);
         }
@@ -516,7 +550,7 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeeMedicalData = _dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n=>n.EmployeeId == id);
+            var employeeMedicalData = _dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeMedicalData == null)
                 return HttpNotFound();
             return View(employeeMedicalData);
@@ -526,8 +560,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditMedicalData([Bind(
-                 Include =
-                     "EmployeeMedicalDataId")]EmployeeMedicalData medicalData,FormCollection collectedValues)
+                                                 Include =
+                                                     "EmployeeMedicalDataId")] EmployeeMedicalData medicalData,
+            FormCollection collectedValues)
         {
             var employeeId = collectedValues["EmployeeId"];
             //medical data
@@ -539,28 +574,31 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("ReviewEmployeeData");
+            return RedirectToAction("EmployeeIndex");
         }
+
+        #endregion
+
+        #region List of employee data
+
         // GET: EmployeeManagement/ListOfEducationalQualification
         public ActionResult ListOfEducationalQualification(long? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == id);
-            if (educationalQualification == null)
-                return HttpNotFound();
             return View(educationalQualification);
         }
+
         // GET: EmployeeManagement/ListOfPastWorkExperience
         public ActionResult ListOfPastWorkExperience(long? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == id);
-            if (pastWorkExperience == null)
-                return HttpNotFound();
             return View(pastWorkExperience);
         }
+
         // GET: EmployeeManagement/ListOfBankData
         public ActionResult ListOfBankData(long? id)
         {
@@ -568,46 +606,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var bankData = _dbEmployee.EmployeeBankDatas.Where(n => n.EmployeeId == id);
             ViewBag.Banks = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            if (bankData == null)
-                return HttpNotFound();
             return View(bankData);
         }
-        // GET: EmployeeManagement/EditEducationalQualification
-        public ActionResult EditEducationalQualification(long? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == id);
-            if (educationalQualification == null)
-                return HttpNotFound();
-            return View(educationalQualification);
-        }
 
- 
-        // POST: EmployeeManagement/EditEducationalQualification
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditEducationalQualification(
-            EmployeeEducationalQualification employeeEducationalQualification, FormCollection collectedValues)
-        {
-            var employeeId = long.Parse(collectedValues["EmployeeId"]);
-            _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification
-            {
-                ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
-                DegreeAttained = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"])),
-                InstitutionName = collectedValues["InstitutionName"],
-                Location = collectedValues["Location"],
-                StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
-                EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
-                FakeId = _employee.EmployeeEducationalQualifications.Count + 1
-            });
-            var employee = _dbEmployee.Employees.Find(employeeId);
-            foreach (
-                var employeeDataEmployeeEducationalQualification in employee.EmployeeEducationalQualifications)
-                _dbEmployee.EmployeeEducationalQualifications.Add(employeeDataEmployeeEducationalQualification);
-            _dbEmployee.Entry(employeeEducationalQualification).State = EntityState.Modified;
-            _dbEmployee.SaveChanges();
-            return View();
-        }
+        #endregion
     }
 }
