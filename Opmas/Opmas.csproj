@@ -5166,6 +5166,8 @@
     <Content Include="Views\Home\EmployeeIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutSystemAdminDashboard.cshtml" />
     <Content Include="Views\Home\SystemAdminIndex.cshtml" />
+    <Content Include="Views\Home\InstitutionAdminIndex.cshtml" />
+    <Content Include="Views\Shared\_LayoutInstitutionAdminDashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

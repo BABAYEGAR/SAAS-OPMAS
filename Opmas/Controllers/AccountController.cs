@@ -107,7 +107,7 @@ namespace Opmas.Controllers
                 }
                 if (appuser.Role == AdminUserType.InstitutionAdministrator.ToString())
                 {
-                    return RedirectToAction("");
+                    return RedirectToAction("InstitutionAdminIndex","Home");
                 }
             }
 

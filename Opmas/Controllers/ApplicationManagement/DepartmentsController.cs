@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Objects.Entities.SystemManagement;
+using Opmas.Data.Objects.Entities.User;
 
 namespace Opmas.Controllers.ApplicationManagement
 {
@@ -50,13 +51,19 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentId,Name,FacultyId,InstitutionId")] Department department)
+        public ActionResult Create([Bind(Include = "DepartmentId,Name,FacultyId")] Department department)
         {
-            if (ModelState.IsValid)
-            {
-                db.Departments.Add(department);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var institution = Session["institution"] as Institution;
+            if (institution != null)
+            { 
+                if (ModelState.IsValid)
+                {
+                    department.InstitutionId = institution.InstitutionId;
+                    db.Departments.Add(department);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
