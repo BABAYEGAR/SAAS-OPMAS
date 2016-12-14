@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201612122226139_AppuserMigrateOne.Designer.cs">
       <DependentUpon>201612122226139_AppuserMigrateOne.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612142239187_AppuserMiograteTwo.cs" />
+    <Compile Include="Migrations\201612142239187_AppuserMiograteTwo.Designer.cs">
+      <DependentUpon>201612142239187_AppuserMiograteTwo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -136,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612122226139_AppuserMigrateOne.resx">
       <DependentUpon>201612122226139_AppuserMigrateOne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612142239187_AppuserMiograteTwo.resx">
+      <DependentUpon>201612142239187_AppuserMiograteTwo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

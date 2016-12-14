@@ -25,6 +25,10 @@ namespace Opmas.Controllers
             Session["institution"] = institution;
             return RedirectToAction("Login","Account");
         }
+        public ActionResult SystemAdminIndex()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View();

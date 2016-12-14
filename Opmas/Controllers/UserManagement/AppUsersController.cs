@@ -10,6 +10,7 @@ using System.Web.Security;
 using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.TextFormatter;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
 using Opmas.Data.Service.FileUploader;
@@ -56,22 +57,26 @@ namespace Opmas.Controllers.UserManagement
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile")] AppUser appUser,FormCollection collectedValues)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
-                HttpPostedFileBase profileImage = Request.Files["avatar-2"];
-                appUser.EmployeeId = null;
-                appUser.DateLastModified = DateTime.Now;
-                appUser.DateCreated = DateTime.Now;
-                appUser.LastModifiedBy = 0;
-                appUser.CreatedBy = 0;
-                appUser.Role = typeof(AdminUserType).GetEnumName(int.Parse(collectedValues["Role"]));
-                appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
-                //generate password and convert to md5 hash
-                var password = Membership.GeneratePassword(8, 1);
-                var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
-                appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-
-
+                if (loggedinuser != null && institution != null)
+                {
+                    HttpPostedFileBase profileImage = Request.Files["avatar-2"];
+                    appUser.EmployeeId = loggedinuser.EmployeeId;
+                    appUser.InstitutionId = institution.InstitutionId;
+                    appUser.DateLastModified = DateTime.Now;
+                    appUser.DateCreated = DateTime.Now;
+                    appUser.LastModifiedBy = loggedinuser.AppUserId;
+                    appUser.CreatedBy = loggedinuser.AppUserId;
+                    appUser.Role = typeof(AdminUserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                    appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
+                    //generate password and convert to md5 hash
+                    var password = Membership.GeneratePassword(8, 1);
+                    var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                    appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+                }
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");

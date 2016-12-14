@@ -101,6 +101,14 @@ namespace Opmas.Controllers
                 {
                     return RedirectToAction("");
                 }
+                if (appuser.Role == AdminUserType.SystemAdministrator.ToString())
+                {
+                    return RedirectToAction("SystemAdminIndex","Home");
+                }
+                if (appuser.Role == AdminUserType.InstitutionAdministrator.ToString())
+                {
+                    return RedirectToAction("");
+                }
             }
 
             // This doesn't count login failures towards account lockout
