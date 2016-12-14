@@ -130,16 +130,23 @@ namespace Opmas.Controllers.EmployeeManagement
                  Include =
                      "EmployeeEducationalQualificationId,InstitutionName,Location")]FormCollection collectedValues,EmployeeEducationalQualification educationalQualification)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                educationalQualification.ClassOfDegree =
+                    typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
+                educationalQualification.DegreeAttained =
+                    typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                educationalQualification.InstitutionName = collectedValues["InstitutionName"];
+                educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                educationalQualification.FakeId = 0;
 
-            educationalQualification.ClassOfDegree =
-                typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
-            educationalQualification.DegreeAttained =
-                typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-            educationalQualification.InstitutionName = collectedValues["InstitutionName"];
-            educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
-            educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
-            educationalQualification.FakeId = 0;
-            educationalQualification.EmployeeId = 9;
+                if (loggedinuser.EmployeeId != null)
+                {
+                    educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
+                }
+            }
 
             _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
             _dbEmployee.SaveChanges();
@@ -153,12 +160,14 @@ namespace Opmas.Controllers.EmployeeManagement
                  Include =
                      "EmployeeBankDataId,BankId,AccountName,AccountNumber")]FormCollection collectedValues, EmployeeBankData employeeBankData)
         {
-
-            employeeBankData.AccountType =
-                typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"]));
-            employeeBankData.FakeId = 0;
-            employeeBankData.EmployeeId = 9;
-
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                employeeBankData.AccountType =
+                    typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"]));
+                employeeBankData.FakeId = 0;
+                if (loggedinuser.EmployeeId != null) { employeeBankData.EmployeeId = (long) loggedinuser.EmployeeId;}
+            }
             _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
             _dbEmployee.SaveChanges();
 
@@ -171,9 +180,12 @@ namespace Opmas.Controllers.EmployeeManagement
                  Include ="EmployeePastWorkExperienceId,EmployerName,EmployerLocation,EmployerContact,PositionHeld,ReasonForLeaving,StartDate,EndDate")]FormCollection collectedValues,
             EmployeePastWorkExperience pastWorkExperience)
         {
-            pastWorkExperience.FakeId = 0;
-            pastWorkExperience.EmployeeId = 9;
-
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                pastWorkExperience.FakeId = 0;
+                if (loggedinuser.EmployeeId != null) { pastWorkExperience.EmployeeId = (long) loggedinuser.EmployeeId;}
+            }
             _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
             _dbEmployee.SaveChanges();
             return View("ListOfPastWorkExperience");

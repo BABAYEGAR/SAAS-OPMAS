@@ -1,6 +1,7 @@
 ﻿@model Opmas.Models.LoginViewModel
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Login";
 }
 @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post))
 {
