@@ -1,12 +1,26 @@
-﻿@model IEnumerable<Opmas.Data.Objects.Entities.User.AppUser>
+﻿@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Entities.User.AppUser>
 
 @{
-    ViewBag.Title = "Application Users";
-    ViewBag.Header = "List Of Application Users";
-    Layout = "~/Views/Shared/_LayoutSystemAdminListItems.cshtml";
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser != null)
+    {
+        if (loggedinuser.Role == AdminUserType.SystemAdministrator.ToString())
+        {
+            ViewBag.Title = "Application Users";
+            ViewBag.Header = "List Of Application Users";
+            Layout = "~/Views/Shared/_LayoutSystemAdminListItems.cshtml";
+        }
+        if (loggedinuser.Role == AdminUserType.InstitutionAdministrator.ToString())
+        {
+            ViewBag.Title = "Application Users";
+            ViewBag.Header = "List Of Application Users";
+            Layout = "~/Views/Shared/_LayoutInstitutionAdminListItems.cshtml";
+        }
+    }
 }
-
-<table id="datatable" class="table table-striped table-bordered">
+    <table id="datatable" class="table table-striped table-bordered">
     <thead>
     <tr>
         <th>

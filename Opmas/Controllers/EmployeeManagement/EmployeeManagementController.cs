@@ -11,6 +11,7 @@ using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.EmployeeManagement;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
 
@@ -56,7 +57,11 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/ListOfEmployees
         public ActionResult ListOfEmployees()
         {
-            return View(_dbEmployee.Employees.ToList());
+            var institution = Session["institution"] as Institution;
+            return View(_dbEmployee.Employees.ToList().Where(n=>
+            {
+                return institution != null && n.InstitutionId == institution.InstitutionId;
+            }));
         }
 
         #endregion
@@ -502,23 +507,33 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult ConvertEmployeeToApplicationUser(FormCollection collectedValue)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var institution = Session["institution"] as Institution;
             var employeeId = Convert.ToInt64(collectedValue["EmployeeId"]);
             var employee = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
-            var employees = _dbEmployee.Employees.ToList();
+            var employees = _dbEmployee.Employees.ToList().Where(n=>
+            {
+                return institution != null && n.InstitutionId == institution.InstitutionId;
+            });
             var appUser = new AppUser();
-            appUser.Firstname = employee.Firstname;
-            appUser.Lastname = employee.Lastname;
-            appUser.Middlename = employee.Middlename;
-            appUser.Email = employee.Email;
-            appUser.CreatedBy = 1;
-            appUser.LastModifiedBy = 1;
-            appUser.DateCreated = DateTime.Now;
-            appUser.DateLastModified = DateTime.Now;
-            appUser.Role = UserType.Employee.ToString();
-            appUser.EmployeeId = employeeId;
-            appUser.Mobile = employee.MobilePhone;
-            appUser.InstitutionId = 1;
-
+            if (employee != null)
+            {
+                appUser.Firstname = employee.Firstname;
+                appUser.Lastname = employee.Lastname;
+                appUser.Middlename = employee.Middlename;
+                appUser.Email = employee.Email;
+                if (loggedinuser != null)
+                {
+                    appUser.CreatedBy = loggedinuser.AppUserId;
+                    appUser.LastModifiedBy = loggedinuser.AppUserId;
+                }
+                appUser.DateCreated = DateTime.Now;
+                appUser.DateLastModified = DateTime.Now;
+                appUser.Role = UserType.Employee.ToString();
+                appUser.EmployeeId = employeeId;
+                appUser.Mobile = employee.MobilePhone;
+            }
+            if (institution != null) appUser.InstitutionId = institution.InstitutionId;
             //generate password and convert to md5 hash
             var password = Membership.GeneratePassword(8, 1);
             var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
@@ -567,7 +582,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
-                return RedirectToAction("EmployeeIndex");
+                return RedirectToAction("EmployeeIndex","Home");
             }
             return View(employeePersonalData);
         }
@@ -601,7 +616,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("EmployeeIndex");
+            return RedirectToAction("EmployeeIndex","Home");
         }
 
         #endregion

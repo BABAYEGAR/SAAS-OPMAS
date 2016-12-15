@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
 {
@@ -18,6 +19,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<EmployeeMedicalData> EmployeeMedicalDatas { get; set; }
         public virtual DbSet<EmployeePastWorkExperience> EmployeePastWorkExperiences { get; set; }
         public virtual DbSet<EmployeeWorkData> EmployeeWorkDatas { get; set; }
+        public virtual DbSet<Institution> Institutions { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

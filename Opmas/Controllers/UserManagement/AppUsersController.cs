@@ -24,8 +24,9 @@ namespace Opmas.Controllers.UserManagement
         // GET: AppUsers
         public ActionResult Index()
         {
+            var institution = Session["institution"] as Institution;
             var appUsers = db.AppUsers.Include(a => a.Employee);
-            return View(appUsers.ToList());
+            return View(appUsers.ToList().Where(n=> { return institution != null && n.InstitutionId == institution.InstitutionId; }));
         }
 
         // GET: AppUsers/Details/5

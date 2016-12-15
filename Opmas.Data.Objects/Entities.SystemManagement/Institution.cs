@@ -26,6 +26,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<Faculty> Faculties { get; set; }
         public IEnumerable<Department> Departments { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
+        public IEnumerable<Employee.Employee> Employees { get; set; }
         [DisplayName("Package")]
         public long PackageId { get; set; }
 

@@ -1,11 +1,28 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.User.AppUser
 
 @{
-    Layout = "~/Views/Shared/_LayoutSystemAdminForm.cshtml";
-    ViewBag.Title = "Create";
-    ViewBag.Header = "Application Users";
-    ViewBag.Subheader = "Create a new appliction user";
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser != null)
+    {
+        if (loggedinuser.Role == AdminUserType.SystemAdministrator.ToString())
+        {
+            Layout = "~/Views/Shared/_LayoutSystemAdminForm.cshtml";
+            ViewBag.Title = "Create";
+            ViewBag.Header = "Application Users";
+            ViewBag.Subheader = "Create a new appliction user";
+        }
+        if (loggedinuser.Role == AdminUserType.InstitutionAdministrator.ToString())
+        {
+            Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+            ViewBag.Title = "Create";
+            ViewBag.Header = "Application Users";
+            ViewBag.Subheader = "Create a new appliction user";
+        }
+
+    }
+
 
 }
 @section css {
