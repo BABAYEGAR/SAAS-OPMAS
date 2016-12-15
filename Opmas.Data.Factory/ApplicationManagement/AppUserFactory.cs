@@ -14,13 +14,13 @@ namespace Opmas.Data.Factory.ApplicationManagement
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <param name="role"></param>
+        /// <param name="institutionId"></param>
         /// <returns></returns>
-        public AppUser GetAppUserByLogin(string email, string password)
+        public AppUser GetAppUserByLogin(string email, string password,long institutionId)
         {
             email = email.Trim();
             var appUser =
-                _db.AppUsers.FirstOrDefault(n => n.Email == email && n.Password == password);
+                _db.AppUsers.FirstOrDefault(n => n.Email == email && n.Password == password && n.InstitutionId == institutionId);
             return appUser;
         }
 

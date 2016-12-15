@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.AuthenticationManagement;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Service.Enums;
 using Opmas.Models;
 
@@ -77,37 +78,47 @@ namespace Opmas.Controllers
             {
                 return View(model);
             }
-            var appuser = new AuthenticationFactory().AuthenticateAppUserLogin(model.Email, model.Password);
-            if (appuser != null)
-            {       
-                Session["opmasloggedinuser"] = appuser;
-                if (appuser.Role == UserType.Employee.ToString())
+            var institution = Session["institution"] as Institution;
+            if (institution != null)
+            {
+                var appuser = new AuthenticationFactory().AuthenticateAppUserLogin(model.Email, model.Password,institution.InstitutionId);
+                if (appuser != null)
                 {
-                    return RedirectToAction("EmployeeIndex","Home");
+                    Session["opmasloggedinuser"] = appuser;
+                    if (appuser.Role == UserType.Employee.ToString())
+                    {
+                        return RedirectToAction("EmployeeIndex", "Home");
+                    }
+                    if (appuser.Role == UserType.Dean.ToString())
+                    {
+                        return RedirectToAction("");
+                    }
+                    if (appuser.Role == UserType.HOD.ToString())
+                    {
+                        return RedirectToAction("");
+                    }
+                    if (appuser.Role == UserType.ViceChancellor.ToString())
+                    {
+                        return RedirectToAction("");
+                    }
+                    if (appuser.Role == UserType.Registrar.ToString())
+                    {
+                        return RedirectToAction("");
+                    }
+                    if (appuser.Role == AdminUserType.SystemAdministrator.ToString())
+                    {
+                        return RedirectToAction("SystemAdminIndex", "Home");
+                    }
+                    if (appuser.Role == AdminUserType.InstitutionAdministrator.ToString())
+                    {
+                        return RedirectToAction("InstitutionAdminIndex", "Home");
+                    }
                 }
-                if (appuser.Role == UserType.Dean.ToString())
+                else
                 {
-                    return RedirectToAction("");
-                }
-                if (appuser.Role == UserType.HOD.ToString())
-                {
-                    return RedirectToAction("");
-                }
-                if (appuser.Role == UserType.ViceChancellor.ToString())
-                {
-                    return RedirectToAction("");
-                }
-                if (appuser.Role == UserType.Registrar.ToString())
-                {
-                    return RedirectToAction("");
-                }
-                if (appuser.Role == AdminUserType.SystemAdministrator.ToString())
-                {
-                    return RedirectToAction("SystemAdminIndex","Home");
-                }
-                if (appuser.Role == AdminUserType.InstitutionAdministrator.ToString())
-                {
-                    return RedirectToAction("InstitutionAdminIndex","Home");
+                    TempData["login"] = "Incorrect Institution/Username/Password";
+                    TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                    return View(model);
                 }
             }
 

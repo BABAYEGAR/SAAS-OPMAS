@@ -1,7 +1,23 @@
-﻿@model Opmas.Models.LoginViewModel
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Models.LoginViewModel
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "Login";
+}
+@if (TempData["login"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["login"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["login"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["login"]</div>
+    }
 }
 @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post))
 {
