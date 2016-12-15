@@ -93,10 +93,25 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InstitutionId,Name,Motto,Logo,Location,ContactNumber,ContactEmail,PackageId")] Institution institution)
+        public ActionResult Edit([Bind(Include = "InstitutionId,Name,Motto,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
         {
+            HttpPostedFileBase logo = Request.Files["logo"];
             if (ModelState.IsValid)
             {
+                if (collectedValues["Logo"] != null)
+                {
+                    institution.Logo = collectedValues["Logo"];
+                }
+                if (logo.FileName == "")
+                {
+                    institution.Logo = collectedValues["Logo"];
+                }
+                else
+                {
+                    institution.Logo = new FileUploader().UploadFile(logo, UploadType.Logo);
+                }
+                
+               
                 db.Entry(institution).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
