@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.Enums
+@{
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser == null)
+    {
+        new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,7 +44,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title">
+            <a href="@Url.Action("SystemAdminIndex","Home")" class="site_title">
                 <i class="fa fa-paw"></i> <span>OPMaS</span></a>
         </div>
 
@@ -43,11 +53,11 @@
         <!-- menu profile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                <img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="~/UploadedFiles/ProfileImage/@loggedinuser.AppUserImage" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>@loggedinuser.DisplayName</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -75,17 +85,6 @@
                   <small>@ViewBag.Header</small>
                 </h3>
             </div>
-
-            @*<div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Go!</button>
-                                    </span>
-                    </div>
-                </div>
-            </div>*@
         </div>
 
         <div class="clearfix"></div>
@@ -94,9 +93,36 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>
-                           
-                        </h2>
+                        @if (TempData["user"] != null)
+                        {
+                            if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                            {
+                                <div class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                            {
+                                <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                            {
+                                <div class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</div>
+                            }
+                        }
+                        @if (TempData["package"] != null)
+                        {
+                            if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                            {
+                                <div class="alert-success alert-dismissable" style="height: 30px">@TempData["package"]</div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                            {
+                                <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["package"]</div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                            {
+                                <div class="alert-info alert-dismissable" style="height: 30px">@TempData["package"]</div>
+                            }
+                        }
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
                                 <a class="collapse-link">
