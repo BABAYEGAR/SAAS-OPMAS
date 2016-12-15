@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.ApplicationManagement
 {
@@ -48,11 +49,11 @@ namespace Opmas.Controllers.ApplicationManagement
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
             if (institution != null)
+            {
                 if (loggedinuser != null)
                 {
                     if (ModelState.IsValid)
-            {
-               
+                    {
                         faculty.DateCreated = DateTime.Now;
                         faculty.DateLastModified = DateTime.Now;
                         faculty.LastModifiedBy = loggedinuser.AppUserId;
@@ -60,10 +61,17 @@ namespace Opmas.Controllers.ApplicationManagement
                         faculty.InstitutionId = institution.InstitutionId;
                         db.Faculties.Add(faculty);
                         db.SaveChanges();
+                        TempData["faculty"] = "You have successfully created a faculty";
+                        TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         return RedirectToAction("Index");
                     }
-
-                
+                    TempData["faculty"] = "Session Expired,Login Again";
+                    TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
+                    return RedirectToAction("SelectInstitution","Home");
+                }
+                TempData["faculty"] = "Session Expired,Login Again";
+                TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
+                return RedirectToAction("SelectInstitution", "Home");
             }
             ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", faculty.InstitutionId);
             return View(faculty);
@@ -87,13 +95,27 @@ namespace Opmas.Controllers.ApplicationManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
-            [Bind(Include = "FacultyId,Name,InstitutionId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] Faculty faculty)
+            [Bind(Include = "FacultyId,Name,InstitutionId,CreatedBy,DateCreated")] Faculty faculty)
         {
-            if (ModelState.IsValid)
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
             {
-                db.Entry(faculty).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    faculty.DateLastModified = DateTime.Now;
+                    faculty.LastModifiedBy = loggedinuser.AppUserId;
+                    db.Entry(faculty).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["faculty"] = "You have successfully modified the faculty";
+                    TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            { 
+                TempData["faculty"] = "Session Expired,Login Again";
+                TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
+                return RedirectToAction("SelectInstitution", "Home");
             }
             ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", faculty.InstitutionId);
             return View(faculty);
@@ -119,6 +141,8 @@ namespace Opmas.Controllers.ApplicationManagement
             var faculty = db.Faculties.Find(id);
             db.Faculties.Remove(faculty);
             db.SaveChanges();
+            TempData["faculty"] = "You have successfully deleted a faculty";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
 

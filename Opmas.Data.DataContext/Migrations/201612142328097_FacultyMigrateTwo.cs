@@ -7,30 +7,6 @@ namespace Opmas.Data.DataContext.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.EmployeeBankDatas", "BankId", "dbo.Banks");
-            DropForeignKey("dbo.EmployeeBankDatas", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.EmployeeEducationalQualifications", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.EmployeeMedicalDatas", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.EmployeePastWorkExperiences", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.EmployeePersonalDatas", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.Lgas", "StateId", "dbo.States");
-            DropForeignKey("dbo.EmployeePersonalDatas", "LgaId", "dbo.Lgas");
-            DropForeignKey("dbo.EmployeePersonalDatas", "StateId", "dbo.States");
-            DropForeignKey("dbo.EmployeeWorkDatas", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.AppUsers", "EmployeeId", "dbo.Employees");
-            DropForeignKey("dbo.AppUsers", "InstitutionId", "dbo.Institutions");
-            DropIndex("dbo.AppUsers", new[] { "EmployeeId" });
-            DropIndex("dbo.AppUsers", new[] { "InstitutionId" });
-            DropIndex("dbo.EmployeeBankDatas", new[] { "BankId" });
-            DropIndex("dbo.EmployeeBankDatas", new[] { "EmployeeId" });
-            DropIndex("dbo.EmployeeEducationalQualifications", new[] { "EmployeeId" });
-            DropIndex("dbo.EmployeeMedicalDatas", new[] { "EmployeeId" });
-            DropIndex("dbo.EmployeePastWorkExperiences", new[] { "EmployeeId" });
-            DropIndex("dbo.EmployeePersonalDatas", new[] { "StateId" });
-            DropIndex("dbo.EmployeePersonalDatas", new[] { "LgaId" });
-            DropIndex("dbo.EmployeePersonalDatas", new[] { "EmployeeId" });
-            DropIndex("dbo.Lgas", new[] { "StateId" });
-            DropIndex("dbo.EmployeeWorkDatas", new[] { "EmployeeId" });
             CreateTable(
                 "dbo.Departments",
                 c => new
@@ -61,18 +37,7 @@ namespace Opmas.Data.DataContext.Migrations
                 .PrimaryKey(t => t.FacultyId)
                 .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: false)
                 .Index(t => t.InstitutionId);
-            
-            DropTable("dbo.AppUsers");
-            DropTable("dbo.Employees");
-            DropTable("dbo.EmployeeBankDatas");
-            DropTable("dbo.Banks");
-            DropTable("dbo.EmployeeEducationalQualifications");
-            DropTable("dbo.EmployeeMedicalDatas");
-            DropTable("dbo.EmployeePastWorkExperiences");
-            DropTable("dbo.EmployeePersonalDatas");
-            DropTable("dbo.Lgas");
-            DropTable("dbo.States");
-            DropTable("dbo.EmployeeWorkDatas");
+
         }
         
         public override void Down()
@@ -238,14 +203,6 @@ namespace Opmas.Data.DataContext.Migrations
                     })
                 .PrimaryKey(t => t.AppUserId);
             
-            DropForeignKey("dbo.Departments", "InstitutionId", "dbo.Institutions");
-            DropForeignKey("dbo.Departments", "FacultyId", "dbo.Faculties");
-            DropForeignKey("dbo.Faculties", "InstitutionId", "dbo.Institutions");
-            DropIndex("dbo.Faculties", new[] { "InstitutionId" });
-            DropIndex("dbo.Departments", new[] { "InstitutionId" });
-            DropIndex("dbo.Departments", new[] { "FacultyId" });
-            DropTable("dbo.Faculties");
-            DropTable("dbo.Departments");
             CreateIndex("dbo.EmployeeWorkDatas", "EmployeeId");
             CreateIndex("dbo.Lgas", "StateId");
             CreateIndex("dbo.EmployeePersonalDatas", "EmployeeId");

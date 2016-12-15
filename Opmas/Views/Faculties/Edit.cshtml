@@ -6,7 +6,7 @@
     ViewBag.Subheader = "create a new faculty";
     Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
 }
-@using (Html.BeginForm("Create", "Faculties", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Faculties", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m=>m.FacultyId)

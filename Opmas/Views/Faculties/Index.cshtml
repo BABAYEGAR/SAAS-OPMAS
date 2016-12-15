@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Faculty>
+﻿@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Faculty>
 
 @{
     ViewBag.Title = "Faculties";
@@ -8,38 +9,38 @@
 
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Institution.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>Action</th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Institution.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>Action</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Institution.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.FacultyId },new {@class = "btn btn-xs btn-primary"}) |
-                    @Html.ActionLink("Details", "Details", new { id = item.FacultyId }, new { @class = "btn btn-xs btn-default" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.FacultyId }, new { @class = "btn btn-xs btn-danger" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-primary"}) |
+                @Html.ActionLink("Details", "Details", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-default"}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-danger"})
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

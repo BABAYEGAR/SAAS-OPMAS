@@ -135,6 +135,38 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             return View("EducationalQualification");
         }
+        // GET: EmployeeManagement/PastWorkExperience
+        public ActionResult PastWorkExperience()
+        {
+            return View();
+        }
+
+        // POST: EmployeeManagement/PastWorkExperience
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PastWorkExperience(FormCollection collectedValues)
+        {
+            _employee = Session["Employee"] as Employee;
+            if (_employee != null)
+            {
+                if (_employee.EmployeePastWorkExperiences == null)
+                    _employee.EmployeePastWorkExperiences = new List<EmployeePastWorkExperience>();
+                _employee.EmployeePastWorkExperiences.Add(new EmployeePastWorkExperience
+                {
+                    EmployerName = collectedValues["EmployerName"],
+                    EmployerLocation = collectedValues["EmployerLocation"],
+                    EmployerContact = collectedValues["EmployerContact"],
+                    PositionHeld = collectedValues["PositionHeld"],
+                    ReasonForLeaving = collectedValues["ReasonForLeaving"],
+                    StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
+                    EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
+                    FakeId = _employee.EmployeePastWorkExperiences.Count + 1
+                });
+                //store data in a session
+                Session["Employee"] = _employee;
+            }
+            return View("PastWorkExperience");
+        }
 
         // GET: EmployeeManagement/BankData
         public ActionResult BankData()
