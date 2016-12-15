@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Opmas.Data.Objects.Entities.User
+@{
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser == null)
+    {
+        new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,21 +27,20 @@
     <link href="~/Content/ManagementDashboard/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
     <link href="~/Content/ManagementDashboard/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+
+    <!-- Switchery -->
+    <link href="~/Content/ManagementDashboard/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="~/Content/ManagementDashboard/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
+    
     <!-- Datatables -->
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="~/Content/ManagementDashboard/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-    <!-- starrr -->
-    <link href="~/Content/ManagementDashboard/vendors/starrr/dist/starrr.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="~/Content/ManagementDashboard/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
     @RenderSection("css", false)
 </head>
 
@@ -42,7 +50,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title">
+                    <a href="@Url.Action("EmployeeIndex","Home")" class="site_title">
                         <i class="fa fa-paw"></i> <span>OPMaS</span></a>
                 </div>
 
@@ -51,11 +59,11 @@
                 <!-- menu profile quick info -->
                 <div class="profile">
                     <div class="profile_pic">
-                        <img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="..." class="img-circle profile_img">
+                        <img src="~/UploadedFiles/ProfileImage/@loggedinuser.AppUserImage" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2>@loggedinuser.DisplayName</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -148,9 +156,6 @@
 <!-- Custom Theme Scripts -->
     <!-- bootstrap-progressbar -->
     <script src="~/Content/ManagementDashboard/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="~/Content/ManagementDashboard/vendors/moment/min/moment.min.js"></script>
-    <script src="~/Content/ManagementDashboard/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap-wysiwyg -->
     <script src="~/Content/ManagementDashboard/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="~/Content/ManagementDashboard/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>

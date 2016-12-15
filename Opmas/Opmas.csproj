@@ -5161,13 +5161,13 @@
     <Content Include="Views\Shared\CreateSingleEducationalQualification.cshtml" />
     <Content Include="Views\Shared\_LayoutModalForm.cshtml" />
     <Content Include="Views\Shared\CreateSingleBankData.cshtml" />
-    <Content Include="Views\Shared\CreateSinglePastWorkExperience.cshtml" />
     <Content Include="Views\Shared\_LayoutUserDashboard.cshtml" />
     <Content Include="Views\Home\EmployeeIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutSystemAdminDashboard.cshtml" />
     <Content Include="Views\Home\SystemAdminIndex.cshtml" />
     <Content Include="Views\Home\InstitutionAdminIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutInstitutionAdminDashboard.cshtml" />
+    <Content Include="Views\Shared\CreateSinglePastWorkExperience.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -370,7 +370,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
             _dbEmployee.SaveChanges();
 
-            return View("ListOfEducationalQualification");
+            return RedirectToAction("ListOfEducationalQualification","EmployeeManagement",new {id = educationalQualification.EmployeeId});
         }
 
         // POST: EmployeeManagement/CreateSingleBankData
@@ -391,7 +391,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
             _dbEmployee.SaveChanges();
 
-            return View("ListOfBankData");
+            return RedirectToAction("ListOfBankData", "EmployeeManagement", new { id = employeeBankData.EmployeeId });
         }
 
         // POST: EmployeeManagement/PastWorkExperience
@@ -411,7 +411,7 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
             _dbEmployee.SaveChanges();
-            return View("ListOfPastWorkExperience");
+            return RedirectToAction("ListOfPastWorkExperience", "EmployeeManagement", new { id = pastWorkExperience.EmployeeId });
         }
 
         #endregion
@@ -573,12 +573,14 @@ namespace Opmas.Controllers.EmployeeManagement
                      "EmployeePersonalDataId,Firstname,Middlename,Lastname,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
              )] EmployeePersonalData employeePersonalData, FormCollection collectedValues)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
                 employeePersonalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
-                var employeeId = collectedValues["EmployeeId"];
+                var employeeId = Convert.ToInt64(collectedValues["EmployeeId"]);
                 var employee = _dbEmployee.Employees.Find(employeeId);
                 employee.DateLastModified = DateTime.Now;
+                if (loggedinuser != null) employee.LastModifiedBy = loggedinuser.AppUserId;
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
