@@ -440,8 +440,10 @@ namespace Opmas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session["opmasloggedinuser"] = null;
+            Session["institution"] = null;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SelectInstitution", "Home");
         }
 
         //
