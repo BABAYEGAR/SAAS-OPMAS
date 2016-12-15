@@ -5111,8 +5111,6 @@
     <Content Include="Scripts\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Views\Shared\SystemAdminSidebar.cshtml" />
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
-    <Content Include="Views\ApplicationManagement\AdminDashboard.cshtml" />
-    <Content Include="Views\ApplicationManagement\DashboardMainContent.cshtml" />
     <Content Include="Views\Package\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
