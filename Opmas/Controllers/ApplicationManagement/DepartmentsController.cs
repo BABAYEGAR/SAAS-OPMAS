@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.ApplicationManagement
 {
@@ -62,8 +63,16 @@ namespace Opmas.Controllers.ApplicationManagement
                     department.InstitutionId = institution.InstitutionId;
                     db.Departments.Add(department);
                     db.SaveChanges();
+                    TempData["department"] = "You have successfully created a department";
+                    TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                     return RedirectToAction("Index");
                 }
+            }
+            else
+            {
+                TempData["department"] = "Session Expired,Login Again";
+                TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
+                return RedirectToAction("SelectInstitution", "Home");
             }
 
             ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
@@ -99,6 +108,8 @@ namespace Opmas.Controllers.ApplicationManagement
             {
                 db.Entry(department).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["department"] = "You have successfully modified the department";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
             ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
@@ -129,6 +140,8 @@ namespace Opmas.Controllers.ApplicationManagement
             Department department = db.Departments.Find(id);
             db.Departments.Remove(department);
             db.SaveChanges();
+            TempData["department"] = "You have successfully deleted a department";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
 

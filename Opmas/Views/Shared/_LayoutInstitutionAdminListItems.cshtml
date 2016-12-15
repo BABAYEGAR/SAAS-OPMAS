@@ -99,6 +99,21 @@
                                 <div class="alert-info alert-dismissable" style="height: 30px">@TempData["faculty"]</div>
                                }
                            }
+                        @if (TempData["department"] != null)
+                        {
+                            if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                            {
+                                <div class="alert-success alert-dismissable" style="height: 30px">@TempData["department"]</div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                            {
+                                <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["department"]</div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                            {
+                                <div class="alert-info alert-dismissable" style="height: 30px">@TempData["department"]</div>
+                            }
+                        }
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
                                 <a class="collapse-link">
