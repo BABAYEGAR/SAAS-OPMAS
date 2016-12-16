@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities.AccessManagement\PackagePeriod.cs" />
     <Compile Include="Entities.Employee\Bank.cs" />
     <Compile Include="Entities.Employee\Employee.cs" />
     <Compile Include="Entities.Employee\EmployeeBankData.cs" />
