@@ -36,7 +36,8 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-primary" }) |
                     @Html.ActionLink("Details", "Details", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-default" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-danger" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-danger" })|
+                    @Html.ActionLink("Manage Units", "Index","Units", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-success" })
                 </td>
             </tr>
         }

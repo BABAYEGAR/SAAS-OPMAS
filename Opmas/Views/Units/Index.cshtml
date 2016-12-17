@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Unit>
+@{
+    ViewBag.Title = "Units";
+    ViewBag.Header = "List Of Units";
+    Layout = "~/Views/Shared/_LayoutInstitutionAdminListItems.cshtml";
+}
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UnitId },new {@class = "btn btn-primary"}) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UnitId }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UnitId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
