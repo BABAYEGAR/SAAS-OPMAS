@@ -116,17 +116,9 @@
     <Compile Include="Migrations\201612150058497_EmployeeMigrate3.Designer.cs">
       <DependentUpon>201612150058497_EmployeeMigrate3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612162229459_InstitutionMigrate.cs" />
-    <Compile Include="Migrations\201612162229459_InstitutionMigrate.Designer.cs">
-      <DependentUpon>201612162229459_InstitutionMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612162239240_InstitutionMigrates.cs" />
-    <Compile Include="Migrations\201612162239240_InstitutionMigrates.Designer.cs">
-      <DependentUpon>201612162239240_InstitutionMigrates.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612162244169_InstitutionMigratess.cs" />
-    <Compile Include="Migrations\201612162244169_InstitutionMigratess.Designer.cs">
-      <DependentUpon>201612162244169_InstitutionMigratess.cs</DependentUpon>
+    <Compile Include="Migrations\201612170214338_InstitutionMigrate2.cs" />
+    <Compile Include="Migrations\201612170214338_InstitutionMigrate2.Designer.cs">
+      <DependentUpon>201612170214338_InstitutionMigrate2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,14 +170,8 @@
     <EmbeddedResource Include="Migrations\201612150058497_EmployeeMigrate3.resx">
       <DependentUpon>201612150058497_EmployeeMigrate3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612162229459_InstitutionMigrate.resx">
-      <DependentUpon>201612162229459_InstitutionMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612162239240_InstitutionMigrates.resx">
-      <DependentUpon>201612162239240_InstitutionMigrates.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612162244169_InstitutionMigratess.resx">
-      <DependentUpon>201612162244169_InstitutionMigratess.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612170214338_InstitutionMigrate2.resx">
+      <DependentUpon>201612170214338_InstitutionMigrate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

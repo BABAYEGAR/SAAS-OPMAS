@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +48,7 @@
     <Compile Include="Enums\BloodGroup.cs" />
     <Compile Include="Enums\ClassOfDegreeEnum.cs" />
     <Compile Include="Enums\DegreeTypeEnum.cs" />
+    <Compile Include="Enums\EmployementCategory.cs" />
     <Compile Include="Enums\EmploymentType.cs" />
     <Compile Include="Enums\EmploymentStatus.cs" />
     <Compile Include="Enums\Genotype.cs" />

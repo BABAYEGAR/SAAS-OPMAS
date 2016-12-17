@@ -225,6 +225,7 @@ namespace Opmas.Controllers.EmployeeManagement
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
             //work data
             workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
+            workData.Category = typeof(EmployementCategory).GetEnumName(int.Parse(collectedValues["EmploymentCategory"]));
             workData.PositionHeld = collectedValues["EmploymentPosition"];
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();

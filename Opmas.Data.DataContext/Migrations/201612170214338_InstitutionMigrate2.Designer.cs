@@ -7,13 +7,13 @@ namespace Opmas.Data.DataContext.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InstitutionMigrate : IMigrationMetadata
+    public sealed partial class InstitutionMigrate2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InstitutionMigrate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InstitutionMigrate2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612162229459_InstitutionMigrate"; }
+            get { return "201612170214338_InstitutionMigrate2"; }
         }
         
         string IMigrationMetadata.Source
