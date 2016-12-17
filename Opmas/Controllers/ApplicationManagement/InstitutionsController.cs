@@ -57,7 +57,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InstitutionId,Name,Motto,Logo,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
+        public ActionResult Create([Bind(Include = "InstitutionId,AccessCode,Name,Motto,Logo,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
         {
             HttpPostedFileBase logo = Request.Files["logo"];
             if (ModelState.IsValid)
@@ -93,7 +93,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InstitutionId,Name,Motto,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
+        public ActionResult Edit([Bind(Include = "InstitutionId,Name,AccessCode,Motto,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
         {
             HttpPostedFileBase logo = Request.Files["logo"];
             if (ModelState.IsValid)

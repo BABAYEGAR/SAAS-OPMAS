@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Factory.ApplicationManagement;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers
 {
@@ -22,8 +23,20 @@ namespace Opmas.Controllers
         public ActionResult SelectInstitution(FormCollection collectedValues)
         {
             var institutionId = Convert.ToInt64(collectedValues["InstitutionId"]);
+            var accessCode = collectedValues["AccessCode"];
             var institution = _db.Institutions.Find(institutionId);
-            Session["institution"] = institution;
+            if (institution.AccessCode == accessCode)
+            {
+                Session["institution"] = institution;
+            }
+            else
+            {
+                ViewBag.Institutions = new SelectList(_db.Institutions, "InstitutionId", "Name");
+                TempData["access"] = "Access code doesn't match institution!Try Again";
+                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                return View();
+            }
+          
             return RedirectToAction("Login","Account");
         }
         public ActionResult SystemAdminIndex()

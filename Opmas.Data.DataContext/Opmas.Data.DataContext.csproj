@@ -120,6 +120,14 @@
     <Compile Include="Migrations\201612170214338_InstitutionMigrate2.Designer.cs">
       <DependentUpon>201612170214338_InstitutionMigrate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612170515047_InstitutionMigrate3.cs" />
+    <Compile Include="Migrations\201612170515047_InstitutionMigrate3.Designer.cs">
+      <DependentUpon>201612170515047_InstitutionMigrate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612170526122_InstitutionMigrate4.cs" />
+    <Compile Include="Migrations\201612170526122_InstitutionMigrate4.Designer.cs">
+      <DependentUpon>201612170526122_InstitutionMigrate4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -172,6 +180,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612170214338_InstitutionMigrate2.resx">
       <DependentUpon>201612170214338_InstitutionMigrate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612170515047_InstitutionMigrate3.resx">
+      <DependentUpon>201612170515047_InstitutionMigrate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612170526122_InstitutionMigrate4.resx">
+      <DependentUpon>201612170526122_InstitutionMigrate4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

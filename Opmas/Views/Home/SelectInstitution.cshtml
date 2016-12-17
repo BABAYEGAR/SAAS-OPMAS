@@ -1,18 +1,38 @@
-﻿@{
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.SystemManagement.Institution
+@{
     ViewBag.Title = "SelectInstitution";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 @section css {
     <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 }
+@if (TempData["access"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["access"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["access"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["access"]</div>
+    }
+}
 @using (Html.BeginForm("SelectInstitution", "Home", new {ViewBag.ReturnUrl}, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
     <h1>Select Institution</h1>
     <div class="form-group">
         <div>
-            @Html.DropDownList("InstitutionId", (SelectList) ViewBag.Institutions, new {@class = "form-control select-dropdown"})
+            @Html.DropDownListFor(m=>m.InstitutionId, (SelectList) ViewBag.Institutions, "------------------Please select your institution------------------", new {@class = "form-control select-dropdown"})
+            <h1></h1>
+
+            @Html.EditorFor(m=>m.AccessCode, new { htmlAttributes = new { @class = "form-control" ,placeholder = "------------Enter Institution access code-----------------"} })
         </div>
     </div>
     <div>
@@ -22,7 +42,7 @@
 
     <div class="separator">
         <p class="change_link">
-            @Html.ActionLink("Back To Home Master", "Edit", null, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Back To Home Master", "Index", null, new { @class = "btn btn-xs btn-default" })
         </p>
 
         <div class="clearfix"></div>

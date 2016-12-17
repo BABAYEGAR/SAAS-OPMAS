@@ -9,6 +9,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
 {
     public class Institution
     {
+        [Required]   
         public long InstitutionId { get; set; }
 
         [Required]
@@ -18,6 +19,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public string Motto { get; set; }
         public string Logo { get; set; }
         public string Location { get; set; }
+        public string AccessCode { get; set; }
 
         [Required]
         [DisplayName("Contact Number")]
