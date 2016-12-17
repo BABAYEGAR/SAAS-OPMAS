@@ -16,13 +16,13 @@
         </div>
     </div>
     <div>
-        <input type="submit" value="Next" class="btn btn-default submit"/>
+        <input type="submit" value="Next" class="btn btn-success btn-block" style="margin-left:0px;"/>
     </div>
     <div class="clearfix"></div>
 
     <div class="separator">
         <p class="change_link">
-            <a href="#">Back to Master Home!</a>
+            @Html.ActionLink("Back To Home Master", "Edit", null, new { @class = "btn btn-xs btn-default" })
         </p>
 
         <div class="clearfix"></div>

@@ -36,11 +36,14 @@
 
     </div>
     <div>
-        <input type="submit" value="Login" class="btn btn-default submit"/>
+        <input type="submit" value="Login" class="btn btn-success btn-block" style="margin-left:0px;"/>
     </div>
     <div class="clearfix"></div>
 
     <div class="separator">
+        <p class="change_link">
+            @Html.ActionLink("Back To Select Institution", "SelectInstitution","Home", null, new { @class = "btn btn-xs btn-default" })
+        </p>
         <p class="change_link">
             <a href="#">Lost your password?</a>
         </p>

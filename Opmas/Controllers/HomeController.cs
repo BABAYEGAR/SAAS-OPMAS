@@ -13,6 +13,7 @@ namespace Opmas.Controllers
         private readonly InstitutionDataContext _db = new InstitutionDataContext();
         public ActionResult SelectInstitution()
         {
+            Session["institution"] = null;
             ViewBag.Institutions = new SelectList(_db.Institutions, "InstitutionId", "Name");
             return View();
         }
