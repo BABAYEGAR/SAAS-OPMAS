@@ -621,6 +621,37 @@ namespace Opmas.Controllers.EmployeeManagement
 
             return RedirectToAction("EmployeeIndex","Home");
         }
+        // GET: EmployeeManagement/EditWorkData
+        public ActionResult EditWorkData(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var employeeWorkData = _dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == id);
+            if (employeeWorkData == null)
+                return HttpNotFound();
+            return View(employeeWorkData);
+        }
+
+        // POST: EmployeeManagement/EditWorkData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditWorkData([Bind(
+                                                 Include =
+                                                     "EmployeeWorkDataId,EmploymentDate,EmployeeId,PositionHeld")] EmployeeWorkData workData,
+            FormCollection collectedValues)
+        {
+            var employeeId = collectedValues["EmployeeId"];
+            //medical data
+            workData.EmploymentStatus = typeof(EmploymentStatus).GetEnumName(int.Parse(collectedValues["EmploymentStatus"]));
+            workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
+            workData.Category = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["Category"]));
+
+            //update data
+            _dbEmployee.Entry(workData).State = EntityState.Modified;
+            _dbEmployee.SaveChanges();
+
+            return RedirectToAction("EmployeeIndex", "Home");
+        }
 
         #endregion
 

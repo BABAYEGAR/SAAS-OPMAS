@@ -29,7 +29,7 @@
     <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="~/Content/fileinput.min.css" rel="stylesheet"/>
 }
-@using (Html.BeginForm("Create", "AppUsers", FormMethod.Post, new {@class = "form-horizontal", id = "demo-form2", enctype = "multipart/form-data"}))
+@using (Html.BeginForm("Create", "AppUsers", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})

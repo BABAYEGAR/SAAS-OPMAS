@@ -16,7 +16,7 @@
         </div>
     </div>
     <div>
-        <input type="submit" value="Next" class="btn btn-default submit" />
+        <input type="submit" value="Next" class="btn btn-default submit"/>
     </div>
     <div class="clearfix"></div>
 
@@ -49,4 +49,43 @@
 
 
     </script>
+    <!--Snippet provided by Interswitch starts here--->
+    <em>
+        <small>
+            <a id="[[paymentcode]]" style="text-align: left;">payment button will appear here shortly...</a>
+        </small>
+    </em>
+    <script type="text/javascript">
+        var QTCheckout = QTCheckout || {};
+        var testMode = false;
+        var baseUrl = "";
+        QTCheckout.paymentItems = QTCheckout.paymentItems || [];
+        QTCheckout.paymentItems.push({
+            paymentCode: [[paymentcode]],
+            extraData: {
+                amount: 'default',
+                buttonSize: 'default',
+                customerId: 'default',
+                mobileNumber: 'default',
+                emailAddress: 'default',
+                redirectUrl: 'default'
+            }
+        });
+        if (testMode == true)
+            baseUrl = "https://testwebpay.interswitchng.com/quicktellercheckout/scripts/quickteller-checkout.js?v=";
+        else baseUrl = "https://paywith.quickteller.com/scripts/quickteller-checkout-min.js?v=";
+        if (!QTCheckout.qtScript) {
+            var qtScript = document.createElement('script');
+            qtScript.type = 'text/javascript';
+            qtScript.async = true;
+            qtScript.src = baseUrl + new Date().getDay();
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(qtScript, s);
+            QTCheckout.qtScript = qtScript;
+        } else if (QTCheckout.buildPaymentItemsUI) {
+            QTCheckout.buildPaymentItemsUI();
+        }
+
+    </script>
+    <!--Snippet provided by Interswitch ends here -->
 }
