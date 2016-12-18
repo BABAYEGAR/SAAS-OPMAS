@@ -44,8 +44,12 @@
         <p class="change_link">
             @Html.ActionLink("Back To Select Institution", "SelectInstitution","Home", null, new { @class = "btn btn-xs btn-default" })
         </p>
+
         <p class="change_link">
             <a href="#">Lost your password?</a>
+        </p>
+        <p class="change_link">
+           An Employee? <a href="@Url.Action("PersonalData","EmployeeManagement")" style="color: green">Register!</a>
         </p>
 
         <div class="clearfix"></div>

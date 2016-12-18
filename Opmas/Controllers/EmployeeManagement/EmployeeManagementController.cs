@@ -69,9 +69,18 @@ namespace Opmas.Controllers.EmployeeManagement
         #region Employee Process  
 
         // GET: EmployeeManagement/PersonalData
-        public ActionResult PersonalData()
+        public ActionResult PersonalData(bool? returnUrl)
         {
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
+            if (returnUrl != null && returnUrl.Value == true)
+            {
+                ViewBag.returnUrl = true;
+                _employee = Session["Employee"] as Employee;
+                if (_employee != null)
+                {
+                    return View(_employee.EmployeePersonalData.FirstOrDefault());
+                }
+            }
             return View();
         }
 
@@ -80,30 +89,69 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult PersonalData(EmployeePersonalData personalData, FormCollection collectedValues)
         {
-            //collect data from form using form collection
-            personalData.Firstname = collectedValues["Firstname"];
-            personalData.Lastname = collectedValues["Lastname"];
-            personalData.Middlename = collectedValues["Middlename"];
-            personalData.Gender = collectedValues["Gender"];
-            personalData.Email = collectedValues["Email"];
-            personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
-            personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
-            personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
-            personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
-            personalData.HomePhone = collectedValues["HomePhone"];
-            personalData.WorkPhone = collectedValues["WorkPhone"];
-            personalData.MobilePhone = collectedValues["MobilePhone"];
-            personalData.MaritalStatus = collectedValues["MaritalStatus"];
-            personalData.PostalCode = collectedValues["PostalCode"];
-            personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
-            personalData.Gender = collectedValues["Gender"];
-            personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
+            _employee = Session["Employee"] as Employee;
+            if (_employee != null)
+            {
 
-            //store data in a session
-            //Session["EmployeePersonalData"] = personalData;
-            _employee.EmployeePersonalData = new List<EmployeePersonalData> {personalData};
-            Session["Employee"] = _employee;
+                //collect data from form using form collection
+                personalData.Firstname = collectedValues["Firstname"];
+                personalData.Lastname = collectedValues["Lastname"];
+                personalData.Middlename = collectedValues["Middlename"];
+                personalData.Gender = collectedValues["Gender"];
+                personalData.Email = collectedValues["Email"];
+                personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
+                personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
+                personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
+                personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
+                personalData.HomePhone = collectedValues["HomePhone"];
+                personalData.WorkPhone = collectedValues["WorkPhone"];
+                personalData.MobilePhone = collectedValues["MobilePhone"];
+                personalData.MaritalStatus = collectedValues["MaritalStatus"];
+                personalData.PostalCode = collectedValues["PostalCode"];
+                personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
+                personalData.Gender = collectedValues["Gender"];
+                personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
 
+
+                //store data in a session
+                //Session["EmployeePersonalData"] = personalData;
+                _employee.EmployeePersonalData = new List<EmployeePersonalData> {personalData};
+                Session["Employee"] = _employee;
+            }
+            else
+            {
+                    Employee employeePersonalData = new Employee();
+        //collect data from form using form collection
+                personalData.Firstname = collectedValues["Firstname"];
+                personalData.Lastname = collectedValues["Lastname"];
+                personalData.Middlename = collectedValues["Middlename"];
+                personalData.Gender = collectedValues["Gender"];
+                personalData.Email = collectedValues["Email"];
+                personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
+                personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
+                personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
+                personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
+                personalData.HomePhone = collectedValues["HomePhone"];
+                personalData.WorkPhone = collectedValues["WorkPhone"];
+                personalData.MobilePhone = collectedValues["MobilePhone"];
+                personalData.MaritalStatus = collectedValues["MaritalStatus"];
+                personalData.PostalCode = collectedValues["PostalCode"];
+                personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
+                personalData.Gender = collectedValues["Gender"];
+                personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
+
+
+                //store data in a session
+                //Session["EmployeePersonalData"] = personalData;
+                employeePersonalData.EmployeePersonalData = new List<EmployeePersonalData> { personalData };
+                Session["Employee"] = employeePersonalData;
+            }
+            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            //if it is edit from review page return to the review page
+            if (returnUrl == true)
+            {
+                return View("ReviewEmployeeData");
+            }
             //return next view
             return View("EducationalQualification");
         }

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Step One: Employee Personal Data";
     ViewBag.HeaderClass = "page-header";
+    bool? returnUrl = ViewBag.returnUrl;
 }
 
 @section css {
@@ -161,8 +162,18 @@
                 <hr/>
 
                 <div class="col-md-12">
-                    <a href="@Url.Action("Index", "Registration")" class="btn btn-default">Cancel</a>
-                    <input type="submit" value="Next" class="btn btn-brown pull-right"/>
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
+                    @if (returnUrl != true)
+                    {
+                        <input type="submit" value="Next" class="btn btn-brown pull-right"/>
+                    }
+                    @if (returnUrl == true)
+                    {
+                        using (Html.BeginForm("PersonalData", "EmployeeManagement", FormMethod.Post, new { @class = "form" }))
+                        {@Html.Hidden("returnUrl", true)
+                            <input type="submit" value="Revert back to Review Page" class="btn btn-brown btn-xs pull-right" />
+                        }
+                    }
                 </div>
             }
         </div>
