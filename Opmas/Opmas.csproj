@@ -5226,6 +5226,7 @@
     <Content Include="Views\Units\Details.cshtml" />
     <Content Include="Views\Units\Edit.cshtml" />
     <Content Include="Views\Units\Index.cshtml" />
+    <Content Include="Views\Shared\CreateUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

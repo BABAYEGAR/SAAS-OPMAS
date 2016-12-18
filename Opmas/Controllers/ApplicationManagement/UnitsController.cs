@@ -16,9 +16,10 @@ namespace Opmas.Controllers.ApplicationManagement
         private UnitDataContext db = new UnitDataContext();
 
         // GET: Units
-        public ActionResult Index(long id)
+        public ActionResult Index(long? id)
         {
-            var units = db.Units.Include(u => u.DepartmentId == id);
+            ViewBag.DepartmentId = id;
+            var units = db.Units.Where(u => u.DepartmentId == id);
             return View(units.ToList());
         }
 
@@ -38,10 +39,10 @@ namespace Opmas.Controllers.ApplicationManagement
         }
 
         // GET: Units/Create
-        public ActionResult Create(long? id)
+        public ActionResult Create()
         {
             //ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name");
-            ViewBag.DepartmentId = id;
+            //ViewBag.DepartmentId = id;
             return View();
         }
 
@@ -50,17 +51,19 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UnitId,Name,Description")] Unit unit,FormCollection collectedValues)
+        public ActionResult Create(Unit unit,FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
-                unit.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
+                var departmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
+                unit.DepartmentId = departmentId;
+                unit.Name = collectedValues["Name"];
+                unit.Description = collectedValues["Description"];
                 db.Units.Add(unit);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.DepartmentId = departmentId;
+                return RedirectToAction("Index",new {id = departmentId});
             }
-
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", unit.DepartmentId);
             return View(unit);
         }
 
@@ -120,7 +123,7 @@ namespace Opmas.Controllers.ApplicationManagement
             Unit unit = db.Units.Find(id);
             db.Units.Remove(unit);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new {id = unit.DepartmentId});
         }
 
         protected override void Dispose(bool disposing)
