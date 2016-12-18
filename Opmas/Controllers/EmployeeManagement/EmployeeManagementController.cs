@@ -157,8 +157,17 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         // GET: EmployeeManagement/EducationalQualification
-        public ActionResult EducationalQualification()
+        public ActionResult EducationalQualification(bool? returnUrl)
         {
+            if (returnUrl != null && returnUrl.Value == true)
+            {
+                ViewBag.returnUrl = true;
+                _employee = Session["Employee"] as Employee;
+                if (_employee != null)
+                {
+                    return View();
+                }
+            }
             return View();
         }
 
@@ -172,7 +181,9 @@ namespace Opmas.Controllers.EmployeeManagement
             if (_employee != null)
             {
                 if (_employee.EmployeeEducationalQualifications == null)
+                {
                     _employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
+                }
                 _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification
                 {
                     ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
@@ -185,6 +196,12 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
+            }
+            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            //if it is edit from review page return to the review page
+            if (returnUrl == true)
+            {
+                return View("ReviewEmployeeData");
             }
             return View("EducationalQualification");
         }

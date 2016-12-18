@@ -7,7 +7,11 @@
 }
 @{
     var employee = Session["Employee"] as Employee;
-    var educationaQualification = employee.EmployeeEducationalQualifications;
+    var educationaQualification = employee?.EmployeeEducationalQualifications;
+
+    bool? returnUrl = ViewBag.returnUrl;
+
+
 }
 @section css {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
@@ -169,7 +173,18 @@
                         <input type="submit" value="Add" class="btn btn-success pull-right"/>
                         @if ((educationaQualification != null) && (educationaQualification.Count > 0))
                         {
-                            <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+                            if (returnUrl == true)
+                            {
+                                using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
+                                {
+                                    @Html.Hidden("returnUrl", true)
+                                    <input type="submit" value="Revert back to Review Page" class="btn btn-brown btn-xs pull-right"/>
+                                }
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+                            }
                         }
                     </div>
                 </div>
