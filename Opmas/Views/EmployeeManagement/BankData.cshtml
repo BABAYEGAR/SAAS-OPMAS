@@ -141,7 +141,7 @@
                                             <td>
                                                 @if (item != null)
                                                 {
-                                                    @Html.ActionLink("Remove", "RemoveBankData", new {item.FakeId}, new {@class = "btn btn-primary"})
+                                                    @Html.ActionLink("Remove", "RemoveBankData", new {item.FakeId}, new {@class = "btn btn-danger"})
                                                 }
                                             </td>
 
@@ -159,7 +159,7 @@
                 <div class="col-md-12">
 
                     <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-default">Back</a>
-                    <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
 
                     <input type="submit" value="Add" class="btn btn-success pull-right"/>
                     @if ((bankData != null) && (bankData.Count > 0))
@@ -167,7 +167,7 @@
 
                         if (returnUrl == true)
                         {
-                            <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-primary">Revert to review page</a>
+                            <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
                         }
                         else
                         {

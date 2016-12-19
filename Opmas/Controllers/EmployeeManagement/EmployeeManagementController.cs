@@ -569,7 +569,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeData = Session["Employee"] as Employee;
             if (employeeData != null)
                 employeeData.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
-            return View("EducationalQualification");
+            return RedirectToAction("EducationalQualification",new {returnUrl = true});
         }
 
         public ActionResult RemoveBankData(long fakeId)
@@ -578,7 +578,7 @@ namespace Opmas.Controllers.EmployeeManagement
             if (employeeData != null)
                 employeeData.EmployeeBankDatas.RemoveAll(n => n.FakeId == fakeId);
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            return View("BankData");
+            return RedirectToAction("BankData",new { returnUrl = true });
         }
 
         public ActionResult RemovePastWorkExperience(long fakeId)
@@ -586,7 +586,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeData = Session["Employee"] as Employee;
             if (employeeData != null)
                 employeeData.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
-            return View("PastWorkExperience");
+            return RedirectToAction("PastWorkExperience", new { returnUrl = true });
         }
 
         #endregion

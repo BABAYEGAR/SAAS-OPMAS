@@ -110,7 +110,7 @@
 
                     <div class="form-group col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-condensed table-hover" id="appusers">
+                            <table class="table table-condensed table-hover" id="">
                                 <thead>
                                 <tr>
                                     <th>
@@ -144,16 +144,16 @@
                                                 @Html.DisplayFor(modelItem => item.EmployerLocation)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                                @item.StartDate.ToShortDateString()
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                                @item.EndDate.ToShortDateString()
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.PositionHeld)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Remove", "RemovePastWorkExperience", new {item.FakeId}, new {@class = "btn btn-primary"})
+                                                @Html.ActionLink("Remove", "RemovePastWorkExperience", new {item.FakeId}, new {@class = "btn btn-danger"})
                                             </td>
 
                                         </tr>
@@ -170,14 +170,14 @@
                 <div class="col-md-12">
 
                     <a href="@Url.Action("EducationalQualification", "EmployeeManagement")" class="btn btn-default">Back</a>
-                    <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
-                    <input type="submit" value="Add" class="btn btn-success pull-right"/>
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
+                    <input type="submit" value="Add" class="btn btn-success"/>
                     @if ((pastWorkExperienceSession != null) && (pastWorkExperienceSession.Count > 0))
                     {
 
                         if (returnUrl == true)
                         {
-                            <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-primary">Revert to review page</a>
+                            <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
                         }
                         else
                         {
