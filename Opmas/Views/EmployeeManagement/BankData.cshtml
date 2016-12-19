@@ -14,6 +14,10 @@
         bankData = employee.EmployeeBankDatas;
     }
     bool? returnUrl = ViewBag.returnUrl;
+    if (returnUrl == null)
+    {
+        returnUrl = false;
+    }
 }
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
@@ -68,6 +72,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+                @Html.Hidden("returnUrl", returnUrl)
                 <fieldset>
                     <legend>Employee Bank Data</legend>
 
@@ -141,7 +146,14 @@
                                             <td>
                                                 @if (item != null)
                                                 {
-                                                    @Html.ActionLink("Remove", "RemoveBankData", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                    if (returnUrl == true)
+                                                    {
+                                                        @Html.ActionLink("Remove", "RemoveBankData", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink("Remove", "RemoveBankData", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                    }
                                                 }
                                             </td>
 
@@ -161,10 +173,9 @@
                     <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-default">Back</a>
                     <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
 
-                    <input type="submit" value="Add" class="btn btn-success pull-right"/>
+                    <input type="submit" value="Add" class="btn btn-success"/>
                     @if ((bankData != null) && (bankData.Count > 0))
                     {
-
                         if (returnUrl == true)
                         {
                             <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>

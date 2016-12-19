@@ -8,10 +8,7 @@
 @{
     var employee = Session["Employee"] as Employee;
     var educationaQualification = employee?.EmployeeEducationalQualifications;
-
-    bool? returnUrl = ViewBag.returnUrl;
-
-
+    bool? returnUrl = ViewBag.returnUrl ?? false;
 }
 @section css {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
@@ -75,6 +72,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+                @Html.Hidden("returnUrl", returnUrl)
                 <fieldset>
                     <legend>Employee Educational Qualification(s)</legend>
 
@@ -150,7 +148,14 @@
                                                 @Html.DisplayFor(modelItem => item.ClassOfDegree)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger fa fa-remove" })
+                                                @if (returnUrl == true)
+                                                 {
+                                                     @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                                 }
+                                                 else
+                                                 {
+                                                     @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                 }
                                             </td>
 
                                         </tr>
@@ -174,7 +179,6 @@
 
                         @if ((educationaQualification != null) && (educationaQualification.Count > 0))
                         {
-
                             if (returnUrl == true)
                             {
                                 <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
@@ -183,9 +187,8 @@
                             {
                                 <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
                             }
-
                         }
-                           
+
                     </div>
                 </div>
             }

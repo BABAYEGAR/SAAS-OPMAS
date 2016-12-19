@@ -563,30 +563,43 @@ namespace Opmas.Controllers.EmployeeManagement
         ///     This method remove an educational qualification from a session list
         /// </summary>
         /// <param name="fakeId"></param>
+        /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public ActionResult RemoveEducationalQualification(long fakeId)
+        public ActionResult RemoveEducationalQualification(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
             if (employeeData != null)
                 employeeData.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
-            return RedirectToAction("EducationalQualification",new {returnUrl = true});
+            if (returnUrl != null && returnUrl == true)
+            {
+                return RedirectToAction("EducationalQualification", new { returnUrl = true });
+            }
+            return RedirectToAction("EducationalQualification");
         }
 
-        public ActionResult RemoveBankData(long fakeId)
+        public ActionResult RemoveBankData(long fakeId,bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
             if (employeeData != null)
                 employeeData.EmployeeBankDatas.RemoveAll(n => n.FakeId == fakeId);
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            return RedirectToAction("BankData",new { returnUrl = true });
+            if (returnUrl != null && returnUrl == true)
+            {
+                return RedirectToAction("BankData", new { returnUrl = true });
+            }
+            return RedirectToAction("BankData");
         }
 
-        public ActionResult RemovePastWorkExperience(long fakeId)
+        public ActionResult RemovePastWorkExperience(long fakeId,bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
             if (employeeData != null)
                 employeeData.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
-            return RedirectToAction("PastWorkExperience", new { returnUrl = true });
+            if (returnUrl != null && returnUrl == true)
+            {
+                return RedirectToAction("PastWorkExperience", new { returnUrl = true });
+            }
+            return RedirectToAction("PastWorkExperience");
         }
 
         #endregion
