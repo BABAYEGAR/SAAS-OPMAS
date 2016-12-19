@@ -13,6 +13,7 @@
     {
         bankData = employee.EmployeeBankDatas;
     }
+    bool? returnUrl = ViewBag.returnUrl;
 }
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
@@ -163,7 +164,15 @@
                     <input type="submit" value="Add" class="btn btn-success pull-right"/>
                     @if ((bankData != null) && (bankData.Count > 0))
                     {
-                        <a href="@Url.Action("MedicalData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+
+                        if (returnUrl == true)
+                        {
+                            <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-primary">Revert to review page</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("MedicalData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+                        }
                     }
                 </div>
             }

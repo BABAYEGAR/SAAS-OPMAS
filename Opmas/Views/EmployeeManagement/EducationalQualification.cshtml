@@ -173,19 +173,18 @@
                         <input type="submit" value="Add" class="btn btn-success pull-right"/>
                         @if ((educationaQualification != null) && (educationaQualification.Count > 0))
                         {
+
                             if (returnUrl == true)
                             {
-                                using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
-                                {
-                                    @Html.Hidden("returnUrl", true)
-                                    <input type="submit" value="Revert back to Review Page" class="btn btn-brown btn-xs pull-right"/>
-                                }
+                                <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-primary">Revert to review page</a>
                             }
                             else
                             {
                                 <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
                             }
+
                         }
+                           
                     </div>
                 </div>
             }

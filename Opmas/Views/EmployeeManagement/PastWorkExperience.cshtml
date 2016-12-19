@@ -6,7 +6,9 @@
 }
 @{
     var employee = Session["Employee"] as Employee;
-    var pastWorkExperienceSession = employee.EmployeePastWorkExperiences;
+    var pastWorkExperienceSession = employee?.EmployeePastWorkExperiences;
+
+    bool? returnUrl = ViewBag.returnUrl;
 }
 @section css {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
@@ -172,7 +174,15 @@
                     <input type="submit" value="Add" class="btn btn-success pull-right"/>
                     @if ((pastWorkExperienceSession != null) && (pastWorkExperienceSession.Count > 0))
                     {
-                        <a href="@Url.Action("BankData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+
+                        if (returnUrl == true)
+                        {
+                            <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-primary">Revert to review page</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("BankData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+                        }
                     }
                 </div>
             }

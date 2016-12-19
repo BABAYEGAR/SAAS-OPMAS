@@ -178,6 +178,7 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             _employee = Session["Employee"] as Employee;
             //collect data from form using form collection
+            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             if (_employee != null)
             {
                 if (_employee.EmployeeEducationalQualifications == null)
@@ -197,17 +198,27 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 Session["Employee"] = _employee;
             }
-            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+
             //if it is edit from review page return to the review page
             if (returnUrl == true)
             {
-                return View("ReviewEmployeeData");
+                return RedirectToAction("EducationalQualification", new { returnUrl = true });
             }
             return View("EducationalQualification");
         }
         // GET: EmployeeManagement/PastWorkExperience
-        public ActionResult PastWorkExperience()
+        public ActionResult PastWorkExperience(bool? returnUrl)
         {
+
+            if (returnUrl != null && returnUrl.Value == true)
+            {
+                ViewBag.returnUrl = true;
+                _employee = Session["Employee"] as Employee;
+                if (_employee != null)
+                {
+                    return View();
+                }
+            }
             return View();
         }
 
@@ -235,13 +246,28 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 Session["Employee"] = _employee;
             }
+            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            //if it is edit from review page return to the review page
+            if (returnUrl == true)
+            {
+                return RedirectToAction("PastWorkExperience", new { returnUrl = true });
+            }
             return View("PastWorkExperience");
         }
 
         // GET: EmployeeManagement/BankData
-        public ActionResult BankData()
+        public ActionResult BankData(bool? returnUrl)
         {
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
+            if (returnUrl != null && returnUrl.Value == true)
+            {
+                ViewBag.returnUrl = true;
+                _employee = Session["Employee"] as Employee;
+                if (_employee != null)
+                {
+                    return View();
+                }
+            }
             return View();
         }
 
@@ -266,6 +292,12 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
+            }
+            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            //if it is edit from review page return to the review page
+            if (returnUrl == true)
+            {
+                return RedirectToAction("BankData",new {returnUrl = true});
             }
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
             return View("BankData");
