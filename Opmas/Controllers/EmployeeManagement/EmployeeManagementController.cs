@@ -350,83 +350,105 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult ReviewEmployeeDatas()
         {
-            var employeeData = Session["Employee"] as Employee;
-            SavaEmployeeData(employeeData);
-            return RedirectToAction("Index", "Home");
+            var institution = Session["institution"] as Institution;
+            if (institution != null)
+            {
+                var employeeData = Session["Employee"] as Employee;
+                SavaEmployeeData(employeeData);
+                TempData["reg"] = "You have successfully registered!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+            }
+            else
+            {
+                TempData["regerror"] = "Make sure you select your institution and try again!";
+                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                return RedirectToAction("Login", "Account");
+            }
+
+            return RedirectToAction("Login", "Account");
         }
 
         public void SavaEmployeeData(Employee employeeData)
         {
-            if (employeeData != null)
+            var institution = Session["institution"] as Institution;
+            if (institution != null)
             {
-                _employee.DateCreated = DateTime.Now;
-                _employee.DateLastModified = DateTime.Now;
-                _employee.LastModifiedBy = 1;
-                _employee.CreatedBy = 1;
+                if (employeeData != null)
+            {
+               
+                    _employee.DateCreated = DateTime.Now;
+                    _employee.DateLastModified = DateTime.Now;
+                    _employee.LastModifiedBy = 1;
+                    _employee.CreatedBy = 1;
+                    _employee.InstitutionId = institution.InstitutionId;
 
-                _dbEmployee.Employees.Add(_employee);
+                    _dbEmployee.Employees.Add(_employee);
 
 
-                if (employeeData.EmployeeBankDatas != null)
-                {
-                    foreach (var item in employeeData.EmployeeBankDatas)
+                    if (employeeData.EmployeeBankDatas != null)
                     {
-                        item.EmployeeId = employeeData.EmployeeId;
-                        item.FakeId = 0;
+                        foreach (var item in employeeData.EmployeeBankDatas)
+                        {
+                            item.EmployeeId = employeeData.EmployeeId;
+                            item.FakeId = 0;
+                        }
+                        foreach (var employeeDataEmployeeBankData in employeeData.EmployeeBankDatas)
+                            _dbEmployee.EmployeeBankDatas.Add(employeeDataEmployeeBankData);
                     }
-                    foreach (var employeeDataEmployeeBankData in employeeData.EmployeeBankDatas)
-                        _dbEmployee.EmployeeBankDatas.Add(employeeDataEmployeeBankData);
-                }
 
-                if (employeeData.EmployeeEducationalQualifications != null)
-                {
-                    foreach (var item in employeeData.EmployeeEducationalQualifications)
+                    if (employeeData.EmployeeEducationalQualifications != null)
                     {
-                        item.EmployeeId = employeeData.EmployeeId;
-                        item.FakeId = 0;
+                        foreach (var item in employeeData.EmployeeEducationalQualifications)
+                        {
+                            item.EmployeeId = employeeData.EmployeeId;
+                            item.FakeId = 0;
+                        }
+                        foreach (
+                            var employeeDataEmployeeEducationalQualification in
+                            employeeData.EmployeeEducationalQualifications)
+                            _dbEmployee.EmployeeEducationalQualifications.Add(
+                                employeeDataEmployeeEducationalQualification);
                     }
-                    foreach (
-                        var employeeDataEmployeeEducationalQualification in
-                        employeeData.EmployeeEducationalQualifications)
-                        _dbEmployee.EmployeeEducationalQualifications.Add(employeeDataEmployeeEducationalQualification);
-                }
 
-                var employeePersonalData = employeeData.EmployeePersonalData.FirstOrDefault();
-                if (employeePersonalData != null)
-                {
-                    employeePersonalData.EmployeeId = employeeData.EmployeeId;
-                    _dbEmployee.EmployeePersonalDatas.Add(employeeData.EmployeePersonalData.FirstOrDefault());
-                    //_dbe.SaveChanges();
-                }
-
-                if (employeeData.EmployeePastWorkExperiences != null)
-                {
-                    foreach (var item in employeeData.EmployeePastWorkExperiences)
+                    var employeePersonalData = employeeData.EmployeePersonalData.FirstOrDefault();
+                    if (employeePersonalData != null)
                     {
-                        item.EmployeeId = employeeData.EmployeeId;
-                        item.FakeId = 0;
+                        employeePersonalData.EmployeeId = employeeData.EmployeeId;
+                        _dbEmployee.EmployeePersonalDatas.Add(employeeData.EmployeePersonalData.FirstOrDefault());
+                        //_dbe.SaveChanges();
                     }
-                    foreach (var employeeDataEmployeePastWorkExperience in employeeData.EmployeePastWorkExperiences)
-                        _dbEmployee.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
-                }
 
-                var employeeWorkData = employeeData.EmployeeWorkDatas.FirstOrDefault();
-                if (employeeWorkData != null)
-                {
-                    employeeWorkData.EmployeeId = employeeData.EmployeeId;
-                    _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
-                    //_dbg.SaveChanges();
-                }
+                    if (employeeData.EmployeePastWorkExperiences != null)
+                    {
+                        foreach (var item in employeeData.EmployeePastWorkExperiences)
+                        {
+                            item.EmployeeId = employeeData.EmployeeId;
+                            item.FakeId = 0;
+                        }
+                        foreach (var employeeDataEmployeePastWorkExperience in employeeData.EmployeePastWorkExperiences)
+                            _dbEmployee.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
+                    }
 
-                var employeeMedicalData = employeeData.EmployeeMedicalDatas.FirstOrDefault();
-                if (employeeMedicalData != null)
-                {
-                    employeeMedicalData.EmployeeId = employeeData.EmployeeId;
-                    _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
-                    // _dbh.SaveChanges();
+                    var employeeWorkData = employeeData.EmployeeWorkDatas.FirstOrDefault();
+                    if (employeeWorkData != null)
+                    {
+                        employeeWorkData.EmployeeId = employeeData.EmployeeId;
+                        _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
+                        //_dbg.SaveChanges();
+                    }
+
+                    var employeeMedicalData = employeeData.EmployeeMedicalDatas.FirstOrDefault();
+                    if (employeeMedicalData != null)
+                    {
+                        employeeMedicalData.EmployeeId = employeeData.EmployeeId;
+                        _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
+                        // _dbh.SaveChanges();
+                    }
+                    _dbEmployee.SaveChanges();
                 }
-                _dbEmployee.SaveChanges();
+              
             }
+          
         }
 
         #endregion

@@ -19,6 +19,36 @@
         <div class="alert-info alert-dismissable" style="height: 30px">@TempData["login"]</div>
     }
 }
+@if (TempData["reg"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["reg"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["reg"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["reg"]</div>
+    }
+}
+@if (TempData["regerror"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["regerror"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["regerror"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["regerror"]</div>
+    }
+}
 @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
