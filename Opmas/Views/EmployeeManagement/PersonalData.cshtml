@@ -68,10 +68,11 @@
                 <fieldset>
                     <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Title, "Title", new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.LabelFor(m => m.Title,"Employee Title", new { @class = "control-label" }) <span class="req">*</span>
                         @Html.DropDownListFor(m=>m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), "select your title", new { @class = "form-control select-dropdown"})
-                    </div>   
-                      <div class="form-group col-md-4">
+                    </div> 
+                
+                    <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Firstname, new {@class = "form-control", placeholder = "Please enter your first name"})
                     </div>
@@ -80,7 +81,7 @@
                         @Html.LabelFor(m => m.Lastname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Lastname, new {@class = "form-control", placeholder = "Please enter your last name"})
                     </div>
-
+                    <div class="clearfix"></div>  
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Middlename, new {@class = "control-label"})
                         @Html.TextBoxFor(m => m.Middlename, new {@class = "form-control", placeholder = "Please enter your middle name"})

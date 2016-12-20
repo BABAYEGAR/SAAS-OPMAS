@@ -8,6 +8,9 @@
 @{
     var employee = Session["Employee"] as Employee;
     var educationaQualification = employee?.EmployeeEducationalQualifications;
+    var basicEducation = educationaQualification.Where(n => n.DegreeAttained == DegreeTypeEnum.Basic.ToString());
+    var secondaryEducation = educationaQualification.Where(n => (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) || (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()));
+    var higherEducation = educationaQualification.Where(n => (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()) || (n.DegreeAttained == DegreeTypeEnum.MSc.ToString()) || (n.DegreeAttained == DegreeTypeEnum.Phd.ToString()));
     bool? returnUrl = ViewBag.returnUrl ?? false;
 }
 @section css {
@@ -31,108 +34,122 @@
 </header>
 
 <div class="container">
-    <div class="row hidden-xs">
-        <ul class="progressbar">
-            <li>
-                Step One <br/>
-                <small>Personal Data</small>
+<div class="row hidden-xs">
+    <ul class="progressbar">
+        <li>
+            Step One <br/>
+            <small>Personal Data</small>
 
-            </li>
-            <li class="active">
-                Step Two <br/>
-                <small>Educational Qualification</small>
-            </li>
-            <li>
-                Step Three <br/>
-                <small>Past Work Experience</small>
-            </li>
-            <li>
-                Step Four <br/>
-                <small>Bank Data</small>
-            </li>
-            <li>
-                Step Five <br/>
-                <small>Medical Data</small>
+        </li>
+        <li class="active">
+            Step Two <br/>
+            <small>Educational Qualification</small>
+        </li>
+        <li>
+            Step Three <br/>
+            <small>Past Work Experience</small>
+        </li>
+        <li>
+            Step Four <br/>
+            <small>Bank Data</small>
+        </li>
+        <li>
+            Step Five <br/>
+            <small>Medical Data</small>
 
-            </li>
-            <li>
-                Confirmation <br/>
-                <small>Review of Employee Info</small>
-            </li>
-            <li>
-                Completed <br/>
-                <small>Registration Complete</small>
-            </li>
-        </ul>
+        </li>
+        <li>
+            Confirmation <br/>
+            <small>Review of Employee Info</small>
+        </li>
+        <li>
+            Completed <br/>
+            <small>Registration Complete</small>
+        </li>
+    </ul>
+</div>
+<hr/>
+<div class="row">
+<div class="col-md-12">
+@using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    @Html.Hidden("returnUrl", returnUrl)
+    <fieldset>
+    <legend>Employee Educational Qualification(s)</legend>
+
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.InstitutionName, new {@class = "control-label"}) <span class="req">*</span>
+        @Html.TextBoxFor(m => m.InstitutionName, new {@class = "form-control", placeholder = "Please enter the institution name"})
     </div>
-    <hr/>
-    <div class="row">
-        <div class="col-md-12">
-            @using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-                @Html.Hidden("returnUrl", returnUrl)
-                <fieldset>
-                    <legend>Employee Educational Qualification(s)</legend>
+    <div class="clearfix"></div>
 
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.InstitutionName, new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.InstitutionName, new {@class = "form-control", placeholder = "Please enter the institution name"})
-                    </div>
-                    <div class="clearfix"></div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.Location, new {@class = "control-label"})<span class="req">*</span>
+        @Html.TextAreaFor(m => m.Location, new {@class = "form-control", placeholder = "Please enter the institution location"})
+    </div>
 
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.Location, new {@class = "control-label"})<span class="req">*</span>
-                        @Html.TextAreaFor(m => m.Location, new {@class = "form-control", placeholder = "Please enter the institution location"})
-                    </div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.StartDate, new {@class = "control-label"})<span class="req">*</span>
+        @Html.TextBoxFor(m => m.StartDate, new {@class = "form-control startDate", placeholder = "Please select a start date"})
+    </div>
+    <div class="clearfix"></div>
 
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.StartDate, new {@class = "control-label"})<span class="req">*</span>
-                        @Html.TextBoxFor(m => m.StartDate, new {@class = "form-control startDate", placeholder = "Please select a start date"})
-                    </div>
-                    <div class="clearfix"></div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label"}) <span class="req">*</span>
+        @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please selectan end date"})
+    </div>
+    <div class="clearfix"></div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.DegreeAttained, "Degree Category:", new {@class = "control-label"}) <span class="req">*</span>
+        @Html.DropDownList("DegreeAttained", EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "degreeType"})
+    </div>
+    <div class="clearfix"></div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree:", new {@class = "control-label"}) <span class="req">*</span>
+        @Html.DropDownList("ClassOfDegree", EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), "select your class of degree", new {@class = "form-control select-dropdown", id = "degreeClass"})
+    </div>
+    <div class="clearfix"></div>
 
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please selectan end date"})
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.DegreeAttained, "Degree Attained:", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownList("DegreeAttained", EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "Role"})
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree:", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownList("ClassOfDegree", EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), "select your class of degree", new {@class = "form-control select-dropdown", id = "Role"})
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <div class="form-group col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-hover" id="">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.InstitutionName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.StartDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EndDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ClassOfDegree)
-                                    </th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if (educationaQualification != null)
-                                {
-                                    foreach (var item in educationaQualification)
+    <div class="form-group col-md-12">
+        <div class="table-responsive">
+            <div class="tab-content">
+                <div class="row">
+                    <div class="panel-body">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
+                                <li class="active">
+                                    <a data-toggle="tab" style="color: red" href="#active">Basic Education</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" style="color: blue" href="#second">Secodary Education</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" style="color: darkgreen" href="#third">Higher Education</a>
+                                </li>
+                            </ul>
+                            <div id="active" class="tab-pane fade in active">
+                                <table class="table table-condensed table-hover" id="datatable1">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.InstitutionName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.StartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EndDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ClassOfDegree)
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in basicEducation)
                                     {
                                         <tr>
                                             <td>
@@ -145,55 +162,171 @@
                                                 @item.EndDate.ToShortDateString()
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.ClassOfDegree)
-                                            </td>
-                                            <td>
                                                 @if (returnUrl == true)
-                                                 {
-                                                     @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
-                                                 }
-                                                 else
-                                                 {
-                                                     @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
-                                                 }
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                }
                                             </td>
 
                                         </tr>
                                     }
-                                }
-                                </tbody>
-                            </table>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="secondary" class="tab-pane fade">
+                                <table class="table table-condensed table-hover" id="datatable2">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.InstitutionName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.StartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EndDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ClassOfDegree)
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in secondaryEducation)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InstitutionName)
+                                            </td>
+                                            <td>
+                                                @item.StartDate.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @item.EndDate.ToShortDateString()
+                                            </td>
+
+                                            <td>
+                                                @if (returnUrl == true)
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div id="higher" class="tab-pane fade">
+                                <table class="table table-condensed table-hover" id="datatable3">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.InstitutionName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.StartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EndDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ClassOfDegree)
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in higherEducation)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InstitutionName)
+                                            </td>
+                                            <td>
+                                                @item.StartDate.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @item.EndDate.ToShortDateString()
+                                            </td>
+                                            @if (item.ClassOfDegree != null)
+                                            {
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ClassOfDegree)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    No Class Of Degree Offered!
+                                                </td>
+                                            }
+
+                                            <td>
+                                                @if (returnUrl == true)
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                    </tbody>
+                                </table>
+
+                            </div>s
                         </div>
                     </div>
-                </fieldset>
-
-                <hr/>
-
-                <div class="col-md-12">
-
-                    <div class="col-md-12">
-
-                        <a href="@Url.Action("PersonalData", "EmployeeManagement")" class="btn btn-default">Back</a>
-                        <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
-                        <input type="submit" value="Add" class="btn btn-success"/>
-
-                        @if ((educationaQualification != null) && (educationaQualification.Count > 0))
-                        {
-                            if (returnUrl == true)
-                            {
-                                <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
-                            }
-                            else
-                            {
-                                <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
-                            }
-                        }
-
-                    </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
+    </fieldset>
+
+    <hr/>
+
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+
+            <a href="@Url.Action("PersonalData", "EmployeeManagement")" class="btn btn-default">Back</a>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
+            <input type="submit" value="Add" class="btn btn-success"/>
+
+            @if (educationaQualification.Count > 0)
+            {
+                if (returnUrl == true)
+                {
+                    <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+                }
+            }
+
+        </div>
+    </div>
+}
+</div>
+</div>
 </div>
 
 @section scripts {
@@ -219,6 +352,25 @@
                             // apply selected date as start date for expiry
                             $('.endDate').datepicker('setStartDate', e.date);
                         });
+                $('#datatable1').DataTable();
+                $('#datatable2').DataTable();
+                $('#datatable3').DataTable();
+                $("#degreeClass").hide(0);
+                type.change(function() {
+                    var sel = $(this).val(),
+                        contentType = $("#degreeType"),
+                        file = $("#degreeClass");
+                    if (sel === "0" || sel === "1" || sel === "2") {
+                        file.show(100);
+                        contentType.hide(0);
+                    } else if (sel === "3" || sel === "4") {
+                        file.hide(0);
+                        contentType.show(100);
+                    } else {
+                        file.hide(0);
+                        contentType.hide(0);
+                    }
+                });
             });
     </script>
 }
