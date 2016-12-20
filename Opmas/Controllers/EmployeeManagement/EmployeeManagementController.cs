@@ -103,6 +103,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
                 personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
+                personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
                 personalData.HomePhone = collectedValues["HomePhone"];
                 personalData.WorkPhone = collectedValues["WorkPhone"];
                 personalData.MobilePhone = collectedValues["MobilePhone"];
@@ -128,6 +129,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 personalData.Gender = collectedValues["Gender"];
                 personalData.Email = collectedValues["Email"];
                 personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
+                personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
                 personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
                 personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];

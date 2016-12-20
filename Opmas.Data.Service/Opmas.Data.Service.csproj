@@ -54,6 +54,7 @@
     <Compile Include="Enums\Genotype.cs" />
     <Compile Include="Enums\InstitutionCategory.cs" />
     <Compile Include="Enums\MaritalStatusEnum.cs" />
+    <Compile Include="Enums\NameTitle.cs" />
     <Compile Include="Enums\NotificationTypeEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />
     <Compile Include="Enums\AdminUserType.cs" />

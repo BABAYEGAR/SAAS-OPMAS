@@ -1,4 +1,5 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmployeePersonalData
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.Employee.EmployeePersonalData
 @{
     ViewBag.Title = "Step One: Employee Personal Data";
     ViewBag.HeaderClass = "page-header";
@@ -67,6 +68,10 @@
                 <fieldset>
                     <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.Title, "Title", new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.DropDownListFor(m=>m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), "select your title", new { @class = "form-control select-dropdown"})
+                    </div>   
+                      <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Firstname, new {@class = "form-control", placeholder = "Please enter your first name"})
                     </div>
