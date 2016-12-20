@@ -25,7 +25,6 @@ namespace Opmas.Controllers.EmployeeManagement
         private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
         private Employee _employee = new Employee();
 
-
         #region Fetch data
 
         /// <summary>
@@ -58,10 +57,10 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult ListOfEmployees()
         {
             var institution = Session["institution"] as Institution;
-            return View(_dbEmployee.Employees.ToList().Where(n=>
-            {
-                return institution != null && n.InstitutionId == institution.InstitutionId;
-            }));
+            return
+                View(
+                    _dbEmployee.Employees.ToList()
+                        .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId)));
         }
 
         #endregion
@@ -72,14 +71,12 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult PersonalData(bool? returnUrl)
         {
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
-            if (returnUrl != null && returnUrl.Value == true)
+            if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
-                {
                     return View(_employee.EmployeePersonalData.FirstOrDefault());
-                }
             }
             return View();
         }
@@ -92,7 +89,6 @@ namespace Opmas.Controllers.EmployeeManagement
             _employee = Session["Employee"] as Employee;
             if (_employee != null)
             {
-
                 //collect data from form using form collection
                 personalData.Firstname = collectedValues["Firstname"];
                 personalData.Lastname = collectedValues["Lastname"];
@@ -121,8 +117,8 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             else
             {
-                    Employee employeePersonalData = new Employee();
-        //collect data from form using form collection
+                var employeePersonalData = new Employee();
+                //collect data from form using form collection
                 personalData.Firstname = collectedValues["Firstname"];
                 personalData.Lastname = collectedValues["Lastname"];
                 personalData.Middlename = collectedValues["Middlename"];
@@ -145,15 +141,13 @@ namespace Opmas.Controllers.EmployeeManagement
 
                 //store data in a session
                 //Session["EmployeePersonalData"] = personalData;
-                employeePersonalData.EmployeePersonalData = new List<EmployeePersonalData> { personalData };
+                employeePersonalData.EmployeePersonalData = new List<EmployeePersonalData> {personalData};
                 Session["Employee"] = employeePersonalData;
             }
-            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
-            if (returnUrl == true)
-            {
+            if (returnUrl)
                 return View("ReviewEmployeeData");
-            }
             //return next view
             return View("EducationalQualification");
         }
@@ -161,14 +155,12 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/EducationalQualification
         public ActionResult EducationalQualification(bool? returnUrl)
         {
-            if (returnUrl != null && returnUrl.Value == true)
+            if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
-                {
                     return View();
-                }
             }
             return View();
         }
@@ -180,13 +172,11 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             _employee = Session["Employee"] as Employee;
             //collect data from form using form collection
-            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             if (_employee != null)
             {
                 if (_employee.EmployeeEducationalQualifications == null)
-                {
                     _employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
-                }
                 _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification
                 {
                     ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
@@ -202,24 +192,20 @@ namespace Opmas.Controllers.EmployeeManagement
             }
 
             //if it is edit from review page return to the review page
-            if (returnUrl == true)
-            {
-                return RedirectToAction("EducationalQualification", new { returnUrl = true });
-            }
+            if (returnUrl)
+                return RedirectToAction("EducationalQualification", new {returnUrl = true});
             return View("EducationalQualification");
         }
+
         // GET: EmployeeManagement/PastWorkExperience
         public ActionResult PastWorkExperience(bool? returnUrl)
         {
-
-            if (returnUrl != null && returnUrl.Value == true)
+            if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
-                {
                     return View();
-                }
             }
             return View();
         }
@@ -248,12 +234,10 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 Session["Employee"] = _employee;
             }
-            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
-            if (returnUrl == true)
-            {
-                return RedirectToAction("PastWorkExperience", new { returnUrl = true });
-            }
+            if (returnUrl)
+                return RedirectToAction("PastWorkExperience", new {returnUrl = true});
             return View("PastWorkExperience");
         }
 
@@ -261,14 +245,12 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult BankData(bool? returnUrl)
         {
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            if (returnUrl != null && returnUrl.Value == true)
+            if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
-                {
                     return View();
-                }
             }
             return View();
         }
@@ -295,12 +277,10 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 Session["Employee"] = _employee;
             }
-            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
-            if (returnUrl == true)
-            {
-                return RedirectToAction("BankData",new {returnUrl = true});
-            }
+            if (returnUrl)
+                return RedirectToAction("BankData", new {returnUrl = true});
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
             return View("BankData");
         }
@@ -374,10 +354,8 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             var institution = Session["institution"] as Institution;
             if (institution != null)
-            {
                 if (employeeData != null)
-            {
-               
+                {
                     _employee.DateCreated = DateTime.Now;
                     _employee.DateLastModified = DateTime.Now;
                     _employee.LastModifiedBy = 1;
@@ -448,9 +426,6 @@ namespace Opmas.Controllers.EmployeeManagement
                     }
                     _dbEmployee.SaveChanges();
                 }
-              
-            }
-          
         }
 
         #endregion
@@ -492,7 +467,8 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("ListOfEducationalQualification","EmployeeManagement",new {id = educationalQualification.EmployeeId});
+            return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
+                new {id = educationalQualification.EmployeeId});
         }
 
         // POST: EmployeeManagement/CreateSingleBankData
@@ -513,7 +489,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("ListOfBankData", "EmployeeManagement", new { id = employeeBankData.EmployeeId });
+            return RedirectToAction("ListOfBankData", "EmployeeManagement", new {id = employeeBankData.EmployeeId});
         }
 
         // POST: EmployeeManagement/PastWorkExperience
@@ -533,7 +509,8 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
             _dbEmployee.SaveChanges();
-            return RedirectToAction("ListOfPastWorkExperience", "EmployeeManagement", new { id = pastWorkExperience.EmployeeId });
+            return RedirectToAction("ListOfPastWorkExperience", "EmployeeManagement",
+                new {id = pastWorkExperience.EmployeeId});
         }
 
         #endregion
@@ -592,37 +569,28 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult RemoveEducationalQualification(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
-            if (employeeData != null)
-                employeeData.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
-            if (returnUrl != null && returnUrl == true)
-            {
-                return RedirectToAction("EducationalQualification", new { returnUrl = true });
-            }
+            employeeData?.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
+            if ((returnUrl != null) && (returnUrl == true))
+                return RedirectToAction("EducationalQualification", new {returnUrl = true});
             return RedirectToAction("EducationalQualification");
         }
 
-        public ActionResult RemoveBankData(long fakeId,bool? returnUrl)
+        public ActionResult RemoveBankData(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
-            if (employeeData != null)
-                employeeData.EmployeeBankDatas.RemoveAll(n => n.FakeId == fakeId);
+            employeeData?.EmployeeBankDatas.RemoveAll(n => n.FakeId == fakeId);
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            if (returnUrl != null && returnUrl == true)
-            {
-                return RedirectToAction("BankData", new { returnUrl = true });
-            }
+            if ((returnUrl != null) && (returnUrl == true))
+                return RedirectToAction("BankData", new {returnUrl = true});
             return RedirectToAction("BankData");
         }
 
-        public ActionResult RemovePastWorkExperience(long fakeId,bool? returnUrl)
+        public ActionResult RemovePastWorkExperience(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
-            if (employeeData != null)
-                employeeData.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
-            if (returnUrl != null && returnUrl == true)
-            {
-                return RedirectToAction("PastWorkExperience", new { returnUrl = true });
-            }
+            employeeData?.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
+            if ((returnUrl != null) && (returnUrl == true))
+                return RedirectToAction("PastWorkExperience", new {returnUrl = true});
             return RedirectToAction("PastWorkExperience");
         }
 
@@ -646,10 +614,9 @@ namespace Opmas.Controllers.EmployeeManagement
             var institution = Session["institution"] as Institution;
             var employeeId = Convert.ToInt64(collectedValue["EmployeeId"]);
             var employee = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
-            var employees = _dbEmployee.Employees.ToList().Where(n=>
-            {
-                return institution != null && n.InstitutionId == institution.InstitutionId;
-            });
+            var employees =
+                _dbEmployee.Employees.ToList()
+                    .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId));
             var appUser = new AppUser();
             if (employee != null)
             {
@@ -719,7 +686,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
-                return RedirectToAction("EmployeeIndex","Home");
+                return RedirectToAction("EmployeeIndex", "Home");
             }
             return View(employeePersonalData);
         }
@@ -753,8 +720,9 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("EmployeeIndex","Home");
+            return RedirectToAction("EmployeeIndex", "Home");
         }
+
         // GET: EmployeeManagement/EditWorkData
         public ActionResult EditWorkData(long? id)
         {
@@ -770,13 +738,13 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditWorkData([Bind(
-                                                 Include =
-                                                     "EmployeeWorkDataId,EmploymentDate,EmployeeId,PositionHeld")] EmployeeWorkData workData,
+                                              Include =
+                                                  "EmployeeWorkDataId,EmploymentDate,EmployeeId,PositionHeld")] EmployeeWorkData workData,
             FormCollection collectedValues)
         {
-            var employeeId = collectedValues["EmployeeId"];
             //medical data
-            workData.EmploymentStatus = typeof(EmploymentStatus).GetEnumName(int.Parse(collectedValues["EmploymentStatus"]));
+            workData.EmploymentStatus =
+                typeof(EmploymentStatus).GetEnumName(int.Parse(collectedValues["EmploymentStatus"]));
             workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
             workData.Category = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["Category"]));
 
