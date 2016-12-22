@@ -24,6 +24,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public string DegreeAttained { get; set; }
         [Required]
         [DisplayName("Class Of Degree")]
+        [DefaultValue("None")]
         public string ClassOfDegree { get; set; }
         public long FakeId { get; set; }
 

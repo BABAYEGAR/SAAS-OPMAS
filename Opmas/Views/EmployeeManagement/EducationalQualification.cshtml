@@ -17,10 +17,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
         <!-- Datatables -->
 <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/ManagementDashboard/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/ManagementDashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/ManagementDashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/ManagementDashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
     <style>
         .sponsor-name { display: none; }
@@ -112,12 +108,12 @@
         <div class="clearfix"></div>
         <div class="form-group col-md-12">
             @Html.LabelFor(m => m.DegreeAttained, "Degree Category:", new { @class = "control-label" }) <span class="req">*</span>
-            @Html.DropDownList("DegreeAttained", EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new { @class = "form-control select-dropdown", id = "degreeType" })
+            @Html.DropDownListFor(m=>m.DegreeAttained, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new { @class = "form-control select-dropdown", id = "degreeType" })
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-md-12" id="degreeClass">
             @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree:", new { @class = "control-label" }) <span class="req">*</span>
-            @Html.DropDownList("ClassOfDegree", EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)),"select your class of degree", new { @class = "form-control select-dropdown" })
+            @Html.DropDownListFor(m=>m.ClassOfDegree, EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)),"select your class of degree", new { @class = "form-control select-dropdown" })
         </div>
     </fieldset>
     </div>
