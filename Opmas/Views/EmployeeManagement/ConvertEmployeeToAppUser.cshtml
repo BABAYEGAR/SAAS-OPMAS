@@ -1,17 +1,15 @@
 ﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
 @using Opmas.Data.DataContext.DataContext.UserDataContext
 @using Opmas.Data.Factory.EmployeeManagement
-@using Opmas.Data.Objects.Entities.Employee
 @model Opmas.Data.Objects.Entities.Employee.Employee
 @{
     var employeeId = Model.EmployeeId;
     EmployeeDataContext dbEmployee = new EmployeeDataContext();
     AppUserDataContext appuser = new AppUserDataContext();
     var educationaQualification = dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == employeeId).ToList();
-    var bankData = dbEmployee.EmployeeBankDatas.Where(n => n.EmployeeId == employeeId).ToList();
+    var bankData = dbEmployee.EmployeeBankDatas?.Where(n => n.EmployeeId == employeeId).ToList();
     var pastWorkExperienceSession = dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == employeeId).ToList();
     var employeePersonalData = dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
-    var employeeWorkData = dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
     var employeeMedicalData = dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
 
     var appusersExist = appuser.AppUsers.SingleOrDefault(n => n.EmployeeId == employeeId);
@@ -77,7 +75,7 @@
                             </h4>
 
                             <h4>
-                                <strong >Place of Birth #</strong><br/>
+                                <strong >Place of Birth</strong><br/>
                                 <label>@employeePersonalData.PlaceOfBirth</label>
                             </h4>
                             <div class="margin-bottom-30"></div>
@@ -121,10 +119,6 @@
                         </div>
                       
                     </div>
-                    <div class="col-md-12 ">
-                        @Html.ActionLink("Edit", "PersonalData", new { }, new { @class = "btn btn-default pull-right" })
-
-                    </div>
                 </div>
             }
         </div>
@@ -160,40 +154,34 @@
                                         @Html.DisplayName("End Date")
                                     </th>
                                     <th>
-                                        @Html.DisplayName("Class Of Degree")
+                                        @Html.DisplayName("Degree Attained")
                                     </th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (educationaQualification != null)
-                                {
-                                    foreach (var item in educationaQualification)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @item.FakeId
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InstitutionName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.StartDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EndDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ClassOfDegree)
-                                            </td>
-                                        </tr>
-                                    }
-                                }
+                                @foreach (var item in educationaQualification)
+                                 {
+                                     <tr>
+                                         <td>
+                                             @item.FakeId
+                                         </td>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.InstitutionName)
+                                         </td>
+                                         <td>
+                                            @item.StartDate.ToShortDateString()
+                                         </td>
+                                         <td>
+                                          @item.EndDate.ToShortDateString()
+                                         </td>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.DegreeAttained)
+                                         </td>
+                                     </tr>
+                                 }
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="col-md-12 ">
-                            @Html.ActionLink("Edit", "EducationalQualification", new {}, new {@class = "btn btn-default pull-right"})
                         </div>
                     </div>
                 </div>
@@ -241,40 +229,33 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (pastWorkExperienceSession != null)
-                                {
-                                    foreach (var item in pastWorkExperienceSession)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.FakeId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EmployerName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EmployerLocation)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.StartDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EndDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.PositionHeld)
-                                            </td>
+                                @foreach (var item in pastWorkExperienceSession)
+                                 {
+                                     <tr>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.FakeId)
+                                         </td>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.EmployerName)
+                                         </td>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.EmployerLocation)
+                                         </td>
+                                         <td>
+                                             @item.StartDate.ToShortDateString()
+                                         </td>
+                                         <td>
+                                           @item.EndDate.ToShortDateString()
+                                         </td>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.PositionHeld)
+                                         </td>
 
 
-                                        </tr>
-                                    }
-                                }
+                                     </tr>
+                                 }
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="col-md-12 ">
-                            @Html.ActionLink("Edit", "PastWorkExperience", new {}, new {@class = "btn btn-default pull-right"})
-
                         </div>
                     </div>
                 </div>
@@ -358,10 +339,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-12 ">
-                            @Html.ActionLink("Edit", "BankData", new {}, new {@class = "btn btn-default pull-right"})
-
-                        </div>
 
                     </div>
 
@@ -379,7 +356,7 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h2>
-                    <strong>Medical & Work data</strong>
+                    <strong>Medical data</strong>
                 </h2>
             </div>
 
@@ -403,36 +380,7 @@
 
                             </h4>
                         }
-                        @if (employeeWorkData != null)
-                        {
-                            <h4>
-                                <strong >Employement Type</strong><br/>
-                                <label>@employeeWorkData.EmploymentType</label>
-
-
-                            </h4>
-
-                            <h4>
-                                <strong >Employmente Date</strong><br/>
-                                <label>@employeeWorkData.EmploymentDate</label>
-
-                            </h4>
-                            <h4>
-                                <strong >Employement Position</strong><br/>
-                                <label>@employeeWorkData.PositionHeld</label>
-
-                            </h4>
-                        }
-
-
-                        <div class="margin-bottom-30"></div>
-
-
                     </div>
-
-                </div>
-                <div class="col-md-12 ">
-                    @Html.ActionLink("Edit", "MedicalData", new {}, new {@class = "btn btn-default pull-right"})
 
                 </div>
             </div>

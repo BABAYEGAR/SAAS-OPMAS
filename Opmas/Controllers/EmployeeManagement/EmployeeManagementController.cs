@@ -198,28 +198,22 @@ namespace Opmas.Controllers.EmployeeManagement
 
                     if (degree == DegreeTypeEnum.MSc.ToString())
                     {
-                        foreach (var item in checkMasters)
+                        if (checkMasters.Any(item => endDate < item.StartDate))
                         {
-                            if (endDate < item.StartDate)
-                            {
-                                TempData["education"] =
-                                    "You cannot offer a masters degree before basic and college education!";
-                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                                return View();
-                            }
+                            TempData["education"] =
+                                "You cannot offer a masters degree before basic and college education!";
+                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                            return View();
                         }
                     }
                     if (degree == DegreeTypeEnum.Phd.ToString())
                     {
-                        foreach (var item in checkPhd)
+                        if (checkPhd.Any(item => endDate < item.StartDate))
                         {
-                            if (endDate < item.StartDate)
-                            {
-                                TempData["education"] =
-                                    "You cannot offer a doctorate degree before basic,college and masters education!";
-                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                                return View();
-                            }
+                            TempData["education"] =
+                                "You cannot offer a doctorate degree before basic,college and masters education!";
+                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                            return View();
                         }
                     }
                 }
@@ -237,7 +231,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
                     FakeId = _employee.EmployeeEducationalQualifications.Count + 1
                 });
-                TempData["education"] = "You ave successfully added a "+ degree +"qualification!";
+                TempData["education"] = "You ave successfully added a "+ degree +" qualification!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 //store data in a session
                 Session["Employee"] = _employee;

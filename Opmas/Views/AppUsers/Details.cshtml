@@ -28,14 +28,6 @@
 <div>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Employee.EmployeeId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Employee.EmployeeId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Firstname)
         </dt>
 
@@ -74,45 +66,12 @@
         <dd>
             @Html.DisplayFor(model => model.Mobile)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Role)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Role)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AppUserImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AppUserImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FingerPrint)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FingerPrint)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RememberMe)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RememberMe)
         </dd>
 
         <dt>
@@ -150,6 +109,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AppUserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit Application User", "Edit", new { id = Model.AppUserId }, new { @class = "btn btn-primary btn-xs" })
 </p>

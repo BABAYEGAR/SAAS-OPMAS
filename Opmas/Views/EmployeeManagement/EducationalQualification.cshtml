@@ -15,8 +15,8 @@
 }
 @section css {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
-        <!-- Datatables -->
-<link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <style>
         .sponsor-name { display: none; }
@@ -75,47 +75,62 @@
 <hr/>
 <div class="row">
 <div class="col-md-12">
+@if (TempData["education"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["education"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["education"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["education"]</div>
+    }
+}
 @using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
     @Html.Hidden("returnUrl", returnUrl)
     <div class="row">
-    <fieldset>
-        <legend>Employee Educational Qualification(s)</legend>
+        <fieldset>
+            <legend>Employee Educational Qualification(s)</legend>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(m => m.InstitutionName, new { @class = "control-label" }) <span class="req">*</span>
-            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control", placeholder = "Please enter the institution name" })
-        </div>
-        <div class="clearfix"></div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.InstitutionName, new {@class = "control-label"}) <span class="req">*</span>
+                @Html.TextBoxFor(m => m.InstitutionName, new {@class = "form-control", placeholder = "Please enter the institution name"})
+            </div>
+            <div class="clearfix"></div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(m => m.Location, new { @class = "control-label" })<span class="req">*</span>
-            @Html.TextAreaFor(m => m.Location, new { @class = "form-control", placeholder = "Please enter the institution location" })
-        </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.Location, new {@class = "control-label"})<span class="req">*</span>
+                @Html.TextAreaFor(m => m.Location, new {@class = "form-control", placeholder = "Please enter the institution location"})
+            </div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(m => m.StartDate, new { @class = "control-label" })<span class="req">*</span>
-            @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control startDate", placeholder = "Please select a start date" })
-        </div>
-        <div class="clearfix"></div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.StartDate, new {@class = "control-label"})<span class="req">*</span>
+                @Html.TextBoxFor(m => m.StartDate, new {@class = "form-control startDate", placeholder = "Please select a start date"})
+            </div>
+            <div class="clearfix"></div>
 
-        <div class="form-group col-md-12">
-            @Html.LabelFor(m => m.EndDate, "End Date:", new { @class = "control-label" }) <span class="req">*</span>
-            @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control endDate", placeholder = "Please selectan end date" })
-        </div>
-        <div class="clearfix"></div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(m => m.DegreeAttained, "Degree Category:", new { @class = "control-label" }) <span class="req">*</span>
-            @Html.DropDownListFor(m=>m.DegreeAttained, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new { @class = "form-control select-dropdown", id = "degreeType" })
-        </div>
-        <div class="clearfix"></div>
-        <div class="form-group col-md-12" id="degreeClass">
-            @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree:", new { @class = "control-label" }) <span class="req">*</span>
-            @Html.DropDownListFor(m=>m.ClassOfDegree, EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), new { @class = "form-control select-dropdown",id="classText" })
-        </div>
-    </fieldset>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label"}) <span class="req">*</span>
+                @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please selectan end date"})
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.DegreeAttained, "Degree Category:", new {@class = "control-label"}) <span class="req">*</span>
+                @Html.DropDownListFor(m => m.DegreeAttained, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "degreeType"})
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-md-12" id="degreeClass">
+                @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree:", new {@class = "control-label"}) <span class="req">*</span>
+                @Html.DropDownListFor(m => m.ClassOfDegree, EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), new {@class = "form-control select-dropdown", id = "classText"})
+            </div>
+        </fieldset>
     </div>
     <div class="row">
         <div class="tabbable">
@@ -136,49 +151,49 @@
                     <div id="active" class="tab-pane fade in active">
                         <table class="table table-condensed table-hover" id="datatable1">
                             <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.InstitutionName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.StartDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EndDate)
-                                    </th>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.InstitutionName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </th>
 
-                                    <th>Action</th>
-                                </tr>
+                                <th>Action</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if (basicEducation != null)
+                            @if (basicEducation != null)
+                            {
+                                foreach (var item in basicEducation)
                                 {
-                                    foreach (var item in basicEducation)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InstitutionName)
-                                            </td>
-                                            <td>
-                                                @item.StartDate.ToShortDateString()
-                                            </td>
-                                            <td>
-                                                @item.EndDate.ToShortDateString()
-                                            </td>
-                                            <td>
-                                                @if (returnUrl == true)
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new { fakeId = item.FakeId, returnUrl = true }, new { @class = "btn btn-danger" })
-                                                }
-                                                else
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new { item.FakeId }, new { @class = "btn btn-danger" })
-                                                }
-                                            </td>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InstitutionName)
+                                        </td>
+                                        <td>
+                                            @item.StartDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @item.EndDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @if (returnUrl == true)
+                                            {
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                            }
+                                        </td>
 
-                                        </tr>
-                                    }
+                                    </tr>
                                 }
+                            }
 
                             </tbody>
                         </table>
@@ -186,50 +201,50 @@
                     <div id="secondary" class="tab-pane fade">
                         <table class="table table-condensed table-hover" id="datatable2">
                             <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.InstitutionName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.StartDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EndDate)
-                                    </th>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.InstitutionName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </th>
 
-                                    <th>Action</th>
-                                </tr>
+                                <th>Action</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if (secondaryEducation != null)
+                            @if (secondaryEducation != null)
+                            {
+                                foreach (var item in secondaryEducation)
                                 {
-                                    foreach (var item in secondaryEducation)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InstitutionName)
-                                            </td>
-                                            <td>
-                                                @item.StartDate.ToShortDateString()
-                                            </td>
-                                            <td>
-                                                @item.EndDate.ToShortDateString()
-                                            </td>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InstitutionName)
+                                        </td>
+                                        <td>
+                                            @item.StartDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @item.EndDate.ToShortDateString()
+                                        </td>
 
-                                            <td>
-                                                @if (returnUrl == true)
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new { fakeId = item.FakeId, returnUrl = true }, new { @class = "btn btn-danger" })
-                                                }
-                                                else
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new { item.FakeId }, new { @class = "btn btn-danger" })
-                                                }
-                                            </td>
+                                        <td>
+                                            @if (returnUrl == true)
+                                            {
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                            }
+                                        </td>
 
-                                        </tr>
-                                    }
+                                    </tr>
                                 }
+                            }
 
                             </tbody>
                         </table>
@@ -238,64 +253,64 @@
                     <div id="higher" class="tab-pane fade">
                         <table class="table table-condensed table-hover" id="datatable3">
                             <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.InstitutionName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.StartDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EndDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ClassOfDegree)
-                                    </th>
-                                    <th>Action</th>
-                                </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.InstitutionName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClassOfDegree)
+                                </th>
+                                <th>Action</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if (higherEducation != null)
+                            @if (higherEducation != null)
+                            {
+                                foreach (var item in higherEducation)
                                 {
-                                    foreach (var item in higherEducation)
-                                    {
-                                        <tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InstitutionName)
+                                        </td>
+                                        <td>
+                                            @item.StartDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @item.EndDate.ToShortDateString()
+                                        </td>
+                                        @if (item.ClassOfDegree != null)
+                                        {
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.InstitutionName)
+                                                @Html.DisplayFor(modelItem => item.ClassOfDegree)
                                             </td>
+                                        }
+                                        else
+                                        {
                                             <td>
-                                                @item.StartDate.ToShortDateString()
+                                                No Class Of Degree Offered!
                                             </td>
-                                            <td>
-                                                @item.EndDate.ToShortDateString()
-                                            </td>
-                                            @if (item.ClassOfDegree != null)
+                                        }
+
+                                        <td>
+                                            @if (returnUrl == true)
                                             {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ClassOfDegree)
-                                                </td>
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
                                             }
                                             else
                                             {
-                                                <td>
-                                                    No Class Of Degree Offered!
-                                                </td>
+                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
                                             }
+                                        </td>
 
-                                            <td>
-                                                @if (returnUrl == true)
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new { fakeId = item.FakeId, returnUrl = true }, new { @class = "btn btn-danger" })
-                                                }
-                                                else
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEducationalQualification", new { item.FakeId }, new { @class = "btn btn-danger" })
-                                                }
-                                            </td>
-
-                                        </tr>
-                                    }
+                                    </tr>
                                 }
+                            }
 
                             </tbody>
                         </table>
@@ -304,27 +319,27 @@
                 </div>
             </div>
         </div>
-            </div>
+    </div>
 
-        <div class="col-md-12">
+    <div class="col-md-12">
 
-            <a href="@Url.Action("PersonalData", "EmployeeManagement")" class="btn btn-default">Back</a>
-            <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
-            <input type="submit" value="Add" class="btn btn-success"/>
+        <a href="@Url.Action("PersonalData", "EmployeeManagement")" class="btn btn-default">Back</a>
+        <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
+        <input type="submit" value="Add" class="btn btn-success"/>
 
-            @if (educationaQualification != null && educationaQualification.Count > 0)
+        @if ((educationaQualification != null) && (educationaQualification.Count > 0))
+        {
+            if (returnUrl == true)
             {
-                if (returnUrl == true)
-                {
-                    <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
-                }
-                else
-                {
-                    <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
-                }
+                <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
             }
+            else
+            {
+                <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
+            }
+        }
 
-        </div>
+    </div>
 }
 </div>
 </div>
@@ -333,8 +348,8 @@
 @section scripts {
     <script src="~/Scripts/plugins/moment/moment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-<script src="~/Content/ManagementDashboard/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="~/Content/ManagementDashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/ManagementDashboard/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/ManagementDashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
 
         $(document)
