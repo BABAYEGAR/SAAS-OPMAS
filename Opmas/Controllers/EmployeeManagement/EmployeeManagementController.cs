@@ -175,8 +175,58 @@ namespace Opmas.Controllers.EmployeeManagement
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             if (_employee != null)
             {
+                var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                if (_employee.EmployeeEducationalQualifications != null)
+                {
+                    var checkMasters =
+                        _employee?.EmployeeEducationalQualifications.Where(
+                            n =>
+                                n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.BSc.ToString());
+                    var checkPhd =
+                        _employee?.EmployeeEducationalQualifications.Where(
+                            n =>
+                                n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.BSc.ToString() ||
+                                n.DegreeAttained == DegreeTypeEnum.MSc.ToString());
+
+                    if (degree == DegreeTypeEnum.MSc.ToString())
+                    {
+                        foreach (var item in checkMasters)
+                        {
+                            if (endDate < item.StartDate)
+                            {
+                                TempData["education"] =
+                                    "You cannot offer a masters degree before basic and college education!";
+                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                                return View();
+                            }
+                        }
+                    }
+                    if (degree == DegreeTypeEnum.Phd.ToString())
+                    {
+                        foreach (var item in checkPhd)
+                        {
+                            if (endDate < item.StartDate)
+                            {
+                                TempData["education"] =
+                                    "You cannot offer a doctorate degree before basic,college and masters education!";
+                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                                return View();
+                            }
+                        }
+                    }
+                }
                 if (_employee.EmployeeEducationalQualifications == null)
+                {
                     _employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
+                }
                 _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification
                 {
                     ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
@@ -187,10 +237,12 @@ namespace Opmas.Controllers.EmployeeManagement
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
                     FakeId = _employee.EmployeeEducationalQualifications.Count + 1
                 });
+                TempData["education"] = "You ave successfully added a "+ degree +"qualification!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 //store data in a session
                 Session["Employee"] = _employee;
             }
-
+            
             //if it is edit from review page return to the review page
             if (returnUrl)
                 return RedirectToAction("EducationalQualification", new {returnUrl = true});

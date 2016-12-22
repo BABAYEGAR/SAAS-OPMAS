@@ -4,6 +4,8 @@ namespace Opmas.Data.Service.Enums
 {
     public enum  ClassOfDegreeEnum
     {
+        [Display(Name = "N/A")]
+        NA,
         [Display(Name = "First Class")]
         FirstClass,
         [Display(Name = "Second Class Upper")]
