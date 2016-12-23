@@ -532,7 +532,7 @@ namespace Opmas.Controllers.EmployeeManagement
                                 TempData["education"] =
                                     "You cannot offer a masters degree before basic and college education!";
                                 TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                                return View();
+                                return RedirectToAction("ListOfEducationalQualification","EmployeeManagement",new {id = loggedinuser.EmployeeId});
                             }
                         }
                         if (degree == DegreeTypeEnum.Phd.ToString())
