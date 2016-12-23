@@ -279,6 +279,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
+                TempData["work"] =
+                               "You have successfully added a work experience!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
@@ -322,6 +325,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
+                TempData["bank"] =
+                               "You have successfully added a bank data!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
@@ -485,7 +491,7 @@ namespace Opmas.Controllers.EmployeeManagement
             return View(educationalQualification);
         }
 
-        // POST: EmployeeManagement/EducationalQualification
+        // POST: EmployeeManagement/CreateSingleEducationalQualification
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleEducationalQualification([Bind(
@@ -497,6 +503,51 @@ namespace Opmas.Controllers.EmployeeManagement
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
             {
+                if (_employee != null)
+                {
+                    var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                    //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                    var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                    if (_employee.EmployeeEducationalQualifications != null)
+                    {
+                        var checkMasters =
+                            _employee?.EmployeeEducationalQualifications.Where(
+                                n =>
+                                    n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.BSc.ToString());
+                        var checkPhd =
+                            _employee?.EmployeeEducationalQualifications.Where(
+                                n =>
+                                    n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.BSc.ToString() ||
+                                    n.DegreeAttained == DegreeTypeEnum.MSc.ToString());
+
+                        if (degree == DegreeTypeEnum.MSc.ToString())
+                        {
+                            if (checkMasters.Any(item => endDate < item.StartDate))
+                            {
+                                TempData["education"] =
+                                    "You cannot offer a masters degree before basic and college education!";
+                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                                return View();
+                            }
+                        }
+                        if (degree == DegreeTypeEnum.Phd.ToString())
+                        {
+                            if (checkPhd.Any(item => endDate < item.StartDate))
+                            {
+                                TempData["education"] =
+                                    "You cannot offer a doctorate degree before basic,college and masters education!";
+                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                                return View();
+                            }
+                        }
+                    }
+                }
                 educationalQualification.ClassOfDegree =
                     typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
                 educationalQualification.DegreeAttained =
@@ -534,6 +585,9 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
             _dbEmployee.SaveChanges();
+            TempData["bank"] =
+                                  "You have successfully added a new bank data!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
 
             return RedirectToAction("ListOfBankData", "EmployeeManagement", new {id = employeeBankData.EmployeeId});
         }
@@ -555,6 +609,9 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
             _dbEmployee.SaveChanges();
+            TempData["work"] =
+                           "You have successfully added a new past work experience data!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("ListOfPastWorkExperience", "EmployeeManagement",
                 new {id = pastWorkExperience.EmployeeId});
         }
