@@ -206,7 +206,7 @@
                             </table>
                         </div>
                         <div class="col-md-12">
-                            <a href="@Url.Action("EducationalQualification", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right">Edit</a>
+                            <a href="@Url.Action("EducationalQualification", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -286,7 +286,7 @@
                             </table>
                         </div>
                         <div class="col-md-12 ">
-                            <a href="@Url.Action("PastWorkExperience", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right">Edit</a>
+                            <a href="@Url.Action("PastWorkExperience", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
 
                         </div>
                     </div>
@@ -372,7 +372,7 @@
                             </table>
                         </div>
                         <div class="col-md-12 ">
-                            <a href="@Url.Action("BankData", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right">Edit</a>
+                            <a href="@Url.Action("BankData", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
                         </div>
 
                     </div>
@@ -444,7 +444,7 @@
 
                 </div>
                 <div class="col-md-12 ">
-                    @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right"})
+                    @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil" })
 
                 </div>
             </div>
@@ -453,7 +453,7 @@
         {
             @Html.AntiForgeryToken()
             <div class="col-md-12">
-                <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right"/>
+                <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right fa fa-save"/>
 
             </div>
         }

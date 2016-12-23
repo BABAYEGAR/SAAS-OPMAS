@@ -547,23 +547,27 @@ namespace Opmas.Controllers.EmployeeManagement
                             }
                         }
                     }
+
+                    educationalQualification.ClassOfDegree =
+                        typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
+                    educationalQualification.DegreeAttained =
+                        typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                    educationalQualification.InstitutionName = collectedValues["InstitutionName"];
+                    educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                    educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                    educationalQualification.FakeId = 0;
+
+                    if (loggedinuser.EmployeeId != null)
+                        educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
+
+
+                    _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
+                    _dbEmployee.SaveChanges();
+                    TempData["education"] =
+                        "You have successfully added a " + degree + " qualification!";
+                    TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 }
-                educationalQualification.ClassOfDegree =
-                    typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
-                educationalQualification.DegreeAttained =
-                    typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-                educationalQualification.InstitutionName = collectedValues["InstitutionName"];
-                educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
-                educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                educationalQualification.FakeId = 0;
-
-                if (loggedinuser.EmployeeId != null)
-                    educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
             }
-
-            _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
-            _dbEmployee.SaveChanges();
-
             return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
                 new {id = educationalQualification.EmployeeId});
         }

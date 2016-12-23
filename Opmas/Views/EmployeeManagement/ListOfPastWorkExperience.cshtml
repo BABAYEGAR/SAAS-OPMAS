@@ -1,5 +1,6 @@
 ﻿@using Opmas.Data.Factory.EmployeeManagement
 @using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeePastWorkExperience>
 
 @{
@@ -9,6 +10,21 @@
     Layout = "~/Views/Shared/_LayoutUserListItems.cshtml";
     EmployeePastWorkExperience pastWorkExperience = new EmployeePastWorkExperience();
 
+}
+@if (TempData["work"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable">@TempData["work"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable">@TempData["work"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable">@TempData["work"]</div>
+    }
 }
 @section add {
     <!-- Button trigger modal -->

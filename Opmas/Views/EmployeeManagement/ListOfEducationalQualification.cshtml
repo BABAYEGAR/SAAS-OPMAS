@@ -12,6 +12,21 @@
 @section css {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
 }
+@if (TempData["education"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert-success alert-dismissable">@TempData["education"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert-danger alert-dismissable">@TempData["education"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert-info alert-dismissable">@TempData["education"]</div>
+    }
+}
 @section add {
      <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#myModal">
