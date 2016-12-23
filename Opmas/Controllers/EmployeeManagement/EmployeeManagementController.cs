@@ -503,28 +503,27 @@ namespace Opmas.Controllers.EmployeeManagement
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
             {
-                if (_employee != null)
-                {
+
                     var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
                     //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
                     var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                    if (_employee.EmployeeEducationalQualifications != null)
+                    if (_dbEmployee.EmployeeEducationalQualifications != null)
                     {
                         var checkMasters =
-                            _employee?.EmployeeEducationalQualifications.Where(
+                            _dbEmployee?.EmployeeEducationalQualifications.Where(
                                 n =>
                                     n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
                                     n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
                                     n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.BSc.ToString());
+                                    n.DegreeAttained == DegreeTypeEnum.BSc.ToString()).ToList();
                         var checkPhd =
-                            _employee?.EmployeeEducationalQualifications.Where(
+                            _dbEmployee?.EmployeeEducationalQualifications.Where(
                                 n =>
                                     n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
                                     n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
                                     n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
                                     n.DegreeAttained == DegreeTypeEnum.BSc.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.MSc.ToString());
+                                    n.DegreeAttained == DegreeTypeEnum.MSc.ToString()).ToList();
 
                         if (degree == DegreeTypeEnum.MSc.ToString())
                         {
@@ -561,13 +560,13 @@ namespace Opmas.Controllers.EmployeeManagement
                         educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
 
 
-                    _dbEmployee.EmployeeEducationalQualifications.Add(educationalQualification);
-                    _dbEmployee.SaveChanges();
+                _dbEmployee.EmployeeEducationalQualifications?.Add(educationalQualification);
+                _dbEmployee.SaveChanges();
                     TempData["education"] =
                         "You have successfully added a " + degree + " qualification!";
                     TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 }
-            }
+            
             return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
                 new {id = educationalQualification.EmployeeId});
         }
