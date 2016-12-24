@@ -1,15 +1,10 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Opmas.Data.DataContext.DataContext.SystemDataContext;
-using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.AuthenticationManagement;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Service.Enums;
@@ -22,7 +17,6 @@ namespace Opmas.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly AppUserDataContext _db = new AppUserDataContext();
 
         public AccountController()
         {

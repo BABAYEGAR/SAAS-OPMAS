@@ -8,6 +8,7 @@ using Opmas.Data.DataContext.DataContext.AccessDataContext;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.ApplicationManagement;
+using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
@@ -66,24 +67,45 @@ namespace Opmas.Controllers
             Session["package"] = package;
             return View();
         }
-        // GET: CheckOut
-        public ActionResult CheckOut()
+        // POST: CheckOut
+        [HttpPost ]
+        [ValidateAntiForgeryToken]
+        public ActionResult CheckOut(FormCollection collectedValues, Institution institution)
         {
-            var institution = Session["institution"] as Institution;
-            AppUser appUser = new AppUser();
-            if (institution != null)
+            //var institution = Session["institution"] as Institution;
+            var package = Session["package"] as Package;
+            institution.ContactEmail = collectedValues["ContactEmail"];
+            institution.ContactNumber = collectedValues["ContactNumber"];
+            institution.AccessCode = collectedValues["AccessCode"];
+            institution.Location = collectedValues["Location"];
+            institution.Name = collectedValues["Name"];
+            institution.Motto = collectedValues["Motto"];
+            if (package != null) institution.PackageId = package.PackageId;
+            //save institution
+            _dbInstitution.Institutions.Add(institution);
+            _dbInstitution.SaveChanges();
+
+            //initialize appuser object
+            AppUser appUser = new AppUser
             {
-                appUser.Firstname = institution.Name;
-                appUser.Lastname = institution.Name;
-                appUser.Email = institution.ContactEmail;
-                appUser.InstitutionId = institution.InstitutionId;
-                appUser.Mobile = institution.ContactNumber;
-                appUser.EmployeeId = null;
-                appUser.Role = AdminUserType.InstitutionAdministrator.ToString();
-            }
-            appUser.Password = Membership.GeneratePassword(6,0);
+                Firstname = institution.Name,
+                Lastname = institution.Name,
+                Email = institution.ContactEmail,
+                InstitutionId = institution.InstitutionId,
+                Mobile = institution.ContactNumber,
+                EmployeeId = null,
+                Role = AdminUserType.InstitutionAdministrator.ToString(),
+                Password = Membership.GeneratePassword(6, 0),
+                DateCreated = DateTime.Now,
+                DateLastModified = DateTime.Now,
+                LastModifiedBy = 1,
+                CreatedBy = 1
+            };
+            //save appuser
             _dbAppUser.AppUsers.Add(appUser);
             _dbAppUser.SaveChanges();
+            TempData["login"] = "You have successfully subscribed to opmas!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Login","Account");
         }
         public ActionResult Index()
