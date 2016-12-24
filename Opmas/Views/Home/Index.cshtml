@@ -155,7 +155,7 @@
                     @if (bronzePackage != null)
                     {
                         <div class="pricing-grid black">
-                            <h3><a href="#">@bronzePackage.Type Packag</a>
+                            <h3><a href="#">@bronzePackage.Type Package</a>
                             </h3>
                             <div class="price-value">
                                 <a href="#">$@bronzePackage.Amount/Month</a>
@@ -166,7 +166,7 @@
                                 <li><a href="#">Employee Salary System</a></li>
                             </ul>
                             <div class="cart">
-                                <a class="popup-with-zoom-anim" href="@Url.Action("CheckOut",new {id = bronzePackage.PackageId})">Subcribe</a>
+                                <a href="@Url.Action("CheckOut",new {id = bronzePackage.PackageId})">Subcribe</a>
                             </div>
                         </div>
                     }
@@ -186,7 +186,7 @@
                                 <li><a href="#">Employee Performance Management</a></li>
                             </ul>
                             <div class="cart">
-                                <a class="popup-with-zoom-anim" href="@Url.Action("CheckOut",new {id = silverPackage.PackageId})">Subcribe</a>
+                                <a href="@Url.Action("CheckOut",new {id = silverPackage.PackageId})">Subcribe</a>
                             </div>
                         </div>
                     }
@@ -206,7 +206,7 @@
                                 <li><a href="#">Employee Performance Management</a></li>
                             </ul>
                             <div class="cart">
-                                <a class="popup-with-zoom-anim" href="@Url.Action("CheckOut",new {id = goldPackage.PackageId})">Subcribe</a>
+                                <a href="@Url.Action("CheckOut",new {id = goldPackage.PackageId})">Subcribe</a>
                             </div>
                         </div>
                     }

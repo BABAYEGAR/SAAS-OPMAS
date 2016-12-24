@@ -204,30 +204,38 @@ h6 {
 	-o-transition: 0.5s all; 
 }
 /****/
+.black ul,.black .price-value
+{
+	background: #C9AE5D;
+}
+.black  h3 a,.black .cart a
+{
+	background: 	#8C7853;
+}
 .black  h3 a:hover,.black .cart a:hover{
-		background:#262A2E;
+		background:	#8C7853;
 }
 .green ul,.green .price-value
 {
-	background: #DFEBDF;
+	background: #D3D3D3;
 }
 .green  h3 a,.green .cart a
 {
-	background: #58AD52;
+	background: #C0C0C0;
 }
 .green  h3 a:hover,.green .cart a:hover{
-	background: #2B7426;
+	background: #C0C0C0;
 }
 .blue ul,.blue .price-value
 {
-	background: #DEE9EB;
+	background: #CFB53B	;
 }
 .blue  h3 a,.blue .cart a
 {
-	background: #489EAB;
+	background: #D4AF37;
 }
 .blue  h3 a:hover,.blue .cart a:hover{
-	background:#1F7986;
+	background:#D4AF37;
 }
 .green  h3 a
 {
