@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Opmas.Data.DataContext.DataContext.AccessDataContext;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Factory.ApplicationManagement;
 using Opmas.Data.Service.Enums;
@@ -12,6 +13,7 @@ namespace Opmas.Controllers
     public class HomeController : Controller
     {
         private readonly InstitutionDataContext _db = new InstitutionDataContext();
+        private readonly PackageDataContext _dbc = new PackageDataContext();
         public ActionResult SelectInstitution()
         {
             Session["institution"] = null;
@@ -53,8 +55,10 @@ namespace Opmas.Controllers
             return View();
         }
         // GET: CheckOut
-        public ActionResult CheckOut()
+        public ActionResult CheckOut(long? id)
         {
+            var package = _dbc.Packages.Find(id);
+            Session["package"] = package;
             return View();
         }
         public ActionResult Index()
