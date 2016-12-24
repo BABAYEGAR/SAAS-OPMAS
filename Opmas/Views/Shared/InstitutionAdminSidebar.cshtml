@@ -20,14 +20,18 @@
                 <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("ListOfEmployees", "EmployeeManagement")">Employees</a>
+                        <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Active,id = institution.InstitutionId})">Active Employee(s)</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Active})">Active Employee</a>
+                        <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.OnLeave,id = institution.InstitutionId})">On-Leave Employee(s)</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEmployeesInactive", "EmployeeManagement", new {status = EmploymentStatus.Active})">Inactive Employee</a>
+                        <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Suspended,id = institution.InstitutionId})">Suspended Employee(s)</a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Retired,id = institution.InstitutionId})">Retired Employee(s)</a>
+                    </li>
+                  
                 </ul>
             </li>
             <li>

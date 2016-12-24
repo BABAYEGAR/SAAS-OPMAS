@@ -17,7 +17,8 @@ namespace Opmas.Controllers.ApplicationManagement
         // GET: Faculties
         public ActionResult Index()
         {
-            var faculties = db.Faculties.Include(f => f.Institution);
+            var institution = Session["institution"] as Institution;
+            var faculties = db.Faculties.Include(f => f.Institution).Where(n=>n.InstitutionId == institution.InstitutionId);
             return View(faculties.ToList());
         }
 

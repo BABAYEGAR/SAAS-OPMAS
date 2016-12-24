@@ -90,6 +90,7 @@ namespace Opmas.Data.Factory.EmployeeManagement
         /// <returns></returns>
         public IEnumerable<EmployeeEducationalQualification> GetEmployeeEducationalData(long employeeId)
         {
+            
             var employeeEducation =
                 _employee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == employeeId);
             return employeeEducation;
@@ -99,9 +100,9 @@ namespace Opmas.Data.Factory.EmployeeManagement
         ///     This gets all employees by their status
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Employee> GetAllEmployeesByStatus(string status)
+        public IEnumerable<Employee> GetAllEmployeesByStatus(string status,long? id)
         {
-            var allEmployees = _employee.Employees.ToList();
+            //var allEmployees = _employee.Employees.ToList();
             var allEmployeesWorkData = _employee.EmployeeWorkDatas.ToList();
             List<Employee> employees = new List<Employee>();
             foreach (var item in allEmployeesWorkData)
@@ -109,8 +110,11 @@ namespace Opmas.Data.Factory.EmployeeManagement
                 if (item.EmploymentStatus == status)
                 {
                     var employee = _employee.Employees.Find(item.EmployeeId);
-                    employees.Add(employee);
-                    
+                    if (employee.InstitutionId == id)
+                    {
+                        employees.Add(employee);
+                    }
+
                 }
             }
 
