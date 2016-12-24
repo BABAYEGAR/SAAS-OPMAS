@@ -247,6 +247,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CheckOutCss.css" />
     <Content Include="Content\fileinput.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -5166,7 +5167,6 @@
     <Content Include="Views\Shared\SystemAdminSidebar.cshtml" />
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
     <Content Include="Views\Package\Create.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
     <Content Include="Views\Institutions\Create.cshtml" />
     <Content Include="Views\Institutions\Delete.cshtml" />
@@ -5227,6 +5227,9 @@
     <Content Include="Views\Units\Edit.cshtml" />
     <Content Include="Views\Units\Index.cshtml" />
     <Content Include="Views\Shared\CreateUnit.cshtml" />
+    <Content Include="Views\Shared\CreateSinglePackage.cshtml" />
+    <Content Include="Views\Shared\CreateInstitution.cshtml" />
+    <Content Include="Views\Home\CheckOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

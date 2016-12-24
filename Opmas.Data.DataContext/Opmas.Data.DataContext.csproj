@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext\AccessDataContext\PackagePeriodDataContext.cs" />
     <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
@@ -132,6 +131,10 @@
     <Compile Include="Migrations\201612202022596_Migrate123.Designer.cs">
       <DependentUpon>201612202022596_Migrate123.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612240241172_NewMigrate10.cs" />
+    <Compile Include="Migrations\201612240241172_NewMigrate10.Designer.cs">
+      <DependentUpon>201612240241172_NewMigrate10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612202022596_Migrate123.resx">
       <DependentUpon>201612202022596_Migrate123.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612240241172_NewMigrate10.resx">
+      <DependentUpon>201612240241172_NewMigrate10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

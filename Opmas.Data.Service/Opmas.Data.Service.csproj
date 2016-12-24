@@ -56,6 +56,7 @@
     <Compile Include="Enums\MaritalStatusEnum.cs" />
     <Compile Include="Enums\NameTitle.cs" />
     <Compile Include="Enums\NotificationTypeEnum.cs" />
+    <Compile Include="Enums\PackageType.cs" />
     <Compile Include="Enums\UploadType.cs" />
     <Compile Include="Enums\AdminUserType.cs" />
     <Compile Include="Enums\UserType.cs" />

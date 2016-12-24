@@ -52,6 +52,11 @@ namespace Opmas.Controllers
         {
             return View();
         }
+        // GET: CheckOut
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View();

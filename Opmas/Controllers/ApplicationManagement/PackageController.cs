@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.AccessDataContext;
 using Opmas.Data.Objects.Entities.AccessManagement;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.ApplicationManagement
 {
@@ -36,15 +37,32 @@ namespace Opmas.Controllers.ApplicationManagement
         {
             if (ModelState.IsValid)
             {
+                var allPackages = _db.Packages.ToList();
                 package.DateCreated = DateTime.Now;
                 package.DateLastModified = DateTime.Now;
                 package.Amount = long.Parse(collection["Amount"]);
                 package.Name = collection["Name"];
+                package.Type = typeof(PackageType).GetEnumName(int.Parse(collection["Type"]));
+                package.StartDate = DateTime.Now;
+                package.EndDate = package.StartDate.AddYears(1);
+                if (allPackages.Count >= 3)
+                {
+                    TempData["package"] =
+                                  "You cannot add more packages!";
+                    TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                    return RedirectToAction("Index");
+                }
+                if (allPackages.Any(n => n.Type == package.Type))
+                {
+                    TempData["package"] =
+                        "You cannot add this package because this type exist!";
+                    TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                    return RedirectToAction("Index");
+                }
                 _db.Packages.Add(package);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(package);
         }
 

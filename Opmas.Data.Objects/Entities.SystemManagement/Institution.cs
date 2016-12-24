@@ -41,9 +41,5 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         [ForeignKey("PackageId")]
         public virtual Package Packages { get; set; }
 
-        public long PackagePeriodId { get; set; }
-
-        [ForeignKey("PackagePeriodId")]
-        public virtual PackagePeriod PackagePeriods { get; set; }
     }
 }
