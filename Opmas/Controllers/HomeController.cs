@@ -85,6 +85,9 @@ namespace Opmas.Controllers
             _dbInstitution.Institutions.Add(institution);
             _dbInstitution.SaveChanges();
 
+            //store in session
+            Session["institution"] = institution;
+
             //initialize appuser object
             AppUser appUser = new AppUser
             {
