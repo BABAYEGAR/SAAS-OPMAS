@@ -114,7 +114,7 @@ namespace Opmas.Controllers.ApplicationManagement
                
                 db.Entry(institution).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("InstitutionAdminIndex","Home");
             }
             ViewBag.PackageId = new SelectList(db.Packages, "PackageId", "Name", institution.PackageId);
             return View(institution);

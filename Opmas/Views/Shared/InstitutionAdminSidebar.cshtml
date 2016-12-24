@@ -1,21 +1,32 @@
-﻿@using Opmas.Data.Service.Enums
-
+﻿@using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
+@{
+    var institution = Session["institution"] as Institution;
+}
 <!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
             <li>
+                <a><i class="fa fa-user-times"></i> Intitution Management <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="@Url.Action("Edit","Institutions",new {id = institution.InstitutionId})">Modify Institution Data</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("ListOfEmployees","EmployeeManagement")">Employees</a>
+                        <a href="@Url.Action("ListOfEmployees", "EmployeeManagement")">Employees</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEmployeesByStatus","EmployeeManagement",new {status =EmploymentStatus.Active})">Active Employee</a>
+                        <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Active})">Active Employee</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ListOfEmployeesInactive","EmployeeManagement",new {status =EmploymentStatus.Active})">Inactive Employee</a>
+                        <a href="@Url.Action("ListOfEmployeesInactive", "EmployeeManagement", new {status = EmploymentStatus.Active})">Inactive Employee</a>
                     </li>
                 </ul>
             </li>
@@ -23,16 +34,16 @@
                 <a><i class="fa fa-users"></i> Application Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("Create","AppUsers")">Add Application User</a>
+                        <a href="@Url.Action("Create", "AppUsers")">Add Application User</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","AppUsers")">Application Users</a>
+                        <a href="@Url.Action("Index", "AppUsers")">Application Users</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","AppUsers")">Active Application Users</a>
+                        <a href="@Url.Action("Index", "AppUsers")">Active Application Users</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","AppUsers")">Inactive Application Users</a>
+                        <a href="@Url.Action("Index", "AppUsers")">Inactive Application Users</a>
                     </li>
                 </ul>
             </li>
@@ -40,10 +51,10 @@
                 <a><i class="fa fa-desktop"></i> Faculties <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="@Url.Action("Create","Faculties")">Add Faculty</a>
+                        <a href="@Url.Action("Create", "Faculties")">Add Faculty</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","Faculties")">Faculties</a>
+                        <a href="@Url.Action("Index", "Faculties")">Faculties</a>
                     </li>
                 </ul>
             </li>
