@@ -15,6 +15,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public List<EmployeeMedicalData> EmployeeMedicalDatas { get; set; }
         public List<EmployeeWorkData> EmployeeWorkDatas { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
+        public IEnumerable<EmployeeFamilyData> EmployeeFamilyDatas { get; set; }
         public long InstitutionId { get; set; }
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }

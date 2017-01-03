@@ -57,6 +57,7 @@
     <Compile Include="DataContext\EmployeeDataContext\EmployeeEducationalQualificationDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeMedicalDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\BankDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmployeeFamilyDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\StateDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\LgaDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeePastExperienceDataContext.cs" />
