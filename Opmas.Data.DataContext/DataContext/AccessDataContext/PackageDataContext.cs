@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.DataContext.DataContext.AccessDataContext
 {
@@ -15,5 +16,6 @@ namespace Opmas.Data.DataContext.DataContext.AccessDataContext
         }
 
         public System.Data.Entity.DbSet<Opmas.Data.Objects.Entities.AccessManagement.Package> Packages { get; set; }
+        public virtual DbSet<Institution> Institutions { get; set; }
     }
 }
