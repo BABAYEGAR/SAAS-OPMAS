@@ -325,8 +325,8 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
-                TempData["work"] =
-                               "You have successfully added a work experience!";
+                TempData["family"] =
+                               "You have successfully added a family memeber!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
@@ -505,6 +505,17 @@ namespace Opmas.Controllers.EmployeeManagement
                         foreach (var employeeDataEmployeePastWorkExperience in employeeData.EmployeePastWorkExperiences)
                             _dbEmployee.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
                     }
+                    if (employeeData.EmployeeFamilyDatas != null)
+                    {
+                        foreach (var item in employeeData.EmployeeFamilyDatas)
+                        {
+                            item.EmployeeId = employeeData.EmployeeId;
+                            item.FakeId = 0;
+                        }
+                        foreach (var employeeFamilyData in employeeData.EmployeeFamilyDatas)
+                            _dbEmployee.EmployeeFamilyDatas.Add(employeeFamilyData);
+                    }
+
 
                     var employeeWorkData = employeeData.EmployeeWorkDatas.FirstOrDefault();
                     if (employeeWorkData != null)
@@ -743,6 +754,14 @@ namespace Opmas.Controllers.EmployeeManagement
             if ((returnUrl != null) && (returnUrl == true))
                 return RedirectToAction("PastWorkExperience", new {returnUrl = true});
             return RedirectToAction("PastWorkExperience");
+        }
+        public ActionResult RemoveEmployeeFamilyData(long fakeId, bool? returnUrl)
+        {
+            var employeeData = Session["Employee"] as Employee;
+            employeeData?.EmployeeFamilyDatas.RemoveAll(n => n.FakeId == fakeId);
+            if ((returnUrl != null) && (returnUrl == true))
+                return RedirectToAction("EmployeeFamilyData", new { returnUrl = true });
+            return RedirectToAction("EmployeeFamilyData");
         }
 
         #endregion

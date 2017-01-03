@@ -59,7 +59,7 @@
             </li>
             <li>
                 Step Six <br/>
-                <small>Medical Data</small>
+                <small>Medical/Work Data</small>
 
             </li>
             <li>
@@ -75,28 +75,28 @@
     <hr/>
     <div class="row">
         <div class="col-md-12">
-            @if (TempData["work"] != null)
+            @if (TempData["family"] != null)
             {
                 if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
                 {
-                    <div class="alert-success alert-dismissable">@TempData["work"]</div>
+                    <div class="alert-success alert-dismissable">@TempData["family"]</div>
                 }
                 else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
                 {
-                    <div class="alert-danger alert-dismissable">@TempData["work"]</div>
+                    <div class="alert-danger alert-dismissable">@TempData["family"]</div>
                 }
                 else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
                 {
-                    <div class="alert-info alert-dismissable">@TempData["work"]</div>
+                    <div class="alert-info alert-dismissable">@TempData["family"]</div>
                 }
             }
-            @using (Html.BeginForm("PastWorkExperience", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
+            @using (Html.BeginForm("EmployeeFamilyData", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
             {
                 @Html.Hidden("returnUrl", returnUrl)
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false, "", new {@class = "text-danger"})
                 <fieldset>
-                    <legend>Employee Past Work Experience</legend>
+                    <legend>Employee Family Data</legend>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.FullName, new {@class = "control-label"}) <span class="req">*</span>
@@ -184,11 +184,11 @@
                                             <td>
                                                 @if (returnUrl == true)
                                                 {
-                                                    @Html.ActionLink("Remove", "RemovePastWorkExperience", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+                                                    @Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
                                                 }
                                                 else
                                                 {
-                                                    @Html.ActionLink("Remove", "RemovePastWorkExperience", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                    @Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {item.FakeId}, new {@class = "btn btn-danger"})
                                                 }
                                             </td>
 
