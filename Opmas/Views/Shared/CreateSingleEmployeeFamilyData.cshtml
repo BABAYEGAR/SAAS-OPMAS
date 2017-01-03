@@ -1,0 +1,91 @@
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.Employee.EmployeeFamilyData
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutModalForm.cshtml";
+}
+@section css {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+<link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
+}
+
+@using (Html.BeginForm("CreateSingleEmployeeFamilyData", "EmployeeManagement", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(m => m.FullName, null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter full name"})
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextAreaFor(m => m.Address, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter address"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ContactNumber, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" }) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(m => m.ContactNumber, null, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter contact" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m=>m.DateOfBirth, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(m => m.DateOfBirth, null, new {@class = "form-control dob col-md-7 col-xs-12", placeholder = "Please select a date"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Relationship, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" }) <span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.NextOfKin, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.CheckBoxFor(m => m.NextOfKin, new { @class = "form-control col-md-7 col-xs-12"})
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <input type="submit" value="Create" class="btn btn-success pull-right" />
+    </div>
+}
+
+
+@section scripts {
+    <script src="~/Scripts/plugins/moment/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
+
+    <script>
+
+        $(document)
+            .ready(function() {
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
+                // init datepicker for start date
+                $('.startDate').datepicker();
+
+                // init datepicker for end date
+                $('.endDate').datepicker();
+
+                // set start date of expiry based on selected date of end
+                $('.startDate')
+                    .datepicker()
+                    .on('changeDate',
+                        function(e) {
+
+                            // apply selected date as start date for expiry
+                            $('.endDate').datepicker('setStartDate', e.date);
+                        });
+            });
+    </script>
+}

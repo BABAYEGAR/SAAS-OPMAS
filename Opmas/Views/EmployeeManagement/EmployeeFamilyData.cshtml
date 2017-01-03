@@ -132,7 +132,7 @@
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.NextOfKin, "End Date:", new { @class = "control-label" })
+                        @Html.LabelFor(m => m.NextOfKin, "Next Of Kin:", new { @class = "control-label" })
                         @Html.CheckBoxFor(m => m.NextOfKin, new { @class = "form-control" })
                     </div>
                     <div class="clearfix"></div>
@@ -238,6 +238,8 @@
                 // init datepicker for date of birth 
                 $('.dob').datepicker({ 'endDate': new Date() });
 
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
                 //datatables
                 $('#datatable1').DataTable();
 

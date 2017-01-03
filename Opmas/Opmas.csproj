@@ -5231,6 +5231,8 @@
     <Content Include="Views\Shared\CreateInstitution.cshtml" />
     <Content Include="Views\Home\CheckOut.cshtml" />
     <Content Include="Views\EmployeeManagement\EmployeeFamilyData.cshtml" />
+    <Content Include="Views\EmployeeManagement\ListOfEmployeeFamily.cshtml" />
+    <Content Include="Views\Shared\CreateSingleEmployeeFamilyData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

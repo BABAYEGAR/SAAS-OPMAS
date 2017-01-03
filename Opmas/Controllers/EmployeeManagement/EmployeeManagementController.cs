@@ -675,6 +675,31 @@ namespace Opmas.Controllers.EmployeeManagement
                 new {id = pastWorkExperience.EmployeeId});
         }
 
+        // POST: EmployeeManagement/PastWorkExperience
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSingleEmployeeFamilyData([Bind(
+                                                                Include =
+                                                                    "EmployeeFamilyDataId,FullName,Address,ContactNumber,Email,Relationship,NextOfKin"
+                                                            )] FormCollection collectedValues,
+            EmployeeFamilyData familyData)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
+            {
+                familyData.FakeId = 0;
+                familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
+                if (loggedinuser.EmployeeId != null) familyData.EmployeeId = (long)loggedinuser.EmployeeId;
+            }
+            _dbEmployee.EmployeeFamilyDatas.Add(familyData);
+            _dbEmployee.SaveChanges();
+            TempData["family"] =
+                           "You have successfully added a new family data!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+            return RedirectToAction("ListOfEmployeeFamily", "EmployeeManagement",
+                new { id = familyData.EmployeeId });
+        }
+
         #endregion
 
         #region Remove employee data by Id
@@ -703,6 +728,19 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeePastWorkExperiences.Remove(pastWorkExperience);
             _dbEmployee.SaveChanges();
             return RedirectToAction("ListOfPastWorkExperience", new {id = pastWorkExperience.EmployeeId});
+        }
+
+        /// <summary>
+        ///     This method remove a family data by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult RemoveEmloyeeFamilyDataById(long id)
+        {
+            var familyData = _dbEmployee.EmployeeFamilyDatas.Find(id);
+            _dbEmployee.EmployeeFamilyDatas.Remove(familyData);
+            _dbEmployee.SaveChanges();
+            return RedirectToAction("ListOfEmployeeFamily", new { id = familyData.EmployeeId });
         }
 
         /// <summary>
@@ -736,7 +774,12 @@ namespace Opmas.Controllers.EmployeeManagement
                 return RedirectToAction("EducationalQualification", new {returnUrl = true});
             return RedirectToAction("EducationalQualification");
         }
-
+        /// <summary>
+        /// This method removes an appended list item from the session
+        /// </summary>
+        /// <param name="fakeId"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         public ActionResult RemoveBankData(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
@@ -746,7 +789,12 @@ namespace Opmas.Controllers.EmployeeManagement
                 return RedirectToAction("BankData", new {returnUrl = true});
             return RedirectToAction("BankData");
         }
-
+        /// <summary>
+        /// This method removes an appended list item from the session
+        /// </summary>
+        /// <param name="fakeId"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         public ActionResult RemovePastWorkExperience(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
@@ -755,6 +803,12 @@ namespace Opmas.Controllers.EmployeeManagement
                 return RedirectToAction("PastWorkExperience", new {returnUrl = true});
             return RedirectToAction("PastWorkExperience");
         }
+        /// <summary>
+        /// This method removes an appended list item from the session
+        /// </summary>
+        /// <param name="fakeId"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         public ActionResult RemoveEmployeeFamilyData(long fakeId, bool? returnUrl)
         {
             var employeeData = Session["Employee"] as Employee;
@@ -945,6 +999,14 @@ namespace Opmas.Controllers.EmployeeManagement
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == id);
             return View(pastWorkExperience);
+        }
+        // GET: EmployeeManagement/ListOfEmployeeFamily
+        public ActionResult ListOfEmployeeFamily(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var employeeFamily = _dbEmployee.EmployeeFamilyDatas.Where(n => n.EmployeeId == id);
+            return View(employeeFamily);
         }
 
         // GET: EmployeeManagement/ListOfBankData
