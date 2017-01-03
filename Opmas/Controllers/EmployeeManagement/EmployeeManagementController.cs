@@ -290,6 +290,51 @@ namespace Opmas.Controllers.EmployeeManagement
             return View("PastWorkExperience");
         }
 
+        // GET: EmployeeManagement/EmployeeFamilyData
+        public ActionResult EmployeeFamilyData(bool? returnUrl)
+        {
+            if ((returnUrl != null) && returnUrl.Value)
+            {
+                ViewBag.returnUrl = true;
+                _employee = Session["Employee"] as Employee;
+                if (_employee != null)
+                    return View();
+            }
+            return View();
+        }
+
+        // POST: EmployeeManagement/EmployeeFamilyData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmployeeFamilyData(FormCollection collectedValues)
+        {
+            _employee = Session["Employee"] as Employee;
+            if (_employee != null)
+            {
+                if (_employee.EmployeeFamilyDatas == null)
+                    _employee.EmployeeFamilyDatas = new List<EmployeeFamilyData>();
+                _employee.EmployeeFamilyDatas.Add(new EmployeeFamilyData()
+                {
+                    FullName = collectedValues["FullName"],
+                    ContactNumber = collectedValues["ContactNumber"],
+                    Address = collectedValues["Address"],
+                    Email = collectedValues["Email"],
+                    Relationship = collectedValues["Relationship"],
+                    DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]),
+                    FakeId = _employee.EmployeePastWorkExperiences.Count + 1
+                });
+                //store data in a session
+                Session["Employee"] = _employee;
+                TempData["work"] =
+                               "You have successfully added a work experience!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+            }
+            var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+            //if it is edit from review page return to the review page
+            if (returnUrl)
+                return RedirectToAction("EmployeeFamilyData", new { returnUrl = true });
+            return View();
+        }
         // GET: EmployeeManagement/BankData
         public ActionResult BankData(bool? returnUrl)
         {

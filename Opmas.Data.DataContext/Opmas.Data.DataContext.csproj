@@ -68,75 +68,6 @@
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionDataContext.cs" />
     <Compile Include="DataContext\UserDataContext\AppUserDataContext.cs" />
-    <Compile Include="Migrations\201612051330386_FirstMigrate.cs" />
-    <Compile Include="Migrations\201612051330386_FirstMigrate.Designer.cs">
-      <DependentUpon>201612051330386_FirstMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612051342207_TenthMigrate.cs" />
-    <Compile Include="Migrations\201612051342207_TenthMigrate.Designer.cs">
-      <DependentUpon>201612051342207_TenthMigrate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612062156582_NewMigrate11.cs" />
-    <Compile Include="Migrations\201612062156582_NewMigrate11.Designer.cs">
-      <DependentUpon>201612062156582_NewMigrate11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612062159418_Migrate12.cs" />
-    <Compile Include="Migrations\201612062159418_Migrate12.Designer.cs">
-      <DependentUpon>201612062159418_Migrate12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612112238056_InstitutionMigrateOne.cs" />
-    <Compile Include="Migrations\201612112238056_InstitutionMigrateOne.Designer.cs">
-      <DependentUpon>201612112238056_InstitutionMigrateOne.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612112241061_PackageMigrateOne.cs" />
-    <Compile Include="Migrations\201612112241061_PackageMigrateOne.Designer.cs">
-      <DependentUpon>201612112241061_PackageMigrateOne.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612120052116_IntitutitonMigrateTwo.cs" />
-    <Compile Include="Migrations\201612120052116_IntitutitonMigrateTwo.Designer.cs">
-      <DependentUpon>201612120052116_IntitutitonMigrateTwo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612122226139_AppuserMigrateOne.cs" />
-    <Compile Include="Migrations\201612122226139_AppuserMigrateOne.Designer.cs">
-      <DependentUpon>201612122226139_AppuserMigrateOne.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612142239187_AppuserMiograteTwo.cs" />
-    <Compile Include="Migrations\201612142239187_AppuserMiograteTwo.Designer.cs">
-      <DependentUpon>201612142239187_AppuserMiograteTwo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612142328097_FacultyMigrateTwo.cs" />
-    <Compile Include="Migrations\201612142328097_FacultyMigrateTwo.Designer.cs">
-      <DependentUpon>201612142328097_FacultyMigrateTwo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612142336421_FacultyMigrateTwos.cs" />
-    <Compile Include="Migrations\201612142336421_FacultyMigrateTwos.Designer.cs">
-      <DependentUpon>201612142336421_FacultyMigrateTwos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612150058497_EmployeeMigrate3.cs" />
-    <Compile Include="Migrations\201612150058497_EmployeeMigrate3.Designer.cs">
-      <DependentUpon>201612150058497_EmployeeMigrate3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612170214338_InstitutionMigrate2.cs" />
-    <Compile Include="Migrations\201612170214338_InstitutionMigrate2.Designer.cs">
-      <DependentUpon>201612170214338_InstitutionMigrate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612170515047_InstitutionMigrate3.cs" />
-    <Compile Include="Migrations\201612170515047_InstitutionMigrate3.Designer.cs">
-      <DependentUpon>201612170515047_InstitutionMigrate3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612170526122_InstitutionMigrate4.cs" />
-    <Compile Include="Migrations\201612170526122_InstitutionMigrate4.Designer.cs">
-      <DependentUpon>201612170526122_InstitutionMigrate4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612202022596_Migrate123.cs" />
-    <Compile Include="Migrations\201612202022596_Migrate123.Designer.cs">
-      <DependentUpon>201612202022596_Migrate123.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612240241172_NewMigrate10.cs" />
-    <Compile Include="Migrations\201612240241172_NewMigrate10.Designer.cs">
-      <DependentUpon>201612240241172_NewMigrate10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,59 +79,6 @@
       <Project>{f66834ab-d691-4595-855a-ad0fd040567e}</Project>
       <Name>Opmas.Data.Objects</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612051330386_FirstMigrate.resx">
-      <DependentUpon>201612051330386_FirstMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612051342207_TenthMigrate.resx">
-      <DependentUpon>201612051342207_TenthMigrate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612062156582_NewMigrate11.resx">
-      <DependentUpon>201612062156582_NewMigrate11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612062159418_Migrate12.resx">
-      <DependentUpon>201612062159418_Migrate12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612112238056_InstitutionMigrateOne.resx">
-      <DependentUpon>201612112238056_InstitutionMigrateOne.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612112241061_PackageMigrateOne.resx">
-      <DependentUpon>201612112241061_PackageMigrateOne.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612120052116_IntitutitonMigrateTwo.resx">
-      <DependentUpon>201612120052116_IntitutitonMigrateTwo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612122226139_AppuserMigrateOne.resx">
-      <DependentUpon>201612122226139_AppuserMigrateOne.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612142239187_AppuserMiograteTwo.resx">
-      <DependentUpon>201612142239187_AppuserMiograteTwo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612142328097_FacultyMigrateTwo.resx">
-      <DependentUpon>201612142328097_FacultyMigrateTwo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612142336421_FacultyMigrateTwos.resx">
-      <DependentUpon>201612142336421_FacultyMigrateTwos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612150058497_EmployeeMigrate3.resx">
-      <DependentUpon>201612150058497_EmployeeMigrate3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612170214338_InstitutionMigrate2.resx">
-      <DependentUpon>201612170214338_InstitutionMigrate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612170515047_InstitutionMigrate3.resx">
-      <DependentUpon>201612170515047_InstitutionMigrate3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612170526122_InstitutionMigrate4.resx">
-      <DependentUpon>201612170526122_InstitutionMigrate4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612202022596_Migrate123.resx">
-      <DependentUpon>201612202022596_Migrate123.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612240241172_NewMigrate10.resx">
-      <DependentUpon>201612240241172_NewMigrate10.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

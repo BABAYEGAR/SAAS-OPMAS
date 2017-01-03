@@ -26,6 +26,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         [Required]
         public DateTime DateOfBirth { get; set; }
 
+        [DisplayName("Next Of Kin")]
+        public bool NextOfKin { get; set; }
         [DisplayName("Relationship")]
         [Required]
         public string Relationship { get; set; }
