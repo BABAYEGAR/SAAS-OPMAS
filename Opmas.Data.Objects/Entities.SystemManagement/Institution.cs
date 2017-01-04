@@ -22,6 +22,8 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public string Location { get; set; }
         public DateTime SubscriprionStartDate { get; set; }
         public DateTime SubscriptonEndDate { get; set; }
+        [DisplayName("Subscription Duration")]
+        public string SubscriptionDuration { get; set; }
         public string AccessCode { get; set; }
 
         [Required]

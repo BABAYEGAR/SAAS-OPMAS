@@ -74,6 +74,7 @@ namespace Opmas.Controllers
         {
             //var institution = Session["institution"] as Institution;
             var package = Session["package"] as Package;
+            var selectedDuration = typeof(SubscriptionDuration).GetEnumName(int.Parse(collectedValues["SubscriptionDuration"]));
             institution.ContactEmail = collectedValues["ContactEmail"];
             institution.ContactNumber = collectedValues["ContactNumber"];
             institution.AccessCode = collectedValues["AccessCode"];
@@ -81,7 +82,26 @@ namespace Opmas.Controllers
             institution.Name = collectedValues["Name"];
             institution.Motto = collectedValues["Motto"];
             institution.SubscriprionStartDate = DateTime.Now;
-            institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddYears(1);
+            if (selectedDuration == SubscriptionDuration.OneMonth.ToString())
+            {
+                institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddMonths(1);
+            }
+            if (selectedDuration == SubscriptionDuration.SixMonths.ToString())
+            {
+                institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddMonths(6);
+            }
+            if (selectedDuration == SubscriptionDuration.OneYear.ToString())
+            {
+                institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddYears(1);
+            }
+            if (selectedDuration == SubscriptionDuration.TwoYears.ToString())
+            {
+                institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddYears(2);
+            }
+            if (selectedDuration == SubscriptionDuration.ThreeYears.ToString())
+            {
+                institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddYears(3);
+            }
             if (package != null) institution.PackageId = package.PackageId;
             //save institution
             _dbInstitution.Institutions.Add(institution);
