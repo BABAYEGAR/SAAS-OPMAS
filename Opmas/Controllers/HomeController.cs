@@ -119,7 +119,7 @@ namespace Opmas.Controllers
                 InstitutionId = institution.InstitutionId,
                 Mobile = institution.ContactNumber,
                 EmployeeId = null,
-                Role = AdminUserType.InstitutionAdministrator.ToString(),
+                Role = typeof(AdminUserType).GetEnumName(int.Parse(AdminUserType.InstitutionAdministrator.ToString())),
                 Password = Membership.GeneratePassword(6, 0),
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now,
