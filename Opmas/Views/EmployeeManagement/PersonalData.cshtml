@@ -72,7 +72,7 @@
                 <fieldset>
                     <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Title, new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.Label("Employee Title", new { @class = "control-label" }) <span class="req">*</span>
                         @Html.DropDownListFor(m=>m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), "select your title", new { @class = "form-control select-dropdown"})
                     </div> 
                 

@@ -43,8 +43,7 @@ namespace Opmas.Controllers.ApplicationManagement
                 package.Amount = long.Parse(collection["Amount"]);
                 package.Name = collection["Name"];
                 package.Type = typeof(PackageType).GetEnumName(int.Parse(collection["Type"]));
-                package.StartDate = DateTime.Now;
-                package.EndDate = package.StartDate.AddYears(1);
+               
                 if (allPackages.Count >= 3)
                 {
                     TempData["package"] =

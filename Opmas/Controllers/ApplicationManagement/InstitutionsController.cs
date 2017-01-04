@@ -63,6 +63,8 @@ namespace Opmas.Controllers.ApplicationManagement
             if (ModelState.IsValid)
             {
                 institution.Logo = new FileUploader().UploadFile(logo, UploadType.Logo);
+                institution.SubscriprionStartDate = DateTime.Now;
+                institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddYears(1);
                 db.Institutions.Add(institution);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -93,7 +95,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InstitutionId,Name,AccessCode,Motto,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
+        public ActionResult Edit([Bind(Include = "InstitutionId,Name,SubscriprionStartDate,SubscriptonEndDate,AccessCode,Motto,Location,ContactNumber,ContactEmail,PackageId")] Institution institution,FormCollection collectedValues)
         {
             HttpPostedFileBase logo = Request.Files["logo"];
             if (ModelState.IsValid)
@@ -102,7 +104,7 @@ namespace Opmas.Controllers.ApplicationManagement
                 {
                     institution.Logo = collectedValues["Logo"];
                 }
-                if (logo.FileName == "")
+                if (logo != null && logo.FileName == "")
                 {
                     institution.Logo = collectedValues["Logo"];
                 }

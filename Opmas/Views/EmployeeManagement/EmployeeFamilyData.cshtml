@@ -16,7 +16,7 @@
     }
 }
 @section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
     <!-- Datatables -->
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
@@ -45,11 +45,11 @@
                 Step Two <br/>
                 <small>Educational Qualification</small>
             </li>
-            <li class="active">
+            <li>
                 Step Three <br/>
                 <small>Past Work Experience</small>
             </li>
-            <li>
+            <li class="active">
                 Step Four <br/>
                 <small>Family Data</small>
             </li>
@@ -127,13 +127,13 @@
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.Relationship, "Relationship:", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new { @class = "form-control select-dropdown" })
+                        @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(FamilyEnum)), "select relationship", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.NextOfKin, "Next Of Kin:", new { @class = "control-label" })
-                        @Html.CheckBoxFor(m => m.NextOfKin, new { @class = "form-control" })
+                        @Html.LabelFor(m => m.NextOfKin, "Next Of Kin:", new {@class = "control-label col-md-4"})
+                        @Html.CheckBoxFor(m => m.NextOfKin, new {@class = "form-control col-md-8"})
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-12">
@@ -156,6 +156,9 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.Relationship)
                                     </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NextOfKin)
+                                    </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -172,24 +175,23 @@
                                                 @Html.DisplayFor(modelItem => item.ContactNumber)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Email)
+                                                @if (item.Email != null)
+                                                {
+                                                    @item.Email
+                                                }
                                             </td>>
                                             <td>
                                                 @item.DateOfBirth.ToShortDateString()
                                             </td>
 
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Relationship)
+                                                @Html.DisplayFor(modelItem => item.Relationship).ToString()
                                             </td>
                                             <td>
-                                                @if (returnUrl == true)
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
-                                                }
-                                                else
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {item.FakeId}, new {@class = "btn btn-danger"})
-                                                }
+                                                @(Convert.ToBoolean(item.NextOfKin))
+                                            </td>
+                                            <td>
+                                                @(returnUrl == true ? Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"}) : Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {item.FakeId}, new {@class = "btn btn-danger"}))
                                             </td>
 
                                         </tr>

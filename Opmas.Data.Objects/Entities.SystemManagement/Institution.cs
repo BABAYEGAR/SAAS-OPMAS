@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,8 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public string Motto { get; set; }
         public string Logo { get; set; }
         public string Location { get; set; }
+        public DateTime SubscriprionStartDate { get; set; }
+        public DateTime SubscriptonEndDate { get; set; }
         public string AccessCode { get; set; }
 
         [Required]

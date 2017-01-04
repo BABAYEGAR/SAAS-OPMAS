@@ -15,6 +15,8 @@
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     @Html.HiddenFor(m=>m.InstitutionId)
     @Html.HiddenFor(m=>m.Logo)
+    @Html.HiddenFor(m=>m.SubscriprionStartDate)
+    @Html.HiddenFor(m=>m.SubscriptonEndDate)
     <div class="form-group">
         @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">

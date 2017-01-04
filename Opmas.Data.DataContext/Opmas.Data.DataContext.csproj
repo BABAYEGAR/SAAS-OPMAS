@@ -68,6 +68,19 @@
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionDataContext.cs" />
     <Compile Include="DataContext\UserDataContext\AppUserDataContext.cs" />
+    <Compile Include="Migrations\201701040325059_FirstMigration.cs" />
+    <Compile Include="Migrations\201701040325059_FirstMigration.Designer.cs">
+      <DependentUpon>201701040325059_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701040345558_SecondMigration.cs" />
+    <Compile Include="Migrations\201701040345558_SecondMigration.Designer.cs">
+      <DependentUpon>201701040345558_SecondMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701040351211_ThirdMigration.cs" />
+    <Compile Include="Migrations\201701040351211_ThirdMigration.Designer.cs">
+      <DependentUpon>201701040351211_ThirdMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +92,17 @@
       <Project>{f66834ab-d691-4595-855a-ad0fd040567e}</Project>
       <Name>Opmas.Data.Objects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701040325059_FirstMigration.resx">
+      <DependentUpon>201701040325059_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701040345558_SecondMigration.resx">
+      <DependentUpon>201701040345558_SecondMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701040351211_ThirdMigration.resx">
+      <DependentUpon>201701040351211_ThirdMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

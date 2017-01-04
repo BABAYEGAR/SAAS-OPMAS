@@ -14,8 +14,6 @@ namespace Opmas.Data.Objects.Entities.AccessManagement
         [Required]
         public double Amount { get; set; }
         public string Type { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public IEnumerable<Institution> Institutions { get; set; }
     }
 }

@@ -80,6 +80,8 @@ namespace Opmas.Controllers
             institution.Location = collectedValues["Location"];
             institution.Name = collectedValues["Name"];
             institution.Motto = collectedValues["Motto"];
+            institution.SubscriprionStartDate = DateTime.Now;
+            institution.SubscriptonEndDate = institution.SubscriprionStartDate.AddYears(1);
             if (package != null) institution.PackageId = package.PackageId;
             //save institution
             _dbInstitution.Institutions.Add(institution);
