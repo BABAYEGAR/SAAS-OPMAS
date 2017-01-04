@@ -108,10 +108,13 @@ namespace Opmas.Controllers.UserManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile,Password,Role,AppUserImage,FingerPrint,RememberMe,EmployeeId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] AppUser appUser)
+        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile,Password,Role,AppUserImage,FingerPrint,RememberMe,EmployeeId,CreatedBy,DateCreated,LastModifiedBy")] AppUser appUser)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                appUser.DateLastModified = DateTime.Now;
+                if (loggedinuser != null) appUser.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(appUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
