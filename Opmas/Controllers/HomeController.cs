@@ -20,6 +20,19 @@ namespace Opmas.Controllers
         private readonly InstitutionDataContext _dbInstitution = new InstitutionDataContext();
         private readonly PackageDataContext _dbPackage = new PackageDataContext();
         private readonly AppUserDataContext _dbAppUser = new AppUserDataContext();
+        public ActionResult SystemAdminIndex()
+        {
+            return View();
+        }
+        public ActionResult InstitutionAdminIndex()
+        {
+            return View();
+        }
+        // GET: Index
+        public ActionResult EmployeeIndex()
+        {
+            return View();
+        }
         public ActionResult SelectInstitution()
         {
             Session["institution"] = null;
@@ -44,21 +57,8 @@ namespace Opmas.Controllers
                 TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                 return View();
             }
-          
-            return RedirectToAction("Login","Account");
-        }
-        public ActionResult SystemAdminIndex()
-        {
-            return View();
-        }
-        public ActionResult InstitutionAdminIndex()
-        {
-            return View();
-        }
-        // GET: Index
-        public ActionResult EmployeeIndex()
-        {
-            return View();
+
+            return RedirectToAction("PersonalData", "EmployeeManagement");
         }
         // GET: CheckOut
         public ActionResult CheckOut(long? id)

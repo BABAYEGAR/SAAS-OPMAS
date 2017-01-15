@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Factory.AuthenticationManagement;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Service.Enums;
@@ -17,6 +18,7 @@ namespace Opmas.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly InstitutionDataContext _dbInstitution = new InstitutionDataContext();
 
         public AccountController()
         {
@@ -72,13 +74,13 @@ namespace Opmas.Controllers
             {
                 return View(model);
             }
-            var institution = Session["institution"] as Institution;
-            if (institution != null)
-            {
-                var appuser = new AuthenticationFactory().AuthenticateAppUserLogin(model.Email, model.Password,institution.InstitutionId);
+            var appuser = new AuthenticationFactory().AuthenticateAppUserLogin(model.Email, model.Password);
                 if (appuser != null)
                 {
+                     var institution = _dbInstitution.Institutions.Find(appuser.InstitutionId);
+
                     Session["opmasloggedinuser"] = appuser;
+                    Session["institution"] = institution;
                     if (appuser.Role == UserType.Employee.ToString())
                     {
                         return RedirectToAction("EmployeeIndex", "Home");
@@ -110,11 +112,11 @@ namespace Opmas.Controllers
                 }
                 else
                 {
-                    TempData["login"] = "Incorrect Institution/Username/Password";
+                    TempData["login"] = "Incorrect Username/Password";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                     return View(model);
                 }
-            }
+            
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true

@@ -11,9 +11,12 @@
             <li>
                 <a><i class="fa fa-user-times"></i> Intitution Management <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Edit","Institutions",new {id = institution.InstitutionId})">Modify Institution Data</a>
-                    </li>
+                    @if (institution != null)
+                    {
+                        <li>
+                            <a href="@Url.Action("Edit", "Institutions", new {id = institution.InstitutionId})">Modify Institution Data</a>
+                        </li>
+                    }
                 </ul>
             </li>
             <li>

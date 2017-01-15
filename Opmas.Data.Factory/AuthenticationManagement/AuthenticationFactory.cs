@@ -17,12 +17,11 @@ namespace Opmas.Data.Factory.AuthenticationManagement
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <param name="institutionId"></param>
         /// <returns></returns>
-        public AppUser AuthenticateAppUserLogin(string email, string password,long institutionId)
+        public AppUser AuthenticateAppUserLogin(string email, string password)
         {
             var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
-            var user = new AppUserFactory().GetAppUserByLogin(email, hashPassword, institutionId);
+            var user = new AppUserFactory().GetAppUserByLogin(email, hashPassword);
             return user;
         }
         /// <summary>
