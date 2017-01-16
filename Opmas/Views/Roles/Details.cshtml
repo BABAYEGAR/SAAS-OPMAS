@@ -1,0 +1,98 @@
+﻿@model Opmas.Data.Objects.Entities.Employee.Role
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Role</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Institution.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Institution.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManagePackages)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManagePackages)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManageInstitutions)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManageInstitutions)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManageFaculties)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManageFaculties)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManageDepartments)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManageDepartments)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManageUnits)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManageUnits)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManageEmployees)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManageEmployees)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ManageAppUsers)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ManageAppUsers)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.RoleId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

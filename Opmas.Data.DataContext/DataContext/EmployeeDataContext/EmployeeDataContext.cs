@@ -28,6 +28,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

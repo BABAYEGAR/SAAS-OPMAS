@@ -865,7 +865,6 @@ namespace Opmas.Controllers.EmployeeManagement
                 }
                 appUser.DateCreated = DateTime.Now;
                 appUser.DateLastModified = DateTime.Now;
-                appUser.Role = UserType.Employee.ToString();
                 appUser.EmployeeId = employeeId;
                 appUser.Mobile = employee.MobilePhone;
             }

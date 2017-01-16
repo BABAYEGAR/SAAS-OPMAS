@@ -71,7 +71,6 @@ namespace Opmas.Controllers.UserManagement
                     appUser.DateCreated = DateTime.Now;
                     appUser.LastModifiedBy = loggedinuser.AppUserId;
                     appUser.CreatedBy = loggedinuser.AppUserId;
-                    appUser.Role = typeof(AdminUserType).GetEnumName(int.Parse(collectedValues["Role"]));
                     appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
                     //generate password and convert to md5 hash
                     var password = Membership.GeneratePassword(8, 1);

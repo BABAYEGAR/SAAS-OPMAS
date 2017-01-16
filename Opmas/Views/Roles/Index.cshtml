@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Opmas.Data.Objects.Entities.Employee.Role>
+
+@{
+    ViewBag.Title = "Roles";
+    ViewBag.Header = "Application Users priviledges";
+    Layout = "~/Views/Shared/_LayoutInstitutionAdminListItems.cshtml";
+}
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Institution.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManagePackages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageInstitutions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageFaculties)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageDepartments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageUnits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageEmployees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageAppUsers)
+        </th>
+        <th></th>
+    </tr>
+        </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManagePackages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageFaculties)
+                </td> 
+                  <td>
+                    @Html.DisplayFor(modelItem => item.ManageInstitutions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageDepartments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageUnits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageEmployees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageAppUsers)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RoleId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.RoleId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.RoleId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

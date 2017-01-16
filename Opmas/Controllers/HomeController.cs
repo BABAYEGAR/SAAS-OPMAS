@@ -20,16 +20,7 @@ namespace Opmas.Controllers
         private readonly InstitutionDataContext _dbInstitution = new InstitutionDataContext();
         private readonly PackageDataContext _dbPackage = new PackageDataContext();
         private readonly AppUserDataContext _dbAppUser = new AppUserDataContext();
-        public ActionResult SystemAdminIndex()
-        {
-            return View();
-        }
-        public ActionResult InstitutionAdminIndex()
-        {
-            return View();
-        }
-        // GET: Index
-        public ActionResult EmployeeIndex()
+        public ActionResult Dashboard()
         {
             return View();
         }
@@ -119,7 +110,6 @@ namespace Opmas.Controllers
                 InstitutionId = institution.InstitutionId,
                 Mobile = institution.ContactNumber,
                 EmployeeId = null,
-                Role = typeof(AdminUserType).GetEnumName(int.Parse(AdminUserType.InstitutionAdministrator.ToString())),
                 Password = Membership.GeneratePassword(6, 0),
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now,

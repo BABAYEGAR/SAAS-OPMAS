@@ -17,11 +17,11 @@ namespace Opmas.Data.Objects.Entities.Employee
         public IEnumerable<AppUser> AppUsers { get; set; }
         public List<EmployeeFamilyData> EmployeeFamilyDatas { get; set; }
         public long InstitutionId { get; set; }
+
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
 
-        public long RoleId { get; set; }
-        [ForeignKey("RoleId")]
-        public  virtual  Role Role { get; set; }
+
+        public IEnumerable<Role> Roles { get; set; }
     }
 }
