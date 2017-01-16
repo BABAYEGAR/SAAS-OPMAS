@@ -95,6 +95,7 @@
             </td>
             <td>
                 @Html.ActionLink("Remove", "RemoveEducationalQualificationById", new {id = item.EmployeeEducationalQualificationId}, new {@class = "btn btn-xs btn-danger fa fa-remove" })
+                <a href="../../UploadedFiles/@UploadType.Education.ToString()/@item.FileUpload" target="_blank" class="btn btn-warning">View Document</a>
           
             </td>
         </tr>

@@ -131,9 +131,9 @@
             </div>
             <div class="form-group col-md-12">
                 @Html.LabelFor(model => model.FileUpload, new {@class = "control-label"})
-                    <input type="file" name="file" id="file" style="width: 100%;"/>
-                    @Html.ValidationMessageFor(model => model.FileUpload, "", new {@class = "text-danger"})
-              
+                <input type="file" name="file" id="file" style="width: 100%;"/>
+                @Html.ValidationMessageFor(model => model.FileUpload, "", new {@class = "text-danger"})
+
 
             </div>
         </fieldset>

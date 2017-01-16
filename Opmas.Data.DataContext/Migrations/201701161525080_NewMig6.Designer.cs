@@ -7,13 +7,13 @@ namespace Opmas.Data.DataContext.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class NewMig1 : IMigrationMetadata
+    public sealed partial class NewMig6 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(NewMig1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewMig6));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701160830277_NewMig1"; }
+            get { return "201701161525080_NewMig6"; }
         }
         
         string IMigrationMetadata.Source

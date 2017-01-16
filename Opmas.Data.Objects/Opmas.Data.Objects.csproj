@@ -62,6 +62,7 @@
     <Compile Include="Entities.Employee\EmployeePersonalData.cs" />
     <Compile Include="Entities.Employee\EmployeeWorkData.cs" />
     <Compile Include="Entities.Employee\Lga.cs" />
+    <Compile Include="Entities.Employee\Role.cs" />
     <Compile Include="Entities.Employee\State.cs" />
     <Compile Include="Entities.SystemManagement\Department.cs" />
     <Compile Include="Entities.SystemManagement\Faculty.cs" />

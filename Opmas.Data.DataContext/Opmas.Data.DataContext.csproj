@@ -84,9 +84,17 @@
     <Compile Include="Migrations\201701041554178_FourthMigration.Designer.cs">
       <DependentUpon>201701041554178_FourthMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701160830277_NewMig1.cs" />
-    <Compile Include="Migrations\201701160830277_NewMig1.Designer.cs">
-      <DependentUpon>201701160830277_NewMig1.cs</DependentUpon>
+    <Compile Include="Migrations\201701161519447_NewMig5.cs" />
+    <Compile Include="Migrations\201701161519447_NewMig5.Designer.cs">
+      <DependentUpon>201701161519447_NewMig5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701161525080_NewMig6.cs" />
+    <Compile Include="Migrations\201701161525080_NewMig6.Designer.cs">
+      <DependentUpon>201701161525080_NewMig6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701161528439_NewMig7.cs" />
+    <Compile Include="Migrations\201701161528439_NewMig7.Designer.cs">
+      <DependentUpon>201701161528439_NewMig7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,8 +122,14 @@
     <EmbeddedResource Include="Migrations\201701041554178_FourthMigration.resx">
       <DependentUpon>201701041554178_FourthMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701160830277_NewMig1.resx">
-      <DependentUpon>201701160830277_NewMig1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701161519447_NewMig5.resx">
+      <DependentUpon>201701161519447_NewMig5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701161525080_NewMig6.resx">
+      <DependentUpon>201701161525080_NewMig6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701161528439_NewMig7.resx">
+      <DependentUpon>201701161528439_NewMig7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
