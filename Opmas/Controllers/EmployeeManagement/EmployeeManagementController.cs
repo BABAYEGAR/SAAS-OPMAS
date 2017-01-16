@@ -325,6 +325,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     ContactNumber = collectedValues["ContactNumber"],
                     Address = collectedValues["Address"],
                     Email = collectedValues["Email"],
+                    NextOfKin = Convert.ToBoolean(collectedValues["NextOfKin"]),
                     Relationship = collectedValues["Relationship"],
                     DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]),
                     FakeId = _employee.EmployeePastWorkExperiences.Count + 1
@@ -440,6 +441,8 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 var employeeData = Session["Employee"] as Employee;
                 SavaEmployeeData(employeeData);
+                Session["Employee"] = null;
+                Session["institution"] = null;
                 TempData["reg"] = "You have successfully registered!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
@@ -528,7 +531,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     {
                         employeeWorkData.EmployeeId = employeeData.EmployeeId;
                         _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
-                        //_dbg.SaveChanges();
+                        
                     }
 
                     var employeeMedicalData = employeeData.EmployeeMedicalDatas.FirstOrDefault();
@@ -536,9 +539,10 @@ namespace Opmas.Controllers.EmployeeManagement
                     {
                         employeeMedicalData.EmployeeId = employeeData.EmployeeId;
                         _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
-                        // _dbh.SaveChanges();
+                       
                     }
                     _dbEmployee.SaveChanges();
+                  
                 }
         }
 
