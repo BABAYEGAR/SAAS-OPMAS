@@ -14,6 +14,8 @@ using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
+using System.Web;
+using Opmas.Data.Service.FileUploader;
 
 namespace Opmas.Controllers.EmployeeManagement
 {
@@ -173,6 +175,8 @@ namespace Opmas.Controllers.EmployeeManagement
             _employee = Session["Employee"] as Employee;
             //collect data from form using form collection
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
+
+            HttpPostedFileBase file = Request.Files["file"];
             if (_employee != null)
             {
                 var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
@@ -229,8 +233,10 @@ namespace Opmas.Controllers.EmployeeManagement
                     Location = collectedValues["Location"],
                     StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
-                    FakeId = _employee.EmployeeEducationalQualifications.Count + 1
-                });
+                    FakeId = _employee.EmployeeEducationalQualifications.Count + 1,
+                    FileUpload = file != null && file.FileName != "" ? new FileUploader().UploadFile(file, UploadType.Education) : null
+
+            });
                 TempData["education"] = "You ave successfully added a "+ degree +" qualification!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 //store data in a session

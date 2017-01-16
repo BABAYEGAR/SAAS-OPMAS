@@ -9,6 +9,8 @@ namespace Opmas.Data.Service.Enums
     public enum UploadType
     {
         Logo,
-        ProfileImage
+        ProfileImage,
+        Education,
+
     }
 }

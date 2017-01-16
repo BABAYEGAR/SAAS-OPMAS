@@ -26,6 +26,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         [DisplayName("Class Of Degree")]
         [DefaultValue("None")]
         public string ClassOfDegree { get; set; }
+        public string FileUpload { get; set; }
         public long FakeId { get; set; }
 
         public long EmployeeId { get; set; }

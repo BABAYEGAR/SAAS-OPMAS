@@ -24,7 +24,7 @@ namespace Opmas.Data.Service.FileUploader
             {
                 var fileInfo = new FileInfo(fileUpload.FileName);
                 if ((fileInfo.Extension.ToLower() == ".jpg") || (fileInfo.Extension.ToLower() == ".jpeg")
-                    || (fileInfo.Extension.ToLower() == ".png"))
+                    || (fileInfo.Extension.ToLower() == ".png") || (fileInfo.Extension.ToLower() == ".gif") || (fileInfo.Extension.ToLower() == ".pdf") || (fileInfo.Extension.ToLower() == ".docx") || (fileInfo.Extension.ToLower() == ".doc"))
                     try
                     {
                         var fileExtension = fileInfo.Extension;

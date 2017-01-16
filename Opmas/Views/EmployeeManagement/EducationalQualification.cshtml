@@ -36,37 +36,37 @@
 <div class="row hidden-xs">
     <ul class="progressbar">
         <li>
-            Step One <br />
+            Step One <br/>
             <small>Personal Data</small>
 
         </li>
         <li class="active">
-            Step Two <br />
+            Step Two <br/>
             <small>Educational Qualification</small>
         </li>
         <li>
-            Step Three <br />
+            Step Three <br/>
             <small>Past Work Experience</small>
         </li>
         <li>
-            Step Four <br />
+            Step Four <br/>
             <small>Family Data</small>
         </li>
         <li>
-            Step Five <br />
+            Step Five <br/>
             <small>Bank Data</small>
         </li>
         <li>
-            Step Six <br />
+            Step Six <br/>
             <small>Medical/Work Data</small>
 
         </li>
         <li>
-            Confirmation <br />
+            Confirmation <br/>
             <small>Review of Employee Info</small>
         </li>
         <li>
-            Completed <br />
+            Completed <br/>
             <small>Registration Complete</small>
         </li>
     </ul>
@@ -89,7 +89,7 @@
         <div class="alert-info alert-dismissable">@TempData["education"]</div>
     }
 }
-@using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
+@using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
@@ -117,7 +117,7 @@
 
             <div class="form-group col-md-12">
                 @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label"}) <span class="req">*</span>
-                @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please selectan end date"})
+                @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select an end date"})
             </div>
             <div class="clearfix"></div>
             <div class="form-group col-md-12">
@@ -128,6 +128,14 @@
             <div class="form-group col-md-12" id="degreeClass">
                 @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree:", new {@class = "control-label"}) <span class="req">*</span>
                 @Html.DropDownListFor(m => m.ClassOfDegree, EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), new {@class = "form-control select-dropdown", id = "classText"})
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.FileUpload, new {@class = "control-label"})
+                <div class="col-sm-6 col-md-9">
+                    <input type="file" name="file" id="file" style="width: 100%;"/>
+                    @Html.ValidationMessageFor(model => model.FileUpload, "", new {@class = "text-danger"})
+                </div>
+
             </div>
         </fieldset>
     </div>
@@ -188,7 +196,11 @@
                                             {
                                                 @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
                                             }
+
+                                            <a href="../../UploadedFiles/@UploadType.Education.ToString()/@item.FileUpload" target="_blank" class="btn btn-warning">View File</a>
+
                                         </td>
+
 
                                     </tr>
                                 }
@@ -239,6 +251,7 @@
                                             {
                                                 @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
                                             }
+                                            <a href="../../UploadedFiles/@UploadType.Education.ToString()/@item.FileUpload" target="_blank" class="btn btn-warning">View File</a>
                                         </td>
 
                                     </tr>
@@ -305,6 +318,7 @@
                                             {
                                                 @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
                                             }
+                                            <a href="../../UploadedFiles/@UploadType.Education.ToString()/@item.FileUpload" target="_blank" class="btn btn-warning">View File</a>
                                         </td>
 
                                     </tr>
