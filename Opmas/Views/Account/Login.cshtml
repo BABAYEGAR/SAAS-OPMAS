@@ -12,41 +12,41 @@
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable" >@TempData["login"]</div>
+        <div class="alert-danger alert-dismissable">@TempData["login"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable" >@TempData["login"]</div>
+        <div class="alert-info alert-dismissable">@TempData["login"]</div>
     }
 }
 @if (TempData["reg"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable" >@TempData["reg"]</div>
+        <div class="alert-success alert-dismissable">@TempData["reg"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable" >@TempData["reg"]</div>
+        <div class="alert-danger alert-dismissable">@TempData["reg"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable" >@TempData["reg"]</div>
+        <div class="alert-info alert-dismissable">@TempData["reg"]</div>
     }
 }
 @if (TempData["regerror"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable" >@TempData["regerror"]</div>
+        <div class="alert-success alert-dismissable">@TempData["regerror"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable" >@TempData["regerror"]</div>
+        <div class="alert-danger alert-dismissable">@TempData["regerror"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable" >@TempData["regerror"]</div>
+        <div class="alert-info alert-dismissable">@TempData["regerror"]</div>
     }
 }
 @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post))
@@ -66,20 +66,20 @@
 
     </div>
     <div>
-        <input type="submit" value="Login" class="btn btn-success btn-block" style="margin-left:0;"/>
+        <input type="submit" value="Login" class="btn btn-success btn-block" style="margin-left: 0;"/>
     </div>
     <div class="clearfix"></div>
 
     <div class="separator">
         <p class="change_link">
-            @Html.ActionLink("Back To Select Institution", "SelectInstitution","Home", null, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Back To Select Institution", "SelectInstitution", "Home", null, new {@class = "btn btn-xs btn-default"})
         </p>
 
         <p class="change_link">
             <a href="#">Lost your password?</a>
         </p>
         <p class="change_link">
-           An Employee? <a href="@Url.Action("SelectInstitution","Home")" style="color: green">Register!</a>
+            An Employee? <a href="@Url.Action("SelectInstitution", "Home")" style="color: green">Register!</a>
         </p>
 
         <div class="clearfix"></div>

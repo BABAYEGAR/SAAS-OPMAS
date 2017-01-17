@@ -9,7 +9,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-    @Html.HiddenFor(m=>m.DepartmentId,departmentId)
+    @Html.HiddenFor(m => m.DepartmentId, departmentId)
     <div class="form-group">
         @Html.Label("Unit Name", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -25,6 +25,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <input type="submit" value="Create" class="btn btn-success pull-right" />
+        <input type="submit" value="Create" class="btn btn-success pull-right"/>
     </div>
 }

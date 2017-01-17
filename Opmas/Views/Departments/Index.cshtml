@@ -21,25 +21,25 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Faculty.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Institution.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-default" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-danger" })|
-                    @Html.ActionLink("Manage Units", "Index","Units", new { id = item.DepartmentId }, new { @class = "btn btn-xs btn-success" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Faculty.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.DepartmentId}, new {@class = "btn btn-xs btn-primary"}) |
+                @Html.ActionLink("Details", "Details", new {id = item.DepartmentId}, new {@class = "btn btn-xs btn-default"}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.DepartmentId}, new {@class = "btn btn-xs btn-danger"})|
+                @Html.ActionLink("Manage Units", "Index", "Units", new {id = item.DepartmentId}, new {@class = "btn btn-xs btn-success"})
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

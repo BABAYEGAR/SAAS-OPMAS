@@ -29,20 +29,20 @@
     <h1>Select Institution</h1>
     <div class="form-group">
         <div>
-            @Html.DropDownListFor(m=>m.InstitutionId, (SelectList) ViewBag.Institutions, "------------------Please select your institution------------------", new {@class = "form-control select-dropdown"})
+            @Html.DropDownListFor(m => m.InstitutionId, (SelectList) ViewBag.Institutions, "------------------Please select your institution------------------", new {@class = "form-control select-dropdown"})
             <h1></h1>
 
-            @Html.EditorFor(m=>m.AccessCode, new { htmlAttributes = new { @class = "form-control" ,placeholder = "------------Enter Institution access code-----------------"} })
+            @Html.EditorFor(m => m.AccessCode, new {htmlAttributes = new {@class = "form-control", placeholder = "------------Enter Institution access code-----------------"}})
         </div>
     </div>
     <div>
-        <input type="submit" value="Next" class="btn btn-success btn-block" style="margin-left:0px;"/>
+        <input type="submit" value="Next" class="btn btn-success btn-block" style="margin-left: 0px;"/>
     </div>
     <div class="clearfix"></div>
 
     <div class="separator">
         <p class="change_link">
-            @Html.ActionLink("Back To Home Master", "Index", null, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Back To Home Master", "Index", null, new {@class = "btn btn-xs btn-default"})
         </p>
 
         <div class="clearfix"></div>

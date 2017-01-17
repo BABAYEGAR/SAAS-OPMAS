@@ -1,18 +1,16 @@
 ﻿@using Opmas.Data.Objects.Entities.User
-@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.User.AppUser>
 
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser != null)
     {
-            ViewBag.Title = "Application Users";
-            ViewBag.Header = "List Of Application Users";
-            Layout = "~/Views/Shared/_LayoutListItems.cshtml";
-        
+        ViewBag.Title = "Application Users";
+        ViewBag.Header = "List Of Application Users";
+        Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     }
 }
-    <table id="datatable" class="table table-striped table-bordered">
+<table id="datatable" class="table table-striped table-bordered">
     <thead>
     <tr>
         <th>
@@ -37,33 +35,33 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Firstname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Middlename)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lastname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Mobile)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.AppUserId }, new { @class = "btn btn-xs btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.AppUserId }, new { @class = "btn btn-xs btn-default" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.AppUserId }, new { @class = "btn btn-xs btn-danger" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Middlename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-primary"}) |
+                @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-default"}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-danger"})
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

@@ -34,11 +34,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete Department" class="btn btn-danger btn-xs" />
+            <input type="submit" value="Delete Department" class="btn btn-danger btn-xs"/>
         </div>
     }
 </div>

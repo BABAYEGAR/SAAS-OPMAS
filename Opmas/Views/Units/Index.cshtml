@@ -4,9 +4,8 @@
     ViewBag.Title = "Units";
     ViewBag.Header = "List Of Units";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
-    Unit unit = new Unit();
+    var unit = new Unit();
     long departmentId = ViewBag.DepartmentId;
-    
 }
 @section add {
     <!-- Button trigger modal -->
@@ -24,29 +23,29 @@
                     <h4 class="modal-title" id="myModalLabel">Add a new depatmental unit</h4>
                 </div>
                 <div class="modal-body">
-                   @using (Html.BeginForm("Create", "Units", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
-                   {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                    @Html.Hidden("DepartmentId", departmentId)
-                    <div class="form-group">
-                        @Html.Label("Unit Name", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" }) <span class="req">*</span>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            @Html.TextBox("Name", null, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter unit name" })
+                    @using (Html.BeginForm("Create", "Units", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+                        @Html.Hidden("DepartmentId", departmentId)
+                        <div class="form-group">
+                            @Html.Label("Unit Name", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBox("Name", null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter unit name"})
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="form-group">
-                        @Html.Label("Description", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            @Html.TextBox("Description", null, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter description " })
+                        <div class="form-group">
+                            @Html.Label("Description", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBox("Description", null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter description "})
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" value="Create" class="btn btn-success pull-right" />
-                    </div>
-                   }
+                        <div class="modal-footer">
+                            <input type="submit" value="Create" class="btn btn-success pull-right"/>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -66,21 +65,21 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UnitId },new {@class = "btn btn-primary btn-xs"}) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UnitId }, new { @class = "btn btn-default btn-xs " }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UnitId }, new { @class = "btn btn-danger btn-xs" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.UnitId}, new {@class = "btn btn-primary btn-xs"}) |
+                @Html.ActionLink("Details", "Details", new {id = item.UnitId}, new {@class = "btn btn-default btn-xs "}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.UnitId}, new {@class = "btn btn-danger btn-xs"})
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

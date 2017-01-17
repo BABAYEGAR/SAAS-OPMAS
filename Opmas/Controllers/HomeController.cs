@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Opmas.Data.DataContext.DataContext.AccessDataContext;
+using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.ApplicationManagement;
 using Opmas.Data.Objects.Entities.AccessManagement;
+using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
@@ -20,6 +22,7 @@ namespace Opmas.Controllers
         private readonly InstitutionDataContext _dbInstitution = new InstitutionDataContext();
         private readonly PackageDataContext _dbPackage = new PackageDataContext();
         private readonly AppUserDataContext _dbAppUser = new AppUserDataContext();
+        private readonly RoleDataContext _dbRole = new RoleDataContext();
         public ActionResult Dashboard()
         {
             return View();
@@ -100,6 +103,23 @@ namespace Opmas.Controllers
 
             //store in session
             Session["institution"] = institution;
+            Role role = new Role();
+            role.InstitutionId = institution.InstitutionId;
+            role.ManageAdminAppUsers = false;
+            role.ManageAllInstitutions = false;
+            role.ManageInstitutions = true;
+            role.ManageDepartments = true;
+            role.ManageEmployees = true;
+            role.ManageFaculties = true;
+            role.ManageRolePriviledges = true;
+            role.ManageAppUsers = true;
+            role.ManagePackages = false;
+            role.ManageUnits = true;
+            role.Name = "Institution Administrator";
+
+            _dbRole.Roles.Add(role);
+            _dbRole.SaveChanges();
+            Session["role"] = role;
 
             //initialize appuser object
             AppUser appUser = new AppUser
@@ -114,7 +134,8 @@ namespace Opmas.Controllers
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now,
                 LastModifiedBy = 1,
-                CreatedBy = 1
+                CreatedBy = 1,
+                RoleId = role.RoleId
             };
             //save appuser
             _dbAppUser.AppUsers.Add(appUser);

@@ -41,9 +41,7 @@
     <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
     @RenderSection("css", false)
     <style>
-        span.req {
-            color: #ff0808;
-        }
+        span.req { color: #ff0808; }
 
         textarea:focus,
         input[type="text"]:focus,
@@ -94,7 +92,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="@Url.Action("EmployeeIndex","Home")" class="site_title">
+                    <a href="@Url.Action("EmployeeIndex", "Home")" class="site_title">
                         <i class="fa fa-paw"></i> <span>OPMaS</span></a>
                 </div>
 
@@ -173,7 +171,7 @@
                             <div class="x_content">
                                 <br/>
                                 @RenderBody()
-                       
+
                             </div>
                         </div>
                     </div>

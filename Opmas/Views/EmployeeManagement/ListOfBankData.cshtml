@@ -9,7 +9,7 @@
     ViewBag.Header = "Bank Data";
     ViewBag.Subheader = "List Of Bank Data";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
-    EmployeeBankData employeeBankData = new EmployeeBankData();
+    var employeeBankData = new EmployeeBankData();
 }
 @if (TempData["bank"] != null)
 {
@@ -75,10 +75,10 @@
     @foreach (var item in Model)
     {
         <tr>
-                <td>
-                    @(new BankFactory().GetBankById(item.EmployeeId).Name)
-                </td>
-            
+            <td>
+                @(new BankFactory().GetBankById(item.EmployeeId).Name)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.AccountName)
             </td>

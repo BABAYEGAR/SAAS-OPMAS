@@ -217,86 +217,86 @@
         </div>
     </div>
 </div>
-    <div class="row">
-        <!-- Simple panel -->
-        <div class="col-md-12">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h2>
-                        <strong>Family Data</strong>
-                    </h2>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-condensed table-hover">
-                                    <thead>
+<div class="row">
+    <!-- Simple panel -->
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h2>
+                    <strong>Family Data</strong>
+                </h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("#")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Fullname")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Contact")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Date Of Birth")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Relationship")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Next Of Kin")
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if (employeeFamilyData != null)
+                                {
+                                    foreach (var item in employeeFamilyData)
+                                    {
                                         <tr>
-                                            <th>
-                                                @Html.DisplayName("#")
-                                            </th>
-                                            <th>
-                                                @Html.DisplayName("Fullname")
-                                            </th>
-                                            <th>
-                                                @Html.DisplayName("Contact")
-                                            </th>
-                                            <th>
-                                                @Html.DisplayName("Date Of Birth")
-                                            </th>
-                                            <th>
-                                                @Html.DisplayName("Relationship")
-                                            </th>
-                                            <th>
-                                                @Html.DisplayName("Next Of Kin")
-                                            </th>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FakeId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ContactNumber)
+                                            </td>
+                                            <td>
+                                                @item.DateOfBirth.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Relationship)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NextOfKin)
+                                            </td>
+
 
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (employeeFamilyData != null)
-                                        {
-                                            foreach (var item in employeeFamilyData)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.FakeId)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.FullName)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.ContactNumber)
-                                                    </td>
-                                                    <td>
-                                                        @item.DateOfBirth.ToShortDateString()
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Relationship)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.NextOfKin)
-                                                    </td>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 ">
+                            <a href="@Url.Action("EmployeeFamilyData", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
 
-
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-12 ">
-                                <a href="@Url.Action("EmployeeFamilyData", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
-
-                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 <div class="row">
     <!-- Simple panel -->
     <div class="col-md-12">
@@ -525,7 +525,7 @@
 
                 </div>
                 <div class="col-md-12 ">
-                    @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil" })
+                    @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil"})
 
                 </div>
             </div>

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Controllers.EmployeeManagement
 {
@@ -18,7 +19,8 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: Roles
         public ActionResult Index()
         {
-            var roles = db.Roles.Include(r => r.Institution);
+            var institution = Session["institution"] as Institution;
+            var roles = db.Roles.Where(n => n.Name != "Platform Administrator"&& n.Name != "Institution Administrator" && n.InstitutionId == institution.InstitutionId).Include(r => r.Institution);
             return View(roles.ToList());
         }
 
@@ -49,16 +51,19 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RoleId,Name,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role)
+        public ActionResult Create([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,ManageAdminAppUsers,ManageAllInstitutions")] Role role)
         {
+            var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
+                
+                if (institution != null) role.InstitutionId = institution.InstitutionId;
                 db.Roles.Add(role);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", role.InstitutionId);
+            ViewBag.InstitutionId = new SelectList(db.Institutions.Where(n=>n.Name != "Platform Administrator" && n.InstitutionId == institution.InstitutionId ), "InstitutionId", "Name", role.InstitutionId);
             return View(role);
         }
 
@@ -83,15 +88,17 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoleId,Name,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role)
+        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role)
         {
+            var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
                 db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["role"] = role;
                 return RedirectToAction("Index");
             }
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", role.InstitutionId);
+            ViewBag.InstitutionId = new SelectList(db.Institutions.Where(n => n.Name != "Platform Administrator" && n.InstitutionId == institution.InstitutionId), "InstitutionId", "Name", role.InstitutionId);
             return View(role);
         }
 

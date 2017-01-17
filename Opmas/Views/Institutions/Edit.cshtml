@@ -1,80 +1,78 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
     ViewBag.Title = "Edit";
     ViewBag.Header = "Institutions";
     ViewBag.Subheader = "Edit an Institution";
 }
-@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.SystemManagement.Institution
 @section css {
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 }
-@using (Html.BeginForm("Edit", "Institutions", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Institutions", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-    @Html.HiddenFor(m=>m.InstitutionId)
-    @Html.HiddenFor(m=>m.Logo)
-    @Html.HiddenFor(m=>m.SubscriprionStartDate)
-    @Html.HiddenFor(m=>m.SubscriptonEndDate)
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    @Html.HiddenFor(m => m.InstitutionId)
+    @Html.HiddenFor(m => m.Logo)
+    @Html.HiddenFor(m => m.SubscriprionStartDate)
+    @Html.HiddenFor(m => m.SubscriptonEndDate)
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+        @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
         </div>
     </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Motto, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.EditorFor(model => model.Motto, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Logo, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="file" name="logo" id="logo" style="width: 100%;" />
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.Location, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
-            </div>
-        </div>
-
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.ContactNumber, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
-            </div>
-        </div>
-
-    <div class="form-group col-md-12">
-        @Html.LabelFor(model => model.ContactEmail, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Motto, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.EditorFor(model => model.ContactEmail, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.EditorFor(model => model.Motto, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
         </div>
     </div>
     <div class="form-group col-md-12">
-        @Html.LabelFor(model => model.AccessCode, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+        @Html.LabelFor(model => model.Logo, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.EditorFor(model => model.AccessCode, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            <input type="file" name="logo" id="logo" style="width: 100%;"/>
         </div>
     </div>
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.PackageId, "Package", new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.DropDownList("PackageId", null, new { @class = "form-control col-md-7 col-xs-12 select-dropdown" })
-            </div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(model => model.Location, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Location, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Update" class="btn btn-success btn-xs pull-right" />
-            </div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(model => model.ContactNumber, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.ContactNumber, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
         </div>
+    </div>
 
+    <div class="form-group col-md-12">
+        @Html.LabelFor(model => model.ContactEmail, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.ContactEmail, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(model => model.AccessCode, new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.AccessCode, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        @Html.LabelFor(model => model.PackageId, "Package", new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownList("PackageId", null, new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-success btn-xs pull-right"/>
+        </div>
+    </div>
 }
 @section scripts {
     <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>

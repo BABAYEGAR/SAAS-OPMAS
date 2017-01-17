@@ -4,8 +4,8 @@
 @model Opmas.Data.Objects.Entities.Employee.Employee
 @{
     var employeeId = Model.EmployeeId;
-    EmployeeDataContext dbEmployee = new EmployeeDataContext();
-    AppUserDataContext appuser = new AppUserDataContext();
+    var dbEmployee = new EmployeeDataContext();
+    var appuser = new AppUserDataContext();
     var educationaQualification = dbEmployee.EmployeeEducationalQualifications.Where(n => n.EmployeeId == employeeId).ToList();
     var bankData = dbEmployee.EmployeeBankDatas?.Where(n => n.EmployeeId == employeeId).ToList();
     var pastWorkExperienceSession = dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == employeeId).ToList();
@@ -13,12 +13,20 @@
     var employeeMedicalData = dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
 
     var appusersExist = appuser.AppUsers.SingleOrDefault(n => n.EmployeeId == employeeId);
-
 }
 <style>
     h1, h2, h3 { color: #00004d; }
-    label{font-size: 12px; font-weight: normal}
-    strong{font-size: 14px; font-weight: bold;color: #000099}
+
+    label {
+        font-size: 12px;
+        font-weight: normal
+    }
+
+    strong {
+        color: #000099;
+        font-size: 14px;
+        font-weight: bold;
+    }
 </style>
 <!-- Page content -->
 <div class="page-content">
@@ -52,13 +60,13 @@
                             @if (employeePersonalData.Middlename != null)
                             {
                                 <h4>
-                                    <strong>Middlename</strong><br />
+                                    <strong>Middlename</strong><br/>
                                     <label>@employeePersonalData.Middlename</label>
 
                                 </h4>
                             }
 
-                          
+
                             <h4>
                                 <strong >Lastname</strong><br/>
                                 <label>@employeePersonalData.Lastname</label>
@@ -117,7 +125,7 @@
                             </h4>
 
                         </div>
-                      
+
                     </div>
                 </div>
             }
@@ -161,25 +169,25 @@
                                 </thead>
                                 <tbody>
                                 @foreach (var item in educationaQualification)
-                                 {
-                                     <tr>
-                                         <td>
-                                             @item.FakeId
-                                         </td>
-                                         <td>
-                                             @Html.DisplayFor(modelItem => item.InstitutionName)
-                                         </td>
-                                         <td>
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.FakeId
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InstitutionName)
+                                        </td>
+                                        <td>
                                             @item.StartDate.ToShortDateString()
-                                         </td>
-                                         <td>
-                                          @item.EndDate.ToShortDateString()
-                                         </td>
-                                         <td>
-                                             @Html.DisplayFor(modelItem => item.DegreeAttained)
-                                         </td>
-                                     </tr>
-                                 }
+                                        </td>
+                                        <td>
+                                            @item.EndDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DegreeAttained)
+                                        </td>
+                                    </tr>
+                                }
                                 </tbody>
                             </table>
                         </div>
@@ -230,30 +238,30 @@
                                 </thead>
                                 <tbody>
                                 @foreach (var item in pastWorkExperienceSession)
-                                 {
-                                     <tr>
-                                         <td>
-                                             @Html.DisplayFor(modelItem => item.FakeId)
-                                         </td>
-                                         <td>
-                                             @Html.DisplayFor(modelItem => item.EmployerName)
-                                         </td>
-                                         <td>
-                                             @Html.DisplayFor(modelItem => item.EmployerLocation)
-                                         </td>
-                                         <td>
-                                             @item.StartDate.ToShortDateString()
-                                         </td>
-                                         <td>
-                                           @item.EndDate.ToShortDateString()
-                                         </td>
-                                         <td>
-                                             @Html.DisplayFor(modelItem => item.PositionHeld)
-                                         </td>
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FakeId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployerName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployerLocation)
+                                        </td>
+                                        <td>
+                                            @item.StartDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @item.EndDate.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PositionHeld)
+                                        </td>
 
 
-                                     </tr>
-                                 }
+                                    </tr>
+                                }
                                 </tbody>
                             </table>
                         </div>
@@ -387,27 +395,27 @@
         </div>
     </div>
 </div>
-        @if (appusersExist != null)
-        {
-            <div class="col-md-12 ">
-             
-            </div>
-        }
-        else
-        {
-            <div class="col-md-12 ">
-                @using (Html.BeginForm("ConvertEmployeeToApplicationUser", "EmployeeManagement", FormMethod.Post, null))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("EmployeeId", Model.EmployeeId)
-                    <div class="col-md-12">
-                        <input type="submit" value="Convert Employee" id="submitComment" class="btn btn-primary btn-sm pull-right" />
+@if (appusersExist != null)
+{
+    <div class="col-md-12 ">
 
-                    </div>
-                }
+    </div>
+}
+else
+{
+    <div class="col-md-12 ">
+        @using (Html.BeginForm("ConvertEmployeeToApplicationUser", "EmployeeManagement", FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("EmployeeId", Model.EmployeeId)
+            <div class="col-md-12">
+                <input type="submit" value="Convert Employee" id="submitComment" class="btn btn-primary btn-sm pull-right"/>
+
             </div>
         }
-    
+    </div>
+}
+
 </div>
 <!-- /page content -->
 </div>

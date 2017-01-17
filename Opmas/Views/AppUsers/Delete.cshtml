@@ -20,10 +20,7 @@
             ViewBag.Header = "Application Users";
             ViewBag.Subheader = "Delete an appliction user";
         }
-
     }
-
-
 }
 <div>
 
@@ -150,11 +147,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete User" class="btn btn-danger btn-xs" />
+            <input type="submit" value="Delete User" class="btn btn-danger btn-xs"/>
         </div>
     }
 </div>

@@ -1,5 +1,4 @@
-﻿@using Opmas.Data.Factory.EmployeeManagement
-@using Opmas.Data.Objects.Entities.Employee
+﻿@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeePastWorkExperience>
 
@@ -8,8 +7,7 @@
     ViewBag.Header = "Past Work Experience";
     ViewBag.Subheader = "List Of Past Work Experienc";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
-    EmployeePastWorkExperience pastWorkExperience = new EmployeePastWorkExperience();
-
+    var pastWorkExperience = new EmployeePastWorkExperience();
 }
 @if (TempData["work"] != null)
 {
@@ -55,49 +53,49 @@
 
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployerContact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PositionHeld)
-            </th>
-            <th>Action</th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployerContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PositionHeld)
+        </th>
+        <th>Action</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployerContact)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PositionHeld)
-                </td>
-                <td>
-                    @Html.ActionLink("Remove", "RemovePastWorkExperienceById", new { id = item.EmployeeId }, new { @class = "btn btn-xs btn-danger fa fa-remove" })
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployerContact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionHeld)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemovePastWorkExperienceById", new {id = item.EmployeeId}, new {@class = "btn btn-xs btn-danger fa fa-remove"})
+            </td>
+        </tr>
+    }
     </tbody>
 
 </table>

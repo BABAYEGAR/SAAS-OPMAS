@@ -1,10 +1,10 @@
 ﻿@model Opmas.Data.Objects.Entities.SystemManagement.Faculty
 
- @{
-     ViewBag.Title = "Delete";
-     ViewBag.Header = "Faculties";
-     ViewBag.Subheader = "Delete a faculty";
-     Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Header = "Faculties";
+    ViewBag.Subheader = "Delete a faculty";
+    Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
 }
 <div>
 
@@ -59,11 +59,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete Faculty" class="btn btn-danger btn-xs" />
+            <input type="submit" value="Delete Faculty" class="btn btn-danger btn-xs"/>
         </div>
     }
 </div>

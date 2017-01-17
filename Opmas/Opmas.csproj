@@ -5205,8 +5205,7 @@
     <Content Include="Views\Departments\Details.cshtml" />
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutInstitutionAdminForm.cshtml" />
-    <Content Include="Views\Shared\UserSidebar.cshtml" />
+    <Content Include="Views\Shared\_LayoutForm.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEducationalQualification.cshtml" />
     <Content Include="Views\EmployeeManagement\EditMedicalData.cshtml" />
     <Content Include="Views\Shared\_LayoutUserForm.cshtml" />

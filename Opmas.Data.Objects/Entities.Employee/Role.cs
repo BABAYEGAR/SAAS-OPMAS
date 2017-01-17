@@ -26,8 +26,9 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageAppUsers { get; set; }
         public bool ManageAdminAppUsers { get; set; }
         public bool ManageAllInstitutions { get; set; }
+        public bool ManageRolePriviledges { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
-        public long InstitutionId { get; set; }
+        public long? InstitutionId { get; set; }
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
     }

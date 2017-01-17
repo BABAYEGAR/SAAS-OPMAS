@@ -1,9 +1,10 @@
 ﻿@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Objects.Entities.User
 @using Opmas.Data.Service.Enums
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-    var institution = Session["institution"] as AppUser;
+    var institution = Session["institution"] as Institution;
     var userRole = Session["role"] as Role;
 
     if (loggedinuser == null)
@@ -21,8 +22,6 @@
         <ul class="nav side-menu">
             @if (userRole.ManageAdminAppUsers)
             {
-
-
                 <li>
                     <a><i class="fa fa-users"></i> Administrative Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -40,7 +39,6 @@
             }
             @if (userRole.ManageAllInstitutions)
             {
-
                 <li>
                     <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -58,7 +56,6 @@
             }
             @if (userRole.ManagePackages)
             {
-
                 <li>
                     <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -70,7 +67,6 @@
             }
             @if (userRole.ManageInstitutions)
             {
-
                 <li>
                     <a><i class="fa fa-user-times"></i> Intitution Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -83,9 +79,8 @@
                     </ul>
                 </li>
             }
-            @if (userRole.ManageEmployees && institution != null)
+            @if (userRole.ManageEmployees && (institution != null))
             {
-
                 <li>
                     <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -107,7 +102,6 @@
             }
             @if (userRole.ManageAppUsers)
             {
-
                 <li>
                     <a><i class="fa fa-users"></i> Application Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -126,9 +120,22 @@
                     </ul>
                 </li>
             }
+            @if (userRole.ManageRolePriviledges)
+            {
+                <li>
+                    <a><i class="fa fa-universal-access"></i> User Priviledges <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Create", "Roles")">Add New Role</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Roles")">Roles</a>
+                        </li>
+                    </ul>
+                </li>
+            }
             @if (userRole.ManageFaculties)
             {
-
                 <li>
                     <a><i class="fa fa-desktop"></i> Faculties <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -143,7 +150,6 @@
             }
             @if (userRole.ManageDepartments)
             {
-
                 <li>
                     <a><i class="fa fa-gift"></i> Departments <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

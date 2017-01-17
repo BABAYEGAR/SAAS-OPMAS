@@ -27,37 +27,37 @@
     <div class="row hidden-xs">
         <ul class="progressbar">
             <li class="active">
-                Step One <br />
+                Step One <br/>
                 <small>Personal Data</small>
 
             </li>
             <li>
-                Step Two <br />
+                Step Two <br/>
                 <small>Educational Qualification</small>
             </li>
             <li>
-                Step Three <br />
+                Step Three <br/>
                 <small>Past Work Experience</small>
             </li>
             <li>
-                Step Four <br />
+                Step Four <br/>
                 <small>Family Data</small>
             </li>
             <li>
-                Step Five <br />
+                Step Five <br/>
                 <small>Bank Data</small>
             </li>
             <li>
-                Step Six <br />
+                Step Six <br/>
                 <small>Medical/Work Data</small>
 
             </li>
             <li>
-                Confirmation <br />
+                Confirmation <br/>
                 <small>Review of Employee Info</small>
             </li>
             <li>
-                Completed <br />
+                Completed <br/>
                 <small>Registration Complete</small>
             </li>
         </ul>
@@ -72,10 +72,10 @@
                 <fieldset>
                     <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
-                        @Html.Label("Employee Title", new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.DropDownListFor(m=>m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), "select your title", new { @class = "form-control select-dropdown"})
-                    </div> 
-                
+                        @Html.Label("Employee Title", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.DropDownListFor(m => m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), "select your title", new {@class = "form-control select-dropdown"})
+                    </div>
+
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Firstname, new {@class = "form-control", placeholder = "Please enter your first name"})
@@ -85,7 +85,7 @@
                         @Html.LabelFor(m => m.Lastname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Lastname, new {@class = "form-control", placeholder = "Please enter your last name"})
                     </div>
-                    <div class="clearfix"></div>  
+                    <div class="clearfix"></div>
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Middlename, new {@class = "control-label"})
                         @Html.TextBoxFor(m => m.Middlename, new {@class = "form-control", placeholder = "Please enter your middle name"})
@@ -179,9 +179,10 @@
                     }
                     @if (returnUrl == true)
                     {
-                        using (Html.BeginForm("PersonalData", "EmployeeManagement", FormMethod.Post, new { @class = "form" }))
-                        {@Html.Hidden("returnUrl", true)
-                            <input type="submit" value="Revert back to Review Page" class="btn btn-primary pull-right" />
+                        using (Html.BeginForm("PersonalData", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))
+                        {
+                            @Html.Hidden("returnUrl", true)
+                            <input type="submit" value="Revert back to Review Page" class="btn btn-primary pull-right"/>
                         }
                     }
                 </div>

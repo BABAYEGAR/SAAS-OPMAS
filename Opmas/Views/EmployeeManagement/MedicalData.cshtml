@@ -24,37 +24,37 @@
     <div class="row hidden-xs">
         <ul class="progressbar">
             <li>
-                Step One <br />
+                Step One <br/>
                 <small>Personal Data</small>
 
             </li>
             <li>
-                Step Two <br />
+                Step Two <br/>
                 <small>Educational Qualification</small>
             </li>
             <li>
-                Step Three <br />
+                Step Three <br/>
                 <small>Past Work Experience</small>
             </li>
             <li>
-                Step Four <br />
+                Step Four <br/>
                 <small>Family Data</small>
             </li>
             <li>
-                Step Five <br />
+                Step Five <br/>
                 <small>Bank Data</small>
             </li>
             <li class="active">
-                Step Six <br />
+                Step Six <br/>
                 <small>Medical/Work Data</small>
 
             </li>
             <li>
-                Confirmation <br />
+                Confirmation <br/>
                 <small>Review of Employee Info</small>
             </li>
             <li>
-                Completed <br />
+                Completed <br/>
                 <small>Registration Complete</small>
             </li>
         </ul>
@@ -93,8 +93,8 @@
                         @Html.TextBox("EmploymentDate", null, new {@class = "form-control startDate", placeholder = "Please select employment date"})
                     </div>
                     <div class="form-group col-md-12">
-                        @Html.Label("Employment Category", new { @class = "control-label" })<span class="req">*</span>
-                        @Html.DropDownList("EmploymentCategory", EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new { @class = "form-control select-dropdown" })
+                        @Html.Label("Employment Category", new {@class = "control-label"})<span class="req">*</span>
+                        @Html.DropDownList("EmploymentCategory", EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Employment Position", new {@class = "control-label"})<span class="req">*</span>
@@ -107,7 +107,7 @@
                 <div class="col-md-12">
 
                     <input type="submit" class="btn btn-default cancel" value="Back"/>
-                    <input type="submit" value="Next"  class="btn btn-brown pull-right"/>
+                    <input type="submit" value="Next" class="btn btn-brown pull-right"/>
                 </div>
             }
         </div>

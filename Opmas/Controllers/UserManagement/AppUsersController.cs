@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.TextFormatter;
+using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
@@ -20,6 +21,7 @@ namespace Opmas.Controllers.UserManagement
     public class AppUsersController : Controller
     {
         private AppUserDataContext db = new AppUserDataContext();
+        private RoleDataContext dbc = new RoleDataContext();
 
         // GET: AppUsers
         public ActionResult Index()
@@ -48,6 +50,7 @@ namespace Opmas.Controllers.UserManagement
         public ActionResult Create()
         {
             ViewBag.EmployeeId = new SelectList(db.Employee, "EmployeeId", "EmployeeId");
+            ViewBag.RoleId = new SelectList(dbc.Roles, "Name", "RoleId");
             return View();
         }
 
