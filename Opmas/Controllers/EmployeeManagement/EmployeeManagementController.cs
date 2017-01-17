@@ -14,7 +14,6 @@ using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
-using System.Web;
 using Opmas.Data.Service.FileUploader;
 
 namespace Opmas.Controllers.EmployeeManagement
@@ -42,9 +41,9 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         // GET: EmployeeManagement/ListOfEmployeesByStatus
-        public ActionResult ListOfEmployeesByStatus(string status,long? id)
+        public ActionResult ListOfEmployeesByStatus(string status, long? id)
         {
-            var employees = new EmployeeFactory().GetAllEmployeesByStatus(status,id);
+            var employees = new EmployeeFactory().GetAllEmployeesByStatus(status, id);
             return View(employees.ToList());
         }
 
@@ -176,7 +175,7 @@ namespace Opmas.Controllers.EmployeeManagement
             //collect data from form using form collection
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
 
-            HttpPostedFileBase file = Request.Files["file"];
+            var file = Request.Files["file"];
             if (_employee != null)
             {
                 var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
@@ -187,21 +186,20 @@ namespace Opmas.Controllers.EmployeeManagement
                     var checkMasters =
                         _employee?.EmployeeEducationalQualifications.Where(
                             n =>
-                                n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.BSc.ToString());
+                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()));
                     var checkPhd =
                         _employee?.EmployeeEducationalQualifications.Where(
                             n =>
-                                n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.BSc.ToString() ||
-                                n.DegreeAttained == DegreeTypeEnum.MSc.ToString());
+                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.MSc.ToString()));
 
                     if (degree == DegreeTypeEnum.MSc.ToString())
-                    {
                         if (checkMasters.Any(item => endDate < item.StartDate))
                         {
                             TempData["education"] =
@@ -209,9 +207,7 @@ namespace Opmas.Controllers.EmployeeManagement
                             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                             return View();
                         }
-                    }
                     if (degree == DegreeTypeEnum.Phd.ToString())
-                    {
                         if (checkPhd.Any(item => endDate < item.StartDate))
                         {
                             TempData["education"] =
@@ -219,12 +215,9 @@ namespace Opmas.Controllers.EmployeeManagement
                             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                             return View();
                         }
-                    }
                 }
                 if (_employee.EmployeeEducationalQualifications == null)
-                {
                     _employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
-                }
                 _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification
                 {
                     ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
@@ -234,15 +227,17 @@ namespace Opmas.Controllers.EmployeeManagement
                     StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
                     FakeId = _employee.EmployeeEducationalQualifications.Count + 1,
-                    FileUpload = file != null && file.FileName != "" ? new FileUploader().UploadFile(file, UploadType.Education) : null
-
-            });
-                TempData["education"] = "You ave successfully added a "+ degree +" qualification!";
+                    FileUpload =
+                        (file != null) && (file.FileName != "")
+                            ? new FileUploader().UploadFile(file, UploadType.Education)
+                            : null
+                });
+                TempData["education"] = "You ave successfully added a " + degree + " qualification!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 //store data in a session
                 Session["Employee"] = _employee;
             }
-            
+
             //if it is edit from review page return to the review page
             if (returnUrl)
                 return RedirectToAction("EducationalQualification", new {returnUrl = true});
@@ -286,7 +281,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 Session["Employee"] = _employee;
                 TempData["work"] =
-                               "You have successfully added a work experience!";
+                    "You have successfully added a work experience!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
@@ -312,36 +307,42 @@ namespace Opmas.Controllers.EmployeeManagement
         // POST: EmployeeManagement/EmployeeFamilyData
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EmployeeFamilyData(FormCollection collectedValues)
+        public ActionResult EmployeeFamilyData(EmployeeFamilyData familyData, FormCollection collectedValues)
         {
             _employee = Session["Employee"] as Employee;
             if (_employee != null)
             {
-                if (_employee.EmployeeFamilyDatas == null)
-                    _employee.EmployeeFamilyDatas = new List<EmployeeFamilyData>();
-                _employee.EmployeeFamilyDatas.Add(new EmployeeFamilyData()
-                {
-                    FullName = collectedValues["FullName"],
-                    ContactNumber = collectedValues["ContactNumber"],
-                    Address = collectedValues["Address"],
-                    Email = collectedValues["Email"],
-                    NextOfKin = Convert.ToBoolean(collectedValues["NextOfKin"]),
-                    Relationship = collectedValues["Relationship"],
-                    DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]),
-                    FakeId = _employee.EmployeePastWorkExperiences.Count + 1
-                });
+                familyData.FullName = collectedValues["FullName"];
+                familyData.ContactNumber = collectedValues["ContactNumber"];
+                familyData.Address = collectedValues["Address"];
+                familyData.Email = collectedValues["Email"];
+                familyData.Relationship = collectedValues["Relationship"];
+                familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 //store data in a session
+                _employee.EmployeeFamilyDatas = new List<EmployeeFamilyData> {familyData};
                 Session["Employee"] = _employee;
-                TempData["family"] =
-                               "You have successfully added a family memeber!";
-                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+            }
+            else
+            {
+                var employeeFamilyData = new Employee();
+                familyData.FullName = collectedValues["FullName"];
+                familyData.ContactNumber = collectedValues["ContactNumber"];
+                familyData.Address = collectedValues["Address"];
+                familyData.Email = collectedValues["Email"];
+                familyData.Relationship = collectedValues["Relationship"];
+                familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
+                //store data in a session
+                employeeFamilyData.EmployeeFamilyDatas = new List<EmployeeFamilyData> {familyData};
+                Session["Employee"] = employeeFamilyData;
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
             if (returnUrl)
-                return RedirectToAction("EmployeeFamilyData", new { returnUrl = true });
-            return View();
+                return View("ReviewEmployeeData");
+            //return next view
+            return View("BankData");
         }
+
         // GET: EmployeeManagement/BankData
         public ActionResult BankData(bool? returnUrl)
         {
@@ -380,7 +381,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 Session["Employee"] = _employee;
                 TempData["bank"] =
-                               "You have successfully added a bank data!";
+                    "You have successfully added a bank data!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
@@ -516,15 +517,12 @@ namespace Opmas.Controllers.EmployeeManagement
                         foreach (var employeeDataEmployeePastWorkExperience in employeeData.EmployeePastWorkExperiences)
                             _dbEmployee.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
                     }
-                    if (employeeData.EmployeeFamilyDatas != null)
+                    var employeeFamilyData = employeeData.EmployeeFamilyDatas.FirstOrDefault();
+                    if (employeeFamilyData != null)
                     {
-                        foreach (var item in employeeData.EmployeeFamilyDatas)
-                        {
-                            item.EmployeeId = employeeData.EmployeeId;
-                            item.FakeId = 0;
-                        }
-                        foreach (var employeeFamilyData in employeeData.EmployeeFamilyDatas)
-                            _dbEmployee.EmployeeFamilyDatas.Add(employeeFamilyData);
+                        employeeFamilyData.EmployeeId = employeeData.EmployeeId;
+                        _dbEmployee.EmployeeFamilyDatas.Add(employeeData.EmployeeFamilyDatas.FirstOrDefault());
+                        //_dbe.SaveChanges();
                     }
 
 
@@ -533,7 +531,6 @@ namespace Opmas.Controllers.EmployeeManagement
                     {
                         employeeWorkData.EmployeeId = employeeData.EmployeeId;
                         _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
-                        
                     }
 
                     var employeeMedicalData = employeeData.EmployeeMedicalDatas.FirstOrDefault();
@@ -541,10 +538,8 @@ namespace Opmas.Controllers.EmployeeManagement
                     {
                         employeeMedicalData.EmployeeId = employeeData.EmployeeId;
                         _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
-                       
                     }
                     _dbEmployee.SaveChanges();
-                  
                 }
         }
 
@@ -571,70 +566,66 @@ namespace Opmas.Controllers.EmployeeManagement
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
             {
+                var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                if (_dbEmployee.EmployeeEducationalQualifications != null)
+                {
+                    var checkMasters =
+                        _dbEmployee?.EmployeeEducationalQualifications.Where(
+                            n =>
+                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString())).ToList();
+                    var checkPhd =
+                        _dbEmployee?.EmployeeEducationalQualifications.Where(
+                            n =>
+                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()) ||
+                                (n.DegreeAttained == DegreeTypeEnum.MSc.ToString())).ToList();
 
-                    var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-                    //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
-                    var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                    if (_dbEmployee.EmployeeEducationalQualifications != null)
-                    {
-                        var checkMasters =
-                            _dbEmployee?.EmployeeEducationalQualifications.Where(
-                                n =>
-                                    n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.BSc.ToString()).ToList();
-                        var checkPhd =
-                            _dbEmployee?.EmployeeEducationalQualifications.Where(
-                                n =>
-                                    n.DegreeAttained == DegreeTypeEnum.Basic.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.JSCE.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.SSCE.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.BSc.ToString() ||
-                                    n.DegreeAttained == DegreeTypeEnum.MSc.ToString()).ToList();
-
-                        if (degree == DegreeTypeEnum.MSc.ToString())
+                    if (degree == DegreeTypeEnum.MSc.ToString())
+                        if (checkMasters.Any(item => endDate < item.StartDate))
                         {
-                            if (checkMasters.Any(item => endDate < item.StartDate))
-                            {
-                                TempData["education"] =
-                                    "You cannot offer a masters degree before basic and college education!";
-                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                                return RedirectToAction("ListOfEducationalQualification","EmployeeManagement",new {id = loggedinuser.EmployeeId});
-                            }
+                            TempData["education"] =
+                                "You cannot offer a masters degree before basic and college education!";
+                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                            return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
+                                new {id = loggedinuser.EmployeeId});
                         }
-                        if (degree == DegreeTypeEnum.Phd.ToString())
+                    if (degree == DegreeTypeEnum.Phd.ToString())
+                        if (checkPhd.Any(item => endDate < item.StartDate))
                         {
-                            if (checkPhd.Any(item => endDate < item.StartDate))
-                            {
-                                TempData["education"] =
-                                    "You cannot offer a doctorate degree before basic,college and masters education!";
-                                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                                return View();
-                            }
+                            TempData["education"] =
+                                "You cannot offer a doctorate degree before basic,college and masters education!";
+                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                            return View();
                         }
-                    }
+                }
 
-                    educationalQualification.ClassOfDegree =
-                        typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
-                    educationalQualification.DegreeAttained =
-                        typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-                    educationalQualification.InstitutionName = collectedValues["InstitutionName"];
-                    educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
-                    educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                    educationalQualification.FakeId = 0;
+                educationalQualification.ClassOfDegree =
+                    typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
+                educationalQualification.DegreeAttained =
+                    typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                educationalQualification.InstitutionName = collectedValues["InstitutionName"];
+                educationalQualification.StartDate = Convert.ToDateTime(collectedValues["StartDate"]);
+                educationalQualification.EndDate = Convert.ToDateTime(collectedValues["EndDate"]);
+                educationalQualification.FakeId = 0;
 
-                    if (loggedinuser.EmployeeId != null)
-                        educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
+                if (loggedinuser.EmployeeId != null)
+                    educationalQualification.EmployeeId = (long) loggedinuser.EmployeeId;
 
 
                 _dbEmployee.EmployeeEducationalQualifications?.Add(educationalQualification);
                 _dbEmployee.SaveChanges();
-                    TempData["education"] =
-                        "You have successfully added a " + degree + " qualification!";
-                    TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
-                }
-            
+                TempData["education"] =
+                    "You have successfully added a " + degree + " qualification!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+            }
+
             return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
                 new {id = educationalQualification.EmployeeId});
         }
@@ -644,7 +635,8 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleBankData([Bind(
                                                       Include =
-                                                          "EmployeeBankDataId,BankId,AccountFirstName,AccountMiddleName,AccountLastName,AccountNumber")] FormCollection collectedValues, EmployeeBankData employeeBankData)
+                                                          "EmployeeBankDataId,BankId,AccountFirstName,AccountMiddleName,AccountLastName,AccountNumber"
+                                                  )] FormCollection collectedValues, EmployeeBankData employeeBankData)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
@@ -657,7 +649,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
             _dbEmployee.SaveChanges();
             TempData["bank"] =
-                                  "You have successfully added a new bank data!";
+                "You have successfully added a new bank data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
 
             return RedirectToAction("ListOfBankData", "EmployeeManagement", new {id = employeeBankData.EmployeeId});
@@ -681,7 +673,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
             _dbEmployee.SaveChanges();
             TempData["work"] =
-                           "You have successfully added a new past work experience data!";
+                "You have successfully added a new past work experience data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("ListOfPastWorkExperience", "EmployeeManagement",
                 new {id = pastWorkExperience.EmployeeId});
@@ -692,24 +684,23 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleEmployeeFamilyData([Bind(
                                                                 Include =
-                                                                    "EmployeeFamilyDataId,FullName,Address,ContactNumber,Email,Relationship,NextOfKin"
+                                                                    "EmployeeFamilyDataId,FullName,Address,ContactNumber,Email,Relationship"
                                                             )] FormCollection collectedValues,
             EmployeeFamilyData familyData)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
             {
-                familyData.FakeId = 0;
                 familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
-                if (loggedinuser.EmployeeId != null) familyData.EmployeeId = (long)loggedinuser.EmployeeId;
+                if (loggedinuser.EmployeeId != null) familyData.EmployeeId = (long) loggedinuser.EmployeeId;
             }
             _dbEmployee.EmployeeFamilyDatas.Add(familyData);
             _dbEmployee.SaveChanges();
             TempData["family"] =
-                           "You have successfully added a new family data!";
+                "You have successfully added a new family data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("ListOfEmployeeFamily", "EmployeeManagement",
-                new { id = familyData.EmployeeId });
+                new {id = familyData.EmployeeId});
         }
 
         #endregion
@@ -752,7 +743,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var familyData = _dbEmployee.EmployeeFamilyDatas.Find(id);
             _dbEmployee.EmployeeFamilyDatas.Remove(familyData);
             _dbEmployee.SaveChanges();
-            return RedirectToAction("ListOfEmployeeFamily", new { id = familyData.EmployeeId });
+            return RedirectToAction("ListOfEmployeeFamily", new {id = familyData.EmployeeId});
         }
 
         /// <summary>
@@ -786,8 +777,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 return RedirectToAction("EducationalQualification", new {returnUrl = true});
             return RedirectToAction("EducationalQualification");
         }
+
         /// <summary>
-        /// This method removes an appended list item from the session
+        ///     This method removes an appended list item from the session
         /// </summary>
         /// <param name="fakeId"></param>
         /// <param name="returnUrl"></param>
@@ -801,8 +793,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 return RedirectToAction("BankData", new {returnUrl = true});
             return RedirectToAction("BankData");
         }
+
         /// <summary>
-        /// This method removes an appended list item from the session
+        ///     This method removes an appended list item from the session
         /// </summary>
         /// <param name="fakeId"></param>
         /// <param name="returnUrl"></param>
@@ -814,20 +807,6 @@ namespace Opmas.Controllers.EmployeeManagement
             if ((returnUrl != null) && (returnUrl == true))
                 return RedirectToAction("PastWorkExperience", new {returnUrl = true});
             return RedirectToAction("PastWorkExperience");
-        }
-        /// <summary>
-        /// This method removes an appended list item from the session
-        /// </summary>
-        /// <param name="fakeId"></param>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        public ActionResult RemoveEmployeeFamilyData(long fakeId, bool? returnUrl)
-        {
-            var employeeData = Session["Employee"] as Employee;
-            employeeData?.EmployeeFamilyDatas.RemoveAll(n => n.FakeId == fakeId);
-            if ((returnUrl != null) && (returnUrl == true))
-                return RedirectToAction("EmployeeFamilyData", new { returnUrl = true });
-            return RedirectToAction("EmployeeFamilyData");
         }
 
         #endregion
@@ -1011,6 +990,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == id);
             return View(pastWorkExperience);
         }
+
         // GET: EmployeeManagement/ListOfEmployeeFamily
         public ActionResult ListOfEmployeeFamily(long? id)
         {

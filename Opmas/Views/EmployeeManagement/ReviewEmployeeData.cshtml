@@ -9,7 +9,7 @@
     EmployeePersonalData employeePersonalData = null;
     EmployeeWorkData employeeWorkData = null;
     EmployeeMedicalData employeeMedicalData = null;
-    List<EmployeeFamilyData> employeeFamilyData = null;
+    EmployeeFamilyData employeeFamilyData = null;
     if (employee != null)
     {
         educationaQualification = employee.EmployeeEducationalQualifications;
@@ -18,7 +18,7 @@
         employeePersonalData = employee.EmployeePersonalData.SingleOrDefault();
         employeeWorkData = employee.EmployeeWorkDatas.SingleOrDefault();
         employeeMedicalData = employee.EmployeeMedicalDatas.SingleOrDefault();
-        employeeFamilyData = employee.EmployeeFamilyDatas;
+        employeeFamilyData = employee.EmployeeFamilyDatas.SingleOrDefault();
     }
 }
 <style>
@@ -227,71 +227,47 @@
                 </h2>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-hover">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayName("#")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Fullname")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Contact")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Date Of Birth")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Relationship")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Next Of Kin")
-                                    </th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if (employeeFamilyData != null)
-                                {
-                                    foreach (var item in employeeFamilyData)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.FakeId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.FullName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ContactNumber)
-                                            </td>
-                                            <td>
-                                                @item.DateOfBirth.ToShortDateString()
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Relationship)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NextOfKin)
-                                            </td>
+                <div class="col-md-4">
+                    @if (employeeFamilyData != null)
+                    {
+                        <h4>
+                            <strong>Fullname</strong><br />
+                            <label>@employeeFamilyData.FullName</label>
 
 
-                                        </tr>
-                                    }
-                                }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-12 ">
-                            <a href="@Url.Action("EmployeeFamilyData", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
+                        </h4>
 
-                        </div>
+                            <h4>
+                                <strong>Email</strong><br />
+                                <label>@employeeFamilyData.Email</label>
+
+
+                            </h4>
+                    
+                        <h4>
+                            <strong>Contact Number</strong><br />
+                            <label>@employeeFamilyData.ContactNumber</label>
+
+
+                        </h4>
+
+                            <h4>
+                                <strong>Relationship</strong><br />
+                                <label>@employeeFamilyData.Relationship</label>
+
+                            </h4>
+     
+                    }
+
+                    <div class="col-md-12 ">
+                        <a href="@Url.Action("EmployeeFamilyData", "EmployeeManagement", new {returnUrl = true})" class="btn btn-brown pull-right fa fa-pencil">Edit</a>
+
                     </div>
+                    <div class="margin-bottom-30"></div>
+
+
                 </div>
+
             </div>
 
         </div>
@@ -436,7 +412,7 @@
                                                 </td>
                                             }
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.AccountName)
+                                                @Html.DisplayFor(modelItem => item.DisplayName)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.AccountNumber)

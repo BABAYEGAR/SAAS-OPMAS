@@ -2,7 +2,7 @@
 @using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.EmployeeFamilyData
 @{
-    ViewBag.Title = "Step four: Employee Family Data";
+    ViewBag.Title = "Step four: Next Of Kin Data";
     ViewBag.HeaderClass = "page-header";
 }
 @{
@@ -51,7 +51,7 @@
             </li>
             <li class="active">
                 Step Four <br/>
-                <small>Family Data</small>
+                <small>Next Of Kin Data</small>
             </li>
             <li>
                 Step Five <br/>
@@ -96,7 +96,7 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false, "", new {@class = "text-danger"})
                 <fieldset>
-                    <legend>Employee Family Data</legend>
+                    <legend>Employee Next Of Kin Data</legend>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.FullName, new {@class = "control-label"}) <span class="req">*</span>
@@ -129,78 +129,6 @@
                         @Html.LabelFor(m => m.Relationship, "Relationship:", new {@class = "control-label"}) <span class="req">*</span>
                         @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(FamilyEnum)), "select relationship", new {@class = "form-control select-dropdown"})
                     </div>
-                    <div class="clearfix"></div>
-
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.NextOfKin, "Next Of Kin:", new {@class = "control-label"})
-                        @Html.CheckBoxFor(m => m.NextOfKin)
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-hover" id="datatable1">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.FullName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ContactNumber)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Email)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.DateOfBirth)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Relationship)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NextOfKin)
-                                    </th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if (familyDataSession != null)
-                                {
-                                    foreach (var item in familyDataSession)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.FullName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ContactNumber)
-                                            </td>
-                                            <td>
-                                                @if (item.Email != null)
-                                                {
-                                                    @item.Email
-                                                }
-                                            </td>>
-                                            <td>
-                                                @item.DateOfBirth.ToShortDateString()
-                                            </td>
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Relationship).ToString()
-                                            </td>
-                                            <td>
-                                                @(Convert.ToBoolean(item.NextOfKin))
-                                            </td>
-                                            <td>
-                                                @(returnUrl == true ? Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"}) : Html.ActionLink("Remove", "RemoveEmployeeFamilyData", new {item.FakeId}, new {@class = "btn btn-danger"}))
-                                            </td>
-
-                                        </tr>
-                                    }
-                                }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </fieldset>
 
                 <hr/>
@@ -209,10 +137,8 @@
 
                     <a href="@Url.Action("PastWorkExperience", "EmployeeManagement")" class="btn btn-default">Back</a>
                     <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
-                    <input type="submit" value="Add" class="btn btn-success"/>
-                    @if ((familyDataSession != null) && (familyDataSession.Count > 0))
-                    {
-                        if (returnUrl == true)
+                   
+                        @if (returnUrl == true)
                         {
                             <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>
                         }
@@ -220,7 +146,7 @@
                         {
                             <a href="@Url.Action("BankData", "EmployeeManagement")" class="btn btn-brown pull-right">Next</a>
                         }
-                    }
+                    
                 </div>
             }
         </div>

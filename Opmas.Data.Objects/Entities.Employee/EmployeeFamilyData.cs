@@ -25,14 +25,9 @@ namespace Opmas.Data.Objects.Entities.Employee
         [DisplayName("Date Of Birth")]
         [Required]
         public DateTime DateOfBirth { get; set; }
-
-        [DisplayName("Next Of Kin")]
-        public bool NextOfKin { get; set; }
         [DisplayName("Relationship")]
         [Required]
         public string Relationship { get; set; }
-
-        public long FakeId { get; set; }
 
         public long EmployeeId { get; set; }
 
