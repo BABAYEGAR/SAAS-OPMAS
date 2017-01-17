@@ -24,10 +24,14 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageEmployees { get; set; }
         [DisplayName("Manage AppUsers")]
         public bool ManageAppUsers { get; set; }
+        [DisplayName("Manage Admin Users")]
         public bool ManageAdminAppUsers { get; set; }
+        [DisplayName("Manage All Institutions")]
         public bool ManageAllInstitutions { get; set; }
+        [DisplayName("Manage Priviledges")]
         public bool ManageRolePriviledges { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
+        public IEnumerable<Employee> Employees { get; set; }
         public long? InstitutionId { get; set; }
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }

@@ -59,7 +59,7 @@
             @Html.DisplayNameFor(model => model.Bank)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AccountName)
+            @Html.DisplayName("Account Name")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AccountNumber)
@@ -80,7 +80,7 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.AccountName)
+                @Html.DisplayFor(modelItem => item.DisplayName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccountNumber)

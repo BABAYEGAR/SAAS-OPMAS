@@ -36,6 +36,7 @@
 
     <!-- Custom Theme Style -->
     <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
+    @RenderSection("css", false)
 </head>
 
 <body class="nav-md">
@@ -165,7 +166,7 @@
         <!-- /footer content -->
     </div>
 </div>
-
+    @RenderSection("scripts", false)
 <!-- jQuery -->
 <script src="~/Content/ManagementDashboard/vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->

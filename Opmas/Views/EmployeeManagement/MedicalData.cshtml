@@ -1,8 +1,13 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.EmployeeMedicalData
 @{
     ViewBag.Title = "Step Five:Employee Medical & Other Data";
     ViewBag.HeaderClass = "page-header";
+    var institution = Session["institution"] as Institution;
+    var role = new RoleDataContext();
+    ViewBag.RoleId = new SelectList(role.Roles.Where(n => n.InstitutionId == institution.InstitutionId), "RoleId", "Name");
 }
 
 @section css {
@@ -99,6 +104,13 @@
                     <div class="form-group col-md-12">
                         @Html.Label("Employment Position", new {@class = "control-label"})<span class="req">*</span>
                         @Html.TextBox("EmploymentPosition", null, new {@class = "form-control", placeholder = "Please enter employment position"})
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("RoleId", "Assigned Role", new { @class = "control-label" })
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DropDownList("RoleId", null, new { @class = "form-control select-dropdown" })
+                            
+                        </div>
                     </div>
                 </fieldset>
 

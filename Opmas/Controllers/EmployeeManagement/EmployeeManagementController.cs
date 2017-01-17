@@ -418,13 +418,17 @@ namespace Opmas.Controllers.EmployeeManagement
             workData.PositionHeld = collectedValues["EmploymentPosition"];
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
-            //store data in a session
             if (_employee != null)
             {
-                _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};
+                _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
+                //store data in a session
+                if (_employee != null)
+                {
+                    _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};
 
-                _employee.EmployeeWorkDatas = new List<EmployeeWorkData> {workData};
-                Session["Employee"] = _employee;
+                    _employee.EmployeeWorkDatas = new List<EmployeeWorkData> {workData};
+                    Session["Employee"] = _employee;
+                }
             }
 
             return RedirectToAction("ReviewEmployeeData");

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
@@ -20,8 +21,11 @@ namespace Opmas.Data.Objects.Entities.Employee
 
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
+        [DisplayName("Assigned Role")]
+        public long RoleId { get; set; }
 
-
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }
         public IEnumerable<Role> Roles { get; set; }
     }
 }
