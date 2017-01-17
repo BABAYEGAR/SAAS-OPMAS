@@ -9,7 +9,7 @@
     var institution = Session["institution"] as Institution;
     var role = new RoleDataContext();
     var faculty = new FacultyDataContext();
-    ViewBag.RoleId = new SelectList(role.Roles.Where(n => n.InstitutionId == institution.InstitutionId), "RoleId", "Name");
+    ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator")), "RoleId", "Name");
     ViewBag.FacultyId = new SelectList(faculty.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
 }
 
@@ -125,10 +125,9 @@
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("RoleId", "Assigned Role", new {@class = "control-label"})
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            @Html.DropDownList("RoleId", null, new {@class = "form-control select-dropdown"})
 
-                        </div>
+                        @Html.DropDownList("RoleId", null, new {@class = "form-control select-dropdown"})
+
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label"})

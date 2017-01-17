@@ -434,16 +434,19 @@ namespace Opmas.Controllers.EmployeeManagement
                 _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
                 _employee.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
                 _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+
                 Session["Employee"] = _employee;
+
                 var role = _dbEmployee.Roles.Find(_employee.RoleId);
                 var allEmployees = _dbEmployee.Employees.Where(n => n.RoleId == role.RoleId && n.DepartmentId == _employee.DepartmentId);
                 if (role.RoleType == RoleType.Single.ToString() && allEmployees.ToList().Count > 0)
                 {
                     TempData["medical"] =
-                     "This role ha been assigned to an employee cannot be assigned to more than one employee!";
+                     "This role has been assigned to an employee cannot be assigned to more than one employee!";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                     return View();
                 }
+
                 //store data in a session
                 if (_employee != null)
                 {
