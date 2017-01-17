@@ -7,20 +7,11 @@
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser != null)
     {
-        if (loggedinuser.Role == AdminUserType.SystemAdministrator.ToString())
-        {
-            Layout = "~/Views/Shared/_LayoutSystemAdminForm.cshtml";
+            Layout = "~/Views/Shared/_LayoutForm.cshtml";
             ViewBag.Title = "Details";
             ViewBag.Header = "Application Users";
             ViewBag.Subheader = "View application user details";
-        }
-        if (loggedinuser.Role == AdminUserType.InstitutionAdministrator.ToString())
-        {
-            Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
-            ViewBag.Title = "Details";
-            ViewBag.Header = "Application Users";
-            ViewBag.Subheader = "View application user details";
-        }
+        
     }
 }
 
@@ -66,14 +57,6 @@
         <dd>
             @Html.DisplayFor(model => model.Mobile)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>

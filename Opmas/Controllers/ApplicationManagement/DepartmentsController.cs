@@ -24,6 +24,13 @@ namespace Opmas.Controllers.ApplicationManagement
             var departments = db.Departments.Include(d => d.Faculty).Include(d => d.Institution).Where(n=>n.InstitutionId == institution.InstitutionId);
             return View(departments.ToList());
         }
+        // GET: FacultyDepartments
+        public ActionResult FacultyDepartments(long? id)
+        {
+            var institution = Session["institution"] as Institution;
+            var departments = db.Departments.Where(n=>n.FacultyId == id).Include(d => d.Faculty).Include(d => d.Institution).Where(n => n.InstitutionId == institution.InstitutionId);
+            return View("Index",departments.ToList());
+        }
 
         // GET: Departments/Details/5
         public ActionResult Details(long? id)

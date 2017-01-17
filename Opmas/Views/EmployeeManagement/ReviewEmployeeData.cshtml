@@ -18,7 +18,7 @@
         employeePersonalData = employee.EmployeePersonalData.SingleOrDefault();
         employeeWorkData = employee.EmployeeWorkDatas.SingleOrDefault();
         employeeMedicalData = employee.EmployeeMedicalDatas.SingleOrDefault();
-        employeeFamilyData = employee.EmployeeFamilyDatas.SingleOrDefault();
+        employeeFamilyData = employee?.EmployeeFamilyDatas.SingleOrDefault();
     }
 }
 <style>

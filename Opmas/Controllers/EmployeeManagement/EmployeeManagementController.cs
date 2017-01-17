@@ -247,6 +247,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/PastWorkExperience
         public ActionResult PastWorkExperience(bool? returnUrl)
         {
+
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
@@ -294,12 +295,13 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/EmployeeFamilyData
         public ActionResult EmployeeFamilyData(bool? returnUrl)
         {
+            _employee = Session["Employee"] as Employee;
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
-                    return View();
+                    return View(_employee.EmployeeFamilyDatas.FirstOrDefault());
             }
             return View();
         }
@@ -316,7 +318,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 familyData.ContactNumber = collectedValues["ContactNumber"];
                 familyData.Address = collectedValues["Address"];
                 familyData.Email = collectedValues["Email"];
-                familyData.Relationship = collectedValues["Relationship"];
+                familyData.Relationship = typeof(FamilyEnum).GetEnumName(int.Parse(collectedValues["Relationship"]));
                 familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 //store data in a session
                 _employee.EmployeeFamilyDatas = new List<EmployeeFamilyData> {familyData};
@@ -329,7 +331,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 familyData.ContactNumber = collectedValues["ContactNumber"];
                 familyData.Address = collectedValues["Address"];
                 familyData.Email = collectedValues["Email"];
-                familyData.Relationship = collectedValues["Relationship"];
+                familyData.Relationship = typeof(FamilyEnum).GetEnumName(int.Parse(collectedValues["Relationship"]));
                 familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 //store data in a session
                 employeeFamilyData.EmployeeFamilyDatas = new List<EmployeeFamilyData> {familyData};
@@ -340,7 +342,8 @@ namespace Opmas.Controllers.EmployeeManagement
             if (returnUrl)
                 return View("ReviewEmployeeData");
             //return next view
-            return View("BankData");
+
+            return RedirectToAction("BankData");
         }
 
         // GET: EmployeeManagement/BankData

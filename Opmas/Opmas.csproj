@@ -5235,6 +5235,8 @@
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLandingPage.cshtml" />
+    <Content Include="Views\Shared\CreateFauculty.cshtml" />
+    <Content Include="Views\Shared\CreateDepartment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

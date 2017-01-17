@@ -37,6 +37,32 @@
                     </ul>
                 </li>
             }
+            @if ((userRole.Name != "Platform Administrator") && (userRole.Name != "Institution Administrator") && loggedinuser.EmployeeId != null)
+            {
+                <li>
+                    <a><i class="fa fa-users"></i> Record Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("EditPersonalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Personal Data</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfEducationalQualification", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Educational Qualification</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfPastWorkExperience", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Past Work Experience</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfEmployeeFamily", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Family</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfBankData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Bank Data</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EditMedicalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Medical Data</a>
+                        </li>
+                    </ul>
+                </li>
+            }
             @if (userRole.ManageAllInstitutions)
             {
                 <li>
@@ -105,9 +131,9 @@
                 <li>
                     <a><i class="fa fa-users"></i> Application Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li>
+                        @*<li>
                             <a href="@Url.Action("Create", "AppUsers")">Add Application User</a>
-                        </li>
+                        </li>*@
                         <li>
                             <a href="@Url.Action("Index", "AppUsers")">Application Users</a>
                         </li>
@@ -162,6 +188,7 @@
                     </ul>
                 </li>
             }
+     
         </ul>
     </div>
     <div class="menu_section">

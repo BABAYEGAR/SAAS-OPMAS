@@ -22,6 +22,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public string AccountLastName { get; set; }
         [Required]
         [DisplayName("Account Number")]
+        [StringLength(11)]
         public string AccountNumber { get; set; }
         [Required]
         [DisplayName("Account Type")]

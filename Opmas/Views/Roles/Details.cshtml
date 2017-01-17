@@ -1,28 +1,19 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.Role
-
+﻿@using Opmas.Data.Objects.Entities.User
+@model Opmas.Data.Objects.Entities.Employee.Role
 @{
-    Layout = null;
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser != null)
+    {
+        Layout = "~/Views/Shared/_LayoutForm.cshtml";
+        ViewBag.Title = "Details";
+        ViewBag.Header = "Application Users";
+        ViewBag.Subheader = "View application user details";
+
+    }
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>Details</title>
-</head>
-<body>
 <div>
-    <h4>Role</h4>
-    <hr/>
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Institution.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Institution.Name)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -90,9 +81,7 @@
 
     </dl>
 </div>
+    
 <p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.RoleId}) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit Application User", "Edit", new { id = Model.RoleId }, new { @class = "btn btn-primary btn-xs" })
 </p>
-</body>
-</html>
