@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.Mobile)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Role)
+                @Html.DisplayFor(modelItem => item.Role.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-primary"}) |

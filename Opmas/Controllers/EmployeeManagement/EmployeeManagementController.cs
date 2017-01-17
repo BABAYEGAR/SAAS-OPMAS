@@ -371,7 +371,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 {
                     BankId = Convert.ToInt64(collectedValues["BankId"]),
                     AccountNumber = collectedValues["AccountNumber"],
-                    AccountName = collectedValues["AccountName"],
+                    AccountFirstName = collectedValues["AccountFirstName"],
+                    AccountMiddleName = collectedValues["AccountMiddleName"],
+                    AccountLastName = collectedValues["AccountLastName"],
                     AccountType = typeof(AccountTypeEnum).GetEnumName(int.Parse(collectedValues["AccountType"])),
                     FakeId = _employee.EmployeeBankDatas.Count + 1
                 });
@@ -642,7 +644,7 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleBankData([Bind(
                                                       Include =
-                                                          "EmployeeBankDataId,BankId,AccountName,AccountNumber")] FormCollection collectedValues, EmployeeBankData employeeBankData)
+                                                          "EmployeeBankDataId,BankId,AccountFirstName,AccountMiddleName,AccountLastName,AccountNumber")] FormCollection collectedValues, EmployeeBankData employeeBankData)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
@@ -919,7 +921,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
-                return RedirectToAction("EmployeeIndex", "Home");
+                return RedirectToAction("Dashboard", "Home");
             }
             return View(employeePersonalData);
         }
@@ -953,7 +955,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("EmployeeIndex", "Home");
+            return RedirectToAction("Dashboard'", "Home");
         }
 
         // GET: EmployeeManagement/EditWorkData
@@ -985,7 +987,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(workData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("EmployeeIndex", "Home");
+            return RedirectToAction("Dashboard", "Home");
         }
 
         #endregion

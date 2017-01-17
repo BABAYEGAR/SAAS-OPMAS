@@ -21,9 +21,21 @@
 
 
     <div class="form-group">
-        @Html.Label("Account Name", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+        @Html.LabelFor(m => m.AccountFirstName, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(m => m.AccountName, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter account name"})
+            @Html.TextBoxFor(m => m.AccountFirstName, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter account first name"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AccountMiddleName, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(m => m.AccountMiddleName, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter account middlename" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AccountLastName, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(m => m.AccountLastName, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter account last name" })
         </div>
     </div>
 

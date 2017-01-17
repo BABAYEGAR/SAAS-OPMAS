@@ -104,8 +104,16 @@
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.AccountName, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.AccountName, new {@class = "form-control", placeholder = "Please enter your account name"})
+                        @Html.LabelFor(m => m.AccountFirstName, new {@class = "control-label"})
+                        @Html.TextBoxFor(m => m.AccountFirstName, new {@class = "form-control", placeholder = "Please enter your account first name"})
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.AccountMiddleName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.AccountMiddleName, new { @class = "form-control", placeholder = "Please enter your account middle name" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.AccountLastName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.AccountLastName, new { @class = "form-control", placeholder = "Please enter your account last name" })
                     </div>
 
                     <div class="form-group col-md-12">
@@ -130,7 +138,7 @@
                                         @Html.DisplayNameFor(model => model.BankId)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.AccountName)
+                                        @Html.DisplayName("Account Name")
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.AccountNumber)
@@ -154,7 +162,7 @@
                                                 </td>
                                             }
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.AccountName)
+                                                @Html.DisplayFor(modelItem => item.DisplayName)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.AccountNumber)

@@ -13,8 +13,13 @@ namespace Opmas.Data.Objects.Entities.Employee
         [ForeignKey("BankId")]
         public virtual Bank Bank { get; set; }
         [Required]
-        [DisplayName("Account Name")]
-        public string AccountName { get; set; }
+        [DisplayName("Firstname")]
+        public string AccountFirstName { get; set; }
+        [DisplayName("Middlename")]
+        public string AccountMiddleName { get; set; }
+        [Required]
+        [DisplayName("Lastname")]
+        public string AccountLastName { get; set; }
         [Required]
         [DisplayName("Account Number")]
         public string AccountNumber { get; set; }
@@ -22,7 +27,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         [DisplayName("Account Type")]
         public string AccountType { get; set; }
         public long FakeId { get; set; }
-
+        public string DisplayName
+      => AccountFirstName + " " + AccountLastName;
         public long EmployeeId { get; set; }
 
         [ForeignKey("EmployeeId")]
