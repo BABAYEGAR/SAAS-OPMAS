@@ -82,6 +82,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/PersonalData
         public ActionResult PersonalData(bool? returnUrl)
         {
+            _employee = Session["Employee"] as Employee;
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
             if ((returnUrl != null) && returnUrl.Value)
             {
@@ -167,6 +168,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/EducationalQualification
         public ActionResult EducationalQualification(bool? returnUrl)
         {
+            _employee = Session["Employee"] as Employee;
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
@@ -258,7 +260,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/PastWorkExperience
         public ActionResult PastWorkExperience(bool? returnUrl)
         {
-
+            _employee = Session["Employee"] as Employee;
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
@@ -360,6 +362,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/BankData
         public ActionResult BankData(bool? returnUrl)
         {
+            _employee = Session["Employee"] as Employee;
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
             if ((returnUrl != null) && returnUrl.Value)
             {
@@ -409,6 +412,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/MedicalData
         public ActionResult MedicalData()
         {
+            _employee = Session["Employee"] as Employee;
             return View();
         }
 
@@ -861,17 +865,21 @@ namespace Opmas.Controllers.EmployeeManagement
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
             var employeeId = Convert.ToInt64(collectedValue["EmployeeId"]);
-            var employee = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
+            var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
             var employees =
                 _dbEmployee.Employees.ToList()
                     .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId));
+            var employee = _dbEmployee.Employees.Find(employeeId);
             var appUser = new AppUser();
-            if (employee != null)
+            if (employeePersonalData != null)
             {
-                appUser.Firstname = employee.Firstname;
-                appUser.Lastname = employee.Lastname;
-                appUser.Middlename = employee.Middlename;
-                appUser.Email = employee.Email;
+                appUser.Firstname = employeePersonalData.Firstname;
+                appUser.Lastname = employeePersonalData.Lastname;
+                appUser.Middlename = employeePersonalData.Middlename;
+                appUser.Email = employeePersonalData.Email;
+                appUser.RoleId = employee.RoleId;
+                appUser.DepartmentId = employee.DepartmentId;
+                appUser.FacultyId = employee.FacultyId;
                 if (loggedinuser != null)
                 {
                     appUser.CreatedBy = loggedinuser.AppUserId;
@@ -880,7 +888,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 appUser.DateCreated = DateTime.Now;
                 appUser.DateLastModified = DateTime.Now;
                 appUser.EmployeeId = employeeId;
-                appUser.Mobile = employee.MobilePhone;
+                appUser.Mobile = employeePersonalData.MobilePhone;
             }
             if (institution != null) appUser.InstitutionId = institution.InstitutionId;
             //generate password and convert to md5 hash
