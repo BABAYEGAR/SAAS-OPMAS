@@ -5190,7 +5190,6 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_LayoutListItems.cshtml" />
     <Content Include="Views\Shared\FooterButtons.cshtml" />
-    <Content Include="Views\Shared\_LayoutSystemAdminForm.cshtml" />
     <Content Include="Views\Shared\NavigationBar.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEmployeesByStatus.cshtml" />
@@ -5208,7 +5207,6 @@
     <Content Include="Views\Shared\_LayoutForm.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfEducationalQualification.cshtml" />
     <Content Include="Views\EmployeeManagement\EditMedicalData.cshtml" />
-    <Content Include="Views\Shared\_LayoutUserForm.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfPastWorkExperience.cshtml" />
     <Content Include="Views\EmployeeManagement\ListOfBankData.cshtml" />
     <Content Include="Views\Home\SelectInstitution.cshtml" />
@@ -5217,7 +5215,6 @@
     <Content Include="Views\Shared\CreateSingleBankData.cshtml" />
     <Content Include="Views\Shared\_LayoutDashboard.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
-    <Content Include="Views\Shared\_LayoutInstitutionAdminDashboard.cshtml" />
     <Content Include="Views\Shared\CreateSinglePastWorkExperience.cshtml" />
     <Content Include="Views\EmployeeManagement\EditWorkData.cshtml" />
     <Content Include="Views\Units\Create.cshtml" />
@@ -5237,6 +5234,7 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLandingPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
