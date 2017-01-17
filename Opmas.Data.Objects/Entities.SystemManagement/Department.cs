@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.User;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
 {
@@ -19,5 +22,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
 
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
+        public IEnumerable<Employee.Employee> Employees { get; set; }
+        public IEnumerable<AppUser> AppUsers { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.EmployeeManagement
 {
@@ -51,13 +52,15 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,ManageAdminAppUsers,ManageAllInstitutions")] Role role)
+        public ActionResult Create([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments," +
+                                                   "ManageUnits,ManageEmployees,ManageAppUsers,ManageAdminAppUsers,ManageAllInstitutions")] Role role,FormCollection collectedValues)
         {
             var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
                 
                 if (institution != null) role.InstitutionId = institution.InstitutionId;
+                role.RoleType = typeof(RoleType).GetEnumName(int.Parse(collectedValues["RoleType"]));
                 db.Roles.Add(role);
                 db.SaveChanges();
                 return RedirectToAction("Index");
