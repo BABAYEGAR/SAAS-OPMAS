@@ -61,8 +61,21 @@ namespace Opmas.Controllers.EmployeeManagement
                 
                 if (institution != null) role.InstitutionId = institution.InstitutionId;
                 role.RoleType = typeof(RoleType).GetEnumName(int.Parse(collectedValues["RoleType"]));
+
+                var roles = db.Roles;
+                foreach (var item in roles)
+                {
+                    if (item.Name == collectedValues["Name"])
+                    {
+                        TempData["role"] = "Role already exist, try another role name!";
+                        TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
+                        return View(role);
+                    }   
+                }
                 db.Roles.Add(role);
                 db.SaveChanges();
+                TempData["role"] = "You have successfully created a role!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
 
@@ -91,14 +104,29 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role)
+        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role,FormCollection collectedValues)
         {
             var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
+                role.RoleType = typeof(RoleType).GetEnumName(int.Parse(collectedValues["RoleType"]));
+                var roles = db.Roles;
+                foreach (var item in roles)
+                {
+                    if (item.Name == collectedValues["Name"])
+                    {
+                        TempData["role"] = "Role already exist, try another role name!";
+                        TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
+                        return View(role);
+                    }
+                }
                 db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
+
                 Session["role"] = role;
+
+                TempData["role"] = "You have successfully modified a role!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
             ViewBag.InstitutionId = new SelectList(db.Institutions.Where(n => n.Name != "Platform Administrator" && n.InstitutionId == institution.InstitutionId), "InstitutionId", "Name", role.InstitutionId);
