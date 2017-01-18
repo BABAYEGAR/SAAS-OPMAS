@@ -72,7 +72,7 @@
                 <fieldset>
                     <legend>Employee Personal Data</legend>
                     <div class="form-group col-md-4">
-                        @Html.Label("Employee Title", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.LabelFor(m=>m.Title, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.DropDownListFor(m => m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), "select your title", new {@class = "form-control select-dropdown"})
                     </div>
 
@@ -136,7 +136,7 @@
 
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Email, new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Please enter your personal email"})
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Please enter your personal email",id = "email"})
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-4">
@@ -251,6 +251,24 @@
                 }
 
                 //Ajax ends
+
+                //loads check on type
+                $('#state').on('change', function () { checkEmail(); });
+                //Ajax call to check email availability
+                function checkEmail() {
+
+                    $("#lga").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetLgaForState", "EmployeeManagement")',
+                        dataType: 'json',
+                        data: { email: $("#email").val() },
+                        success: function () {
+
+                            alert('Email already exist');
+                        }
+                    });
+                }
             });
 
 

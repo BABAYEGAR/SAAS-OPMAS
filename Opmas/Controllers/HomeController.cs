@@ -35,11 +35,11 @@ namespace Opmas.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SelectInstitution(FormCollection collectedValues)
+        public ActionResult SelectInstitution(Institution institution,FormCollection collectedValues)
         {
             var institutionId = Convert.ToInt64(collectedValues["InstitutionId"]);
             var accessCode = collectedValues["AccessCode"];
-            var institution = _dbInstitution.Institutions.Find(institutionId);
+            institution = _dbInstitution.Institutions.Find(institutionId);
             if (institution.AccessCode == accessCode)
             {
                 Session["institution"] = institution;
@@ -49,7 +49,7 @@ namespace Opmas.Controllers
                 ViewBag.Institutions = new SelectList(_dbInstitution.Institutions, "InstitutionId", "Name");
                 TempData["access"] = "Access code doesn't match institution!Try Again";
                 TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                return View();
+                return View(institution);
             }
 
             return RedirectToAction("PersonalData", "EmployeeManagement");

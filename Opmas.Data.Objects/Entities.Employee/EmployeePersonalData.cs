@@ -9,6 +9,7 @@ namespace Opmas.Data.Objects.Entities.Employee
     {
         public long EmployeePersonalDataId { get; set; }
         [Required]
+        [DisplayName("Employee Title")]
         public string Title { get; set; }
         [Required]
         public string Firstname { get; set; }

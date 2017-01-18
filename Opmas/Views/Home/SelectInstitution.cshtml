@@ -11,15 +11,15 @@
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["access"]</div>
+        <div class="alert-success alert-dismissable"  >@TempData["access"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["access"]</div>
+        <div class="alert-danger alert-dismissable"  >@TempData["access"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["access"]</div>
+        <div class="alert-info alert-dismissable"  >@TempData["access"]</div>
     }
 }
 @using (Html.BeginForm("SelectInstitution", "Home", new {ViewBag.ReturnUrl}, FormMethod.Post))
@@ -52,7 +52,7 @@
             <h1>
                 <i class="fa fa-paw"></i> OPMaS!
             </h1>
-            <p>©2016 All Rights Reserved. OPMaS!. Privacy and Terms</p>
+            <p>©@DateTime.Now.Year All Rights Reserved. OPMaS!. Privacy and Terms</p>
         </div>
     </div>
 }

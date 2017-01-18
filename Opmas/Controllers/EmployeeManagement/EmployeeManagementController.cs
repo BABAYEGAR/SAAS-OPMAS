@@ -42,13 +42,24 @@ namespace Opmas.Controllers.EmployeeManagement
         /// <summary>
         ///     Sends Json responds object to view with departments of the state requested via an Ajax call
         /// </summary>
-        /// <param name="id"> state id</param>
+        /// <param name="id"> faculty id</param>
         /// <returns>lgas</returns>
         /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
         public JsonResult GetDepartmentForFaculty(int id)
         {
             var departments = _dbEmployee.Departments.Where(n => n.FacultyId == id);
             return Json(departments, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        ///     Sends Json responds object to view with email of the state requested via an Ajax call
+        /// </summary>
+        /// <param name="email">email</param>
+        /// <returns>lgas</returns>
+        /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+        public JsonResult CheckIfEmailExist(string email)
+        {
+            var emailCheck = _dbEmployee.EmployeePersonalDatas.Where(n => n.Email == email);
+            return Json(emailCheck, JsonRequestBehavior.AllowGet);
         }
 
         // GET: EmployeeManagement/ListOfEmployeesByStatus
