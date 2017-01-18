@@ -9,7 +9,7 @@
     var institution = Session["institution"] as Institution;
     var role = new RoleDataContext();
     var faculty = new FacultyDataContext();
-    ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator")), "RoleId", "Name");
+    ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator" && n.Name != "Platform Administrator")), "RoleId", "Name");
     ViewBag.FacultyId = new SelectList(faculty.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
 }
 
