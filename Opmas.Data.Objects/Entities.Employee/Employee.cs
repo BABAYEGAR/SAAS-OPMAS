@@ -26,15 +26,17 @@ namespace Opmas.Data.Objects.Entities.Employee
 
         [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }
-        [DisplayName("Assigned Department")]
-        public long DepartmentId { get; set; }
+        [DisplayName("Assigned Unit")]
+        public long? UnitId { get; set; }
 
+        [ForeignKey("UnitId")]
+        public virtual Unit Unit { get; set; }
+        [DisplayName("Assigned Department")]
+        public long? DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
-        
         public virtual Department Department { get; set; }
         [DisplayName("Assigned Faculty")]
-        public long FacultyId { get; set; }
-
+        public long? FacultyId { get; set; }
         [ForeignKey("FacultyId")]
         public virtual Faculty Faculty { get; set; }
         public IEnumerable<Role> Roles { get; set; }

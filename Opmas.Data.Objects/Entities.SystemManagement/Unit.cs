@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
 {
@@ -11,5 +12,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
 
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
+
+        public IEnumerable<Employee.Employee> Employees { get; set; }
     }
 }

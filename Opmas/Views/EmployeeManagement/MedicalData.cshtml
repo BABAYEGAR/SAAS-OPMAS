@@ -12,7 +12,6 @@
     ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator" && n.Name != "Platform Administrator")), "RoleId", "Name");
     ViewBag.FacultyId = new SelectList(faculty.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
 }
-
 @section css {
     <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 }
@@ -123,22 +122,28 @@
                         @Html.Label("Employment Position", new {@class = "control-label"})<span class="req">*</span>
                         @Html.TextBox("EmploymentPosition", null, new {@class = "form-control", placeholder = "Please enter employment position"})
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.Label("RoleId", "Assigned Role", new {@class = "control-label"})
-
-                        @Html.DropDownList("RoleId", null, new {@class = "form-control select-dropdown"})
-
-                    </div>
+              
                     <div class="form-group col-md-12">
                         @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label"})
-                        @Html.DropDownList("FacultyId", null, new {@class = "form-control select-dropdown", id = "state"})
+                        @Html.DropDownList("FacultyId", null, new {@class = "form-control select-dropdown", id = "faculty"})
 
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("DepartmentId", "Assigned Department", new {@class = "control-label"})
-                        @Html.DropDownList("DepartmentId", new SelectList(string.Empty, "Value", "Text"), new {@class = "form-control select-dropdown", id = "lga"})
+                        @Html.DropDownList("DepartmentId", new SelectList(string.Empty, "Value", "Text"), new {@class = "form-control select-dropdown", id = "department"})
 
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("UnitId", "Assigned Unit", new { @class = "control-label" })
+                        @Html.DropDownList("UnitId", new SelectList(string.Empty, "Value", "Text"), new { @class = "form-control select-dropdown", id = "unit" })
+
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("RoleId", "Assigned Role", new { @class = "control-label" })
+                        @Html.DropDownList("RoleId", null, new { @class = "form-control select-dropdown" })
 
                     </div>
                 </fieldset>
@@ -164,35 +169,68 @@
             .ready(function() {
                 $('.startDate').datepicker({ 'endDate': new Date() });
 
-                //checks if the state has a value before displaying assigned lga
-                if ($('#state').val() != '') {
-                    getLgaForState();
+                //checks if the faculty has a value before displaying assigned department
+                if ($('#faculty').val() != '') {
+                    getDepartmentForFaculty();
+
+                }   //checks if the department has a value before displaying assigned unit
+                if ($('#department').val() != '') {
+                    getUnitsForDepartment();
                 }
 
-                //loads assigned lga for state on change/select
-                $('#state').on('change', function() { getLgaForState(); });
+                //loads assigned department and faculty for state on change/select
+                $('#faculty').on('change', function () { getDepartmentForFaculty(); });
+                $('#department').on('change', function () { getUnitsForDepartment(); });
 
-                //Ajax call for Lga assigned to state
-                function getLgaForState() {
+                //Ajax call for department assigned to faculty
+                function getDepartmentForFaculty() {
 
-                    $("#lga").empty();
+                    $("#department").empty();
                     $.ajax({
                         type: 'GET',
                         url: '@Url.Action("GetDepartmentForFaculty", "EmployeeManagement")',
                         dataType: 'json',
-                        data: { id: $("#state").val() },
-                        success: function(lga) {
+                        data: { id: $("#faculty").val() },
+                        success: function (department) {
 
-                            $.each(lga,
-                                function(i, lga) {
-                                    $("#lga")
-                                        .append('<option value="' + lga.DepartmentId + '">' + lga.Name + '</option>');
+                            $.each(department,
+                                function(i, department) {
+                                    $("#department")
+                                        .append('<option value="' + department.DepartmentId + '">' + department.Name + '</option>');
                                 });
                         },
                         error: function(ex) {
-                            alert('Failed to retrieve lga.' + ex);
+                            alert('Failed to retrieve department.' + ex);
                         }
                     });
+
+                }
+
+                //Ajax ends
+
+
+                //Ajax call for units assigned to department
+                function getUnitsForDepartment() {
+
+                    $("#unit").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetUnitsForDepartment", "EmployeeManagement")',
+                        dataType: 'json',
+                        data: { id: $("#department").val() },
+                        success: function (unit) {
+
+                            $.each(unit,
+                                function (i, unit) {
+                                    $("#units")
+                                        .append('<option value="' + unit.UnitId + '">' + unit.Name + '</option>');
+                                });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve unit.' + ex);
+                        }
+                    });
+
                 }
 
                 //Ajax ends

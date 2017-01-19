@@ -3,7 +3,7 @@ namespace Opmas.Data.DataContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Migration1 : DbMigration
+    public partial class MigrationOne : DbMigration
     {
         public override void Up()
         {
@@ -23,19 +23,92 @@ namespace Opmas.Data.DataContext.Migrations
                         RememberMe = c.Boolean(nullable: false),
                         EmployeeId = c.Long(),
                         InstitutionId = c.Long(),
-                        RoleId = c.Long(nullable: false),
+                        RoleId = c.Long(),
+                        DepartmentId = c.Long(),
+                        FacultyId = c.Long(),
                         CreatedBy = c.Long(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
                         DateLastModified = c.DateTime(nullable: false),
                         LastModifiedBy = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.AppUserId)
+                .ForeignKey("dbo.Departments", t => t.DepartmentId)
                 .ForeignKey("dbo.Employees", t => t.EmployeeId)
+                .ForeignKey("dbo.Faculties", t => t.FacultyId)
                 .ForeignKey("dbo.Institutions", t => t.InstitutionId)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.RoleId)
                 .Index(t => t.EmployeeId)
                 .Index(t => t.InstitutionId)
-                .Index(t => t.RoleId);
+                .Index(t => t.RoleId)
+                .Index(t => t.DepartmentId)
+                .Index(t => t.FacultyId);
+            
+            CreateTable(
+                "dbo.Departments",
+                c => new
+                    {
+                        DepartmentId = c.Long(nullable: false, identity: true),
+                        Name = c.String(),
+                        FacultyId = c.Long(nullable: false),
+                        InstitutionId = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => t.DepartmentId)
+                .ForeignKey("dbo.Faculties", t => t.FacultyId, cascadeDelete: true)
+                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: false)
+                .Index(t => t.FacultyId)
+                .Index(t => t.InstitutionId);
+            
+            CreateTable(
+                "dbo.Faculties",
+                c => new
+                    {
+                        FacultyId = c.Long(nullable: false, identity: true),
+                        Name = c.String(),
+                        InstitutionId = c.Long(nullable: false),
+                        CreatedBy = c.Long(nullable: false),
+                        DateCreated = c.DateTime(nullable: false),
+                        DateLastModified = c.DateTime(nullable: false),
+                        LastModifiedBy = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => t.FacultyId)
+                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: false)
+                .Index(t => t.InstitutionId);
+            
+            CreateTable(
+                "dbo.Institutions",
+                c => new
+                    {
+                        InstitutionId = c.Long(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Motto = c.String(),
+                        Logo = c.String(),
+                        Location = c.String(),
+                        SubscriprionStartDate = c.DateTime(nullable: false),
+                        SubscriptonEndDate = c.DateTime(nullable: false),
+                        SubscriptionDuration = c.String(),
+                        AccessCode = c.String(),
+                        ContactNumber = c.String(nullable: false),
+                        ContactEmail = c.String(nullable: false),
+                        PackageId = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => t.InstitutionId)
+                .ForeignKey("dbo.Packages", t => t.PackageId, cascadeDelete: false)
+                .Index(t => t.PackageId);
+            
+            CreateTable(
+                "dbo.Packages",
+                c => new
+                    {
+                        PackageId = c.Long(nullable: false, identity: true),
+                        Name = c.String(),
+                        Amount = c.Double(nullable: false),
+                        Type = c.String(),
+                        CreatedBy = c.Long(nullable: false),
+                        DateCreated = c.DateTime(nullable: false),
+                        DateLastModified = c.DateTime(nullable: false),
+                        LastModifiedBy = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => t.PackageId);
             
             CreateTable(
                 "dbo.Employees",
@@ -43,14 +116,26 @@ namespace Opmas.Data.DataContext.Migrations
                     {
                         EmployeeId = c.Long(nullable: false, identity: true),
                         InstitutionId = c.Long(nullable: false),
+                        RoleId = c.Long(nullable: false),
+                        UnitId = c.Long(),
+                        DepartmentId = c.Long(),
+                        FacultyId = c.Long(),
                         CreatedBy = c.Long(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
                         DateLastModified = c.DateTime(nullable: false),
                         LastModifiedBy = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeeId)
-                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: true)
-                .Index(t => t.InstitutionId);
+                .ForeignKey("dbo.Departments", t => t.DepartmentId)
+                .ForeignKey("dbo.Faculties", t => t.FacultyId)
+                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: false)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.Units", t => t.UnitId)
+                .Index(t => t.InstitutionId)
+                .Index(t => t.RoleId)
+                .Index(t => t.UnitId)
+                .Index(t => t.DepartmentId)
+                .Index(t => t.FacultyId);
             
             CreateTable(
                 "dbo.EmployeeBankDatas",
@@ -58,26 +143,19 @@ namespace Opmas.Data.DataContext.Migrations
                     {
                         EmployeeBankDataId = c.Long(nullable: false, identity: true),
                         BankId = c.Long(nullable: false),
-                        AccountName = c.String(nullable: false),
-                        AccountNumber = c.String(nullable: false),
+                        AccountFirstName = c.String(nullable: false),
+                        AccountMiddleName = c.String(),
+                        AccountLastName = c.String(nullable: false),
+                        AccountNumber = c.String(nullable: false, maxLength: 11),
                         AccountType = c.String(nullable: false),
                         FakeId = c.Long(nullable: false),
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeeBankDataId)
-                .ForeignKey("dbo.Banks", t => t.BankId, cascadeDelete: true)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.Banks", t => t.BankId, cascadeDelete: false)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
                 .Index(t => t.BankId)
                 .Index(t => t.EmployeeId);
-            
-            CreateTable(
-                "dbo.Banks",
-                c => new
-                    {
-                        BankId = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.BankId);
             
             CreateTable(
                 "dbo.EmployeeEducationalQualifications",
@@ -95,7 +173,7 @@ namespace Opmas.Data.DataContext.Migrations
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeeEducationalQualificationId)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
                 .Index(t => t.EmployeeId);
             
             CreateTable(
@@ -108,13 +186,11 @@ namespace Opmas.Data.DataContext.Migrations
                         ContactNumber = c.String(nullable: false),
                         Email = c.String(),
                         DateOfBirth = c.DateTime(nullable: false),
-                        NextOfKin = c.Boolean(nullable: false),
                         Relationship = c.String(nullable: false),
-                        FakeId = c.Long(nullable: false),
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeeFamilyDataId)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
                 .Index(t => t.EmployeeId);
             
             CreateTable(
@@ -127,7 +203,7 @@ namespace Opmas.Data.DataContext.Migrations
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeeMedicalDataId)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
                 .Index(t => t.EmployeeId);
             
             CreateTable(
@@ -146,7 +222,7 @@ namespace Opmas.Data.DataContext.Migrations
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeePastWorkExperienceId)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
                 .Index(t => t.EmployeeId);
             
             CreateTable(
@@ -175,13 +251,13 @@ namespace Opmas.Data.DataContext.Migrations
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeePersonalDataId)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
-                .ForeignKey("dbo.Lgas", t => t.LgaId, cascadeDelete: true)
-                .ForeignKey("dbo.States", t => t.StateId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
+                .ForeignKey("dbo.Lgas", t => t.LgaId, cascadeDelete: false)
+                .ForeignKey("dbo.States", t => t.StateId, cascadeDelete: false)
                 .Index(t => t.StateId)
                 .Index(t => t.LgaId)
                 .Index(t => t.EmployeeId);
-            
+           
             CreateTable(
                 "dbo.EmployeeWorkDatas",
                 c => new
@@ -195,44 +271,8 @@ namespace Opmas.Data.DataContext.Migrations
                         EmployeeId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.EmployeeWorkDataId)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.EmployeeId, cascadeDelete: false)
                 .Index(t => t.EmployeeId);
-            
-            CreateTable(
-                "dbo.Institutions",
-                c => new
-                    {
-                        InstitutionId = c.Long(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        Motto = c.String(),
-                        Logo = c.String(),
-                        Location = c.String(),
-                        SubscriprionStartDate = c.DateTime(nullable: false),
-                        SubscriptonEndDate = c.DateTime(nullable: false),
-                        SubscriptionDuration = c.String(),
-                        AccessCode = c.String(),
-                        ContactNumber = c.String(nullable: false),
-                        ContactEmail = c.String(nullable: false),
-                        PackageId = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.InstitutionId)
-                .ForeignKey("dbo.Packages", t => t.PackageId, cascadeDelete: true)
-                .Index(t => t.PackageId);
-            
-            CreateTable(
-                "dbo.Packages",
-                c => new
-                    {
-                        PackageId = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
-                        Amount = c.Double(nullable: false),
-                        Type = c.String(),
-                        CreatedBy = c.Long(nullable: false),
-                        DateCreated = c.DateTime(nullable: false),
-                        DateLastModified = c.DateTime(nullable: false),
-                        LastModifiedBy = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.PackageId);
             
             CreateTable(
                 "dbo.Roles",
@@ -247,41 +287,14 @@ namespace Opmas.Data.DataContext.Migrations
                         ManageUnits = c.Boolean(nullable: false),
                         ManageEmployees = c.Boolean(nullable: false),
                         ManageAppUsers = c.Boolean(nullable: false),
-                        InstitutionId = c.Long(nullable: false),
+                        ManageAdminAppUsers = c.Boolean(nullable: false),
+                        ManageAllInstitutions = c.Boolean(nullable: false),
+                        ManageRolePriviledges = c.Boolean(nullable: false),
+                        RoleType = c.String(),
+                        InstitutionId = c.Long(),
                     })
                 .PrimaryKey(t => t.RoleId)
-                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: true)
-                .Index(t => t.InstitutionId);
-            
-            CreateTable(
-                "dbo.Departments",
-                c => new
-                    {
-                        DepartmentId = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
-                        FacultyId = c.Long(nullable: false),
-                        InstitutionId = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.DepartmentId)
-                .ForeignKey("dbo.Faculties", t => t.FacultyId, cascadeDelete: true)
-                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: true)
-                .Index(t => t.FacultyId)
-                .Index(t => t.InstitutionId);
-            
-            CreateTable(
-                "dbo.Faculties",
-                c => new
-                    {
-                        FacultyId = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
-                        InstitutionId = c.Long(nullable: false),
-                        CreatedBy = c.Long(nullable: false),
-                        DateCreated = c.DateTime(nullable: false),
-                        DateLastModified = c.DateTime(nullable: false),
-                        LastModifiedBy = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.FacultyId)
-                .ForeignKey("dbo.Institutions", t => t.InstitutionId, cascadeDelete: false)
+                .ForeignKey("dbo.Institutions", t => t.InstitutionId)
                 .Index(t => t.InstitutionId);
             
             CreateTable(
@@ -294,23 +307,23 @@ namespace Opmas.Data.DataContext.Migrations
                         DepartmentId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.UnitId)
-                .ForeignKey("dbo.Departments", t => t.DepartmentId, cascadeDelete: true)
+                .ForeignKey("dbo.Departments", t => t.DepartmentId, cascadeDelete: false)
                 .Index(t => t.DepartmentId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Units", "DepartmentId", "dbo.Departments");
-            DropForeignKey("dbo.Departments", "InstitutionId", "dbo.Institutions");
-            DropForeignKey("dbo.Departments", "FacultyId", "dbo.Faculties");
-            DropForeignKey("dbo.Faculties", "InstitutionId", "dbo.Institutions");
             DropForeignKey("dbo.AppUsers", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.Roles", "InstitutionId", "dbo.Institutions");
             DropForeignKey("dbo.AppUsers", "InstitutionId", "dbo.Institutions");
+            DropForeignKey("dbo.AppUsers", "FacultyId", "dbo.Faculties");
             DropForeignKey("dbo.AppUsers", "EmployeeId", "dbo.Employees");
+            DropForeignKey("dbo.Employees", "UnitId", "dbo.Units");
+            DropForeignKey("dbo.Units", "DepartmentId", "dbo.Departments");
+            DropForeignKey("dbo.Employees", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.Roles", "InstitutionId", "dbo.Institutions");
             DropForeignKey("dbo.Employees", "InstitutionId", "dbo.Institutions");
-            DropForeignKey("dbo.Institutions", "PackageId", "dbo.Packages");
+            DropForeignKey("dbo.Employees", "FacultyId", "dbo.Faculties");
             DropForeignKey("dbo.EmployeeWorkDatas", "EmployeeId", "dbo.Employees");
             DropForeignKey("dbo.EmployeePersonalDatas", "StateId", "dbo.States");
             DropForeignKey("dbo.EmployeePersonalDatas", "LgaId", "dbo.Lgas");
@@ -322,12 +335,14 @@ namespace Opmas.Data.DataContext.Migrations
             DropForeignKey("dbo.EmployeeEducationalQualifications", "EmployeeId", "dbo.Employees");
             DropForeignKey("dbo.EmployeeBankDatas", "EmployeeId", "dbo.Employees");
             DropForeignKey("dbo.EmployeeBankDatas", "BankId", "dbo.Banks");
+            DropForeignKey("dbo.Employees", "DepartmentId", "dbo.Departments");
+            DropForeignKey("dbo.AppUsers", "DepartmentId", "dbo.Departments");
+            DropForeignKey("dbo.Departments", "InstitutionId", "dbo.Institutions");
+            DropForeignKey("dbo.Departments", "FacultyId", "dbo.Faculties");
+            DropForeignKey("dbo.Faculties", "InstitutionId", "dbo.Institutions");
+            DropForeignKey("dbo.Institutions", "PackageId", "dbo.Packages");
             DropIndex("dbo.Units", new[] { "DepartmentId" });
-            DropIndex("dbo.Faculties", new[] { "InstitutionId" });
-            DropIndex("dbo.Departments", new[] { "InstitutionId" });
-            DropIndex("dbo.Departments", new[] { "FacultyId" });
             DropIndex("dbo.Roles", new[] { "InstitutionId" });
-            DropIndex("dbo.Institutions", new[] { "PackageId" });
             DropIndex("dbo.EmployeeWorkDatas", new[] { "EmployeeId" });
             DropIndex("dbo.Lgas", new[] { "StateId" });
             DropIndex("dbo.EmployeePersonalDatas", new[] { "EmployeeId" });
@@ -339,16 +354,22 @@ namespace Opmas.Data.DataContext.Migrations
             DropIndex("dbo.EmployeeEducationalQualifications", new[] { "EmployeeId" });
             DropIndex("dbo.EmployeeBankDatas", new[] { "EmployeeId" });
             DropIndex("dbo.EmployeeBankDatas", new[] { "BankId" });
+            DropIndex("dbo.Employees", new[] { "FacultyId" });
+            DropIndex("dbo.Employees", new[] { "DepartmentId" });
+            DropIndex("dbo.Employees", new[] { "UnitId" });
+            DropIndex("dbo.Employees", new[] { "RoleId" });
             DropIndex("dbo.Employees", new[] { "InstitutionId" });
+            DropIndex("dbo.Institutions", new[] { "PackageId" });
+            DropIndex("dbo.Faculties", new[] { "InstitutionId" });
+            DropIndex("dbo.Departments", new[] { "InstitutionId" });
+            DropIndex("dbo.Departments", new[] { "FacultyId" });
+            DropIndex("dbo.AppUsers", new[] { "FacultyId" });
+            DropIndex("dbo.AppUsers", new[] { "DepartmentId" });
             DropIndex("dbo.AppUsers", new[] { "RoleId" });
             DropIndex("dbo.AppUsers", new[] { "InstitutionId" });
             DropIndex("dbo.AppUsers", new[] { "EmployeeId" });
             DropTable("dbo.Units");
-            DropTable("dbo.Faculties");
-            DropTable("dbo.Departments");
             DropTable("dbo.Roles");
-            DropTable("dbo.Packages");
-            DropTable("dbo.Institutions");
             DropTable("dbo.EmployeeWorkDatas");
             DropTable("dbo.States");
             DropTable("dbo.Lgas");
@@ -360,6 +381,10 @@ namespace Opmas.Data.DataContext.Migrations
             DropTable("dbo.Banks");
             DropTable("dbo.EmployeeBankDatas");
             DropTable("dbo.Employees");
+            DropTable("dbo.Packages");
+            DropTable("dbo.Institutions");
+            DropTable("dbo.Faculties");
+            DropTable("dbo.Departments");
             DropTable("dbo.AppUsers");
         }
     }

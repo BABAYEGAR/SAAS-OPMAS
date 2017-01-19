@@ -52,6 +52,17 @@ namespace Opmas.Controllers.EmployeeManagement
             var departments = _dbEmployee.Departments.Where(n => n.FacultyId == id);
             return Json(departments, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        ///     Sends Json responds object to view with Units of the state requested via an Ajax call
+        /// </summary>
+        /// <param name="id"> faculty id</param>
+        /// <returns>lgas</returns>
+        /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+        public JsonResult GetUnitsForDepartment(int id)
+        {
+            var units = _dbEmployee.Units.Where(n => n.DepartmentId == id);
+            return Json(units, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         ///     Sends Json responds object to view with email of the state requested via an Ajax call
@@ -460,6 +471,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
                 _employee.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
                 _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+                _employee.UnitId = Convert.ToInt64(collectedValues["UnitId"]);
 
                 Session["Employee"] = _employee;
 

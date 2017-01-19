@@ -9,7 +9,7 @@ namespace Opmas.Data.DataContext.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Opmas.Data.DataContext.DataContext.EmployeeDataContext.EmployeeDataContext context)
