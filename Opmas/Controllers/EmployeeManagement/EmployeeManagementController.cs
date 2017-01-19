@@ -114,9 +114,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
-                    return View(_employee.EmployeePersonalData.FirstOrDefault());
+                    return View(_employee.EmployeePersonalData.SingleOrDefault());
             }
-            return View(_employee?.EmployeePersonalData.FirstOrDefault());
+            return View(_employee?.EmployeePersonalData.SingleOrDefault());
         }
 
         // Post: EmployeeManagement/PersonalData
@@ -135,8 +135,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 personalData.Email = collectedValues["Email"];
                 personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
                 personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
-                personalData.DateOfBirth = DateTime.ParseExact(collectedValues["DateOfBirth"], "M'/'d'/'yyyy",
-                    new CultureInfo("de-DE"));
+                personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
                 personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
                 personalData.HomePhone = collectedValues["HomePhone"];
@@ -166,8 +165,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
                 personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
                 personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
-                personalData.DateOfBirth = DateTime.ParseExact(collectedValues["DateOfBirth"], "M'/'d'/'yyyy",
-                    new CultureInfo("de-DE"));
+                personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
                 personalData.HomePhone = collectedValues["HomePhone"];
                 personalData.WorkPhone = collectedValues["WorkPhone"];
@@ -264,10 +262,8 @@ namespace Opmas.Controllers.EmployeeManagement
                     DegreeAttained = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"])),
                     InstitutionName = collectedValues["InstitutionName"],
                     Location = collectedValues["Location"],
-                    StartDate = DateTime.ParseExact(collectedValues["StartDate"], "M'/'d'/'yyyy",
-                        new CultureInfo("de-DE")),
-                    EndDate = DateTime.ParseExact(collectedValues["EndDate"], "M'/'d'/'yyyy",
-                        new CultureInfo("de-DE")),
+                    StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
+                    EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
                     FakeId = _employee.EmployeeEducationalQualifications.Count + 1,
                     FileUpload =
                         (file != null) && (file.FileName != "")
@@ -317,10 +313,8 @@ namespace Opmas.Controllers.EmployeeManagement
                     EmployerContact = collectedValues["EmployerContact"],
                     PositionHeld = collectedValues["PositionHeld"],
                     ReasonForLeaving = collectedValues["ReasonForLeaving"],
-                    StartDate = DateTime.ParseExact(collectedValues["StartDate"], "M'/'d'/'yyyy",
-                        new CultureInfo("de-DE")),
-                    EndDate = DateTime.ParseExact(collectedValues["EndDate"], "M'/'d'/'yyyy",
-                        new CultureInfo("de-DE")),
+                    StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
+                    EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
                     FakeId = _employee.EmployeePastWorkExperiences.Count + 1
                 });
                 //store data in a session
@@ -344,10 +338,10 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
-                if (_employee != null)
-                    return View(_employee.EmployeeFamilyDatas.FirstOrDefault());
+                if (_employee?.EmployeeFamilyDatas != null)
+                    return View(_employee.EmployeeFamilyDatas.SingleOrDefault());
             }
-            return View(_employee?.EmployeeFamilyDatas.FirstOrDefault());
+            return View();
         }
 
         // POST: EmployeeManagement/EmployeeFamilyData
@@ -376,8 +370,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 familyData.Address = collectedValues["Address"];
                 familyData.Email = collectedValues["Email"];
                 familyData.Relationship = typeof(FamilyEnum).GetEnumName(int.Parse(collectedValues["Relationship"]));
-                familyData.DateOfBirth = DateTime.ParseExact(collectedValues["DateOfBirth"], "M'/'d'/'yyyy",
-                    new CultureInfo("de-DE"));
+                familyData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
                 //store data in a session
                 employeeFamilyData.EmployeeFamilyDatas = new List<EmployeeFamilyData> {familyData};
                 Session["Employee"] = employeeFamilyData;
@@ -445,7 +438,9 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult MedicalData()
         {
             _employee = Session["Employee"] as Employee;
-            return View(_employee?.EmployeeMedicalDatas.FirstOrDefault());
+            if (_employee?.EmployeeMedicalDatas != null)
+                return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
+            return View();
         }
 
         // POST: EmployeeManagement/MedicalData
@@ -463,15 +458,15 @@ namespace Opmas.Controllers.EmployeeManagement
             workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
             workData.Category = typeof(EmployementCategory).GetEnumName(int.Parse(collectedValues["EmploymentCategory"]));
             workData.PositionHeld = collectedValues["EmploymentPosition"];
-            workData.EmploymentDate = DateTime.ParseExact(collectedValues["DateOfBirth"], "M'/'d'/'yyyy",
-                    new CultureInfo("de-DE"));
+            workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
             if (_employee != null)
             {
-                _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
+                
                 _employee.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
                 _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
                 _employee.UnitId = Convert.ToInt64(collectedValues["UnitId"]);
+                _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
 
                 Session["Employee"] = _employee;
 
@@ -484,8 +479,10 @@ namespace Opmas.Controllers.EmployeeManagement
                     TempData["medical"] =
                         "This role has been assigned to an employee cannot be assigned to more than one employee!";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                    _employee.RoleId = null;
                     return View(_employee.EmployeeMedicalDatas.FirstOrDefault());
                 }
+                
 
                 //store data in a session
                 if (_employee != null)

@@ -30,7 +30,7 @@ namespace Opmas.Controllers
         public ActionResult SelectInstitution()
         {
             Session["institution"] = null;
-            ViewBag.Institutions = new SelectList(_dbInstitution.Institutions, "InstitutionId", "Name");
+            ViewBag.Institutions = new SelectList(_dbInstitution.Institutions.Where(n => n.SubscriptonEndDate > DateTime.Now), "InstitutionId", "Name");
             return View();
         }
         [ValidateAntiForgeryToken]
@@ -46,7 +46,7 @@ namespace Opmas.Controllers
             }
             else
             {
-                ViewBag.Institutions = new SelectList(_dbInstitution.Institutions, "InstitutionId", "Name");
+                ViewBag.Institutions = new SelectList(_dbInstitution.Institutions.Where(n=>n.SubscriptonEndDate > DateTime.Now), "InstitutionId", "Name");
                 TempData["access"] = "Access code doesn't match institution!Try Again";
                 TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                 return View(institution);

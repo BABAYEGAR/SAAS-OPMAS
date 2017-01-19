@@ -22,7 +22,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
         [DisplayName("Assigned Role")]
-        public long RoleId { get; set; }
+        public long? RoleId { get; set; }
 
         [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }

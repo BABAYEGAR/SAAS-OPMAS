@@ -1,19 +1,11 @@
-﻿@using Opmas.Data.Objects.Entities.Employee
-@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.EmployeeFamilyData
 @{
     ViewBag.Title = "Step four: Next Of Kin Data";
     ViewBag.HeaderClass = "page-header";
 }
 @{
-    var employee = Session["Employee"] as Employee;
-    var familyDataSession = employee?.EmployeeFamilyDatas;
-
-    bool? returnUrl = ViewBag.returnUrl;
-    if (returnUrl == null)
-    {
-        returnUrl = false;
-    }
+    bool? returnUrl = ViewBag.returnUrl ?? false;
 }
 @section css {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>

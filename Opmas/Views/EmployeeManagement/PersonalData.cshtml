@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Step One: Employee Personal Data";
     ViewBag.HeaderClass = "page-header";
-    bool? returnUrl = ViewBag.returnUrl;
+    bool? returnUrl = ViewBag.returnUrl ?? false;
 }
 
 @section css {
@@ -251,24 +251,6 @@
                 }
 
                 //Ajax ends
-
-                //loads check on type
-                $('#state').on('change', function () { checkEmail(); });
-                //Ajax call to check email availability
-                function checkEmail() {
-
-                    $("#lga").empty();
-                    $.ajax({
-                        type: 'GET',
-                        url: '@Url.Action("GetLgaForState", "EmployeeManagement")',
-                        dataType: 'json',
-                        data: { email: $("#email").val() },
-                        success: function () {
-
-                            alert('Email already exist');
-                        }
-                    });
-                }
             });
 
 

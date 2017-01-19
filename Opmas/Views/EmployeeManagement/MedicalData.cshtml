@@ -147,9 +147,6 @@
 
                     </div>
                 </fieldset>
-
-                <hr/>
-
                 <div class="col-md-12">
 
                     <input type="submit" class="btn btn-default cancel" value="Back"/>
@@ -173,9 +170,10 @@
                 if ($('#faculty').val() != '') {
                     getDepartmentForFaculty();
 
-                }   //checks if the department has a value before displaying assigned unit
-                if ($('#department').val() != '') {
-                    getUnitsForDepartment();
+                } 
+                if ($('#department').val()) {
+                    getDepartmentForFaculty();
+
                 }
 
                 //loads assigned department and faculty for state on change/select
@@ -222,7 +220,7 @@
 
                             $.each(unit,
                                 function (i, unit) {
-                                    $("#units")
+                                    $("#unit")
                                         .append('<option value="' + unit.UnitId + '">' + unit.Name + '</option>');
                                 });
                         },
