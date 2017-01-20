@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -33,5 +34,6 @@ namespace Opmas.Data.Objects.Entities.Employee
 
         [ForeignKey("EmployeeId")]
         public virtual Employee Employee { get; set; }
+
     }
 }

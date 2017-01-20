@@ -4,12 +4,12 @@
 @using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.EmployeeMedicalData
 @{
-    ViewBag.Title = "Step Five:Employee Medical & Other Data";
+    ViewBag.Title = "Step Six:Employee Medical & Other Data";
     ViewBag.HeaderClass = "page-header";
     var institution = Session["institution"] as Institution;
     var role = new RoleDataContext();
     var faculty = new FacultyDataContext();
-    ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator" && n.Name != "Platform Administrator")), "RoleId", "Name");
+    ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator") && (n.Name != "Platform Administrator")), "RoleId", "Name");
     ViewBag.FacultyId = new SelectList(faculty.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
 }
 @section css {
@@ -93,57 +93,58 @@
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.BloodGroup, new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownList("BloodGroup", EnumHelper.GetSelectList(typeof(BloodGroup)), "select your blood group", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownListFor(m => m.BloodGroup, EnumHelper.GetSelectList(typeof(BloodGroup)), "select your blood group", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.Genotype, new {@class = "control-label"})<span class="req">*</span>
-                        @Html.DropDownList("Genotype", EnumHelper.GetSelectList(typeof(Genotype)), "select your genotype", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownListFor(m => m.Genotype, EnumHelper.GetSelectList(typeof(Genotype)), "select your genotype", new {@class = "form-control select-dropdown"})
                     </div>
                 </fieldset>
                 <div class="clearfix"></div>
                 <fieldset>
-                    <legend>Employee Work Data</legend>
+                    <legend>Employee Work & Other Data</legend>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         @Html.Label("Employment Type", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownList("EmploymentType", EnumHelper.GetSelectList(typeof(EmploymentType)), "select your employment type", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownListFor(m => m.EmploymentType, EnumHelper.GetSelectList(typeof(EmploymentType)), "select your employment type", new {@class = "form-control select-dropdown"})
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                        @Html.Label("Employment Category", new { @class = "control-label" })<span class="req">*</span>
+                        @Html.DropDownListFor(m => m.EmploymentCategory, EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new { @class = "form-control select-dropdown" })
+                    </div>
+                    <div class="form-group col-md-6">
                         @Html.Label("Employment Date", new {@class = "control-label"})<span class="req">*</span>
-                        @Html.TextBox("EmploymentDate", null, new {@class = "form-control startDate", placeholder = "Please select employment date"})
+                        @Html.TextBoxFor(m => m.EmploymentDate, null, new {@class = "form-control startDate", placeholder = "Please select employment date"})
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.Label("Employment Category", new {@class = "control-label"})<span class="req">*</span>
-                        @Html.DropDownList("EmploymentCategory", EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new {@class = "form-control select-dropdown"})
-                    </div>
-                    <div class="form-group col-md-12">
+               
+                    <div class="form-group col-md-6">
                         @Html.Label("Employment Position", new {@class = "control-label"})<span class="req">*</span>
-                        @Html.TextBox("EmploymentPosition", null, new {@class = "form-control", placeholder = "Please enter employment position"})
+                        @Html.TextBoxFor(m => m.EmploymentPosition, null, new {@class = "form-control", placeholder = "Please enter employment position"})
                     </div>
-              
-                    <div class="form-group col-md-12">
+
+                    <div class="form-group col-md-6">
                         @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label"})
-                        @Html.DropDownList("FacultyId", null, new {@class = "form-control select-dropdown", id = "faculty"})
+                        @Html.DropDownListFor(m => m.FacultyId, null, "--Please select your faculty--", new {@class = "form-control select-dropdown", id = "faculty"})
 
 
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         @Html.Label("DepartmentId", "Assigned Department", new {@class = "control-label"})
-                        @Html.DropDownList("DepartmentId", new SelectList(string.Empty, "Value", "Text"), new {@class = "form-control select-dropdown", id = "department"})
+                        @Html.DropDownListFor(m => m.DepartmentId, new SelectList(string.Empty, "Value", "Text"), "--Please select your deparment--", new {@class = "form-control select-dropdown", id = "department"})
 
 
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.Label("UnitId", "Assigned Unit", new { @class = "control-label" })
-                        @Html.DropDownList("UnitId", new SelectList(string.Empty, "Value", "Text"), new { @class = "form-control select-dropdown", id = "unit" })
+                    <div class="form-group col-md-6">
+                        @Html.Label("UnitId", "Assigned Unit", new {@class = "control-label"})
+                        @Html.DropDownListFor(m => m.UnitId, new SelectList(string.Empty, "Value", "Text"), "--Please select your assigned unit--", new {@class = "form-control select-dropdown", id = "unit"})
 
 
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.Label("RoleId", "Assigned Role", new { @class = "control-label" })
-                        @Html.DropDownList("RoleId", null, new { @class = "form-control select-dropdown" })
+                    <div class="form-group col-md-6">
+                        @Html.Label("RoleId", "Assigned Role", new {@class = "control-label"})
+                        @Html.DropDownListFor(m => m.RoleId, null, "--Please select your role--", new {@class = "form-control select-dropdown"})
 
                     </div>
                 </fieldset>
@@ -170,15 +171,15 @@
                 if ($('#faculty').val() != '') {
                     getDepartmentForFaculty();
 
-                } 
-                if ($('#department').val()) {
-                    getDepartmentForFaculty();
+                }
+                if ($('#department').val() != '') {
+                    getUnitsForDepartment();
 
                 }
 
                 //loads assigned department and faculty for state on change/select
-                $('#faculty').on('change', function () { getDepartmentForFaculty(); });
-                $('#department').on('change', function () { getUnitsForDepartment(); });
+                $('#faculty').on('change', function() { getDepartmentForFaculty(); });
+                $('#department').on('change', function() { getUnitsForDepartment(); });
 
                 //Ajax call for department assigned to faculty
                 function getDepartmentForFaculty() {
@@ -189,12 +190,16 @@
                         url: '@Url.Action("GetDepartmentForFaculty", "EmployeeManagement")',
                         dataType: 'json',
                         data: { id: $("#faculty").val() },
-                        success: function (department) {
+                        success: function(department) {
 
                             $.each(department,
                                 function(i, department) {
                                     $("#department")
-                                        .append('<option value="' + department.DepartmentId + '">' + department.Name + '</option>');
+                                        .append('<option value="' +
+                                            department.DepartmentId +
+                                            '">' +
+                                            department.Name +
+                                            '</option>');
                                 });
                         },
                         error: function(ex) {
@@ -216,15 +221,15 @@
                         url: '@Url.Action("GetUnitsForDepartment", "EmployeeManagement")',
                         dataType: 'json',
                         data: { id: $("#department").val() },
-                        success: function (unit) {
+                        success: function(unit) {
 
                             $.each(unit,
-                                function (i, unit) {
+                                function(i, unit) {
                                     $("#unit")
                                         .append('<option value="' + unit.UnitId + '">' + unit.Name + '</option>');
                                 });
                         },
-                        error: function (ex) {
+                        error: function(ex) {
                             alert('Failed to retrieve unit.' + ex);
                         }
                     });

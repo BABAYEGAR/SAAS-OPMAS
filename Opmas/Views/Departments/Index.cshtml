@@ -1,5 +1,4 @@
-﻿@using System.Web.Mvc.Html
-@using Opmas.Data.Objects.Entities.SystemManagement
+﻿@using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Department>
 
@@ -9,7 +8,6 @@
     ViewBag.Subheader = "List Of Departments";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var department = new Department();
-
 }
 @if (TempData["department"] != null)
 {

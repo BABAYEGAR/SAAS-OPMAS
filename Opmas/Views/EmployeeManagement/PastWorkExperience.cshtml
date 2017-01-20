@@ -95,38 +95,36 @@
                 <fieldset>
                     <legend>Employee Past Work Experience</legend>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.EmployerName, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.EmployerName, new {@class = "form-control", placeholder = "Please enter the employer name"})
                     </div>
-                    <div class="clearfix"></div>
-
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.PositionHeld, "Position Held:", new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.PositionHeld, new { @class = "form-control", placeholder = "Please enter the position held" })
+                    </div>
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.EmployerLocation, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextAreaFor(m => m.EmployerLocation, new {@class = "form-control", placeholder = "Please enter the employer location"})
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
 
                         @Html.LabelFor(m => m.EmployerContact, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.EmployerContact, new {@class = "form-control", placeholder = "Please enter the employer contact"})
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.StartDate, new {@class = "control-label"})<span class="req">*</span>
                         @Html.TextBoxFor(m => m.StartDate, new {@class = "form-control startDate", placeholder = "Please select start date"})
                     </div>
-                    <div class="clearfix"></div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select end date"})
                     </div>
-                    <div class="clearfix"></div>
 
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.PositionHeld, "Position Held:", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.PositionHeld, new {@class = "form-control", placeholder = "Please enter the position held"})
-                    </div>
-                    <div class="form-group col-md-12">
+              
+                    <div class="form-group col-md-6">
 
                         @Html.LabelFor(m => m.ReasonForLeaving, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextAreaFor(m => m.ReasonForLeaving, new {@class = "form-control", placeholder = "Please your reasons for leaving"})

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -454,6 +453,7 @@ namespace Opmas.Controllers.EmployeeManagement
             //medical data
             medicalData.BloodGroup = typeof(BloodGroup).GetEnumName(int.Parse(collectedValues["BloodGroup"]));
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
+ 
             //work data
             workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
             workData.Category = typeof(EmployementCategory).GetEnumName(int.Parse(collectedValues["EmploymentCategory"]));
@@ -487,10 +487,21 @@ namespace Opmas.Controllers.EmployeeManagement
                 //store data in a session
                 if (_employee != null)
                 {
-                    _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};
+                    //set helper values to null
+                    medicalData.RoleId = _employee.RoleId;
+                    medicalData.DepartmentId = _employee.DepartmentId;
+                    medicalData.FacultyId = _employee.FacultyId;
+                    medicalData.EmploymentPosition = workData.PositionHeld;
+                    medicalData.EmploymentType = workData.EmploymentType;
+                    medicalData.EmploymentDate = workData.EmploymentDate;
+                    medicalData.UnitId = _employee.UnitId;
+                    medicalData.EmploymentCategory = workData.Category;
 
+                    //add object to first values ion list
+                    _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};
                     _employee.EmployeeWorkDatas = new List<EmployeeWorkData> {workData};
                     Session["Employee"] = _employee;
+
                 }
             }
 
@@ -607,6 +618,15 @@ namespace Opmas.Controllers.EmployeeManagement
                     if (employeeMedicalData != null)
                     {
                         employeeMedicalData.EmployeeId = employeeData.EmployeeId;
+                        //set helper values to null
+                        employeeMedicalData.RoleId = 0;
+                        employeeMedicalData.DepartmentId = 0;
+                        employeeMedicalData.FacultyId = 0;
+                        employeeMedicalData.EmploymentPosition = "NULL";
+                        employeeMedicalData.EmploymentType = "NULL";
+                        employeeMedicalData.EmploymentDate = Convert.ToDateTime("2016-08-30 11:29:08.000");
+                        employeeMedicalData.UnitId = 0;
+                        employeeMedicalData.EmploymentCategory = "NULL";
                         _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
                     }
                     _dbEmployee.SaveChanges();

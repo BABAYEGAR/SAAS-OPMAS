@@ -1,5 +1,4 @@
 ﻿@using Opmas.Data.Objects.Entities.User
-@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.User.AppUser
 
 
@@ -7,11 +6,10 @@
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser != null)
     {
-            Layout = "~/Views/Shared/_LayoutForm.cshtml";
-            ViewBag.Title = "Details";
-            ViewBag.Header = "Application Users";
-            ViewBag.Subheader = "View application user details";
-        
+        Layout = "~/Views/Shared/_LayoutForm.cshtml";
+        ViewBag.Title = "Details";
+        ViewBag.Header = "Application Users";
+        ViewBag.Subheader = "View application user details";
     }
 }
 
