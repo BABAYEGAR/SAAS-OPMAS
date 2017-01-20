@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.Build.Framework;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -10,29 +10,30 @@ namespace Opmas.Data.Objects.Entities.Employee
         public long EmployeePastWorkExperienceId { get; set; }
 
         [DisplayName("Employer Name")]
-        [Required]
+        [ Required]
         public string EmployerName { get; set; }
-        [Required]
+        [ Required]
         [DisplayName("Employer Location")]
         public string EmployerLocation { get; set; }
         [DisplayName("Employer Contact Number")]
-        [Required]
+        [ Required]
         public string EmployerContact { get; set; }
 
         [DisplayName("Start Date")]
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime StartDate { get; set; }
 
         [DisplayName("End Date")]
-        [Required]
+        [ Required]
         public DateTime EndDate { get; set; }
 
         [DisplayName("Reason for leaving")]
-        [Required]
+        [ Required]
         public string ReasonForLeaving { get; set; }
 
         [DisplayName("Position Held")]
-        [Required]
+        [ Required]
         public string PositionHeld { get; set; }
         public long FakeId { get; set; }
 

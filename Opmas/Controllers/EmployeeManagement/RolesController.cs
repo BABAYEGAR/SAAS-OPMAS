@@ -104,22 +104,22 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageRolePriviledges,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role,FormCollection collectedValues)
+        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageRolePriviledges,RoleType,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role,FormCollection collectedValues)
         {
             var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
-                role.RoleType = typeof(RoleType).GetEnumName(int.Parse(collectedValues["RoleType"]));
-                var roles = db.Roles;
-                foreach (var item in roles)
-                {
-                    if (item.Name == collectedValues["Name"])
-                    {
-                        TempData["role"] = "Role already exist, try another role name!";
-                        TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                        return View(role);
-                    }
-                }
+                //role.RoleType = typeof(RoleType).GetEnumName(int.Parse(collectedValues["RoleType"]));
+                //var roles = db.Roles;
+                //foreach (var item in roles)
+                //{
+                //    if (item.Name == collectedValues["Name"] )
+                //    {
+                //        TempData["role"] = "Role already exist, try another role name!";
+                //        TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
+                //        return View(role);
+                //    }
+                //}
                 db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
 

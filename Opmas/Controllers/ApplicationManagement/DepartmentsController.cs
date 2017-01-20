@@ -20,6 +20,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // GET: Departments
         public ActionResult Index()
         {
+            ViewBag.returnUrl = false;
             var institution = Session["institution"] as Institution;
             var departments = db.Departments.Include(d => d.Faculty).Include(d => d.Institution).Where(n=>n.InstitutionId == institution.InstitutionId);
             return View(departments.ToList());
@@ -27,6 +28,8 @@ namespace Opmas.Controllers.ApplicationManagement
         // GET: FacultyDepartments
         public ActionResult FacultyDepartments(long? id)
         {
+            ViewBag.returnUrl = true;
+            ViewBag.faculty = id;
             var institution = Session["institution"] as Institution;
             var departments = db.Departments.Where(n=>n.FacultyId == id).Include(d => d.Faculty).Include(d => d.Institution).Where(n => n.InstitutionId == institution.InstitutionId);
             return View("Index",departments.ToList());
@@ -64,6 +67,8 @@ namespace Opmas.Controllers.ApplicationManagement
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
+            var facultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+            bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             if (institution != null)
             { 
                 if (ModelState.IsValid)
@@ -85,6 +90,11 @@ namespace Opmas.Controllers.ApplicationManagement
                     db.SaveChanges();
                     TempData["department"] = "You have successfully created a department";
                     TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                    var facultyDepartments = db.Departments.Where(n => n.FacultyId == facultyId).Include(d => d.Faculty).Include(d => d.Institution).Where(n => n.InstitutionId == institution.InstitutionId);
+                    if (returnUrl)
+                    {
+                        return View("Index",facultyDepartments);
+                    }
                     return RedirectToAction("Index");
                 }
             }

@@ -1,28 +1,30 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.Build.Framework;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
     public class EmployeeEducationalQualification
     {
         public long EmployeeEducationalQualificationId { get; set; }
-        [Required]
+        [ Required]
         [DisplayName("Institution Name")]
         public string InstitutionName { get; set; }
-        [Required]
+        [ Required]
         public string Location { get; set; }
-        [Required]
+        [ Required]
         [DisplayName("Start Date")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime StartDate { get; set; }
-        [Required]
+        [ Required]
         [DisplayName("End Date")]
+
         public DateTime EndDate { get; set; }
-        [Required]
+        [ Required]
         [DisplayName("Degree Attained")]
         public string DegreeAttained { get; set; }
-        [Required]
+        [ Required]
         [DisplayName("Class Of Degree")]
         [DefaultValue("None")]
         public string ClassOfDegree { get; set; }

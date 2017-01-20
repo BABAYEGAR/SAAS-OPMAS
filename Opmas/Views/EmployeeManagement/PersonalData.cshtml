@@ -201,14 +201,10 @@
                 // Init select2 for dropdown select
                 $('.select-dropdown').select2();
 
-                // init datepicker for issue date
-                $('.dob').datepicker({ 'endDate': new Date() });
-
-                // init datepicker for issue date
-                $('.issueDate').datepicker();
-
-                // init datepicker for expiry date
-                $('.expiryDate').datepicker();
+                // init datepicker for dob date
+                $('.dob').datepicker({
+                    'endDate': new Date()
+                });
 
                 // set start date of expiry based on selected date of issue
                 $('.issueDate')

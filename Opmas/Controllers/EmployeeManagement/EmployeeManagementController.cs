@@ -51,6 +51,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var departments = _dbEmployee.Departments.Where(n => n.FacultyId == id);
             return Json(departments, JsonRequestBehavior.AllowGet);
         }
+
         /// <summary>
         ///     Sends Json responds object to view with Units of the state requested via an Ajax call
         /// </summary>
@@ -145,6 +146,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
                 personalData.Gender = collectedValues["Gender"];
                 personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
+                personalData.EmployeeImage = "131262294730509246.jpg";
 
 
                 //store data in a session
@@ -174,6 +176,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
                 personalData.Gender = collectedValues["Gender"];
                 personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
+                personalData.EmployeeImage = "131262294730509246.jpg";
 
 
                 //store data in a session
@@ -333,6 +336,8 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult EmployeeFamilyData(bool? returnUrl)
         {
             _employee = Session["Employee"] as Employee;
+            var relationship = new SelectList(typeof(FamilyEnum).GetEnumNames());
+            ViewBag.relationship = relationship;
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
@@ -453,7 +458,7 @@ namespace Opmas.Controllers.EmployeeManagement
             //medical data
             medicalData.BloodGroup = typeof(BloodGroup).GetEnumName(int.Parse(collectedValues["BloodGroup"]));
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
- 
+
             //work data
             workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
             workData.Category = typeof(EmployementCategory).GetEnumName(int.Parse(collectedValues["EmploymentCategory"]));
@@ -462,7 +467,6 @@ namespace Opmas.Controllers.EmployeeManagement
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
             if (_employee != null)
             {
-                
                 _employee.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
                 _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
                 _employee.UnitId = Convert.ToInt64(collectedValues["UnitId"]);
@@ -482,7 +486,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     _employee.RoleId = null;
                     return View(_employee.EmployeeMedicalDatas.FirstOrDefault());
                 }
-                
+
 
                 //store data in a session
                 if (_employee != null)
@@ -501,7 +505,6 @@ namespace Opmas.Controllers.EmployeeManagement
                     _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};
                     _employee.EmployeeWorkDatas = new List<EmployeeWorkData> {workData};
                     Session["Employee"] = _employee;
-
                 }
             }
 
@@ -624,7 +627,7 @@ namespace Opmas.Controllers.EmployeeManagement
                         employeeMedicalData.FacultyId = 0;
                         employeeMedicalData.EmploymentPosition = "NULL";
                         employeeMedicalData.EmploymentType = "NULL";
-                        employeeMedicalData.EmploymentDate = Convert.ToDateTime("2016-08-30 11:29:08.000");
+                        employeeMedicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
                         employeeMedicalData.UnitId = 0;
                         employeeMedicalData.EmploymentCategory = "NULL";
                         _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
@@ -789,7 +792,7 @@ namespace Opmas.Controllers.EmployeeManagement
             TempData["family"] =
                 "You have successfully added a new family data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
-            return RedirectToAction("ListOfEmployeeFamily", "EmployeeManagement",
+            return RedirectToAction("Dashboard", "Home",
                 new {id = familyData.EmployeeId});
         }
 
@@ -833,7 +836,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var familyData = _dbEmployee.EmployeeFamilyDatas.Find(id);
             _dbEmployee.EmployeeFamilyDatas.Remove(familyData);
             _dbEmployee.SaveChanges();
-            return RedirectToAction("ListOfEmployeeFamily", new {id = familyData.EmployeeId});
+            return RedirectToAction("Dashboard", "Home", new {id = familyData.EmployeeId});
         }
 
         /// <summary>
@@ -942,6 +945,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 appUser.DateLastModified = DateTime.Now;
                 appUser.EmployeeId = employeeId;
                 appUser.Mobile = employeePersonalData.MobilePhone;
+                appUser.AppUserImage = employeePersonalData.EmployeeImage;
             }
             if (institution != null) appUser.InstitutionId = institution.InstitutionId;
             //generate password and convert to md5 hash
@@ -1007,6 +1011,10 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeMedicalData = _dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeMedicalData == null)
                 return HttpNotFound();
+            var bloodgroup = new SelectList(typeof(BloodGroup).GetEnumNames());
+            var genotype = new SelectList(typeof(Genotype).GetEnumNames());
+            ViewBag.bloodgroup = bloodgroup;
+            ViewBag.genotype = genotype;
             return View(employeeMedicalData);
         }
 
@@ -1024,6 +1032,15 @@ namespace Opmas.Controllers.EmployeeManagement
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
             medicalData.EmployeeId = Convert.ToInt64(employeeId);
 
+            //set helper values to null
+            medicalData.RoleId = 0;
+            medicalData.DepartmentId = 0;
+            medicalData.FacultyId = 0;
+            medicalData.EmploymentPosition = "NULL";
+            medicalData.EmploymentType = "NULL";
+            medicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
+            medicalData.UnitId = 0;
+            medicalData.EmploymentCategory = "NULL";
             //update data
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
@@ -1039,6 +1056,12 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeWorkData = _dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeWorkData == null)
                 return HttpNotFound();
+            var catogory = new SelectList(typeof(EmployementCategory).GetEnumNames());
+            ViewBag.catogory = catogory;
+            var status = new SelectList(typeof(EmploymentStatus).GetEnumNames());
+            ViewBag.status = status;
+            var type = new SelectList(typeof(EmploymentType).GetEnumNames());
+            ViewBag.type = type;
             return View(employeeWorkData);
         }
 
@@ -1058,6 +1081,35 @@ namespace Opmas.Controllers.EmployeeManagement
 
             //update data
             _dbEmployee.Entry(workData).State = EntityState.Modified;
+            _dbEmployee.SaveChanges();
+
+            return RedirectToAction("Dashboard", "Home");
+        }
+
+        // GET: EmployeeManagement/EditWorkData
+        public ActionResult EditEmployeeFamilyData(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var employeeFamilyData = _dbEmployee.EmployeeFamilyDatas.SingleOrDefault(n => n.EmployeeId == id);
+            if (employeeFamilyData == null)
+                return HttpNotFound();
+            var relationship = new SelectList(typeof(FamilyEnum).GetEnumNames());
+            ViewBag.relationship = relationship;
+            return View(employeeFamilyData);
+        }
+
+        // POST: EmployeeManagement/EditWorkData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployeeFamilyData([Bind(
+                                                        Include =
+                                                            "EmployeeFamilyDataId,FullName,Address,ContactNumber,EmployeeId,Email,DateOfBirth,Relationship"
+                                                    )] EmployeeFamilyData familyData,
+            FormCollection collectedValues)
+        {
+            //update data
+            _dbEmployee.Entry(familyData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
             return RedirectToAction("Dashboard", "Home");
@@ -1083,15 +1135,6 @@ namespace Opmas.Controllers.EmployeeManagement
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var pastWorkExperience = _dbEmployee.EmployeePastWorkExperiences.Where(n => n.EmployeeId == id);
             return View(pastWorkExperience);
-        }
-
-        // GET: EmployeeManagement/ListOfEmployeeFamily
-        public ActionResult ListOfEmployeeFamily(long? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeeFamily = _dbEmployee.EmployeeFamilyDatas.Where(n => n.EmployeeId == id);
-            return View(employeeFamily);
         }
 
         // GET: EmployeeManagement/ListOfBankData

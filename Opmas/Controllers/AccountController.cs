@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -10,6 +11,7 @@ using Opmas.Data.Factory.AuthenticationManagement;
 using Opmas.Data.Service.Enums;
 using Opmas.Models;
 using System.Linq;
+using System.Web.Security;
 
 namespace Opmas.Controllers
 {
@@ -57,7 +59,7 @@ namespace Opmas.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -67,14 +69,30 @@ namespace Opmas.Controllers
                 var institution = _dbInstitution.Institutions.Find(appuser.InstitutionId);
                 var userRole = _dbRole.Roles.Find(appuser.RoleId);
 
+                //store objects in a session
                 Session["opmasloggedinuser"] = appuser;
                 Session["institution"] = institution;
                 Session["role"] = userRole;
+
+                //create the authentication ticket
+                var authTicket = new FormsAuthenticationTicket(
+                  1,
+                  appuser.AppUserId.ToString(),  //user id
+                  DateTime.Now,
+                  DateTime.Now.AddMinutes(40),  // expiry
+                  true,  //true to remember
+                  userRole.Name, //roles 
+                  Url.Action("Dashboard", "Home")
+                );
+
+                //encrypt the ticket and add it to a cookie
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                Response.Cookies.Add(cookie);
                 return RedirectToAction("Dashboard", "Home");
             }
             TempData["login"] = "Incorrect Username/Password";
             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-           return View(model);
+            return View(model);
 
 
             //// This doesn't count login failures towards account lockout

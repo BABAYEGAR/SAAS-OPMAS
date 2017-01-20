@@ -22,6 +22,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public string PlaceOfBirth { get; set; }
         [DisplayName("Date Of Birth")]
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime DateOfBirth { get; set; }
 
         [DisplayName("Primary Address")]

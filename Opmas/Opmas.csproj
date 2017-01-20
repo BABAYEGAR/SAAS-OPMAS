@@ -5120,9 +5120,6 @@
     <Content Include="UploadedFiles\Logo\131270753069070709.png" />
     <Content Include="UploadedFiles\Logo\131279772563340849.jpg" />
     <Content Include="UploadedFiles\Logo\131279774494702677.jpg" />
-    <Content Include="UploadedFiles\ProfileImage\131258772047104931.JPG" />
-    <Content Include="UploadedFiles\ProfileImage\131262285628655796.jpg" />
-    <Content Include="UploadedFiles\ProfileImage\131262288270000555.jpg" />
     <Content Include="UploadedFiles\ProfileImage\131262294730509246.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -5238,6 +5235,7 @@
     <Content Include="Views\Shared\_LayoutLandingPage.cshtml" />
     <Content Include="Views\Shared\CreateFauculty.cshtml" />
     <Content Include="Views\Shared\CreateDepartment.cshtml" />
+    <Content Include="Views\EmployeeManagement\EditEmployeeFamilyData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
