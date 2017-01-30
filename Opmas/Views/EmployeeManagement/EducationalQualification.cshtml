@@ -14,7 +14,6 @@
     bool? returnUrl = ViewBag.returnUrl ?? false;
 }
 @section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
     <!-- Datatables -->
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
@@ -353,30 +352,12 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
     <script src="~/Content/ManagementDashboard/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="~/Content/ManagementDashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
 
         $(document)
             .ready(function() {
-
-                // init datepicker for start date
-                $('.startDate').datepicker();
-
-                // init datepicker for end date
-                $('.endDate').datepicker();
-
-                // set start date of expiry based on selected date of end
-                $('.startDate')
-                    .datepicker()
-                    .on('changeDate',
-                        function(e) {
-
-                            // apply selected date as start date for expiry
-                            $('.endDate').datepicker('setStartDate', e.date);
-                        });
                 $('#datatable1').DataTable();
                 $('#datatable2').DataTable();
                 $('#datatable3').DataTable();

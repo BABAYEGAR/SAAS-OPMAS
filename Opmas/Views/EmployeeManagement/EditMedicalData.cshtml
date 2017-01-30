@@ -1,5 +1,4 @@
-﻿@using Opmas.Data.Service.Enums
-@model Opmas.Data.Objects.Entities.Employee.EmployeeMedicalData
+﻿@model Opmas.Data.Objects.Entities.Employee.EmployeeMedicalData
 @{
     ViewBag.Title = "Edit";
     ViewBag.Header = "Medical Data";
@@ -24,13 +23,13 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.BloodGroup, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.BloodGroup, (SelectList)ViewBag.bloodgroup, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.BloodGroup, (SelectList) ViewBag.bloodgroup, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Genotype, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.Genotype, (SelectList)ViewBag.genotype, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.Genotype, (SelectList) ViewBag.genotype, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
                     </div>
                 </div>
                 <div class="col-md-12">

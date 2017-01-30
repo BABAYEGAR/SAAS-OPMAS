@@ -7,13 +7,6 @@
 @{
     bool? returnUrl = ViewBag.returnUrl ?? false;
 }
-@section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
-    <!-- Datatables -->
-    <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
-
-}
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
     <div class="container">
@@ -101,25 +94,23 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })<span class="req">*</span>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Please select an email" })
+                        @Html.LabelFor(m => m.Email, new {@class = "control-label"})<span class="req">*</span>
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Please select an email"})
                     </div>
                     <div class="form-group col-md-6">
 
                         @Html.LabelFor(m => m.ContactNumber, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.ContactNumber, new {@class = "form-control", placeholder = "Please enter the contact"})
                     </div>
-                 
-                    <div class="clearfix"></div>
+
                     <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.DateOfBirth, "Date Of Birth:", new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.DateOfBirth, new {@class = "form-control dob", placeholder = "Please select the date of birth"})
                     </div>
                     <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.Relationship, "Relationship:", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.Relationship, (SelectList)ViewBag.relationship, "select relationship", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownListFor(m => m.Relationship, (SelectList) ViewBag.relationship, "select relationship", new {@class = "form-control select-dropdown"})
                     </div>
-                    <div class="clearfix"></div>
                 </fieldset>
                 <div class="col-md-12">
 
@@ -140,26 +131,3 @@
         </div>
     </div>
 </div>
-
-@section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script src="~/Content/ManagementDashboard/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/Content/ManagementDashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script>
-
-        $(document)
-            .ready(function() {
-
-                // init datepicker for date of birth 
-                $('.dob').datepicker({ 'endDate': new Date() });
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-                //datatables
-                $('#datatable1').DataTable();
-
-            });
-    </script>
-
-}

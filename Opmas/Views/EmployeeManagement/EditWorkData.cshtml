@@ -1,5 +1,4 @@
-﻿@using Opmas.Data.Service.Enums
-@model Opmas.Data.Objects.Entities.Employee.EmployeeWorkData
+﻿@model Opmas.Data.Objects.Entities.Employee.EmployeeWorkData
 @{
     ViewBag.Title = "Edit";
     ViewBag.Header = "Work Data";
@@ -25,19 +24,19 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.EmploymentType, new {@class = "control-label control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.EmploymentType, (SelectList)ViewBag.type, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.EmploymentType, (SelectList) ViewBag.type, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.EmploymentStatus, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.EmploymentStatus, (SelectList)ViewBag.status, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.EmploymentStatus, (SelectList) ViewBag.status, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Category, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.Category, (SelectList)ViewBag.catgory, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.Category, (SelectList) ViewBag.catgory, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
                     </div>
                 </div>
                 <div class="form-group">

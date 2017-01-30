@@ -15,10 +15,6 @@
         returnUrl = false;
     }
 }
-@section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
-}
-
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
     <div class="container">
@@ -100,8 +96,8 @@
                         @Html.TextBoxFor(m => m.EmployerName, new {@class = "form-control", placeholder = "Please enter the employer name"})
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(m => m.PositionHeld, "Position Held:", new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.TextBoxFor(m => m.PositionHeld, new { @class = "form-control", placeholder = "Please enter the position held" })
+                        @Html.LabelFor(m => m.PositionHeld, "Position Held:", new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.TextBoxFor(m => m.PositionHeld, new {@class = "form-control", placeholder = "Please enter the position held"})
                     </div>
                     <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.EmployerLocation, new {@class = "control-label"}) <span class="req">*</span>
@@ -123,7 +119,7 @@
                         @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select end date"})
                     </div>
 
-              
+
                     <div class="form-group col-md-6">
 
                         @Html.LabelFor(m => m.ReasonForLeaving, new {@class = "control-label"}) <span class="req">*</span>
@@ -208,31 +204,3 @@
         </div>
     </div>
 </div>
-
-@section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script>
-
-        $(document)
-            .ready(function() {
-                // init datepicker for issue date
-                $('.startDate').datepicker();
-
-                // init datepicker for expiry date
-                $('.endDate').datepicker();
-
-                // set start date of expiry based on selected date of issue
-                $('.startDate')
-                    .datepicker()
-                    .on('changeDate',
-                        function(e) {
-
-                            // apply selected date as start date for expiry
-                            $('.endDate').datepicker('setStartDate', e.date);
-                        });
-
-
-            });
-    </script>
-}

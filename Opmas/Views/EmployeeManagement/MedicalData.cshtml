@@ -111,14 +111,14 @@
                         @Html.DropDownListFor(m => m.EmploymentType, EnumHelper.GetSelectList(typeof(EmploymentType)), "select your employment type", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.Label("Employment Category", new { @class = "control-label" })<span class="req">*</span>
-                        @Html.DropDownListFor(m => m.EmploymentCategory, EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new { @class = "form-control select-dropdown" })
+                        @Html.Label("Employment Category", new {@class = "control-label"})<span class="req">*</span>
+                        @Html.DropDownListFor(m => m.EmploymentCategory, EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Date", new {@class = "control-label"})<span class="req">*</span>
                         @Html.TextBoxFor(m => m.EmploymentDate, null, new {@class = "form-control startDate", placeholder = "Please select employment date"})
                     </div>
-               
+
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Position", new {@class = "control-label"})<span class="req">*</span>
                         @Html.TextBoxFor(m => m.EmploymentPosition, null, new {@class = "form-control", placeholder = "Please enter employment position"})

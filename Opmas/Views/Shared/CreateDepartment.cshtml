@@ -9,7 +9,6 @@
     ViewBag.FacultyId = new SelectList(facuties.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
     bool? returnUrl = ViewBag?.returnUrl;
     long? faculty = ViewBag?.faculty;
-   
 }
 @section css {
     <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
@@ -17,7 +16,7 @@
 @using (Html.BeginForm("Create", "Departments", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("returnUrl",returnUrl)
+    @Html.Hidden("returnUrl", returnUrl)
     @Html.Hidden("FacultyId", faculty)
 
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
