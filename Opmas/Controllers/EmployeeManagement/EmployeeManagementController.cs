@@ -972,7 +972,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeePersonalData == null)
                 return HttpNotFound();
-            ViewBag.State = new SelectList(_db.States, "StateId", "Name");
+            ViewBag.State = new SelectList(_db.States, "StateId", "Name",employeePersonalData.StateId);
             return View(employeePersonalData);
         }
 
