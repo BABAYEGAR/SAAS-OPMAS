@@ -336,8 +336,6 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult EmployeeFamilyData(bool? returnUrl)
         {
             _employee = Session["Employee"] as Employee;
-            var relationship = new SelectList(typeof(FamilyEnum).GetEnumNames());
-            ViewBag.relationship = relationship;
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
