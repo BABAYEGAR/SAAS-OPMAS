@@ -10,9 +10,6 @@
     bool? returnUrl = ViewBag?.returnUrl;
     long? faculty = ViewBag?.faculty;
 }
-@section css {
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-}
 @using (Html.BeginForm("Create", "Departments", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
@@ -23,7 +20,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12", required = "required" } })
             @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
         </div>
     </div>
@@ -42,17 +39,4 @@
             <input type="submit" value="Create" class="btn btn-success pull-right"/>
         </div>
     </div>
-}
-@section scripts {
-    <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
-    <script>
-        $(document)
-            .ready(function() {
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-            });
-
-
-    </script>
 }

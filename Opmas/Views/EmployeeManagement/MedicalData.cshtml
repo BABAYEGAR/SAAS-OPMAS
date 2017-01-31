@@ -12,10 +12,6 @@
     ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator") && (n.Name != "Platform Administrator")), "RoleId", "Name");
     ViewBag.FacultyId = new SelectList(faculty.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
 }
-@section css {
-    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-}
-
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
     <div class="container">
@@ -159,8 +155,6 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script>
 
         $(document)
