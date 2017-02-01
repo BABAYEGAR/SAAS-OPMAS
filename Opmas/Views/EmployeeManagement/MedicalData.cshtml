@@ -104,7 +104,8 @@
 
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Type", new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.EmploymentType, EnumHelper.GetSelectList(typeof(EmploymentType)), "select your employment type", new {@class = "form-control select-dropdown"})
+                        @Html.DropDownListFor(m => m.EmploymentTypeId, null, "--Please select your employment type--", new { @class = "form-control select-dropdown"})
+                    
                     </div>
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Category", new {@class = "control-label"})<span class="req">*</span>

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.Entities.Employee;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
 {
@@ -37,6 +38,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
 
         public IEnumerable<Faculty> Faculties { get; set; }
         public IEnumerable<Department> Departments { get; set; }
+        public IEnumerable<EmploymentType> EmploymentTypes { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }
 

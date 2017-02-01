@@ -439,6 +439,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/MedicalData
         public ActionResult MedicalData()
         {
+            ViewBag.EmploymentType = new SelectList(_dbEmployee.EmploymentTypes, "EmploymentTypeId", "Name");
             _employee = Session["Employee"] as Employee;
             if (_employee?.EmployeeMedicalDatas != null)
                 return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
@@ -458,7 +459,7 @@ namespace Opmas.Controllers.EmployeeManagement
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
 
             //work data
-            workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
+            workData.EmploymentTypeId = Int64.Parse(collectedValues["EmploymentTypeId"]);
             workData.Category = typeof(EmployementCategory).GetEnumName(int.Parse(collectedValues["EmploymentCategory"]));
             workData.PositionHeld = collectedValues["EmploymentPosition"];
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
@@ -494,7 +495,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     medicalData.DepartmentId = _employee.DepartmentId;
                     medicalData.FacultyId = _employee.FacultyId;
                     medicalData.EmploymentPosition = workData.PositionHeld;
-                    medicalData.EmploymentType = workData.EmploymentType;
+                    medicalData.EmploymentTypeId = workData.EmploymentTypeId;
                     medicalData.EmploymentDate = workData.EmploymentDate;
                     medicalData.UnitId = _employee.UnitId;
                     medicalData.EmploymentCategory = workData.Category;
@@ -624,7 +625,7 @@ namespace Opmas.Controllers.EmployeeManagement
                         employeeMedicalData.DepartmentId = 0;
                         employeeMedicalData.FacultyId = 0;
                         employeeMedicalData.EmploymentPosition = "NULL";
-                        employeeMedicalData.EmploymentType = "NULL";
+                        employeeMedicalData.EmploymentTypeId = 0;
                         employeeMedicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
                         employeeMedicalData.UnitId = 0;
                         employeeMedicalData.EmploymentCategory = "NULL";
@@ -1035,7 +1036,7 @@ namespace Opmas.Controllers.EmployeeManagement
             medicalData.DepartmentId = 0;
             medicalData.FacultyId = 0;
             medicalData.EmploymentPosition = "NULL";
-            medicalData.EmploymentType = "NULL";
+            medicalData.EmploymentTypeId = 0;
             medicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
             medicalData.UnitId = 0;
             medicalData.EmploymentCategory = "NULL";
@@ -1058,8 +1059,8 @@ namespace Opmas.Controllers.EmployeeManagement
             ViewBag.catogory = catogory;
             var status = new SelectList(typeof(EmploymentStatus).GetEnumNames());
             ViewBag.status = status;
-            var type = new SelectList(typeof(EmploymentType).GetEnumNames());
-            ViewBag.type = type;
+           // var type = new SelectList(typeof(EmploymentType).GetEnumNames());
+            //ViewBag.type = type;
             return View(employeeWorkData);
         }
 
@@ -1074,8 +1075,8 @@ namespace Opmas.Controllers.EmployeeManagement
             //medical data
             workData.EmploymentStatus =
                 typeof(EmploymentStatus).GetEnumName(int.Parse(collectedValues["EmploymentStatus"]));
-            workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
-            workData.Category = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["Category"]));
+            //workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
+            //workData.Category = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["Category"]));
 
             //update data
             _dbEmployee.Entry(workData).State = EntityState.Modified;

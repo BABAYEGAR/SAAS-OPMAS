@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmploymentTypeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeEducationalQualificationDataContext.cs" />
@@ -85,6 +86,18 @@
     <Compile Include="Migrations\201701301258304_migrate31.Designer.cs">
       <DependentUpon>201701301258304_migrate31.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702011403221_MigrationFour.cs" />
+    <Compile Include="Migrations\201702011403221_MigrationFour.Designer.cs">
+      <DependentUpon>201702011403221_MigrationFour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702011419125_MigrationFive.cs" />
+    <Compile Include="Migrations\201702011419125_MigrationFive.Designer.cs">
+      <DependentUpon>201702011419125_MigrationFive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702011423240_MigrationSix.cs" />
+    <Compile Include="Migrations\201702011423240_MigrationSix.Designer.cs">
+      <DependentUpon>201702011423240_MigrationSix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -110,6 +123,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701301258304_migrate31.resx">
       <DependentUpon>201701301258304_migrate31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702011403221_MigrationFour.resx">
+      <DependentUpon>201702011403221_MigrationFour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702011419125_MigrationFive.resx">
+      <DependentUpon>201702011419125_MigrationFive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702011423240_MigrationSix.resx">
+      <DependentUpon>201702011423240_MigrationSix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

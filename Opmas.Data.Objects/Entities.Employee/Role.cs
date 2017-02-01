@@ -32,6 +32,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageRolePriviledges { get; set; }
         [DisplayName("Role Category")]
         public string RoleType { get; set; }
+        [DisplayName("Manage EmploymentType")]
+        public string ManageEmploymentTypes { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public long? InstitutionId { get; set; }

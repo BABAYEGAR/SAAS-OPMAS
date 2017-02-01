@@ -15,8 +15,6 @@ namespace Opmas.Data.Objects.Entities.Employee
         [Required]
         public string BloodGroup { get; set; }
         [Required]
-        public string EmploymentType { get; set; }
-        [Required]
         public string EmploymentCategory { get; set; }
         [Required]
         public string EmploymentPosition { get; set; }
@@ -34,6 +32,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         public long? FacultyId { get; set; }
         [Required]
         public long? UnitId { get; set; }
+        [Required]
+        public long? EmploymentTypeId { get; set; }
 
 
     }
