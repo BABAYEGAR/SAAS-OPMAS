@@ -5,17 +5,17 @@ using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
 {
-    public class EmployeeWorkDataContext : DbContext
+    public class EmployeeTrainingDataContext : DbContext
     {
-        public EmployeeWorkDataContext()
+        public EmployeeTrainingDataContext()
             : base("name=Opmas")
         {
         }
 
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<EmployeeWorkData> EmployeeWorkData { get; set; }
+        public virtual DbSet<EmployeeTraining> EmployeeTrainings { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
-        public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
+        public virtual DbSet<TrainingCategory> TrainingCategory { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

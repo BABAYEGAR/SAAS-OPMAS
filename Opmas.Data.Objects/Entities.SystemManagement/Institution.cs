@@ -40,6 +40,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<Department> Departments { get; set; }
         public IEnumerable<EmploymentType> EmploymentTypes { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
+        public IEnumerable<TrainingCategory> TrainingCategories { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }
 
         [DisplayName("Package")]

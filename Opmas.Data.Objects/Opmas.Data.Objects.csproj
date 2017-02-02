@@ -60,6 +60,8 @@
     <Compile Include="Entities.Employee\EmployeeFamilyData.cs" />
     <Compile Include="Entities.Employee\EmployeePastWorkExperience.cs" />
     <Compile Include="Entities.Employee\EmployeePersonalData.cs" />
+    <Compile Include="Training\EmployeeTraining.cs" />
+    <Compile Include="Training\TrainingCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentType.cs" />
     <Compile Include="Entities.Employee\EmployeeWorkData.cs" />
     <Compile Include="Entities.Employee\Lga.cs" />

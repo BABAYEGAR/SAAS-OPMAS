@@ -69,6 +69,8 @@
     <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionDataContext.cs" />
+    <Compile Include="DataContext\TrainingDataContext\TrainingCategoryDataContext.cs" />
+    <Compile Include="DataContext\TrainingDataContext\EmployeeTrainingDataContext.cs" />
     <Compile Include="DataContext\UserDataContext\AppUserDataContext.cs" />
     <Compile Include="Migrations\201701191024145_MigrationOne.cs" />
     <Compile Include="Migrations\201701191024145_MigrationOne.Designer.cs">
@@ -82,21 +84,17 @@
     <Compile Include="Migrations\201701200117247_MigrationThree.Designer.cs">
       <DependentUpon>201701200117247_MigrationThree.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701301258304_migrate31.cs" />
-    <Compile Include="Migrations\201701301258304_migrate31.Designer.cs">
-      <DependentUpon>201701301258304_migrate31.cs</DependentUpon>
+    <Compile Include="Migrations\201702021321132_Migration8.cs" />
+    <Compile Include="Migrations\201702021321132_Migration8.Designer.cs">
+      <DependentUpon>201702021321132_Migration8.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702011403221_MigrationFour.cs" />
-    <Compile Include="Migrations\201702011403221_MigrationFour.Designer.cs">
-      <DependentUpon>201702011403221_MigrationFour.cs</DependentUpon>
+    <Compile Include="Migrations\201702021323350_Migration9.cs" />
+    <Compile Include="Migrations\201702021323350_Migration9.Designer.cs">
+      <DependentUpon>201702021323350_Migration9.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702011419125_MigrationFive.cs" />
-    <Compile Include="Migrations\201702011419125_MigrationFive.Designer.cs">
-      <DependentUpon>201702011419125_MigrationFive.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702011423240_MigrationSix.cs" />
-    <Compile Include="Migrations\201702011423240_MigrationSix.Designer.cs">
-      <DependentUpon>201702011423240_MigrationSix.cs</DependentUpon>
+    <Compile Include="Migrations\201702021347565_Migration10.cs" />
+    <Compile Include="Migrations\201702021347565_Migration10.Designer.cs">
+      <DependentUpon>201702021347565_Migration10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,17 +119,14 @@
     <EmbeddedResource Include="Migrations\201701200117247_MigrationThree.resx">
       <DependentUpon>201701200117247_MigrationThree.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701301258304_migrate31.resx">
-      <DependentUpon>201701301258304_migrate31.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702021321132_Migration8.resx">
+      <DependentUpon>201702021321132_Migration8.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702011403221_MigrationFour.resx">
-      <DependentUpon>201702011403221_MigrationFour.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702021323350_Migration9.resx">
+      <DependentUpon>201702021323350_Migration9.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702011419125_MigrationFive.resx">
-      <DependentUpon>201702011419125_MigrationFive.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702011423240_MigrationSix.resx">
-      <DependentUpon>201702011423240_MigrationSix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702021347565_Migration10.resx">
+      <DependentUpon>201702021347565_Migration10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
