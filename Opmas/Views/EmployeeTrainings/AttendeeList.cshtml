@@ -10,6 +10,7 @@
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
     <tr>
+        <th><input type="checkbox" id="check-all" class="flat"></th>
         <th>
             @Html.DisplayName("Firstname")
         </th>
@@ -32,6 +33,7 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td><input type="checkbox" class="flat" name="table_records"></td>
             <td>
                 @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)
             </td>

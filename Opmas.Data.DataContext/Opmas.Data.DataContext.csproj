@@ -65,6 +65,7 @@
     <Compile Include="DataContext\EmployeeDataContext\EmployeePastExperienceDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeWorkDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeePersonalDataContext.cs" />
+    <Compile Include="DataContext\MappingDataContext\EmployeeTrainingMappingDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
@@ -104,6 +105,10 @@
     <Compile Include="Migrations\201702021919104_Migration12.Designer.cs">
       <DependentUpon>201702021919104_Migration12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702021959514_Migration13.cs" />
+    <Compile Include="Migrations\201702021959514_Migration13.Designer.cs">
+      <DependentUpon>201702021959514_Migration13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -141,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702021919104_Migration12.resx">
       <DependentUpon>201702021919104_Migration12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702021959514_Migration13.resx">
+      <DependentUpon>201702021959514_Migration13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

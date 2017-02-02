@@ -233,6 +233,7 @@
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
     <Compile Include="Controllers\TrainingManagement\EmployeeTrainingsController.cs" />
     <Compile Include="Controllers\TrainingManagement\TrainingCategoriesController.cs" />
     <Compile Include="Controllers\UserManagement\AppUsersController.cs" />
@@ -5249,6 +5250,11 @@
     <Content Include="Views\EmployeeTrainings\Edit.cshtml" />
     <Content Include="Views\EmployeeTrainings\Index.cshtml" />
     <Content Include="Views\EmployeeTrainings\AttendeeList.cshtml" />
+    <Content Include="Views\EmployeeTrainingMappings\Create.cshtml" />
+    <Content Include="Views\EmployeeTrainingMappings\Delete.cshtml" />
+    <Content Include="Views\EmployeeTrainingMappings\Details.cshtml" />
+    <Content Include="Views\EmployeeTrainingMappings\Edit.cshtml" />
+    <Content Include="Views\EmployeeTrainingMappings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

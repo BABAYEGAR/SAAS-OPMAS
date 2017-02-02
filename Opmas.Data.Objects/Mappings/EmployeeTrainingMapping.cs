@@ -14,6 +14,10 @@ namespace Opmas.Data.Objects.Entities.Employee
         public long EmployeeTrainingId { get; set; }
         [ForeignKey("EmployeeTrainingId")]
         public virtual EmployeeTraining EmployeeTrainings { get; set; }
+        public long InstitutionId { get; set; }
+
+        [ForeignKey("InstitutionId")]
+        public virtual Institution Institution { get; set; }
 
     }
 }
