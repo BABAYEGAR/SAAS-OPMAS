@@ -16,9 +16,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public string EndTime { get; set; }
         public string CoordinatorFullname { get; set; }
         public string CoordinatorCompany { get; set; }
-        public long EmployeeId { get; set; }
-        [ForeignKey("EmployeeId")]
-        public virtual Employee Employees { get; set; }
+        public List<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
         public IEnumerable<TrainingCategory> TrainingCategories{ get; set; }
 
     }

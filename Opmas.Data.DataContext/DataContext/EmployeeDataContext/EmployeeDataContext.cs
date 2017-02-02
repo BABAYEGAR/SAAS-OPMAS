@@ -32,6 +32,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
         public virtual DbSet<EmployeeTraining> EmployeeTrainings { get; set; }
         public virtual DbSet<TrainingCategory> TrainingCategory { get; set; }
+        public virtual DbSet<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

@@ -233,6 +233,8 @@
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TrainingManagement\EmployeeTrainingsController.cs" />
+    <Compile Include="Controllers\TrainingManagement\TrainingCategoriesController.cs" />
     <Compile Include="Controllers\UserManagement\AppUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5236,6 +5238,17 @@
     <Content Include="Views\Shared\CreateFauculty.cshtml" />
     <Content Include="Views\Shared\CreateDepartment.cshtml" />
     <Content Include="Views\EmployeeManagement\EditEmployeeFamilyData.cshtml" />
+    <Content Include="Views\TrainingCategories\Create.cshtml" />
+    <Content Include="Views\TrainingCategories\Delete.cshtml" />
+    <Content Include="Views\TrainingCategories\Details.cshtml" />
+    <Content Include="Views\TrainingCategories\Edit.cshtml" />
+    <Content Include="Views\TrainingCategories\Index.cshtml" />
+    <Content Include="Views\EmployeeTrainings\Create.cshtml" />
+    <Content Include="Views\EmployeeTrainings\Delete.cshtml" />
+    <Content Include="Views\EmployeeTrainings\Details.cshtml" />
+    <Content Include="Views\EmployeeTrainings\Edit.cshtml" />
+    <Content Include="Views\EmployeeTrainings\Index.cshtml" />
+    <Content Include="Views\EmployeeTrainings\AttendeeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

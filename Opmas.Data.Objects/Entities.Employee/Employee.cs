@@ -40,7 +40,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         [ForeignKey("FacultyId")]
         public virtual Faculty Faculty { get; set; }
         public IEnumerable<Role> Roles { get; set; }
-        public IEnumerable<EmployeeTraining> EmployeeTraining { get; set; }
+        public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
 
     }
 }
