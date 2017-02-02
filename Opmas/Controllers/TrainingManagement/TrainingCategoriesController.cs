@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.User;
 
 namespace Opmas.Controllers.TrainingManagement
 {
@@ -49,16 +50,21 @@ namespace Opmas.Controllers.TrainingManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TrainingCategoryId,Name,InstitutionId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] TrainingCategory trainingCategory)
+        public ActionResult Create([Bind(Include = "TrainingCategoryId,Name")] TrainingCategory trainingCategory)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                trainingCategory.DateCreated = DateTime.Now;
+                trainingCategory.DateLastModified = DateTime.Now;
+                trainingCategory.CreatedBy = loggedinuser.AppUserId;
+                trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
+                //trainingCategory.InstitutionId = loggedinuser.InstitutionId;
                 db.TrainingCategory.Add(trainingCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", trainingCategory.InstitutionId);
             return View(trainingCategory);
         }
 
@@ -83,15 +89,17 @@ namespace Opmas.Controllers.TrainingManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TrainingCategoryId,Name,InstitutionId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] TrainingCategory trainingCategory)
+        public ActionResult Edit([Bind(Include = "TrainingCategoryId,Name,InstitutionId,CreatedBy,DateCreated")] TrainingCategory trainingCategory)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                trainingCategory.DateLastModified = DateTime.Now;
+                trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(trainingCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", trainingCategory.InstitutionId);
             return View(trainingCategory);
         }
 
