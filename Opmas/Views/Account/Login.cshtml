@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "Login";
 }
-
 @if (TempData["login"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))

@@ -63,7 +63,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentId,Name,FacultyId")] Department department,FormCollection collectedValues)
+        public ActionResult Create([Bind(Include = "DepartmentId,Name,FacultyId")] Department department)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
@@ -74,18 +74,6 @@ namespace Opmas.Controllers.ApplicationManagement
                 if (ModelState.IsValid)
                 {
                     department.InstitutionId = institution.InstitutionId;
-
-                    var departments = db.Departments;
-                    foreach (var item in departments)
-                    {
-                        if (item.Name == collectedValues["Name"])
-                        {
-                            TempData["department"] = "Department name already exist, try another name!";
-                            TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                            return RedirectToAction("Index");
-                        }
-                    }
-
                     db.Departments.Add(department);
                     db.SaveChanges();
                     TempData["department"] = "You have successfully created a department";
@@ -132,20 +120,10 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DepartmentId,Name,FacultyId,InstitutionId")] Department department,FormCollection collectedValues)
+        public ActionResult Edit([Bind(Include = "DepartmentId,Name,FacultyId,InstitutionId")] Department department)
         {
             if (ModelState.IsValid)
             {
-                var departments = db.Departments;
-                foreach (var item in departments)
-                {
-                    if (item.Name == collectedValues["Name"])
-                    {
-                        TempData["department"] = "Department name already exist, try another name!";
-                        TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                        return RedirectToAction("Index");
-                    }
-                }
                 db.Entry(department).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["department"] = "You have successfully modified the department";

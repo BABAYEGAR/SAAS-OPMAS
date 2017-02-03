@@ -45,7 +45,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FacultyId,Name")] Faculty faculty,FormCollection collectedValues)
+        public ActionResult Create([Bind(Include = "FacultyId,Name")] Faculty faculty)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
@@ -60,17 +60,6 @@ namespace Opmas.Controllers.ApplicationManagement
                         faculty.LastModifiedBy = loggedinuser.AppUserId;
                         faculty.CreatedBy = loggedinuser.AppUserId;
                         faculty.InstitutionId = institution.InstitutionId;
-
-                        var faculties = db.Faculties;
-                        foreach (var item in faculties)
-                        {
-                            if (item.Name == collectedValues["Name"])
-                            {
-                                TempData["faculty"] = "Faculty name already exist, try another name!";
-                                TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                                return RedirectToAction("Index");
-                            }
-                        }
                         db.Faculties.Add(faculty);
                         db.SaveChanges();
                         TempData["faculty"] = "You have successfully created a faculty";
@@ -107,7 +96,7 @@ namespace Opmas.Controllers.ApplicationManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
-            [Bind(Include = "FacultyId,Name,InstitutionId,CreatedBy,DateCreated")] Faculty faculty,FormCollection collectedValues)
+            [Bind(Include = "FacultyId,Name,InstitutionId,CreatedBy,DateCreated")] Faculty faculty)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
@@ -116,16 +105,6 @@ namespace Opmas.Controllers.ApplicationManagement
                 {
                     faculty.DateLastModified = DateTime.Now;
                     faculty.LastModifiedBy = loggedinuser.AppUserId;
-                    var faculties = db.Faculties;
-                    foreach (var item in faculties)
-                    {
-                        if (item.Name == collectedValues["Name"])
-                        {
-                            TempData["faculty"] = "Faculty name already exist, try another name!";
-                            TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                            return RedirectToAction("Index");
-                        }
-                    }
                     db.Entry(faculty).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["faculty"] = "You have successfully modified the faculty";

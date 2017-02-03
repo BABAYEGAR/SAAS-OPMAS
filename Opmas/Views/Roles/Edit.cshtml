@@ -1,5 +1,4 @@
 ﻿@using Opmas.Data.Objects.Entities.Employee
-@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.Role
 
 @{
@@ -8,21 +7,6 @@
     ViewBag.Title = "Create";
     ViewBag.Header = "Application users roles";
     ViewBag.Subheader = "Create a new appliction user role";
-}
-@if (TempData["role"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert-success alert-dismissable">@TempData["role"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert-danger alert-dismissable">@TempData["role"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert-info alert-dismissable">@TempData["role"]</div>
-    }
 }
 @using (Html.BeginForm("Edit", "Roles", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
