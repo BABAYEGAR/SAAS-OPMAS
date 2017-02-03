@@ -13,13 +13,13 @@ namespace Opmas.Controllers.TrainingManagement
 {
     public class EmployeeTrainingsController : Controller
     {
-        private readonly EmployeeTrainingDataContext db = new EmployeeTrainingDataContext();
-        private readonly EmployeeTrainingMappingDataContext dbc = new EmployeeTrainingMappingDataContext();
+        private readonly EmployeeTrainingDataContext _db = new EmployeeTrainingDataContext();
+        private readonly EmployeeTrainingMappingDataContext _dbc = new EmployeeTrainingMappingDataContext();
 
         // GET: EmployeeTrainings
         public ActionResult Index()
         {
-            var employeeTrainings = db.EmployeeTrainings;
+            var employeeTrainings = _db.EmployeeTrainings;
 
             return View(employeeTrainings.ToList());
         }
@@ -28,7 +28,7 @@ namespace Opmas.Controllers.TrainingManagement
         public ActionResult AttendeeList(long id)
         {
             var user = Session["opmasloggedinuser"] as AppUser;
-            var employeeTrainings = db.Employees.Where(n => n.InstitutionId == user.InstitutionId);
+            var employeeTrainings = _db.Employees.Where(n => n.InstitutionId == user.InstitutionId);
             ViewBag.Id = id;
 
             return View(employeeTrainings.ToList());
@@ -39,7 +39,7 @@ namespace Opmas.Controllers.TrainingManagement
         [ValidateAntiForgeryToken]
         public ActionResult SubmitAttendeeList(int[] selected, FormCollection collectedValues)
         {
-            var allMappings = dbc.EmployeeTrainingMappings.ToList();
+            var allMappings = _dbc.EmployeeTrainingMappings.ToList();
 
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var trainingId = Convert.ToInt64(collectedValues["id"]);
@@ -47,7 +47,10 @@ namespace Opmas.Controllers.TrainingManagement
             for (var i = 0; i < length; i++)
             {
                 var id = selected[i];
-                if (allMappings.Any(n => (n.EmployeeId == id) && (n.InstitutionId == loggedinuser?.InstitutionId)))
+                var alreadyAdded =
+                    allMappings.Where(n => (n.EmployeeId == id) && (n.InstitutionId == loggedinuser?.InstitutionId)).ToList();
+           
+                if (alreadyAdded.Count > 0)
                 {
 
                 }
@@ -65,8 +68,8 @@ namespace Opmas.Controllers.TrainingManagement
                             LastModifiedBy = loggedinuser.AppUserId,
                             CreatedBy = loggedinuser.AppUserId
                         };
-                        dbc.EmployeeTrainingMappings.Add(trainingMapping);
-                        dbc.SaveChanges();
+                        _dbc.EmployeeTrainingMappings.Add(trainingMapping);
+                        _dbc.SaveChanges();
                     }
                 }
             }
@@ -78,7 +81,7 @@ namespace Opmas.Controllers.TrainingManagement
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeeTraining = db.EmployeeTrainings.Find(id);
+            var employeeTraining = _db.EmployeeTrainings.Find(id);
             if (employeeTraining == null)
                 return HttpNotFound();
             return View(employeeTraining);
@@ -87,7 +90,7 @@ namespace Opmas.Controllers.TrainingManagement
         // GET: EmployeeTrainings/Create
         public ActionResult Create()
         {
-            ViewBag.TrainingCategoryId = new SelectList(db.TrainingCategory, "TrainingCategoryId", "Name");
+            ViewBag.TrainingCategoryId = new SelectList(_db.TrainingCategory, "TrainingCategoryId", "Name");
             return View();
         }
 
@@ -114,8 +117,8 @@ namespace Opmas.Controllers.TrainingManagement
                     if (loggedinuser.InstitutionId != null)
                         employeeTraining.InstitutionId = (long) loggedinuser.InstitutionId;
                 }
-                db.EmployeeTrainings.Add(employeeTraining);
-                db.SaveChanges();
+                _db.EmployeeTrainings.Add(employeeTraining);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -127,7 +130,7 @@ namespace Opmas.Controllers.TrainingManagement
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeeTraining = db.EmployeeTrainings.Find(id);
+            var employeeTraining = _db.EmployeeTrainings.Find(id);
             if (employeeTraining == null)
                 return HttpNotFound();
             return View(employeeTraining);
@@ -149,8 +152,8 @@ namespace Opmas.Controllers.TrainingManagement
             {
                 employeeTraining.DateLastModified = DateTime.Now;
                 if (loggedinuser != null) employeeTraining.LastModifiedBy = loggedinuser.AppUserId;
-                db.Entry(employeeTraining).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(employeeTraining).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(employeeTraining);
@@ -161,7 +164,7 @@ namespace Opmas.Controllers.TrainingManagement
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var employeeTraining = db.EmployeeTrainings.Find(id);
+            var employeeTraining = _db.EmployeeTrainings.Find(id);
             if (employeeTraining == null)
                 return HttpNotFound();
             return View(employeeTraining);
@@ -173,16 +176,16 @@ namespace Opmas.Controllers.TrainingManagement
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var employeeTraining = db.EmployeeTrainings.Find(id);
-            db.EmployeeTrainings.Remove(employeeTraining);
-            db.SaveChanges();
+            var employeeTraining = _db.EmployeeTrainings.Find(id);
+            _db.EmployeeTrainings.Remove(employeeTraining);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -1044,7 +1044,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
 
-            return RedirectToAction("Dashboard'", "Home");
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // GET: EmployeeManagement/EditWorkData

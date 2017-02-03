@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Opmas.Data.DataContext.DataContext.AccessDataContext;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
-using Opmas.Data.Factory.ApplicationManagement;
 using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
@@ -37,6 +34,7 @@ namespace Opmas.Controllers
         [HttpPost]
         public ActionResult SelectInstitution(Institution institution,FormCollection collectedValues)
         {
+            if (institution == null) throw new ArgumentNullException(nameof(institution));
             var institutionId = Convert.ToInt64(collectedValues["InstitutionId"]);
             var accessCode = collectedValues["AccessCode"];
             institution = _dbInstitution.Institutions.Find(institutionId);
