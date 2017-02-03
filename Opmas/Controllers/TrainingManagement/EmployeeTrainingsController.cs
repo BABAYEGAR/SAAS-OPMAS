@@ -7,6 +7,7 @@ using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
 using System;
+using Opmas.Data.Objects.Training;
 
 namespace Opmas.Controllers.TrainingManagement
 {
@@ -21,8 +22,17 @@ namespace Opmas.Controllers.TrainingManagement
             return View(employeeTrainings.ToList());
         }
 
-        // GET: ListOfUserTraining
-        public ActionResult ListOfUserTraining()
+        // GET: AttendeeList
+        public ActionResult AttendeeList()
+        {
+            var user = Session["opmasloggedinuser"] as AppUser;
+            var employeeTrainings = db.Employees.Where(n=>n.InstitutionId == user.InstitutionId); ;
+            return View(employeeTrainings.ToList());
+        }
+        // GET: AttendeeList
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AttendeeList(FormCollection collectedValues)
         {
             var user = Session["opmasloggedinuser"] as AppUser;
             var employeeTrainings = db.EmployeeTrainings; ;
@@ -62,8 +72,13 @@ namespace Opmas.Controllers.TrainingManagement
             {
                 employeeTraining.DateCreated = DateTime.Now;
                 employeeTraining.DateLastModified = DateTime.Now;
-                employeeTraining.CreatedBy = loggedinuser.AppUserId;
-                employeeTraining.LastModifiedBy = loggedinuser.AppUserId;
+                if (loggedinuser != null)
+                {
+                    employeeTraining.CreatedBy = loggedinuser.AppUserId;
+                    employeeTraining.LastModifiedBy = loggedinuser.AppUserId;
+                    if (loggedinuser.InstitutionId != null)
+                        employeeTraining.InstitutionId = (long) loggedinuser.InstitutionId;
+                }
                 db.EmployeeTrainings.Add(employeeTraining);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,7 +107,7 @@ namespace Opmas.Controllers.TrainingManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeTrainingId,Title,Location,StartDate,EndDate,StartTime,EndTime,CoordinatorFullname,CoordinatorCompany,CreatedBy,DateCreated")] EmployeeTraining employeeTraining)
+        public ActionResult Edit([Bind(Include = "EmployeeTrainingId,InstitutionId,Title,Location,StartDate,EndDate,StartTime,EndTime,CoordinatorFullname,CoordinatorCompany,CreatedBy,DateCreated")] EmployeeTraining employeeTraining)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

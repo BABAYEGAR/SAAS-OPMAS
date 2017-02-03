@@ -30,6 +30,10 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageAllInstitutions { get; set; }
         [DisplayName("Manage Priviledges")]
         public bool ManageRolePriviledges { get; set; }
+        [DisplayName("Manage Training")]
+        public bool ManageTraining { get; set; }
+        [DisplayName("Manage Training  Types")]
+        public bool ManageTrainingTypes { get; set; }
         [DisplayName("Role Category")]
         public string RoleType { get; set; }
         [DisplayName("Manage EmploymentType")]

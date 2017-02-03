@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.Mappings;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {

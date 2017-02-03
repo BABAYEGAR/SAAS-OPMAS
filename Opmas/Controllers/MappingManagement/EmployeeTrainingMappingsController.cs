@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.DataContext.DataContext.MappingDataContext;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Mappings;
 
 namespace Opmas.Controllers.MappingManagement
 {

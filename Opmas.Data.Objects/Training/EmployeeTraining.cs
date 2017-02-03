@@ -1,9 +1,11 @@
-﻿using Opmas.Data.Objects.Entities.SystemManagement;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
+using Opmas.Data.Objects.Mappings;
 
-namespace Opmas.Data.Objects.Entities.Employee
+namespace Opmas.Data.Objects.Training
 {
     public class EmployeeTraining : Transport
     {
@@ -16,8 +18,15 @@ namespace Opmas.Data.Objects.Entities.Employee
         public string EndTime { get; set; }
         public string CoordinatorFullname { get; set; }
         public string CoordinatorCompany { get; set; }
+        public long InstitutionId { get; set; }
+
+        [ForeignKey("InstitutionId")]
+        public virtual Institution Institution { get; set; }
+        public long TrainingCategoryId { get; set; }
+
+        [ForeignKey("TrainingCategoryId")]
+        public virtual TrainingCategory TrainingCategories { get; set; }
         public List<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
-        public IEnumerable<TrainingCategory> TrainingCategories{ get; set; }
 
     }
 }

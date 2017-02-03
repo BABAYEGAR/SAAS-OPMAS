@@ -1,9 +1,9 @@
-﻿using Opmas.Data.Objects.Entities.SystemManagement;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
+using Opmas.Data.Objects.Training;
 
-namespace Opmas.Data.Objects.Entities.Employee
+namespace Opmas.Data.Objects.Mappings
 {
     public class EmployeeTrainingMapping : Transport
     {

@@ -7,8 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.DataContext.DataContext.TrainingDataContext;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.Training;
 
 namespace Opmas.Controllers.TrainingManagement
 {
@@ -57,9 +59,13 @@ namespace Opmas.Controllers.TrainingManagement
             {
                 trainingCategory.DateCreated = DateTime.Now;
                 trainingCategory.DateLastModified = DateTime.Now;
-                trainingCategory.CreatedBy = loggedinuser.AppUserId;
-                trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
-                //trainingCategory.InstitutionId = loggedinuser.InstitutionId;
+                if (loggedinuser != null)
+                {
+                    trainingCategory.CreatedBy = loggedinuser.AppUserId;
+                    trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
+                    if (loggedinuser.InstitutionId != null)
+                        trainingCategory.InstitutionId = (long) loggedinuser.InstitutionId;
+                }
                 db.TrainingCategory.Add(trainingCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,7 +101,7 @@ namespace Opmas.Controllers.TrainingManagement
             if (ModelState.IsValid)
             {
                 trainingCategory.DateLastModified = DateTime.Now;
-                trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
+                if (loggedinuser != null) trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(trainingCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

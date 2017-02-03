@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Mappings;
+using Opmas.Data.Objects.Training;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
 {
@@ -40,6 +42,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<Department> Departments { get; set; }
         public IEnumerable<EmploymentType> EmploymentTypes { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
+        public IEnumerable<EmployeeTraining> EmployeeTrainings { get; set; }
         public IEnumerable<TrainingCategory> TrainingCategories { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMapping { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }

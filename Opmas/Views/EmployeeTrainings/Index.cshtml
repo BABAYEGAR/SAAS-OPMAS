@@ -1,8 +1,10 @@
-﻿@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeeTraining>
+﻿@using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Training.EmployeeTraining>
 @{
     ViewBag.Title = "List";
-    ViewBag.Header = "Departments";
-    ViewBag.Subheader = "List Of Departments";
+    ViewBag.Header = "Training";
+    ViewBag.Subheader = "List Of Trainings";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var department = new Department();
 }
@@ -10,18 +12,18 @@
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable">@TempData["department"]</div>
+        <div class="alert-success alert-dismissable">@TempData["training"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable">@TempData["department"]</div>
+        <div class="alert-danger alert-dismissable">@TempData["training"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable">@TempData["department"]</div>
+        <div class="alert-info alert-dismissable">@TempData["training"]</div>
     }
 }
-@section add {
+@*@section add {
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#myModal">
         Add Data
@@ -46,7 +48,7 @@
         </div>
 
     </div>
-}
+}*@
 <table id="datatable" class="table table-striped table-bordered">
         <tr>
             <th>

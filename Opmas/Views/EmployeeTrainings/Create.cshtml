@@ -1,4 +1,11 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmployeeTraining
+﻿
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Header = "Training";
+    ViewBag.Subheader = "create a new training";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+}
+@model Opmas.Data.Objects.Training.EmployeeTraining
   @using (Html.BeginForm("Create", "EmployeeTrainings", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
   {
         @Html.AntiForgeryToken()
@@ -67,6 +74,13 @@
                 </div>
             </div>
 
+            @*<div class="form-group">
+                @Html.LabelFor(model => model., "Faculty", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.DropDownListFor(m => m.FacultyId, null, new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
+                    @Html.ValidationMessageFor(model => model.FacultyId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Create" class="btn btn-primary pull-right" />

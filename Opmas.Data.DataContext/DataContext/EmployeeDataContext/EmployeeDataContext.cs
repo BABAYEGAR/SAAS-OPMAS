@@ -3,6 +3,8 @@ using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.Mappings;
+using Opmas.Data.Objects.Training;
 
 namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
 {
