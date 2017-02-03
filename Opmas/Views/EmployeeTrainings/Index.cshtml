@@ -95,7 +95,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.EmployeeTrainingId }, new { @class = "btn btn-xs btn-default" })
-                    @Html.ActionLink("Attendee list", "Index", "Units", new { id = item.EmployeeTrainingId }, new { @class = "btn btn-xs btn-success" })
+                    @Html.ActionLink("Attendee list", "AttendeeList", "EmployeeTrainings", new { id = item.EmployeeTrainingId }, new { @class = "btn btn-xs btn-success" })
                 </td>
             </tr>
         }
