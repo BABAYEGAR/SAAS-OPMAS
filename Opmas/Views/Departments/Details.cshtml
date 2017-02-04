@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Deparments";
     ViewBag.Subheader = "View depatment details";
-    Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
 <div>
     <dl class="dl-horizontal">
@@ -36,4 +36,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit Department", "Edit", new {id = Model.DepartmentId}, new {@class = "btn btn-primary btn-xs"})
+    @Html.ActionLink("Delete Department", "Edit", new {id = Model.DepartmentId}, new {@class = "btn btn-danger btn-xs"})
 </p>

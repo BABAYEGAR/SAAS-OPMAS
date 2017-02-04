@@ -1,5 +1,11 @@
 ﻿@model Opmas.Data.Objects.Entities.SystemManagement.Unit
 
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Units";
+    ViewBag.Subheader = "View unit details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+}
 <div>
     <dl class="dl-horizontal">
 
@@ -22,5 +28,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.UnitId}, new {@class = "btn btn-primary btn-xs"}) |
+    @Html.ActionLink("Edit Unit", "Edit", new {id = Model.UnitId}, new {@class = "btn btn-primary btn-xs"})
+    @Html.ActionLink("Delete Unit", "Edit", new {id = Model.UnitId}, new {@class = "btn btn-danger btn-xs"})
 </p>

@@ -4,26 +4,14 @@
 
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-    if (loggedinuser != null)
-    {
-        if (loggedinuser.Role == AdminUserType.SystemAdministrator.ToString())
-        {
-            Layout = "~/Views/Shared/_LayoutSystemAdminForm.cshtml";
-            ViewBag.Title = "Edit";
-            ViewBag.Header = "Application Users";
-            ViewBag.Subheader = "Edit an appliction user";
-        }
-        if (loggedinuser.Role == AdminUserType.InstitutionAdministrator.ToString())
-        {
-            Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
-            ViewBag.Title = "Edit";
-            ViewBag.Header = "Application Users";
-            ViewBag.Subheader = "Edit an appliction user";
-        }
-    }
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    ViewBag.Title = "Edit";
+    ViewBag.Header = "Application Users";
+    ViewBag.Subheader = "Edit an appliction user";
+        
+    
 }
 @section css {
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="~/Content/fileinput.min.css" rel="stylesheet"/>
 }
 @using (Html.BeginForm("Edit", "AppUsers", FormMethod.Post, new {@class = "form-horizontal", id = "demo-form2", enctype = "multipart/form-data"}))
@@ -100,14 +88,10 @@
     </div>
 }
 @section scripts {
-    <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
     <script src="~/Scripts/fileinput.js"></script>
     <script>
         $(document)
             .ready(function() {
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
 
                 //image uploader
                 var btnCust = '<button type="button" class="btn btn-default" title="Add picture tags" ' +

@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.TrainingDataContext;
-using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Training;
 

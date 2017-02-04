@@ -1,13 +1,10 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
     ViewBag.Title = "Edit";
     ViewBag.Header = "Institutions";
     ViewBag.Subheader = "Add your Institution Details";
 }
 @model Opmas.Data.Objects.Entities.SystemManagement.Institution
-@section css {
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-}
 @using (Html.BeginForm("Create", "Institutions", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()

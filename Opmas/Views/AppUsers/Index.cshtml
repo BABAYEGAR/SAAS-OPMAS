@@ -57,9 +57,7 @@
                 @Html.DisplayFor(modelItem => item.Role.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-primary"}) |
-                @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-default"}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-danger"})
+                @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-default"})
             </td>
         </tr>
     }

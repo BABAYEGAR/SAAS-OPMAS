@@ -5,7 +5,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Faculties";
     ViewBag.Subheader = "View faculty details";
-    Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
 
 <div>
@@ -62,4 +62,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit Faculty", "Edit", new {id = Model.FacultyId}, new {@class = "btn btn-primary btn-xs"})
+    @Html.ActionLink("Delete Faculty", "Delete", new {id = Model.FacultyId}, new {@class = "btn btn-danger btn-xs"})
 </p>

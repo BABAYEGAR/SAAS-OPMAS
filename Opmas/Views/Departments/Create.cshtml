@@ -6,9 +6,6 @@
     ViewBag.Subheader = "Create a new Department";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-@section css {
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-}
 @using (Html.BeginForm("Create", "Departments", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
@@ -34,17 +31,4 @@
             <input type="submit" value="Create" class="btn btn-success pull-right"/>
         </div>
     </div>
-}
-@section scripts {
-    <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
-    <script>
-        $(document)
-            .ready(function() {
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-            });
-
-
-    </script>
 }
