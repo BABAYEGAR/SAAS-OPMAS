@@ -109,22 +109,8 @@ namespace Opmas.Controllers.EmployeeManagement
             var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)
             {
-                //role.RoleType = typeof(RoleType).GetEnumName(int.Parse(collectedValues["RoleType"]));
-                //var roles = db.Roles;
-                //foreach (var item in roles)
-                //{
-                //    if (item.Name == collectedValues["Name"] )
-                //    {
-                //        TempData["role"] = "Role already exist, try another role name!";
-                //        TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                //        return View(role);
-                //    }
-                //}
                 db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
-
-                Session["role"] = role;
-
                 TempData["role"] = "You have successfully modified a role!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");

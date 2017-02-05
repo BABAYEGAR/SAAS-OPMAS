@@ -83,7 +83,7 @@ namespace Opmas.Controllers.TrainingManagement
             }
             else
             {
-                TempData["training"] = "no employee has ben selected!";
+                TempData["training"] = "no employee has been selected!";
                 TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
                 return RedirectToAction("AttendeeList", new { id = trainingId });
             }

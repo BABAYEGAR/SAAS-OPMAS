@@ -12,7 +12,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         [DisplayName("Department Name")]
         public string Name { get; set; }
         [DisplayName("Faculty Name")]
-        public long FacultyId { get; set; }
+        public long? FacultyId { get; set; }
 
         [ForeignKey("FacultyId")]
         public virtual Faculty Faculty { get; set; }
