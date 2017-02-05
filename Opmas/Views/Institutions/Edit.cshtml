@@ -16,6 +16,7 @@
     @Html.HiddenFor(m => m.Logo)
     @Html.HiddenFor(m => m.SubscriprionStartDate)
     @Html.HiddenFor(m => m.SubscriptonEndDate)
+    @Html.HiddenFor(m => m.PackageId)
     <div class="form-group">
         @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -62,9 +63,9 @@
         </div>
     </div>
     <div class="form-group col-md-12">
-        @Html.LabelFor(model => model.PackageId, "Package", new {@class = "control-label  col-md-3 col-sm-3 col-xs-12"})
+        @Html.LabelFor(model => model.RegistrationNumber, new { @class = "control-label  col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.DropDownList("PackageId", null, new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
+            @Html.EditorFor(model => model.RegistrationNumber, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
         </div>
     </div>
 

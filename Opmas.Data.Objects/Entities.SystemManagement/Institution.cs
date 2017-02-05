@@ -28,6 +28,8 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         [DisplayName("Subscription Duration")]
         public string SubscriptionDuration { get; set; }
         public string AccessCode { get; set; }
+        [DisplayName("Registration Number")]
+        public string RegistrationNumber { get; set; }
 
         [Required]
         [DisplayName("Contact Number")]
