@@ -21,7 +21,6 @@ namespace Opmas.Controllers.TrainingManagement
         public ActionResult Index()
         {
             var employeeTrainings = _db.EmployeeTrainings;
-
             return View(employeeTrainings.ToList());
         }
 
@@ -204,15 +203,17 @@ namespace Opmas.Controllers.TrainingManagement
         // GET: EmployeeTrainings/RemoveMapping/5
         public ActionResult RemoveMapping(long id)
         {
+            var training = Session["training"] as EmployeeTraining;
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var employeeTraining = _dbc.EmployeeTrainingMappings.SingleOrDefault(n=>n.EmployeeId == id && n.InstitutionId == loggedinuser.InstitutionId);
+            var employeeTraining = _dbc.EmployeeTrainingMappings.SingleOrDefault(n=>n.EmployeeId == id && n.InstitutionId == loggedinuser.InstitutionId && n.EmployeeTrainingId == training.EmployeeTrainingId);
             long trainingId = 0;
             if (employeeTraining != null)
             {
-                trainingId = employeeTraining.EmployeeTrainingId;
+                if (training != null) trainingId = training.EmployeeTrainingId;
             }
             _dbc.EmployeeTrainingMappings.Remove(employeeTraining);
             _dbc.SaveChanges();
+            Session["training"] = null;
             return RedirectToAction("AttendeeList",new {id = trainingId});
         }
 

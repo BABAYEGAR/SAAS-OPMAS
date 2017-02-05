@@ -63,8 +63,9 @@
                 <tr>
                     <td>
                         @if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && n.EmployeeTrainingId == id) != null)
-                    {
-
+                        {
+                            var training = dbc.EmployeeTrainings.Find(id);
+                            Session["training"] =  training;
                             <a href="@Url.Action("RemoveMapping","EmployeeTrainings",new {id  = item.EmployeeId})"><i class="fa fa-remove"></i></a>
                         }
                         else
