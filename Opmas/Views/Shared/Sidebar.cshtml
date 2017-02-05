@@ -177,11 +177,8 @@
             @if (userRole.ManageDepartments)
             {
                 <li>
-                    <a><i class="fa fa-gift"></i> Departments <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-user-secret"></i> Departments <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        @*<li>
-                            <a href="@Url.Action("Create", "Departments")">Add Department</a>
-                        </li>*@
                         <li>
                             <a href="@Url.Action("Index", "Departments")">Departments</a>
                         </li>
@@ -191,10 +188,10 @@
             @if (userRole.ManageTraining)
             {
                 <li>
-                    <a><i class="fa fa-gift"></i> Training <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-gift"></i>Employee Training <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li>
-                            <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
+                            <a href="@Url.Action("Index", "EmployeeTrainings")">Training</a>
                         </li>
                     </ul>
                 </li>
@@ -202,7 +199,7 @@
             @if (userRole.ManageTrainingTypes)
             {
                 <li>
-                    <a><i class="fa fa-gift"></i> Training <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-wrench"></i> Training Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li>
                             <a href="@Url.Action("Index", "TrainingCategories")">Training Types</a>
