@@ -1,10 +1,11 @@
-﻿@model Opmas.Data.Objects.Training.TrainingCategory
+﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentCategory
 @{
-    ViewBag.Title = "Details";
-    ViewBag.Header = "Training Category";
-    ViewBag.Subheader = "View vategory details";
+    ViewBag.Title = "Delete";
+    ViewBag.Header = "Employment Category";
+    ViewBag.Subheader = "Delete a Employment Category";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
+
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -56,8 +57,13 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete Department" class="btn btn-danger btn-xs"/>
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit Category", "Edit", new {id = Model.TrainingCategoryId}, new {@class = "btn btn-primary btn-xs"})
-    @Html.ActionLink("Delete Category", "Delete", new {id = Model.TrainingCategoryId}, new {@class = "btn btn-danger btn-xs"})
-</p>

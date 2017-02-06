@@ -1,12 +1,12 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentType
+﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentCategory
 
 @{
     ViewBag.Title = "Create";
-    ViewBag.Header = "Employment types";
-    ViewBag.Subheader = "Create a new employment type";
+    ViewBag.Header = "Employment Category";
+    ViewBag.Subheader = "Create a new employment category";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-@using (Html.BeginForm("Create", "EmploymentTypes", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
+@using (Html.BeginForm("Create", "EmploymentCategories", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new {@class = "text-danger"})

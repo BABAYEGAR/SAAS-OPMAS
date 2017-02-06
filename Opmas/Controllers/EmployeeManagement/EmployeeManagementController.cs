@@ -24,6 +24,7 @@ namespace Opmas.Controllers.EmployeeManagement
         private readonly AppUserDataContext _dbAppUser = new AppUserDataContext();
         private readonly BankDataContext _dbBanks = new BankDataContext();
         private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
+        private readonly EmploymentTypeDataContext _dbEmploymentType = new EmploymentTypeDataContext();
         private Employee _employee = new Employee();
 
         #region Fetch data
@@ -440,7 +441,7 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult MedicalData()
         {
             _employee = Session["Employee"] as Employee;
-            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes.Where(n=>n.InstitutionId == _employee.InstitutionId), "EmploymentTypeId", "Name"); 
+            ViewBag.EmploymentTypeId = new SelectList(_dbEmploymentType.EmploymentTypes.Where(n=>n.InstitutionId == _employee.InstitutionId), "EmploymentTypeId", "Name"); 
             if (_employee?.EmployeeMedicalDatas != null)
                 return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
             return View();

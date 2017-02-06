@@ -1,8 +1,9 @@
-﻿@model Opmas.Data.Objects.Training.TrainingCategory
+﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentCategory
+
 @{
     ViewBag.Title = "Details";
-    ViewBag.Header = "Training Category";
-    ViewBag.Subheader = "View vategory details";
+    ViewBag.Header = "Employment Category";
+    ViewBag.Subheader = "View employment category details";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
 <div>
@@ -58,6 +59,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit Category", "Edit", new {id = Model.TrainingCategoryId}, new {@class = "btn btn-primary btn-xs"})
-    @Html.ActionLink("Delete Category", "Delete", new {id = Model.TrainingCategoryId}, new {@class = "btn btn-danger btn-xs"})
+    @Html.ActionLink("Edit Department", "Edit", new {id = Model.EmploymentCategoryId}, new {@class = "btn btn-primary btn-xs"})
+    @Html.ActionLink("Delete Department", "Edit", new {id = Model.EmploymentCategoryId}, new {@class = "btn btn-danger btn-xs"})
 </p>

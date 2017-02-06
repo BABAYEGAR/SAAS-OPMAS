@@ -1,24 +1,25 @@
 ﻿@using Opmas.Data.Service.Enums
-@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmploymentType>
+@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmploymentCategory>
+
 @{
     ViewBag.Title = "List";
-    ViewBag.Header = "Employment types";
-    ViewBag.Subheader = "List Of Employment types";
+    ViewBag.Header = "Employment Category";
+    ViewBag.Subheader = "List Of Employment Categories";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
 }
-@if (TempData["employmenttype"] != null)
+@if (TempData["employmentcategory"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable">@TempData["employmenttype"]</div>
+        <div class="alert-success alert-dismissable">@TempData["employmentcategory"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable">@TempData["employmenttype"]</div>
+        <div class="alert-danger alert-dismissable">@TempData["employmentcategory"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable">@TempData["employmenttype"]</div>
+        <div class="alert-info alert-dismissable">@TempData["employmentcategory"]</div>
     }
 }
 @section add {
@@ -50,10 +51,10 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @item.DateCreated.ToShortDateString()
+                @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new {id = item.EmploymentTypeId}, new {@class = "btn btn-xs btn-default"})
+                @Html.ActionLink("Details", "Details", new {id = item.EmploymentCategoryId}, new {@class = "btn btn-xs btn-default"})
             </td>
         </tr>
     }

@@ -1,140 +1,137 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
-using EmploymentType = Opmas.Data.Objects.Entities.Employee.EmploymentType;
 
 namespace Opmas.Controllers.EmployeeManagement
 {
-    public class EmploymentTypesController : Controller
+    public class EmploymentCategoriesController : Controller
     {
-        private EmploymentTypeDataContext db = new EmploymentTypeDataContext();
+        private EmploymentCategoryDataContext db = new EmploymentCategoryDataContext();
 
-        // GET: EmploymentTypes
+        // GET: EmploymentCategories
         public ActionResult Index()
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var employmentTypes = db.EmploymentTypes.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(e => e.Institution);
-            return View(employmentTypes.ToList());
+            var employmentCategorys = db.EmploymentCategorys.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(e => e.Institution);
+            return View(employmentCategorys.ToList());
         }
 
-        // GET: EmploymentTypes/Details/5
+        // GET: EmploymentCategories/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            if (employmentType == null)
+            EmploymentCategory employmentCategory = db.EmploymentCategorys.Find(id);
+            if (employmentCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(employmentType);
+            return View(employmentCategory);
         }
 
-        // GET: EmploymentTypes/Create
+        // GET: EmploymentCategories/Create
         public ActionResult Create()
         {
+            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name");
             return View();
         }
 
-        // POST: EmploymentTypes/Create
+        // POST: EmploymentCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmploymentTypeId,Name")] EmploymentType employmentType)
+        public ActionResult Create([Bind(Include = "EmploymentCategoryId,Name")] EmploymentCategory employmentCategory)
         {
-
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                employmentType.DateCreated = DateTime.Now;
-                employmentType.DateLastModified = DateTime.Now;
+                employmentCategory.DateCreated = DateTime.Now;
+                employmentCategory.DateLastModified = DateTime.Now;
                 if (loggedinuser != null)
                 {
-                    employmentType.CreatedBy = loggedinuser.AppUserId;
-                    employmentType.LastModifiedBy = loggedinuser.AppUserId;
+                    employmentCategory.CreatedBy = loggedinuser.AppUserId;
+                    employmentCategory.LastModifiedBy = loggedinuser.AppUserId;
                     if (loggedinuser.InstitutionId != null)
-                        employmentType.InstitutionId = (long)loggedinuser.InstitutionId;
+                        employmentCategory.InstitutionId = (long)loggedinuser.InstitutionId;
                 }
-                db.EmploymentTypes.Add(employmentType);
+                db.EmploymentCategorys.Add(employmentCategory);
                 db.SaveChanges();
-                TempData["employmentType"] = "you have succesfully created a new Employement Type!";
+                TempData["employmentcategory"] = "you have succesfully created a new Employement Category!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
-            return View(employmentType);
+            return View(employmentCategory);
         }
 
-        // GET: EmploymentTypes/Edit/5
+        // GET: EmploymentCategories/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            if (employmentType == null)
+            EmploymentCategory employmentCategory = db.EmploymentCategorys.Find(id);
+            if (employmentCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(employmentType);
+            return View(employmentCategory);
         }
 
-        // POST: EmploymentTypes/Edit/5
+        // POST: EmploymentCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmploymentTypeId,Name,InstitutionId,CreatedBy,DateCreated")] EmploymentType employmentType)
+        public ActionResult Edit([Bind(Include = "EmploymentCategoryId,Name,InstitutionId,CreatedBy,DateCreated")] EmploymentCategory employmentCategory)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                employmentType.DateLastModified = DateTime.Now;
-                if (loggedinuser != null) employmentType.LastModifiedBy = loggedinuser.AppUserId;
-                db.Entry(employmentType).State = EntityState.Modified;
-                db.SaveChanges();
-                TempData["employmentType"] = "you have succesfully modified the Employement Type!";
+                employmentCategory.DateLastModified = DateTime.Now;
+                if (loggedinuser != null) employmentCategory.LastModifiedBy = loggedinuser.AppUserId;
+                db.Entry(employmentCategory).State = EntityState.Modified;
+                TempData["employmentType"] = "you have succesfully modified the Employement Category!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(employmentType);
+            return View(employmentCategory);
         }
 
-        // GET: EmploymentTypes/Delete/5
+        // GET: EmploymentCategories/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            if (employmentType == null)
+            EmploymentCategory employmentCategory = db.EmploymentCategorys.Find(id);
+            if (employmentCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(employmentType);
+            return View(employmentCategory);
         }
 
-        // POST: EmploymentTypes/Delete/5
+        // POST: EmploymentCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            db.EmploymentTypes.Remove(employmentType);
+            EmploymentCategory employmentCategory = db.EmploymentCategorys.Find(id);
+            db.EmploymentCategorys.Remove(employmentCategory);
             db.SaveChanges();
-            TempData["employmentType"] = "you have succesfully deleted the Employement Type!";
+            TempData["employmentType"] = "you have succesfully deleted the Employement Category!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

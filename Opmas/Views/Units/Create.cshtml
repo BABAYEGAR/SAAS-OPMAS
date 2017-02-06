@@ -5,26 +5,26 @@
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
     long departmentId = ViewBag.DepartmentId;
 }
-@using (Html.BeginForm("Create", "Units", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Units", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
     @Html.HiddenFor(m => m.DepartmentId, departmentId)
     <div class="form-group">
-        @Html.Label("Unit Name", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" }) <span class="req">*</span>
+        @Html.Label("Unit Name", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(m => m.Name, null, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter unit name" })
+            @Html.TextBoxFor(m => m.Name, null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter unit name"})
         </div>
     </div>
 
 
     <div class="form-group">
-        @Html.Label("Description", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+        @Html.Label("Description", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(m => m.Description, null, new { @class = "form-control col-md-7 col-xs-12", placeholder = "Please enter description " })
+            @Html.TextBoxFor(m => m.Description, null, new {@class = "form-control col-md-7 col-xs-12", placeholder = "Please enter description "})
         </div>
     </div>
     <div class="modal-footer">
-        <input type="submit" value="Create" class="btn btn-success pull-right" />
+        <input type="submit" value="Create" class="btn btn-success pull-right"/>
     </div>
 }

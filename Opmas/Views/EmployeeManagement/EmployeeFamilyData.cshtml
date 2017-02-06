@@ -108,8 +108,8 @@
                         @Html.TextBoxFor(m => m.DateOfBirth, new {@class = "form-control dob", placeholder = "Please select the date of birth"})
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(m => m.Relationship, "Relationship:", new {@class = "control-label col-md-12" })
-                        @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(FamilyEnum)), new { @class = "form-control select-dropdown col-md-12" })
+                        @Html.LabelFor(m => m.Relationship, "Relationship:", new {@class = "control-label col-md-12"})
+                        @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(FamilyEnum)), new {@class = "form-control select-dropdown col-md-12"})
                     </div>
                 </fieldset>
                 <div class="col-md-12">

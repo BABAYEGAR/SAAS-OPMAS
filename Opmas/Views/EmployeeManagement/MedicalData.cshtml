@@ -88,13 +88,13 @@
                     <legend>Employee Bank Data</legend>
 
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.BloodGroup, new {@class = "control-label col-md-12" })
+                        @Html.LabelFor(m => m.BloodGroup, new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.BloodGroup, EnumHelper.GetSelectList(typeof(BloodGroup)), "select your blood group", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(m => m.Genotype, new {@class = "control-label col-md-12" })
+                        @Html.LabelFor(m => m.Genotype, new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.Genotype, EnumHelper.GetSelectList(typeof(Genotype)), "select your genotype", new {@class = "form-control select-dropdown"})
                     </div>
                 </fieldset>
@@ -104,11 +104,11 @@
 
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Type", new {@class = "control-label col-md-12"})
-                        @Html.DropDownListFor(m => m.EmploymentTypeId, null, "--Please select your employment type--", new { @class = "form-control select-dropdown"})
-                    
+                        @Html.DropDownListFor(m => m.EmploymentTypeId, null, "--Please select your employment type--", new {@class = "form-control select-dropdown"})
+
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.Label("Employment Category", new {@class = "control-label col-md-12" })
+                        @Html.Label("Employment Category", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.EmploymentCategory, EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="form-group col-md-6">
@@ -122,26 +122,26 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label col-md-12" })
+                        @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.FacultyId, null, "--Please select your faculty--", new {@class = "form-control select-dropdown col-md-12", id = "faculty"})
 
 
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.Label("DepartmentId", "Assigned Department", new {@class = "control-label col-md-12" })
+                        @Html.Label("DepartmentId", "Assigned Department", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.DepartmentId, new SelectList(string.Empty, "Value", "Text"), "--Please select your deparment--", new {@class = "form-control select-dropdown col-md-12", id = "department"})
 
 
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.Label("UnitId", "Assigned Unit", new {@class = "control-label col-md-12" })
+                        @Html.Label("UnitId", "Assigned Unit", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.UnitId, new SelectList(string.Empty, "Value", "Text"), "--Please select your assigned unit--", new {@class = "form-control select-dropdown col-md-12", id = "unit"})
 
 
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.Label("RoleId", "Assigned Role", new {@class = "control-label col-md-12" })
-                        @Html.DropDownListFor(m => m.RoleId, null, "--Please select your role--", new {@class = "form-control select-dropdown col-md-12" })
+                        @Html.Label("RoleId", "Assigned Role", new {@class = "control-label col-md-12"})
+                        @Html.DropDownListFor(m => m.RoleId, null, "--Please select your role--", new {@class = "form-control select-dropdown col-md-12"})
 
                     </div>
                 </fieldset>
