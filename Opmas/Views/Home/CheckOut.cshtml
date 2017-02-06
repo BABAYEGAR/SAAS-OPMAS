@@ -18,7 +18,7 @@
         <div class="row">
             <div style="display: table; margin: auto;">
                 <span class="step step_complete"> <a href="#" class="check-bc">Checkout</a> <span class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
-                <span class="step_thankyou check-bc step_complete">Thank you</span>
+                <span class="step_thankyou check-bc step_complete">Invoice</span>
             </div>
         </div>
         <div class="row">
@@ -35,15 +35,15 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
         <!--REVIEW ORDER-->
         <div class="panel panel-info">
-            <div class="panel-heading">
+            @*<div class="panel-heading">
                 Review Order
                 <div class="pull-right">
                     <small>
                         <a class="afix-1" href="#">Edit Cart</a>
                     </small>
                 </div>
-            </div>
-            @if (package != null)
+            </div>*@
+            @*@if (package != null)
             {
                 <div class="panel-body">
                     <div class="form-group">
@@ -93,11 +93,11 @@
                         </div>
                     </div>
                 </div>
-            }
+            }*@
         </div>
         <!--REVIEW ORDER END-->
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-md-pull-12 col-sm-pull-12">
         <!--Institution Data-->
         <div class="panel panel-info">
             <div class="panel-heading">Institution</div>
@@ -162,7 +162,7 @@
 
             </div>
         </div>
-        <!--SHIPPING METHOD END-->
+        @*<!--SHIPPING METHOD END-->
         <!--CREDIT CART PAYMENT-->
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -249,17 +249,17 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="form-group">
-
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="submit" value="Subscribe" class="btn btn-primary btn-submit-fix"/>
-                    </div>
-
-                </div>
+           
             </div>
         </div>
-        <!--CREDIT CART PAYMENT END-->
+        <!--CREDIT CART PAYMENT END-->*@
+        <div class="form-group">
 
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="submit" value="Next" class="btn btn-primary btn-submit-fix" />
+            </div>
+
+        </div>
     </div>
 
     </form>

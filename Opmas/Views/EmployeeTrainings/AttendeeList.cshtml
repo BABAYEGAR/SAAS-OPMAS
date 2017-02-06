@@ -50,11 +50,12 @@
                     @Html.DisplayName("Email")
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
+                    @Html.DisplayNameFor(model => model.Department.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateLastModified)
+                    @Html.DisplayNameFor(model => model.DateCreated)
                 </th>
+
             </tr>
         </thead>
         <tbody>
@@ -83,11 +84,12 @@
                         @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
+                        @Html.DisplayFor(modelItem => item.Department.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DateLastModified)
+                        @Html.DisplayFor(modelItem => item.DateCreated)
                     </td>
+                   
                 </tr>
             }
         </tbody>

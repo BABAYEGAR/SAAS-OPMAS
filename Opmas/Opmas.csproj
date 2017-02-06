@@ -5256,6 +5256,8 @@
     <Content Include="Views\EmployeeTrainingMappings\Index.cshtml" />
     <Content Include="Views\Shared\AttendeeList.cshtml" />
     <Content Include="Views\Shared\CreateTraining.cshtml" />
+    <Content Include="Views\Shared\_LayoutInvoice.cshtml" />
+    <Content Include="Views\Home\Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

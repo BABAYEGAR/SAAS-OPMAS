@@ -28,7 +28,7 @@ namespace Opmas.Controllers.TrainingManagement
         public ActionResult AttendeeList(long id)
         {
             var user = Session["opmasloggedinuser"] as AppUser;
-            var employeeTrainings = _db.Employees.Where(n => n.InstitutionId == user.InstitutionId);
+            var employeeTrainings = _db.Employees.Where(n => n.InstitutionId == user.InstitutionId).Include(n=>n.Department);
             ViewBag.Id = id;
 
             return View(employeeTrainings.ToList());
