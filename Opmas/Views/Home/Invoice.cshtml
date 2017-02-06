@@ -1,6 +1,8 @@
 ﻿@using Opmas.Data.Objects.Entities.AccessManagement
+@using Opmas.Data.Objects.Entities.SystemManagement
 @{
     var package = Session["package"] as Package;
+    var institution = Session["institution"] as Institution;
 }
 @using (Html.BeginForm("Invoice", "Home", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
@@ -31,13 +33,16 @@
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
                 To
-                <address>
-                    <strong>John Doe</strong>
-                    <br>795 Freedom Ave, Suite 600
-                    <br>New York, CA 94107
-                    <br>Phone: 1 (804) 123-9876
-                    <br>Email: jon@ironadmin.com
-                </address>
+                @if (institution != null)
+                {
+                    <address>
+                        <strong>@institution.Name</strong>
+                        <br>@institution.Location
+                        <br>Phone: @institution.ContactNumber
+                        <br>Email: @institution.ContactEmail
+                    </address>
+                }
+            
             </div>
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
