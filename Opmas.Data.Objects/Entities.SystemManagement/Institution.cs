@@ -47,6 +47,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<EmployeeTraining> EmployeeTrainings { get; set; }
         public IEnumerable<TrainingCategory> TrainingCategories { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMapping { get; set; }
+        public IEnumerable<EmploymentCategory> EmploymentCategory { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }
 
         [DisplayName("Package")]

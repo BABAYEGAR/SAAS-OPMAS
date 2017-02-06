@@ -1,0 +1,27 @@
+﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentType
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Header = "Employment types";
+    ViewBag.Subheader = "Create a new employment type";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+}
+@using (Html.BeginForm("Edit", "EmploymentTypes", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.InstitutionId)
+    @Html.HiddenFor(m => m.EmploymentTypeId)
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+            @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-success pull-right"/>
+        </div>
+    </div>
+}

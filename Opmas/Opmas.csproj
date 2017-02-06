@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ApplicationManagement\PackageController.cs" />
     <Compile Include="Controllers\ApplicationManagement\UnitsController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\EmploymentTypesController.cs" />
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -5258,6 +5259,11 @@
     <Content Include="Views\Shared\CreateTraining.cshtml" />
     <Content Include="Views\Shared\_LayoutInvoice.cshtml" />
     <Content Include="Views\Home\Invoice.cshtml" />
+    <Content Include="Views\EmploymentTypes\Create.cshtml" />
+    <Content Include="Views\EmploymentTypes\Delete.cshtml" />
+    <Content Include="Views\EmploymentTypes\Details.cshtml" />
+    <Content Include="Views\EmploymentTypes\Edit.cshtml" />
+    <Content Include="Views\EmploymentTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

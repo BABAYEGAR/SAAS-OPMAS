@@ -19,5 +19,10 @@ namespace Opmas.Data.Objects.Entities.Employee
 
         [ForeignKey("EmploymentTypeId")]
         public virtual EmploymentType EmploymentType { get; set; }
+
+        public long? EmploymentCategoryId { get; set; }
+
+        [ForeignKey("EmploymentCategoryId")]
+        public virtual EmploymentCategory EmploymentCategory { get; set; }
     }
 }

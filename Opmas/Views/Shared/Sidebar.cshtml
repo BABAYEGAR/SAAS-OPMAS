@@ -207,6 +207,17 @@
                     </ul>
                 </li>
             }
+            @if (userRole.ManageEmploymentTypes)
+            {
+                <li>
+                    <a><i class="fa fa-wrench"></i> Employment Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "EmploymentTypes")">Employment Types</a>
+                        </li>
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
     <div class="menu_section">
