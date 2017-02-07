@@ -1,11 +1,25 @@
 ﻿@using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Unit>
 @{
     ViewBag.Title = "Units";
     ViewBag.Header = "List Of Units";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
-    var unit = new Unit();
-    long departmentId = ViewBag.DepartmentId;
+}
+@if (TempData["unit"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["unit"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["unit"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["unit"]</div>
+    }
 }
 @section add {
     @Html.ActionLink("Add data", "Create", null, new {@class = "btn btn-primary btn-xs fa fa-plus"})

@@ -1,8 +1,24 @@
-﻿@model IEnumerable<Opmas.Data.Objects.Entities.AccessManagement.Package>
+﻿@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Entities.AccessManagement.Package>
 @{
     ViewBag.Header = "Packages";
     ViewBag.Subheader = "List Of Packages";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+}
+@if (TempData["package"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["package"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["package"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["package"]</div>
+    }
 }
 @section add {
     @Html.ActionLink("Add data", "Create", null, new {@class = "btn btn-primary btn-xs fa fa-plus"})

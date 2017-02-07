@@ -241,7 +241,7 @@
 <script src="~/Content/ManagementDashboard/build/js/custom.min.js"></script>
 
 <!-- bootstrap-daterangepicker -->
-<script>
+    <script>
     $(document)
         .ready(function() {
             // init datepicker for dob date
@@ -253,12 +253,8 @@
             // init datepicker for start date
             $('.startDate').datepicker();
 
-            // init datepicker for start date
-            $('.endDate').datepicker();
-
             // init datepicker for date
             $('.startDate').datepicker({ 'endDate': new Date() });
-
 
             // set start date of end date based on selected start date
             $('.startDate')
@@ -270,7 +266,7 @@
                         $('.endDate').datepicker('setStartDate', e.date);
                     });
         });
-</script>
+    </script>
 <!-- /bootstrap-daterangepicker -->
 <!-- bootstrap-wysiwyg -->
 <script>

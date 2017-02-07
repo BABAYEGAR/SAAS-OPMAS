@@ -1,4 +1,5 @@
 ﻿@using Opmas.Data.Factory.EmployeeManagement
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
 
 @{
@@ -6,7 +7,21 @@
     ViewBag.Header = "List Of Employees";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
 }
-
+@if (TempData["employee"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["employee"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["employee"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["employee"]</div>
+    }
+}
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
     <tr>

@@ -33,6 +33,9 @@
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    
+    <link href="~/Content/ManagementDashboard/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 
     <!-- Custom Theme Style -->
     <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
@@ -94,36 +97,6 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                @if (TempData["user"] != null)
-                                {
-                                    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-                                    {
-                                        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</div>
-                                    }
-                                    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-                                    {
-                                        <div class="alert alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</div>
-                                    }
-                                    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-                                    {
-                                        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</div>
-                                    }
-                                }
-                                @if (TempData["package"] != null)
-                                {
-                                    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-                                    {
-                                        <div class="alert-success alert-dismissable" style="height: 30px">@TempData["package"]</div>
-                                    }
-                                    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-                                    {
-                                        <div class="alert alert-danger alert-dismissable" style="height: 30px">@TempData["package"]</div>
-                                    }
-                                    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-                                    {
-                                        <div class="alert-info alert-dismissable" style="height: 30px">@TempData["package"]</div>
-                                    }
-                                }
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li>
                                         <a class="collapse-link">
@@ -197,6 +170,9 @@
 
 <!-- Custom Theme Scripts -->
 <script src="~/Content/ManagementDashboard/build/js/custom.min.js"></script>
+    
+    <script src="~/Content/ManagementDashboard/vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 <!-- Datatables -->
 <script>
@@ -326,5 +302,39 @@
 
 
 </script>
+    <script>
+    $(document)
+        .ready(function() {
+            // Init select2 for dropdown select
+            $('.select-dropdown').select2();
+        });
+    </script>
+    <!-- bootstrap-daterangepicker -->
+    <script>
+    $(document)
+        .ready(function() {
+            // init datepicker for dob date
+            $('.dob')
+                .datepicker({
+                    'endDate': new Date()
+                });
+
+            // init datepicker for start date
+            $('.startDate').datepicker();
+
+            // init datepicker for date
+            $('.startDate').datepicker({ 'endDate': new Date() });
+
+            // set start date of end date based on selected start date
+            $('.startDate')
+                .datepicker()
+                .on('changeDate',
+                    function(e) {
+
+                        // apply selected date as start date for expiry
+                        $('.endDate').datepicker('setStartDate', e.date);
+                    });
+        });
+    </script>
 </body>
 </html>
