@@ -442,10 +442,15 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             _employee = Session["Employee"] as Employee;
             var institution = Session["institution"] as Institution;
+
             if (_employee?.EmployeeMedicalDatas != null)
                 return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
-            ViewBag.EmploymentTypeId = new SelectList(_dbEmploymentType.EmploymentTypes.Where(n => n.InstitutionId == institution.InstitutionId
+
+            //view bags for dropdowns
+            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes.Where(n => n.InstitutionId == institution.InstitutionId
         ), "EmploymentTypeId", "Name");
+            ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories.Where(n => n.InstitutionId == institution.InstitutionId
+        ), "EmploymentCategoryId", "Name");
             return View();
         }
 
@@ -463,7 +468,7 @@ namespace Opmas.Controllers.EmployeeManagement
 
             //work data
             workData.EmploymentTypeId = Int64.Parse(collectedValues["EmploymentTypeId"]);
-            workData.Category = typeof(EmployementCategory).GetEnumName(int.Parse(collectedValues["EmploymentCategory"]));
+            workData.EmploymentCategoryId = Int64.Parse(collectedValues["EmploymentCategoryId"]);
             workData.PositionHeld = collectedValues["EmploymentPosition"];
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
@@ -501,7 +506,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     medicalData.EmploymentTypeId = workData.EmploymentTypeId;
                     medicalData.EmploymentDate = workData.EmploymentDate;
                     medicalData.UnitId = _employee.UnitId;
-                    medicalData.EmploymentCategory = workData.Category;
+                    medicalData.EmploymentCategoryId = workData.EmploymentCategoryId;
 
                     //add object to first values ion list
                     _employee.EmployeeMedicalDatas = new List<EmployeeMedicalData> {medicalData};

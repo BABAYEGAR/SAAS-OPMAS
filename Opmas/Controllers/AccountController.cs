@@ -389,15 +389,16 @@ namespace Opmas.Controllers
         }
 
         //
-        // POST: /Account/LogOff
-        [HttpPost]
+        // GET: /Account/LogOff
+        [HttpGet]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             Session["opmasloggedinuser"] = null;
             Session["institution"] = null;
+            Session["role"] = null;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("SelectInstitution", "Home");
+            return RedirectToAction("Login");
         }
 
         //

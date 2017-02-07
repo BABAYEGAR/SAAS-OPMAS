@@ -101,16 +101,16 @@
                 <div class="clearfix"></div>
                 <fieldset>
                     <legend>Employee Work & Other Data</legend>
-
+                    <div class="form-group col-md-6">
+                        @Html.Label("Employment Category", new {@class = "control-label col-md-12"})
+                        @Html.DropDownListFor(m => m.EmploymentCategoryId, null, "--Please select your employment category--", new {@class = "form-control select-dropdown"})
+                    </div>
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Type", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.EmploymentTypeId, null, "--Please select your employment type--", new {@class = "form-control select-dropdown"})
 
                     </div>
-                    <div class="form-group col-md-6">
-                        @Html.Label("Employment Category", new {@class = "control-label col-md-12"})
-                        @Html.DropDownListFor(m => m.EmploymentCategory, EnumHelper.GetSelectList(typeof(EmployementCategory)), "select your employment category", new {@class = "form-control select-dropdown"})
-                    </div>
+
                     <div class="form-group col-md-6">
                         @Html.Label("Employment Date", new {@class = "control-label"})
                         @Html.TextBoxFor(m => m.EmploymentDate, null, new {@class = "form-control startDate", placeholder = "Please select employment date"})

@@ -34,6 +34,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         public long? UnitId { get; set; }
         [Required]
         public long? EmploymentTypeId { get; set; }
+        [Required]
+        public long? EmploymentCategoryId { get; set; }
 
 
     }
