@@ -240,10 +240,10 @@ ol, ul {
 }
 .panel-info > .panel-heading {
     color: #eee;
-    border-color: #5b6b9b;
+    border-color: #999;
 }
 .panel-info > .panel-heading {
-    background-image: linear-gradient(to bottom, #536A7F 0px, #536A7F 100%);
+    background-image: linear-gradient(to bottom, #555 0px, #888 100%);
 }
 
 hr {
