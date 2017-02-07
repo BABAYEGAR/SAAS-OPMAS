@@ -441,9 +441,11 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult MedicalData()
         {
             _employee = Session["Employee"] as Employee;
-            ViewBag.EmploymentTypeId = new SelectList(_dbEmploymentType.EmploymentTypes.Where(n=>n.InstitutionId == _employee.InstitutionId), "EmploymentTypeId", "Name"); 
+            var institution = Session["institution"] as Institution;
             if (_employee?.EmployeeMedicalDatas != null)
                 return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
+            ViewBag.EmploymentTypeId = new SelectList(_dbEmploymentType.EmploymentTypes.Where(n => n.InstitutionId == institution.InstitutionId
+        ), "EmploymentTypeId", "Name");
             return View();
         }
 

@@ -9,6 +9,21 @@
     <link href="~/Content/CheckOutCss.css" rel="stylesheet"/>
     <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 }
+@if (TempData["checkout"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["checkout"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["checkout"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["checkout"]</div>
+    }
+}
 <div class="container wrapper">
     <div class="row cart-head">
         <div class="container">

@@ -229,7 +229,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffcf8e3', endColorstr='#fff8efc0', GradientType=0);
 }
 
-.alert-danger {
+.alert alert-danger {
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f2dede), to(#e7c3c3));
   background-image: -webkit-linear-gradient(top, #f2dede, 0%, #e7c3c3, 100%);
   background-image: -moz-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);

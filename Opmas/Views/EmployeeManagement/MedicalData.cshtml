@@ -69,15 +69,15 @@
             {
                 if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
                 {
-                    <div class="alert-success alert-dismissable">@TempData["medical"]</div>
+                    <div class="alert alert-success alert-dismissable">@TempData["medical"]</div>
                 }
                 else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
                 {
-                    <div class="alert-danger alert-dismissable">@TempData["medical"]</div>
+                    <div class="alert alert alert-danger alert-dismissable">@TempData["medical"]</div>
                 }
                 else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
                 {
-                    <div class="alert-info alert-dismissable">@TempData["medical"]</div>
+                    <div class="alert alert-info alert-dismissable">@TempData["medical"]</div>
                 }
             }
             @using (Html.BeginForm("MedicalData", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))

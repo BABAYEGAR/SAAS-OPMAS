@@ -77,15 +77,15 @@
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable">@TempData["education"]</div>
+        <div class="alert alert-success alert-dismissable">@TempData["education"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable">@TempData["education"]</div>
+        <div class="alert alert alert-danger alert-dismissable">@TempData["education"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable">@TempData["education"]</div>
+        <div class="alert alert-info alert-dismissable">@TempData["education"]</div>
     }
 }
 @using (Html.BeginForm("EducationalQualification", "EmployeeManagement", FormMethod.Post, new {@class = "form", enctype = "multipart/form-data"}))
@@ -112,11 +112,11 @@
             </div>
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label col-md-12"}) <span class="req">*</span>
+                @Html.LabelFor(m => m.EndDate, "End Date:", new {@class = "control-label col-md-12"})
                 @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select an end date"})
             </div>
             <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.DegreeAttained, "Degree Category:", new {@class = "control-label"}) <span class="req">*</span>
+                @Html.LabelFor(m => m.DegreeAttained, "Degree Category:", new {@class = "control-label col-md-12" })
                 @Html.DropDownListFor(m => m.DegreeAttained, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "degreeType"})
             </div>
             <div class="form-group col-md-6" id="degreeClass">

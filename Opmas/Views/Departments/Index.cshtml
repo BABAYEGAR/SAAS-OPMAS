@@ -13,15 +13,15 @@
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert-success alert-dismissable">@TempData["department"]</div>
+        <div class="alert alert-success alert-dismissable">@TempData["department"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert-danger alert-dismissable">@TempData["department"]</div>
+        <div class="alert alert alert-danger alert-dismissable">@TempData["department"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert-info alert-dismissable">@TempData["department"]</div>
+        <div class="alert alert-info alert-dismissable">@TempData["department"]</div>
     }
 }
 @section add {
