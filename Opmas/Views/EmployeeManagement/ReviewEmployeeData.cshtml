@@ -1,6 +1,8 @@
-﻿@using Opmas.Data.Factory.EmployeeManagement
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Factory.EmployeeManagement
 @using Opmas.Data.Objects.Entities.Employee
 @{
+    var dbEmployee  = new EmployeeDataContext();
     var edit = true;
     var employee = Session["Employee"] as Employee;
     List<EmployeeEducationalQualification> educationaQualification = null;
@@ -475,7 +477,7 @@
                         {
                             <h4>
                                 <strong >Employement Type</strong><br/>
-                                <label>@employeeWorkData.EmploymentType</label>
+                                <label>@dbEmployee.EmploymentTypes.Find(employee.UnitId).Name</label>
 
 
                             </h4>
@@ -490,6 +492,21 @@
                                 <label>@employeeWorkData.PositionHeld</label>
 
                             </h4>
+                            <h4>
+                                <strong>Faculty</strong><br />
+                                <label>@dbEmployee.Faculties.Find(employee.UnitId).Name</label>
+
+                            </h4>
+                            <h4>
+                                <strong>Department</strong><br />
+                                <label>@dbEmployee.Departments.Find(employee.UnitId).Name</label>
+
+                            </h4>
+                            <h4>
+                                <strong>Unit</strong><br />
+                                <label>@dbEmployee.Units.Find(employee.UnitId).Name</label>
+
+                            </h4>
                         }
 
 
@@ -501,7 +518,7 @@
                 </div>
                 <div class="col-md-12 ">
                     @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil"})
-
+                    
                 </div>
             </div>
         </div>
@@ -509,6 +526,7 @@
         {
             @Html.AntiForgeryToken()
             <div class="col-md-12">
+                @Html.ActionLink("Back", "MedicalData", new { backUrl = true }, new { @class = "btn btn-brown pull-right" })
                 <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right fa fa-save"/>
 
             </div>

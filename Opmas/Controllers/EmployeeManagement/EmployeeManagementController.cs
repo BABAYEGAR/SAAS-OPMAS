@@ -106,7 +106,7 @@ namespace Opmas.Controllers.EmployeeManagement
         #region Employee Process  
 
         // GET: EmployeeManagement/PersonalData
-        public ActionResult PersonalData(bool? returnUrl)
+        public ActionResult PersonalData(bool? returnUrl, bool? backUrl)
         {
             _employee = Session["Employee"] as Employee;
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
@@ -117,6 +117,10 @@ namespace Opmas.Controllers.EmployeeManagement
                 if (_employee != null)
                     return View(_employee.EmployeePersonalData.SingleOrDefault());
             }
+                if ((backUrl != null) && backUrl.Value)
+            {
+                if (_employee != null) return View(_employee.EmployeePersonalData.SingleOrDefault());
+            }
             return View(_employee?.EmployeePersonalData.SingleOrDefault());
         }
 
@@ -125,6 +129,8 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult PersonalData(EmployeePersonalData personalData, FormCollection collectedValues)
         {
+            var allEmployees = _dbEmployee.EmployeePersonalDatas;
+            
             _employee = Session["Employee"] as Employee;
             if (_employee != null)
             {
@@ -185,6 +191,15 @@ namespace Opmas.Controllers.EmployeeManagement
                 employeePersonalData.EmployeePersonalData = new List<EmployeePersonalData> {personalData};
                 Session["Employee"] = employeePersonalData;
             }
+            var emailCheck = allEmployees.SingleOrDefault(n => n.Email == personalData.Email);
+            if (emailCheck != null)
+            {
+                TempData["personal"] = "The email already exists!";
+                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
+                //return next view
+                ViewBag.State = new SelectList(_db.States, "StateId", "Name",personalData.StateId);
+                return View(personalData);
+            }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             //if it is edit from review page return to the review page
             if (returnUrl)
@@ -204,6 +219,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 if (_employee != null)
                     return View();
             }
+        
             return View();
         }
 
@@ -334,15 +350,18 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         // GET: EmployeeManagement/EmployeeFamilyData
-        public ActionResult EmployeeFamilyData(bool? returnUrl)
+        public ActionResult EmployeeFamilyData(bool? returnUrl,bool? backUrl)
         {
             _employee = Session["Employee"] as Employee;
             if ((returnUrl != null) && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
-                if (_employee?.EmployeeFamilyDatas != null)
-                    return View(_employee.EmployeeFamilyDatas.SingleOrDefault());
+                if (_employee != null) return View(_employee.EmployeeFamilyDatas.SingleOrDefault());
+            }
+            if ((backUrl != null) && backUrl.Value)
+            {
+                if (_employee != null) return View(_employee.EmployeeFamilyDatas.SingleOrDefault());
             }
             return View();
         }
@@ -438,12 +457,12 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         // GET: EmployeeManagement/MedicalData
-        public ActionResult MedicalData()
+        public ActionResult MedicalData(bool? backUrl)
         {
             _employee = Session["Employee"] as Employee;
             var institution = Session["institution"] as Institution;
 
-            if (_employee?.EmployeeMedicalDatas != null)
+            if (_employee != null)
                 return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
 
             //view bags for dropdowns
@@ -451,6 +470,12 @@ namespace Opmas.Controllers.EmployeeManagement
         ), "EmploymentTypeId", "Name");
             ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories.Where(n => n.InstitutionId == institution.InstitutionId
         ), "EmploymentCategoryId", "Name");
+
+            //check if it is a back button
+            if ((backUrl != null) && backUrl.Value)
+            {
+                if (_employee != null) return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
+            }
             return View();
         }
 

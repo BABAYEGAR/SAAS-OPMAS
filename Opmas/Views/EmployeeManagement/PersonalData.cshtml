@@ -58,6 +58,21 @@
         </ul>
     </div>
     <hr/>
+    @if (TempData["personal"] != null)
+    {
+        if (TempData["notificationType"].Equals(NotificationTypeEnum.Success.ToString()))
+        {
+            <div class="alert alert-success alert-dismissable">@TempData["personal"]</div>
+        }
+        else if (TempData["notificationType"].Equals(NotificationTypeEnum.Error.ToString()))
+        {
+            <div class="alert alert-danger alert-dismissable">@TempData["personal"]</div>
+        }
+        else if (TempData["notificationType"].Equals(NotificationTypeEnum.Info.ToString()))
+        {
+            <div class="alert alert-info alert-dismissable">@TempData["personal"]</div>
+        }
+    }
     <div class="row">
         <div class="col-md-12">
             @using (Html.BeginForm("PersonalData", "EmployeeManagement", FormMethod.Post, new {@class = "form"}))

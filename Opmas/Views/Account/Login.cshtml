@@ -12,7 +12,7 @@
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert alert alert-danger alert-dismissable">@TempData["login"]</div>
+        <div class="alert alert-danger alert-dismissable">@TempData["login"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
@@ -27,7 +27,7 @@
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert alert alert-danger alert-dismissable">@TempData["reg"]</div>
+        <div class="alert alert-danger alert-dismissable">@TempData["reg"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
@@ -42,7 +42,7 @@
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert alert alert-danger alert-dismissable">@TempData["regerror"]</div>
+        <div class="alert alert-danger alert-dismissable">@TempData["regerror"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
@@ -79,7 +79,7 @@
             <a href="#">Lost your password?</a>
         </p>
         <p class="change_link">
-            An Employee? <a href="@Url.Action("SelectInstitution", "Home")" style="color: green">Register!</a>
+            A New Employee? <a href="@Url.Action("SelectInstitution", "Home")" style="color: green; font-weight: bolder">Register Here!</a>
         </p>
 
         <div class="clearfix"></div>
