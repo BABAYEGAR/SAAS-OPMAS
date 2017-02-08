@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.TrainingDataContext;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Training;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.TrainingManagement
 {
@@ -63,6 +64,8 @@ namespace Opmas.Controllers.TrainingManagement
                 }
                 db.TrainingCategory.Add(trainingCategory);
                 db.SaveChanges();
+                TempData["trainingcategory"] = "you have succesfully added a new training category!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
 
@@ -99,6 +102,8 @@ namespace Opmas.Controllers.TrainingManagement
                 if (loggedinuser != null) trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(trainingCategory).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["trainingcategory"] = "you have succesfully modified a training category!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
             return View(trainingCategory);
@@ -127,6 +132,8 @@ namespace Opmas.Controllers.TrainingManagement
             TrainingCategory trainingCategory = db.TrainingCategory.Find(id);
             db.TrainingCategory.Remove(trainingCategory);
             db.SaveChanges();
+            TempData["trainingcategory"] = "you have succesfully deleted a training category!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
 

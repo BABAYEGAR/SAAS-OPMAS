@@ -7,19 +7,19 @@
     ViewBag.Subheader = "List Of Training Categories";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
 }
-@if (TempData["training"] != null)
+@if (TempData["trainingcategory"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert alert-success alert-dismissable">@TempData["training"]</div>
+        <div class="alert alert-success alert-dismissable">@TempData["trainingcategory"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert alert alert-danger alert-dismissable">@TempData["training"]</div>
+        <div class="alert alert-danger alert-dismissable">@TempData["trainingcategory"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert alert-info alert-dismissable">@TempData["training"]</div>
+        <div class="alert alert-info alert-dismissable">@TempData["trainingcategory"]</div>
     }
 }
 @section add {

@@ -504,7 +504,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _employee.UnitId = Convert.ToInt64(collectedValues["UnitId"]);
                 _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
 
-                Session["Employee"] = _employee;
+               
 
                 var role = _dbEmployee.Roles.Find(_employee.RoleId);
                 var allEmployees =
@@ -518,7 +518,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     _employee.RoleId = null;
                     return View(_employee.EmployeeMedicalDatas.FirstOrDefault());
                 }
-
+                Session["Employee"] = _employee;
 
                 //store data in a session
                 if (_employee != null)

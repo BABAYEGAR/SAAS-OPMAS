@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.MappingDataContext;
+using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Training;
@@ -16,6 +18,7 @@ namespace Opmas.Controllers.TrainingManagement
     {
         private readonly EmployeeTrainingDataContext _db = new EmployeeTrainingDataContext();
         private readonly EmployeeTrainingMappingDataContext _dbc = new EmployeeTrainingMappingDataContext();
+        private readonly EmployeeDataContext _dbd = new EmployeeDataContext();
 
         // GET: EmployeeTrainings
         public ActionResult Index()
@@ -28,10 +31,20 @@ namespace Opmas.Controllers.TrainingManagement
         public ActionResult AttendeeList(long id)
         {
             var user = Session["opmasloggedinuser"] as AppUser;
-            var employeeTrainings = _db.Employees.Where(n => n.InstitutionId == user.InstitutionId).Include(n=>n.Department);
+            var allEmployees = _db.Employees.Where(n => n.InstitutionId == user.InstitutionId)
+                .Include(n => n.Department);
+            List<Employee> attendingmployees = new List<Employee>();
+            foreach (var item in allEmployees)
+            {
+                var role = _dbd.Roles.Find(item.RoleId);
+                if ((role.Name != "Platform Administrator") || (role.Name != "Institution Administrator"))
+                {
+                    attendingmployees.Add(item);
+                }
+                   
+            }
             ViewBag.Id = id;
-
-            return View(employeeTrainings.ToList());
+            return View(attendingmployees);
         }
 
         // GET: AttendeeList
@@ -48,9 +61,12 @@ namespace Opmas.Controllers.TrainingManagement
                 for (var i = 0; i < length; i++)
                 {
                     var id = table_records[i];
-                    if (allMappings.Any(n => (n.EmployeeId == id) && (n.InstitutionId == loggedinuser?.InstitutionId) && n.EmployeeTrainingId == trainingId))
+                    if (
+                        allMappings.Any(
+                            n =>
+                                (n.EmployeeId == id) && (n.InstitutionId == loggedinuser?.InstitutionId) &&
+                                (n.EmployeeTrainingId == trainingId)))
                     {
-
                     }
                     else
                     {
@@ -70,13 +86,12 @@ namespace Opmas.Controllers.TrainingManagement
                             _dbc.SaveChanges();
                             TempData["training"] = "you have succesfully added the employee(s) to the training event!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
-
                         }
                         else
                         {
                             TempData["login"] = "Session has expired, Login and try again!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
-                            return RedirectToAction("Login","Account");
+                            return RedirectToAction("Login", "Account");
                         }
                     }
                 }
@@ -85,10 +100,9 @@ namespace Opmas.Controllers.TrainingManagement
             {
                 TempData["training"] = "no employee has been selected!";
                 TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
-                return RedirectToAction("AttendeeList", new { id = trainingId });
+                return RedirectToAction("AttendeeList", new {id = trainingId});
             }
-            return RedirectToAction("AttendeeList",new {id = trainingId});
-
+            return RedirectToAction("AttendeeList", new {id = trainingId});
         }
 
         // GET: EmployeeTrainings/Details/5
@@ -200,21 +214,24 @@ namespace Opmas.Controllers.TrainingManagement
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
+
         // GET: EmployeeTrainings/RemoveMapping/5
         public ActionResult RemoveMapping(long id)
         {
             var training = Session["training"] as EmployeeTraining;
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var employeeTraining = _dbc.EmployeeTrainingMappings.SingleOrDefault(n=>n.EmployeeId == id && n.InstitutionId == loggedinuser.InstitutionId && n.EmployeeTrainingId == training.EmployeeTrainingId);
+            var employeeTraining =
+                _dbc.EmployeeTrainingMappings.SingleOrDefault(
+                    n =>
+                        (n.EmployeeId == id) && (n.InstitutionId == loggedinuser.InstitutionId) &&
+                        (n.EmployeeTrainingId == training.EmployeeTrainingId));
             long trainingId = 0;
             if (employeeTraining != null)
-            {
                 if (training != null) trainingId = training.EmployeeTrainingId;
-            }
             _dbc.EmployeeTrainingMappings.Remove(employeeTraining);
             _dbc.SaveChanges();
             Session["training"] = null;
-            return RedirectToAction("AttendeeList",new {id = trainingId});
+            return RedirectToAction("AttendeeList", new {id = trainingId});
         }
 
         protected override void Dispose(bool disposing)

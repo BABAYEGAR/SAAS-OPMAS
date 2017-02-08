@@ -142,6 +142,8 @@ namespace Opmas.Controllers.EmployeeManagement
             Role role = db.Roles.Find(id);
             db.Roles.Remove(role);
             db.SaveChanges();
+            TempData["role"] = "You have successfully deleted a role!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
 

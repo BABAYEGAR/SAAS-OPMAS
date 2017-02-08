@@ -11,6 +11,8 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.InstitutionId)
     @Html.HiddenFor(m => m.EmploymentTypeId)
+    @Html.HiddenFor(m => m.CreatedBy)
+    @Html.HiddenFor(m => m.DateCreated)
     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
     <div class="form-group">
         @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-2"})

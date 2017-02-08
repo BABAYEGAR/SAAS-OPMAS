@@ -124,6 +124,8 @@ namespace Opmas.Controllers
             role.ManageAppUsers = true;
             role.ManagePackages = false;
             role.ManageUnits = true;
+            role.ManageEmploymentTypes = true;
+            role.ManageTrainingTypes = true;
             role.Name = "Institution Administrator";
             Session["role"] = role;
 
@@ -139,7 +141,8 @@ namespace Opmas.Controllers
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now,
                 LastModifiedBy = 1,
-                CreatedBy = 1
+                CreatedBy = 1,
+                AppUserImage = "131262294730509246.jpg"
             };
             Session["user"] = appUser;
 
