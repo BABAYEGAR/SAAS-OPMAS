@@ -111,18 +111,8 @@
             <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 <li>
-                    <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Active, id = institution.InstitutionId})">Active Employee(s)</a>
+                    <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Active, id = institution.InstitutionId})">Employee(s)</a>
                 </li>
-                <li>
-                    <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.OnLeave, id = institution.InstitutionId})">On-Leave Employee(s)</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Suspended, id = institution.InstitutionId})">Suspended Employee(s)</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Retired, id = institution.InstitutionId})">Retired Employee(s)</a>
-                </li>
-
             </ul>
         </li>
     }
@@ -152,9 +142,6 @@
             <a><i class="fa fa-universal-access"></i> User Priviledges <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 <li>
-                    <a href="@Url.Action("Create", "Roles")">Add New Role</a>
-                </li>
-                <li>
                     <a href="@Url.Action("Index", "Roles")">Roles</a>
                 </li>
             </ul>
@@ -165,9 +152,6 @@
         <li>
             <a><i class="fa fa-desktop"></i> Faculties <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-                @*<li>
-                            <a href="@Url.Action("Create", "Faculties")">Add Faculty</a>
-                        </li>*@
                 <li>
                     <a href="@Url.Action("Index", "Faculties")">Faculties</a>
                 </li>
@@ -188,10 +172,10 @@
     @if (userRole.ManageTraining)
     {
         <li>
-            <a><i class="fa fa-gift"></i>Employee Training <span class="fa fa-chevron-down"></span></a>
+            <a><i class="fa fa-gift"></i>Training Management<span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 <li>
-                    <a href="@Url.Action("Index", "EmployeeTrainings")">Attendee List</a>
+                    <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
                 </li>
             </ul>
         </li>
