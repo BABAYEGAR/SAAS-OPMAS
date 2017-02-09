@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmploymentCategoryDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\EmploymentPositionDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmploymentTypeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
@@ -142,6 +143,14 @@
     <Compile Include="Migrations\201702090745369_migrate261.Designer.cs">
       <DependentUpon>201702090745369_migrate261.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702092228253_migrate27.cs" />
+    <Compile Include="Migrations\201702092228253_migrate27.Designer.cs">
+      <DependentUpon>201702092228253_migrate27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702092232010_migrate28.cs" />
+    <Compile Include="Migrations\201702092232010_migrate28.Designer.cs">
+      <DependentUpon>201702092232010_migrate28.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -206,6 +215,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702090745369_migrate261.resx">
       <DependentUpon>201702090745369_migrate261.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702092228253_migrate27.resx">
+      <DependentUpon>201702092228253_migrate27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702092232010_migrate28.resx">
+      <DependentUpon>201702092232010_migrate28.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,8 +17,6 @@ namespace Opmas.Data.Objects.Entities.Employee
         [Required]
         public string EmploymentCategory { get; set; }
         [Required]
-        public string EmploymentPosition { get; set; }
-        [Required]
         public DateTime? EmploymentDate { get; set; }
         public long EmployeeId { get; set; }
 
@@ -36,6 +34,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         public long? EmploymentTypeId { get; set; }
         [Required]
         public long? EmploymentCategoryId { get; set; }
+        [Required]
+        public long? EmploymentPositionId { get; set; }
 
 
     }

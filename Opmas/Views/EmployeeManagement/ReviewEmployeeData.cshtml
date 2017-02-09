@@ -3,6 +3,7 @@
 @using Opmas.Data.Objects.Entities.Employee
 @{
     var dbEmployee  = new EmployeeDataContext();
+    var dbEmployeePosition  = new EmploymentPositionDataContext();
     var edit = true;
     var employee = Session["Employee"] as Employee;
     List<EmployeeEducationalQualification> educationaQualification = null;
@@ -489,7 +490,7 @@
                             </h4>
                             <h4>
                                 <strong >Employement Position</strong><br/>
-                                <label>@employeeWorkData.PositionHeld</label>
+                                <label>@dbEmployeePosition.EmploymentPosition.Find(employeeWorkData.EmploymentPositionId).Name</label>
 
                             </h4>
                             <h4>

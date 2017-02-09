@@ -1,28 +1,15 @@
-﻿@model Opmas.Data.Objects.Mappings.EmployeeTrainingMapping
-
+﻿@using Opmas.Data.Objects.Entities.Employee
+@model Opmas.Data.Objects.Mappings.EmployeeTrainingMapping
 @{
-    Layout = null;
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Training Session";
+    ViewBag.Subheader = "View training details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var role = Session["role"] as Role;
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>Details</title>
-</head>
-<body>
 <div>
-    <h4>EmployeeTrainingMapping</h4>
-    <hr/>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Employees.EmployeeId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Employees.EmployeeId)
-        </dd>
+    <dl class="dl-horizontal">
 
         <dt>
             @Html.DisplayNameFor(model => model.EmployeeTrainings.Title)
@@ -33,11 +20,59 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Institution.Name)
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.Location)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Institution.Name)
+            @Html.DisplayFor(model => model.EmployeeTrainings.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeTrainings.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeTrainings.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeTrainings.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeTrainings.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.CoordinatorFullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeTrainings.CoordinatorFullname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeTrainings.CoordinatorCompany)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeTrainings.CoordinatorCompany)
         </dd>
 
         <dt>
@@ -74,9 +109,6 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.EmployeeTrainingMappingId}) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-</body>
-</html>
+    <p>
+        @Html.ActionLink("Back To List", "Index",null, new { @class = "btn btn-default btn-xs" })
+    </p>

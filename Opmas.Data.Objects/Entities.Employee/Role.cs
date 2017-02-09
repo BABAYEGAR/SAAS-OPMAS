@@ -36,7 +36,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageTrainingTypes { get; set; }
         [DisplayName("Role Category")]
         public string RoleType { get; set; }
-        [DisplayName("Manage EmploymentType")]
+        [DisplayName("Manage Employment Type")]
         public bool ManageEmploymentTypes { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
         public IEnumerable<Employee> Employees { get; set; }

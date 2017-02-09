@@ -52,7 +52,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RoleId,Name,ManageEmploymentTypes,ManageRolePriviledges,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments," +
+        public ActionResult Create([Bind(Include = "RoleId,Name,ManageEmploymentTypes,ManageEmploymentPositions,ManageRolePriviledges,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments," +
                                                    "ManageUnits,ManageTraining,ManageTrainingTypes,ManageEmployees,ManageAppUsers,ManageAdminAppUsers,ManageAllInstitutions")] Role role,FormCollection collectedValues)
         {
             var institution = Session["institution"] as Institution;
@@ -104,7 +104,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageEmploymentTypes,ManageTraining,ManageTrainingTypes,ManageRolePriviledges,RoleType,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role,FormCollection collectedValues)
+        public ActionResult Edit([Bind(Include = "RoleId,Name,ManageEmploymentTypes,ManageEmploymentPositions,ManageTraining,ManageTrainingTypes,ManageRolePriviledges,RoleType,ManageAdminAppUsers,ManageAllInstitutions,ManagePackages,ManageInstitutions,ManageFaculties,ManageDepartments,ManageUnits,ManageEmployees,ManageAppUsers,InstitutionId")] Role role,FormCollection collectedValues)
         {
             var institution = Session["institution"] as Institution;
             if (ModelState.IsValid)

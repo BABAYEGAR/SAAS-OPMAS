@@ -231,6 +231,7 @@
     <Compile Include="Controllers\ApplicationManagement\UnitsController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmploymentCategoriesController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\EmploymentPositionsController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmploymentTypesController.cs" />
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -5270,6 +5271,11 @@
     <Content Include="Views\EmploymentCategories\Details.cshtml" />
     <Content Include="Views\EmploymentCategories\Edit.cshtml" />
     <Content Include="Views\EmploymentCategories\Index.cshtml" />
+    <Content Include="Views\EmploymentPositions\Create.cshtml" />
+    <Content Include="Views\EmploymentPositions\Delete.cshtml" />
+    <Content Include="Views\EmploymentPositions\Details.cshtml" />
+    <Content Include="Views\EmploymentPositions\Edit.cshtml" />
+    <Content Include="Views\EmploymentPositions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,6 @@
-﻿@using Opmas.Data.Objects.Entities.Employee
+﻿@using System.Linq
+@using Opmas.Data.DataContext.DataContext.MappingDataContext
+@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Objects.Entities.User
 @using Opmas.Data.Service.Enums
@@ -12,6 +14,8 @@
         new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         return;
     }
+        var dbc = new EmployeeTrainingMappingDataContext();
+        var mapping = dbc.EmployeeTrainingMappings.Where(n => (n.EmployeeId == loggedinuser.EmployeeId) && (n.InstitutionId == loggedinuser.InstitutionId)).ToList();
 }
 @if (userRole != null)
 {
@@ -111,7 +115,7 @@
             <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 <li>
-                    <a href="@Url.Action("ListOfEmployeesByStatus", "EmployeeManagement", new {status = EmploymentStatus.Active, id = institution.InstitutionId})">Employee(s)</a>
+                    <a href="@Url.Action("ListOfEmployees", "EmployeeManagement", new {status = EmploymentStatus.Active, id = institution.InstitutionId})">Employee(s)</a>
                 </li>
             </ul>
         </li>
@@ -177,6 +181,14 @@
                 <li>
                     <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
                 </li>
+            </ul>
+        </li>
+    }
+    @if (mapping.Count > 0)
+    {
+        <li>
+            <a><i class="fa fa-gift"></i>My Trainings<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
                 <li>
                     <a href="@Url.Action("Index", "EmployeeTrainingMappings")">My Trainings</a>
                 </li>
@@ -204,6 +216,9 @@
                 </li>
                 <li>
                     <a href="@Url.Action("Index", "EmploymentCategories")">Employment Category</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "EmploymentPositions")">Employment Positions</a>
                 </li>
             </ul>
         </li>

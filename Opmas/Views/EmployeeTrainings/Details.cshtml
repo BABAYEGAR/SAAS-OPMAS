@@ -1,9 +1,11 @@
-﻿@model Opmas.Data.Objects.Training.EmployeeTraining
+﻿@using Opmas.Data.Objects.Entities.Employee
+@model Opmas.Data.Objects.Training.EmployeeTraining
 @{
     ViewBag.Title = "Details";
     ViewBag.Header = "Training Session";
     ViewBag.Subheader = "View training details";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var role = Session["role"] as Role;
 }
 <div>
 
@@ -107,7 +109,10 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit Training", "Edit", new {id = Model.EmployeeTrainingId}, new {@class = "btn btn-primary btn-xs"})
-    @Html.ActionLink("Delete Training", "Delete", new {id = Model.EmployeeTrainingId}, new {@class = "btn btn-danger btn-xs"})
-</p>
+@if ((role != null) && role.ManageTraining)
+{
+    <p>
+        @Html.ActionLink("Edit Training", "Edit", new {id = Model.EmployeeTrainingId}, new {@class = "btn btn-primary btn-xs"})
+        @Html.ActionLink("Delete Training", "Delete", new {id = Model.EmployeeTrainingId}, new {@class = "btn btn-danger btn-xs"})
+    </p>
+}

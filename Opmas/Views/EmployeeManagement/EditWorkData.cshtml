@@ -1,16 +1,11 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmployeeWorkData
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.Employee.EmployeeWorkData
 @{
     ViewBag.Title = "Edit";
     ViewBag.Header = "Work Data";
     ViewBag.Subheader = "Edit Employee Work Data";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-
-@section css {
-    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-}
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -22,27 +17,27 @@
                 @Html.HiddenFor(m => m.EmployeeWorkDataId)
                 @Html.HiddenFor(m => m.EmploymentDate)
                 <div class="form-group">
-                    @Html.LabelFor(m => m.EmploymentType, new {@class = "control-label control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.EmploymentType, (SelectList) ViewBag.type, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
-                    </div>
-                </div>
-                <div class="form-group">
                     @Html.LabelFor(m => m.EmploymentStatus, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.EmploymentStatus, (SelectList) ViewBag.status, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.EmploymentStatus, EnumHelper.GetSelectList(typeof(EmploymentStatus)), "select employee status", new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Category, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+                    @Html.LabelFor(m => m.EmploymentPositionId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.DropDownListFor(n => n.Category, (SelectList) ViewBag.catgory, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                        @Html.DropDownListFor(n => n.EmploymentPositionId, null, new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.PositionHeld, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
+                    @Html.LabelFor(m => m.EmploymentCategoryId, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})<span class="req">*</span>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        @Html.TextBoxFor(m => m.PositionHeld, new {@class = "form-control"})
+                        @Html.DropDownListFor(n => n.EmploymentCategoryId,null, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EmploymentTypeId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })<span class="req">*</span>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.DropDownListFor(n => n.EmploymentTypeId, null, new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -52,17 +47,3 @@
         </div>
     </div>
 </div>
-
-@section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script>
-
-        $(document)
-            .ready(function() {
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-
-            });
-    </script>
-}

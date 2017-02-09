@@ -85,7 +85,7 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false, "", new {@class = "text-danger"})
                 <fieldset>
-                    <legend>Employee Bank Data</legend>
+                    <legend>Employee Medical Data</legend>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(m => m.BloodGroup, new {@class = "control-label col-md-12"})
@@ -112,13 +112,13 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.Label("Employment Date", new {@class = "control-label"})
+                        @Html.Label("Employment Date", new {@class = "control-label "})
                         @Html.TextBoxFor(m => m.EmploymentDate, null, new {@class = "form-control startDate", placeholder = "Please select employment date"})
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.Label("Employment Position", new {@class = "control-label"})<span class="req">*</span>
-                        @Html.TextBoxFor(m => m.EmploymentPosition, null, new {@class = "form-control", placeholder = "Please enter employment position"})
+                        @Html.Label("Employment Position", new {@class = "control-label col-md-12" })
+                        @Html.DropDownListFor(m => m.EmploymentPositionId, null, "--Please select your position--", new { @class = "form-control select-dropdown col-md-12" })
                     </div>
 
                     <div class="form-group col-md-6">

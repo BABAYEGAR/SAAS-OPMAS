@@ -1,10 +1,12 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Mappings.EmployeeTrainingMapping>
 @{
     ViewBag.Title = "List";
     ViewBag.Header = "Training";
     ViewBag.Subheader = "List Of My Trainings";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var role = Session["role"] as Role;
 }
 @if (TempData["training"] != null)
 {
@@ -33,7 +35,7 @@
         <th>
             @Html.DisplayNameFor(model => model.EmployeeTrainings.EndTime)
         </th>
-        <th></th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -50,8 +52,7 @@
                 @Html.DisplayFor(modelItem => item.EmployeeTrainings.EndDate)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", "EmployeeTrainings", new {id = item.EmployeeTrainingId}, new {@class = "btn btn-xs btn-default"})
-                @Html.ActionLink("Attendee list", "AttendeeList", "EmployeeTrainings", new {id = item.EmployeeTrainingId}, new {@class = "btn btn-xs btn-success"})
+                @Html.ActionLink("Details", "Details", "EmployeeTrainingMappings", new {id = item.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-default"})
             </td>
         </tr>
     }

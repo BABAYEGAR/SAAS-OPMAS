@@ -24,7 +24,7 @@ namespace Opmas.Controllers.EmployeeManagement
         private readonly AppUserDataContext _dbAppUser = new AppUserDataContext();
         private readonly BankDataContext _dbBanks = new BankDataContext();
         private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
-        private readonly EmploymentTypeDataContext _dbEmploymentType = new EmploymentTypeDataContext();
+        private readonly EmploymentPositionDataContext _dbEmployeePosition = new EmploymentPositionDataContext();
         private Employee _employee = new Employee();
 
         #region Fetch data
@@ -461,7 +461,10 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             _employee = Session["Employee"] as Employee;
             var institution = Session["institution"] as Institution;
+
             //view bags for dropdowns
+            ViewBag.EmploymentPositionId = new SelectList(_dbEmployeePosition.EmploymentPosition.Where(n => n.InstitutionId == institution.InstitutionId
+        ), "EmploymentPositionId", "Name");
             ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes.Where(n => n.InstitutionId == institution.InstitutionId
         ), "EmploymentTypeId", "Name");
             ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories.Where(n => n.InstitutionId == institution.InstitutionId
@@ -490,7 +493,7 @@ namespace Opmas.Controllers.EmployeeManagement
             //work data
             workData.EmploymentTypeId = Int64.Parse(collectedValues["EmploymentTypeId"]);
             workData.EmploymentCategoryId = Int64.Parse(collectedValues["EmploymentCategoryId"]);
-            workData.PositionHeld = collectedValues["EmploymentPosition"];
+            workData.EmploymentPositionId = Convert.ToInt64(collectedValues["EmploymentPositionId"]);
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
             if (_employee != null)
@@ -501,7 +504,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
 
                
-
+                //check to see if role is a single role and make sure two users cannot have that same role in that department
                 var role = _dbEmployee.Roles.Find(_employee.RoleId);
                 var allEmployees =
                     _dbEmployee.Employees.Where(
@@ -523,7 +526,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     medicalData.RoleId = _employee.RoleId;
                     medicalData.DepartmentId = _employee.DepartmentId;
                     medicalData.FacultyId = _employee.FacultyId;
-                    medicalData.EmploymentPosition = workData.PositionHeld;
+                    medicalData.EmploymentPositionId = workData.EmploymentPositionId;
                     medicalData.EmploymentTypeId = workData.EmploymentTypeId;
                     medicalData.EmploymentDate = workData.EmploymentDate;
                     medicalData.UnitId = _employee.UnitId;
@@ -654,7 +657,7 @@ namespace Opmas.Controllers.EmployeeManagement
                         employeeMedicalData.RoleId = 0;
                         employeeMedicalData.DepartmentId = 0;
                         employeeMedicalData.FacultyId = 0;
-                        employeeMedicalData.EmploymentPosition = "NULL";
+                        employeeMedicalData.EmploymentPositionId = 0;
                         employeeMedicalData.EmploymentTypeId = 0;
                         employeeMedicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
                         employeeMedicalData.UnitId = 0;
@@ -1065,7 +1068,7 @@ namespace Opmas.Controllers.EmployeeManagement
             medicalData.RoleId = 0;
             medicalData.DepartmentId = 0;
             medicalData.FacultyId = 0;
-            medicalData.EmploymentPosition = "NULL";
+            medicalData.EmploymentPositionId = 0;
             medicalData.EmploymentTypeId = 0;
             medicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
             medicalData.UnitId = 0;
@@ -1085,12 +1088,9 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeWorkData = _dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeWorkData == null)
                 return HttpNotFound();
-            var catogory = new SelectList(typeof(EmployementCategory).GetEnumNames());
-            ViewBag.catogory = catogory;
-            var status = new SelectList(typeof(EmploymentStatus).GetEnumNames());
-            ViewBag.status = status;
-           // var type = new SelectList(typeof(EmploymentType).GetEnumNames());
-            //ViewBag.type = type;
+            ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories, "EmploymentCategoryId", "Name", employeeWorkData.EmploymentCategoryId);
+            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes, "EmploymentTypeId", "Name", employeeWorkData.EmploymentTypeId);
+            ViewBag.EmploymentPositionId = new SelectList(_dbEmployee.EmploymentPositions, "EmploymentPositionId", "Name", employeeWorkData.EmploymentPositionId);
             return View(employeeWorkData);
         }
 
@@ -1099,20 +1099,19 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult EditWorkData([Bind(
                                               Include =
-                                                  "EmployeeWorkDataId,EmploymentDate,EmployeeId,PositionHeld")] EmployeeWorkData workData,
+                                                  "EmployeeWorkDataId,EmploymentDate,EmploymentPositionId,EmploymentCategoryId,EmploymentTypeId,EmployeeId,PositionHeld")] EmployeeWorkData workData,
             FormCollection collectedValues)
         {
             //medical data
             workData.EmploymentStatus =
                 typeof(EmploymentStatus).GetEnumName(int.Parse(collectedValues["EmploymentStatus"]));
-            //workData.EmploymentType = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["EmploymentType"]));
-            //workData.Category = typeof(EmploymentType).GetEnumName(int.Parse(collectedValues["Category"]));
-
             //update data
             _dbEmployee.Entry(workData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
-
-            return RedirectToAction("Dashboard", "Home");
+            TempData["employee"] =
+                             "You have successfully modified the employee's work data!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+            return RedirectToAction("ListOfEmployees", "EmployeeManagement");
         }
 
         // GET: EmployeeManagement/EditWorkData
