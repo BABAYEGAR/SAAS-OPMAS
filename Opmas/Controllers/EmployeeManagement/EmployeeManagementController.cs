@@ -1004,7 +1004,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeePersonalData == null)
                 return HttpNotFound();
-            ViewBag.State = new SelectList(_db.States, "StateId", "Name",employeePersonalData.StateId);
+            ViewBag.StateId = new SelectList(_db.States, "StateId", "Name",Convert.ToInt32(employeePersonalData.StateId));
             return View(employeePersonalData);
         }
 
@@ -1030,6 +1030,9 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
+                TempData["dashboard"] =
+                     "You have successfully modified the employee's personal data!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Dashboard", "Home");
             }
             return View(employeePersonalData);
@@ -1076,7 +1079,9 @@ namespace Opmas.Controllers.EmployeeManagement
             //update data
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
-
+            TempData["dashboard"] =
+                  "You have successfully modified the employee's medical data!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Dashboard", "Home");
         }
 
@@ -1139,7 +1144,9 @@ namespace Opmas.Controllers.EmployeeManagement
             //update data
             _dbEmployee.Entry(familyData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
-
+            TempData["dashboard"] =
+                  "You have successfully modified the employee's next of kin data!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Dashboard", "Home");
         }
 

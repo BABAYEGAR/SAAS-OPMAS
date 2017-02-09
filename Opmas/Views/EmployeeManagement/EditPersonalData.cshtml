@@ -50,7 +50,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(m => m.State, new {@class = "control-label"}) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.StateId, (SelectList) ViewBag.State, "--Please select your state--", new {@class = "form-control select-dropdown", id = "state"})
+                        @Html.DropDownListFor(m => m.StateId,null, new {@class = "form-control select-dropdown", id = "state"})
 
                     </div>
 

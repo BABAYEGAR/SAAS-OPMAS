@@ -1,9 +1,11 @@
 ﻿@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Service.Enums
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
     var role = Session["role"] as Role;
 }
+
 <div class="right_col" role="main">
 <!-- top tiles -->
 <div class="row tile_count">
