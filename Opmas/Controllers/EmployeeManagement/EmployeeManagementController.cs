@@ -556,10 +556,10 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 var employeeData = Session["Employee"] as Employee;
                 SavaEmployeeData(employeeData);
-                Session["Employee"] = null;
-                Session["institution"] = null;
                 TempData["reg"] = "You have successfully registered!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+                Session["Employee"] = null;
+                Session["institution"] = null;
             }
             else
             {
@@ -574,16 +574,17 @@ namespace Opmas.Controllers.EmployeeManagement
         public void SavaEmployeeData(Employee employeeData)
         {
             var institution = Session["institution"] as Institution;
+            _employee = Session["Employee"] as Employee;
             if (institution != null)
                 if (employeeData != null)
                 {
-                    _employee.DateCreated = DateTime.Now;
-                    _employee.DateLastModified = DateTime.Now;
-                    _employee.LastModifiedBy = 1;
-                    _employee.CreatedBy = 1;
-                    _employee.InstitutionId = institution.InstitutionId;
+                    employeeData.DateCreated = DateTime.Now;
+                    employeeData.DateLastModified = DateTime.Now;
+                    employeeData.LastModifiedBy = 1;
+                    employeeData.CreatedBy = 1;
+                    employeeData.InstitutionId = institution.InstitutionId;
 
-                    _dbEmployee.Employees.Add(_employee);
+                    _dbEmployee.Employees.Add(employeeData);
 
 
                     if (employeeData.EmployeeBankDatas != null)

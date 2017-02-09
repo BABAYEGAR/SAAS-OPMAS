@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.MappingDataContext;
+using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Service.Enums;
 
@@ -15,7 +16,8 @@ namespace Opmas.Controllers.MappingManagement
         // GET: EmployeeTrainingMappings
         public ActionResult Index()
         {
-            var employeeTrainingMappings = db.EmployeeTrainingMappings.Include(e => e.Employees).Include(e => e.EmployeeTrainings).Include(e => e.Institution);
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employeeTrainingMappings = db.EmployeeTrainingMappings.Where(n=>n.EmployeeId == loggedinuser.EmployeeId && n.InstitutionId == loggedinuser.InstitutionId).Include(e => e.Employees).Include(e => e.EmployeeTrainings).Include(e => e.Institution);
             return View(employeeTrainingMappings.ToList());
         }
         // GET: ChangeTrainingStatusToSuccessfull

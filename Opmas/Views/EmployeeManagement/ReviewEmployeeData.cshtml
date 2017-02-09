@@ -477,7 +477,7 @@
                         {
                             <h4>
                                 <strong >Employement Type</strong><br/>
-                                <label>@dbEmployee.EmploymentTypes.Find(employee.UnitId).Name</label>
+                                <label>@dbEmployee.EmploymentTypes.Find(employee.EmployeeMedicalDatas.SingleOrDefault().EmploymentTypeId).Name</label>
 
 
                             </h4>
@@ -494,12 +494,12 @@
                             </h4>
                             <h4>
                                 <strong>Faculty</strong><br />
-                                <label>@dbEmployee.Faculties.Find(employee.UnitId).Name</label>
+                                <label>@dbEmployee.Faculties.Find(employee.FacultyId).Name</label>
 
                             </h4>
                             <h4>
                                 <strong>Department</strong><br />
-                                <label>@dbEmployee.Departments.Find(employee.UnitId).Name</label>
+                                <label>@dbEmployee.Departments.Find(employee.DepartmentId).Name</label>
 
                             </h4>
                             <h4>
@@ -526,7 +526,7 @@
         {
             @Html.AntiForgeryToken()
             <div class="col-md-12">
-                @Html.ActionLink("Back", "MedicalData", new { backUrl = true }, new { @class = "btn btn-brown pull-right" })
+                @Html.ActionLink("Back", "MedicalData", new { backUrl = true }, new { @class = "btn btn-default btn-sm pull-left" })
                 <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right fa fa-save"/>
 
             </div>

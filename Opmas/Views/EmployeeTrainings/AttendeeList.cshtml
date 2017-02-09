@@ -66,21 +66,24 @@
                     var mapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
                 }
                 <td>
-                    @if ((mapping != null) && ((mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString())))
-                    {
-                        if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && (n.EmployeeTrainingId == id)) != null)
-                         {
-                             var training = dbc.EmployeeTrainings.Find(id);
-                             Session["training"] = training;
-                             <a href="@Url.Action("RemoveMapping", "EmployeeTrainings", new {id = item.EmployeeId})">
-                                 <i class="fa fa-remove"></i>
-                             </a>
-                         }
-                         else
-                         {
-                             <input type="checkbox" class="flat" name="table_records" value="@item.EmployeeId">
-                         }
-                    }
+                  
+                        @if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && (n.EmployeeTrainingId == id)) != null)
+                        {
+                            if ((mapping != null) && ((mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString())))
+                             {
+                                 var training = dbc.EmployeeTrainings.Find(id);
+                                 Session["training"] = training;
+                                 <a href="@Url.Action("RemoveMapping", "EmployeeTrainings", new {id = item.EmployeeId})">
+                                     <i class="fa fa-remove"></i>
+                                 </a>
+                             }
+                        }
+                        else
+                        {
+                            <input type="checkbox" class="flat" name="table_records" value="@item.EmployeeId">
+                        }
+                    
+
                 </td>
                 <td>
                     @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)

@@ -23,15 +23,15 @@ namespace Opmas.Controllers.TrainingManagement
         // GET: EmployeeTrainings
         public ActionResult Index()
         {
-            var employeeTrainings = _db.EmployeeTrainings;
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employeeTrainings = _db.EmployeeTrainings.Where(n=>n.InstitutionId == loggedinuser.InstitutionId);
             return View(employeeTrainings.ToList());
         }
-
         // GET: AttendeeList
         public ActionResult AttendeeList(long id)
         {
-            var user = Session["opmasloggedinuser"] as AppUser;
-            var allEmployees = _db.Employees.Where(n => n.InstitutionId == user.InstitutionId)
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var allEmployees = _db.Employees.Where(n => n.InstitutionId == loggedinuser.InstitutionId)
                 .Include(n => n.Department);
             List<Employee> attendingmployees = new List<Employee>();
             foreach (var item in allEmployees)
