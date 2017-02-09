@@ -461,10 +461,6 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             _employee = Session["Employee"] as Employee;
             var institution = Session["institution"] as Institution;
-
-            if (_employee != null)
-                return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
-
             //view bags for dropdowns
             ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes.Where(n => n.InstitutionId == institution.InstitutionId
         ), "EmploymentTypeId", "Name");

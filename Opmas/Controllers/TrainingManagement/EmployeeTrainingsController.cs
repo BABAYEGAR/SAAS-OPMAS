@@ -80,7 +80,9 @@ namespace Opmas.Controllers.TrainingManagement
                                 DateCreated = DateTime.Now,
                                 DateLastModified = DateTime.Now,
                                 LastModifiedBy = loggedinuser.AppUserId,
-                                CreatedBy = loggedinuser.AppUserId
+                                CreatedBy = loggedinuser.AppUserId,
+                                CompletionStatus = TrainingCompletionEnum.Pending.ToString()
+                                
                             };
                             _dbc.EmployeeTrainingMappings.Add(trainingMapping);
                             _dbc.SaveChanges();

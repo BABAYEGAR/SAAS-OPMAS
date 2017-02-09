@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.MappingDataContext;
-using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Mappings;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.MappingManagement
 {
@@ -23,7 +18,28 @@ namespace Opmas.Controllers.MappingManagement
             var employeeTrainingMappings = db.EmployeeTrainingMappings.Include(e => e.Employees).Include(e => e.EmployeeTrainings).Include(e => e.Institution);
             return View(employeeTrainingMappings.ToList());
         }
-
+        // GET: ChangeTrainingStatusToSuccessfull
+        public ActionResult ChangeTrainingStatusToSuccessfull(long? id)
+        {
+            var employeeTrainingMapping = db.EmployeeTrainingMappings.Find(id);
+            employeeTrainingMapping.CompletionStatus = TrainingCompletionEnum.Successfull.ToString();
+            db.Entry(employeeTrainingMapping).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["training"] = "you have succesfully marked the employee's training as Successfull!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+            return RedirectToAction("AttendeeList", "EmployeeTrainings",new {id = employeeTrainingMapping.EmployeeTrainingId});
+        }
+        // GET: ChangeTrainingStatusToUnSuccessfull
+        public ActionResult ChangeTrainingStatusToUnSuccessfull(long? id)
+        {
+            var employeeTrainingMapping = db.EmployeeTrainingMappings.Find(id);
+            employeeTrainingMapping.CompletionStatus = TrainingCompletionEnum.UnSuccessful.ToString();
+            db.Entry(employeeTrainingMapping).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["training"] = "you have succesfully marked the employee's training as UnSuccessfull!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+            return RedirectToAction("AttendeeList", "EmployeeTrainings", new { id = employeeTrainingMapping.EmployeeTrainingId });
+        }
         // GET: EmployeeTrainingMappings/Details/5
         public ActionResult Details(long? id)
         {

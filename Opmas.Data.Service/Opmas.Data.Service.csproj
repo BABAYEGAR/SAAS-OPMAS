@@ -60,6 +60,7 @@
     <Compile Include="Enums\PackageType.cs" />
     <Compile Include="Enums\RoleType.cs" />
     <Compile Include="Enums\SubscriptionDuration.cs" />
+    <Compile Include="Enums\TrainingCompletionEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />
     <Compile Include="Enums\AdminUserType.cs" />
     <Compile Include="Enums\UserType.cs" />

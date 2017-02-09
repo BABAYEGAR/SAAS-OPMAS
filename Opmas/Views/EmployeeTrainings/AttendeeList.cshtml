@@ -53,27 +53,33 @@
                 @Html.DisplayNameFor(model => model.Department.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
+                @Html.DisplayName("Status")
             </th>
-
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                @{
+                    var mapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
+                }
                 <td>
-                    @if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && (n.EmployeeTrainingId == id)) != null)
+                    @if ((mapping != null) && ((mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString())))
                     {
-                        var training = dbc.EmployeeTrainings.Find(id);
-                        Session["training"] = training;
-                        <a href="@Url.Action("RemoveMapping", "EmployeeTrainings", new {id = item.EmployeeId})">
-                            <i class="fa fa-remove"></i>
-                        </a>
-                    }
-                    else
-                    {
-                        <input type="checkbox" class="flat" name="table_records" value="@item.EmployeeId">
+                        if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && (n.EmployeeTrainingId == id)) != null)
+                         {
+                             var training = dbc.EmployeeTrainings.Find(id);
+                             Session["training"] = training;
+                             <a href="@Url.Action("RemoveMapping", "EmployeeTrainings", new {id = item.EmployeeId})">
+                                 <i class="fa fa-remove"></i>
+                             </a>
+                         }
+                         else
+                         {
+                             <input type="checkbox" class="flat" name="table_records" value="@item.EmployeeId">
+                         }
                     }
                 </td>
                 <td>
@@ -89,9 +95,31 @@
                     @Html.DisplayFor(modelItem => item.Department.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
 
+                    @{
+                        var employeeTrainingMapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
+                    }
+                    @if (employeeTrainingMapping != null)
+                    {
+                        @employeeTrainingMapping.CompletionStatus
+                    }
+                </td>
+                <td>
+
+
+                    @if (mapping != null)
+                    {
+                        if (mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString())
+                        {
+                            @Html.ActionLink("Mark as Successfull", "ChangeTrainingStatusToSuccessfull", "EmployeeTrainingMappings", new {id = mapping.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-success"})
+                            @Html.ActionLink("Mark as UnSuccessfull", "ChangeTrainingStatusToUnSuccessfull", "EmployeeTrainingMappings", new {id = mapping.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-danger"})
+                        }
+                        if ((mapping.CompletionStatus != TrainingCompletionEnum.Successfull.ToString()) || (mapping.CompletionStatus != TrainingCompletionEnum.UnSuccessful.ToString()))
+                        {
+                        }
+                    }
+
+                </td>
             </tr>
         }
         </tbody>

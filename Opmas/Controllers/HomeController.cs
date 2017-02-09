@@ -106,7 +106,7 @@ namespace Opmas.Controllers
             else
             {
                 TempData["checkout"] = "The institution name provided already exist, try another name!";
-                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
+                TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                 return View(institution);
             }
 

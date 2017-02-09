@@ -18,6 +18,7 @@ namespace Opmas.Data.Objects.Mappings
 
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
+        public string CompletionStatus { get; set; }
 
     }
 }
