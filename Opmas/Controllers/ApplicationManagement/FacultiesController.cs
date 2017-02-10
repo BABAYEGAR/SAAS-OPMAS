@@ -70,9 +70,9 @@ namespace Opmas.Controllers.ApplicationManagement
                     TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
                     return RedirectToAction("SelectInstitution","Home");
                 }
-                TempData["faculty"] = "Session Expired,Login Again";
+                TempData["login"] = "Session Expired,Login Again";
                 TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
-                return RedirectToAction("SelectInstitution", "Home");
+                return RedirectToAction("Login", "Account");
             }
             ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", faculty.InstitutionId);
             return View(faculty);

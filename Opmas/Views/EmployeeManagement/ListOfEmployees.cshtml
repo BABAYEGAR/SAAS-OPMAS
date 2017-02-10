@@ -1,4 +1,7 @@
-﻿@using Opmas.Data.Factory.EmployeeManagement
+﻿@using System.Linq
+@using Opmas.Data.DataContext.DataContext.UserDataContext
+@using Opmas.Data.Factory.EmployeeManagement
+@using Opmas.Data.Objects.Entities.User
 @using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
 
@@ -6,6 +9,8 @@
     ViewBag.Title = "Employees";
     ViewBag.Header = "List Of Employees";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var appuser = new AppUserDataContext();
+  
 }
 @if (TempData["employee"] != null)
 {
@@ -46,6 +51,7 @@
     <tbody>
     @foreach (var item in Model)
     {
+        var appusersExist = appuser.AppUsers.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
         <tr>
             <td>
                 @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)
@@ -63,7 +69,7 @@
                 @Html.DisplayFor(modelItem => item.DateLastModified)
             </td>
             <td>
-                @Html.ActionLink("Manage", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-success"})|
+                @(appusersExist != null ? Html.ActionLink("Manage", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-success fa fa-wrench"}) : Html.ActionLink("Details  ", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-default fa fa-television"}))
                 @Html.ActionLink("Work Data", "EditWorkData", new {id = item.EmployeeId}, new {@class = "btn btn-xs btn-primary"})
             </td>
         </tr>

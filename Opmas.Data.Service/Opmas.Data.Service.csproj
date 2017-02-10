@@ -53,6 +53,7 @@
     <Compile Include="Enums\EmploymentStatus.cs" />
     <Compile Include="Enums\FamilyEnum.cs" />
     <Compile Include="Enums\Genotype.cs" />
+    <Compile Include="Enums\InstitutionStatus.cs" />
     <Compile Include="Enums\InstitutionCategory.cs" />
     <Compile Include="Enums\MaritalStatusEnum.cs" />
     <Compile Include="Enums\NameTitle.cs" />

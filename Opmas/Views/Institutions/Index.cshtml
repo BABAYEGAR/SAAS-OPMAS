@@ -4,8 +4,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     ViewBag.Title = "Institutions";
-    ViewBag.Header = "List Of Institutions";
-    var institution = new Institution();
+    
 }
 @if (TempData["institution"] != null)
 {
@@ -52,9 +51,7 @@
                 @Html.DisplayFor(modelItem => item.ContactEmail)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.InstitutionId}, new {@class = "btn btn-xs btn-primary"}) |
-                @Html.ActionLink("Details", "Details", new {id = item.InstitutionId}, new {@class = "btn btn-xs btn-default"}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.InstitutionId}, new {@class = "btn btn-xs btn-danger"})
+                @Html.ActionLink("Details", "Details", new {id = item.InstitutionId}, new {@class = "btn btn-xs btn-default fa fa-television"})
             </td>
         </tr>
     }

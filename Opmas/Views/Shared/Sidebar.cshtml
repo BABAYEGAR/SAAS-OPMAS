@@ -1,9 +1,7 @@
-﻿@using System.Linq
-@using Opmas.Data.DataContext.DataContext.MappingDataContext
+﻿@using Opmas.Data.DataContext.DataContext.MappingDataContext
 @using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Objects.Entities.User
-@using Opmas.Data.Service.Enums
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     var institution = Session["institution"] as Institution;
@@ -14,218 +12,198 @@
         new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         return;
     }
-        var dbc = new EmployeeTrainingMappingDataContext();
-        var mapping = dbc.EmployeeTrainingMappings.Where(n => (n.EmployeeId == loggedinuser.EmployeeId) && (n.InstitutionId == loggedinuser.InstitutionId)).ToList();
+    var dbc = new EmployeeTrainingMappingDataContext();
+    var mapping = dbc.EmployeeTrainingMappings.Where(n => (n.EmployeeId == loggedinuser.EmployeeId) && (n.InstitutionId == loggedinuser.InstitutionId)).ToList();
 }
 @if (userRole != null)
 {
     <!-- sidebar menu -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
-    <h3>General</h3>
-    <ul class="nav side-menu">
-    @if (userRole.ManageAdminAppUsers)
-    {
-        <li>
-            <a><i class="fa fa-users"></i> Administrative Users <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
+        <h3>General</h3>
+        <ul class="nav side-menu">
+            @if (userRole.ManageInstitutions || userRole.ManageDepartments || userRole.ManageFaculties)
+            {
                 <li>
-                    <a href="@Url.Action("Create", "AppUsers")">Add Administrative User</a>
+                    <a><i class="fa fa-institution"></i> Intitution Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        @if (userRole.ManageInstitutions)
+                        {
+                            <li>
+                                <a href="@if (institution != null)
+                                         {
+                                             @Url.Action("Edit", "Institutions", new {id = institution.InstitutionId})
+                                         } ">
+                                    Modify Institution Data
+                                </a>
+                            </li>
+                        }
+                        @if (userRole.ManageFaculties)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Faculties")">Faculties</a>
+                            </li>
+                        }
+                        @if (userRole.ManageDepartments)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Departments")">Departments</a>
+                            </li>
+                        }
+                    </ul>
                 </li>
+            }
+            @if (userRole.ManageAdminAppUsers)
+            {
                 <li>
-                    <a href="@Url.Action("Index", "AppUsers")">Active Administrative Users</a>
+                    <a><i class="fa fa-users"></i> Application Users <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        @if (userRole.Name == "Platform Administrator")
+                        {
+                            <li>
+                                <a href="@Url.Action("GetAdminAppUsers", "AppUsers")">Administrative Users</a>
+                            </li>
+                        }
+                    </ul>
                 </li>
+            }
+            @if (userRole.ManageAppUsers)
+            {
                 <li>
-                    <a href="@Url.Action("Index", "AppUsers")">Inactive Administrative Users</a>
+                    <a><i class="fa fa-users"></i> Institution Users <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "AppUsers")">Application Users</a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-        </li>
-    }
-    @if ((userRole.Name != "Platform Administrator") && (userRole.Name != "Institution Administrator") && (loggedinuser.EmployeeId != null))
-    {
-        <li>
-            <a><i class="fa fa-users"></i> Record Management <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
+            }
+            @if ((userRole.Name != "Platform Administrator") && (userRole.Name != "Institution Administrator") && (loggedinuser.EmployeeId != null))
+            {
                 <li>
-                    <a href="@Url.Action("EditPersonalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Personal Data</a>
+                    <a><i class="fa fa-users"></i> Record Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("EditPersonalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Personal Data</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfEducationalQualification", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Educational Qualification</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfPastWorkExperience", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Past Work Experience</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EditEmployeeFamilyData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Family</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListOfBankData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Bank Data</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EditMedicalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Medical Data</a>
+                        </li>
+                    </ul>
                 </li>
+            }
+            @if (userRole.ManageAllInstitutions)
+            {
                 <li>
-                    <a href="@Url.Action("ListOfEducationalQualification", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Educational Qualification</a>
+                    <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "Institutions")">All Institutions</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("GetActiveInstitutions", "Institutions")">Active Intitutions</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("GetInActiveInstitutions", "Institutions")">Inactive Intitutions</a>
+                        </li>
+                    </ul>
                 </li>
+            }
+            @if (userRole.ManagePackages)
+            {
                 <li>
-                    <a href="@Url.Action("ListOfPastWorkExperience", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Past Work Experience</a>
+                    <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "Package")">Packages</a>
+                        </li>
+                    </ul>
                 </li>
+            }
+
+            @if (userRole.ManageEmployees && (institution != null))
+            {
                 <li>
-                    <a href="@Url.Action("EditEmployeeFamilyData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Family</a>
+                    <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("ListOfEmployees", "EmployeeManagement")">Employee(s)</a>
+                        </li>
+                    </ul>
                 </li>
+            }
+
+            @if (userRole.ManageRolePriviledges)
+            {
                 <li>
-                    <a href="@Url.Action("ListOfBankData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Bank Data</a>
+                    <a><i class="fa fa-universal-access"></i> User Priviledges <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "Roles")">Roles</a>
+                        </li>
+                    </ul>
                 </li>
+            }
+
+            @if (userRole.ManageTraining || (mapping.Count > 0) || userRole.ManageTrainingTypes)
+            {
                 <li>
-                    <a href="@Url.Action("EditMedicalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Medical Data</a>
+                    <a><i class="fa fa-gift"></i>Training Management<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+
+                        @if (userRole.ManageTraining)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
+                            </li>
+                        }
+                        @if (mapping.Count > 0)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "EmployeeTrainingMappings")">My Trainings</a>
+                            </li>
+                        }
+                        @if (userRole.ManageTrainingTypes)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "TrainingCategories")">Training Types</a>
+                            </li>
+                        }
+                    </ul>
                 </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageAllInstitutions)
-    {
-        <li>
-            <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
+            }
+            @if (userRole.ManageEmploymentTypes)
+            {
                 <li>
-                    <a href="@Url.Action("Index", "Institutions")">All Institutions</a>
+                    <a><i class="fa fa-wrench"></i> Employment Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "EmploymentTypes")">Employment Type</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "EmploymentCategories")">Employment Category</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "EmploymentPositions")">Employment Positions</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Cooperations.ToString()})">Active Intitutions</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("GetInstitutionsByCategory", "Institutions", new {category = InstitutionCategory.Government.ToString()})">Inactive Institutions</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManagePackages)
-    {
-        <li>
-            <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "Package")">Packages</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageInstitutions)
-    {
-        <li>
-            <a><i class="fa fa-user-times"></i> Intitution Management <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                @if (institution != null)
-                {
-                    <li>
-                        <a href="@Url.Action("Edit", "Institutions", new {id = institution.InstitutionId})">Modify Institution Data</a>
-                    </li>
-                }
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageEmployees && (institution != null))
-    {
-        <li>
-            <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("ListOfEmployees", "EmployeeManagement", new {status = EmploymentStatus.Active, id = institution.InstitutionId})">Employee(s)</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageAppUsers)
-    {
-        <li>
-            <a><i class="fa fa-users"></i> Application Users <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                @*<li>
-                            <a href="@Url.Action("Create", "AppUsers")">Add Application User</a>
-                        </li>*@
-                <li>
-                    <a href="@Url.Action("Index", "AppUsers")">Application Users</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AppUsers")">Active Application Users</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AppUsers")">Inactive Application Users</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageRolePriviledges)
-    {
-        <li>
-            <a><i class="fa fa-universal-access"></i> User Priviledges <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "Roles")">Roles</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageFaculties)
-    {
-        <li>
-            <a><i class="fa fa-desktop"></i> Faculties <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "Faculties")">Faculties</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageDepartments)
-    {
-        <li>
-            <a><i class="fa fa-user-secret"></i> Departments <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "Departments")">Departments</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageTraining)
-    {
-        <li>
-            <a><i class="fa fa-gift"></i>Training Management<span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (mapping.Count > 0)
-    {
-        <li>
-            <a><i class="fa fa-gift"></i>My Trainings<span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "EmployeeTrainingMappings")">My Trainings</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageTrainingTypes)
-    {
-        <li>
-            <a><i class="fa fa-wrench"></i> Training Settings <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "TrainingCategories")">Training Types</a>
-                </li>
-            </ul>
-        </li>
-    }
-    @if (userRole.ManageEmploymentTypes)
-    {
-        <li>
-            <a><i class="fa fa-wrench"></i> Employment Settings <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a href="@Url.Action("Index", "EmploymentTypes")">Employment Type</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "EmploymentCategories")">Employment Category</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "EmploymentPositions")">Employment Positions</a>
-                </li>
-            </ul>
-        </li>
-    }
-    </ul>
+            }
+        </ul>
     </div>
-    <div class="menu_section">
+    @*<div class="menu_section">
         <h3>Live On</h3>
         <ul class="nav side-menu">
             <li>
@@ -298,7 +276,7 @@
                 <a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a>
             </li>
         </ul>
-    </div>
+    </div>*@
 
     </div>
     <!-- /sidebar menu -->

@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.Objects.Entities.User
+﻿@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Objects.Entities.User
 @model IEnumerable<Opmas.Data.Objects.Entities.User.AppUser>
 
 @{
@@ -13,6 +14,15 @@
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
     <tr>
+        @{
+            var userRole = Session["role"] as Role;
+        } 
+        @if (userRole?.Name == "Platform Administrator")
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.InstitutionId)
+            </th>
+        }
         <th>
             @Html.DisplayNameFor(model => model.Firstname)
         </th>
@@ -38,6 +48,12 @@
     @foreach (var item in Model)
     {
         <tr>
+            @if (userRole?.Name == "Platform Administrator")
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution.Name)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Firstname)
             </td>
@@ -57,7 +73,7 @@
                 @Html.DisplayFor(modelItem => item.Role.Name)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-default"})
+                @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-xs btn-default fa fa-television"})
             </td>
         </tr>
     }

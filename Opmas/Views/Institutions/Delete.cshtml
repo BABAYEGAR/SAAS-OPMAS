@@ -1,6 +1,6 @@
 ﻿@model Opmas.Data.Objects.Entities.SystemManagement.Institution
 @{
-    Layout = "~/Views/Shared/_LayoutSystemAdminForm.cshtml";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
     ViewBag.Title = "Delete";
     ViewBag.Header = "Institutions";
     ViewBag.Subheader = "Delete an Institution";
@@ -70,7 +70,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger btn-xs"/>
+            <input type="submit" value="Delete" class="btn btn-danger btn-xs fa fa-remove"/>
         </div>
     }
 </div>

@@ -46,8 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.PackageId}, new {@class = "btn btn-xs btn-primary"}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.PackageId}, new {@class = "btn btn-xs btn-danger"})
+                @Html.ActionLink("Edit", "Edit", new {id = item.PackageId}, new {@class = "btn btn-xs btn-primary fa fa-pencil"})
             </td>
         </tr>
     }

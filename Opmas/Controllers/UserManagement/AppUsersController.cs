@@ -27,10 +27,27 @@ namespace Opmas.Controllers.UserManagement
         public ActionResult Index()
         {
             var institution = Session["institution"] as Institution;
-            var appUsers = db.AppUsers.Include(a => a.Employee);
-            return View(appUsers.ToList().Where(n=> { return institution != null && n.InstitutionId == institution.InstitutionId; }));
+            var appUsers = db.AppUsers.Include(a => a.Employee).Include(n=>n.Institution);
+            return View(appUsers.ToList().Where(n=> institution != null && n.InstitutionId == institution.InstitutionId));
         }
-
+        // GET: GetAdminAppUsers
+        public ActionResult GetAdminAppUsers()
+        {
+            var appUsers = db.AppUsers.Include(n => n.Institution);
+            var adminUsers =new  List<AppUser>();
+            foreach (var item in appUsers)
+            {
+                if (item.RoleId != null)
+                {
+                    var userRole = dbc.Roles.Find(item.RoleId);
+                    if((userRole.Name == "Platform Administrator"  || userRole.Name == "Institution Administrator"))
+                    {
+                        adminUsers.Add(item);
+                    }
+                }
+            }
+            return View("Index",adminUsers);
+        }
         // GET: AppUsers/Details/5
         public ActionResult Details(long? id)
         {

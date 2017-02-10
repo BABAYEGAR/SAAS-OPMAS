@@ -3,7 +3,7 @@
     ViewBag.Title = "Delete";
     ViewBag.Header = "Units";
     ViewBag.Subheader = "Delete a unit";
-    Layout = "~/Views/Shared/_LayoutInstitutionAdminForm.cshtml";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
 <div>
     <dl class="dl-horizontal">
@@ -38,7 +38,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger btn-xs"/>
+            <input type="submit" value="Delete" class="btn btn-danger btn-xs fa fa-remove"/>
         </div>
     }
 </div>

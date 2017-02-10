@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -21,6 +19,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // GET: Institutions
         public ActionResult Index()
         {
+            ViewBag.Header = "List Of Institutions";
             return View(db.Institutions.ToList());
         }
 
@@ -29,6 +28,20 @@ namespace Opmas.Controllers.ApplicationManagement
         {
             var institutions = new InstitutionFactory().GetListOfInstitutions();
             return View("Index",institutions);
+        }
+        // GET: GetActiveInstitutions
+        public ActionResult GetActiveInstitutions()
+        {
+            ViewBag.Header = "List Of Active Institutions";
+            var institutions = new InstitutionFactory().GetListOfInstitutions();
+            return View("Index", institutions.Where(n=>n.SubscriptonEndDate > DateTime.Now));
+        }
+        // GET: GetInActiveInstitutions
+        public ActionResult GetInActiveInstitutions()
+        {
+            ViewBag.Header = "List Of Inactive Institutions";
+            var institutions = new InstitutionFactory().GetListOfInstitutions();
+            return View("Index", institutions.Where(n => n.SubscriptonEndDate < DateTime.Now));
         }
         // GET: Institutions/Details/5
         public ActionResult Details(long? id)

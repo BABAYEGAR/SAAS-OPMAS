@@ -90,9 +90,7 @@
                 @Html.DisplayFor(modelItem => item.ManageAppUsers)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.RoleId}, new {@class = "btn btn-xs btn-primary"})
-                @Html.ActionLink("Details", "Details", new {id = item.RoleId}, new {@class = "btn btn-xs btn-default"})
-                @Html.ActionLink("Delete", "Delete", new {id = item.RoleId}, new {@class = "btn btn-xs btn-danger"})
+                @Html.ActionLink("Details", "Details", new {id = item.RoleId}, new {@class = "btn btn-xs btn-default fa fa-television" })
             </td>
         </tr>
     }

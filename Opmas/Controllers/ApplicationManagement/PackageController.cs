@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.AccessDataContext;
 using Opmas.Data.Objects.Entities.AccessManagement;
+using Opmas.Data.Objects.Entities.SystemManagement;
+using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.ApplicationManagement
@@ -47,7 +51,7 @@ namespace Opmas.Controllers.ApplicationManagement
                 if (allPackages.Count >= 3)
                 {
                     TempData["package"] =
-                                  "You cannot add more packages!";
+                                  "You cannot added a package!";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                     return RedirectToAction("Index");
                 }
@@ -65,28 +69,47 @@ namespace Opmas.Controllers.ApplicationManagement
             return View(package);
         }
 
-        // GET: Package/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Packages/Edit/5
+        public ActionResult Edit(long? id)
         {
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var package = _db.Packages.Find(id);
+            if (package == null)
+                return HttpNotFound();
+            return View(package);
         }
 
-        // POST: Package/Edit/5
+        // POST: Packages/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(
+            [Bind(Include = "PackageId,Name,Amount,Type,CreatedBy,DateCreated")] Package package)
         {
-            try
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (loggedinuser != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    package.DateLastModified = DateTime.Now;
+                    package.LastModifiedBy = loggedinuser.AppUserId;
+                    _db.Entry(package).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    TempData["package"] = "You have successfully modified the package";
+                    TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            else
             {
-                return View();
+                TempData["login"] = "Session Expired,Login Again";
+                TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
+                return RedirectToAction("Login", "Account");
             }
+            return View(package);
         }
-
         // GET: Package/Delete/5
         public ActionResult Delete(int id)
         {

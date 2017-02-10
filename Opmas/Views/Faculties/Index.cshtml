@@ -73,10 +73,8 @@
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-primary"})
-                @Html.ActionLink("Details", "Details", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-default"})
-                @Html.ActionLink("Delete", "Delete", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-danger"})
-                @Html.ActionLink("Manage Departments", "FacultyDepartments", "Departments", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-success"})
+                @Html.ActionLink("Details", "Details", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-default fa fa-television" })
+                @Html.ActionLink("Manage Departments", "FacultyDepartments", "Departments", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-success fa fa-wrench"})
             </td>
         </tr>
     }
