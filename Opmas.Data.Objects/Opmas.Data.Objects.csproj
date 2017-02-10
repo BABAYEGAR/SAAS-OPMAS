@@ -63,6 +63,10 @@
     <Compile Include="Entities.Employee\EmploymentCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentPosition.cs" />
     <Compile Include="Mappings\EmployeeTrainingMapping.cs" />
+    <Compile Include="Mappings\PositionAllowanceMapping.cs" />
+    <Compile Include="Mappings\PositionDeductionMapping.cs" />
+    <Compile Include="Payment\PaymentAllowance.cs" />
+    <Compile Include="Payment\PaymentDeduction.cs" />
     <Compile Include="Training\EmployeeTraining.cs" />
     <Compile Include="Training\TrainingCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentType.cs" />
@@ -82,9 +86,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Accounting\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

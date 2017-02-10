@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Payment;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -14,6 +15,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         [ForeignKey("InstitutionId")]
         public virtual Institution Institution { get; set; }
         public IEnumerable<EmployeeWorkData> EmployeeWorkDatas { get; set; }
+        public IEnumerable<PositionDeductionMapping> AssignPaymentDeductions { get; set; }
+        public IEnumerable<PositionAllowanceMapping> AssignPaymentAllowances { get; set; }
 
     }
 }

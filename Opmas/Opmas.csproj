@@ -237,6 +237,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
+    <Compile Include="Controllers\Payment\PaymentAllowancesController.cs" />
+    <Compile Include="Controllers\Payment\PaymentDeductionsController.cs" />
     <Compile Include="Controllers\TrainingManagement\EmployeeTrainingsController.cs" />
     <Compile Include="Controllers\TrainingManagement\TrainingCategoriesController.cs" />
     <Compile Include="Controllers\UserManagement\AppUsersController.cs" />
@@ -5277,6 +5279,16 @@
     <Content Include="Views\EmploymentPositions\Edit.cshtml" />
     <Content Include="Views\EmploymentPositions\Index.cshtml" />
     <Content Include="Views\Package\Edit.cshtml" />
+    <Content Include="Views\PaymentAllowances\Create.cshtml" />
+    <Content Include="Views\PaymentAllowances\Delete.cshtml" />
+    <Content Include="Views\PaymentAllowances\Details.cshtml" />
+    <Content Include="Views\PaymentAllowances\Edit.cshtml" />
+    <Content Include="Views\PaymentAllowances\Index.cshtml" />
+    <Content Include="Views\PaymentDeductions\Create.cshtml" />
+    <Content Include="Views\PaymentDeductions\Delete.cshtml" />
+    <Content Include="Views\PaymentDeductions\Details.cshtml" />
+    <Content Include="Views\PaymentDeductions\Edit.cshtml" />
+    <Content Include="Views\PaymentDeductions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

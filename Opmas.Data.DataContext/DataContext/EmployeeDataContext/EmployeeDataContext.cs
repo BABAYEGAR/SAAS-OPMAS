@@ -4,6 +4,7 @@ using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Mappings;
+using Opmas.Data.Objects.Payment;
 using Opmas.Data.Objects.Training;
 
 namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
@@ -37,6 +38,10 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
         public virtual DbSet<EmploymentCategory> EmploymentCategories { get; set; }
         public virtual DbSet<EmploymentPosition> EmploymentPositions { get; set; }
+        public virtual DbSet<PaymentAllowance> PaymentAllowances { get; set; }
+        public virtual DbSet<PaymentDeduction> PaymentDeductions { get; set; }
+        public virtual DbSet<PositionAllowanceMapping> PositionAllowanceMappings { get; set; }
+        public virtual DbSet<PositionDeductionMapping> PositionDeductionMappings { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

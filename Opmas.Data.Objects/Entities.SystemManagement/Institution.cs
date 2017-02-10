@@ -7,6 +7,7 @@ using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Mappings;
+using Opmas.Data.Objects.Payment;
 using Opmas.Data.Objects.Training;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
@@ -48,6 +49,10 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<TrainingCategory> TrainingCategories { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMapping { get; set; }
         public IEnumerable<EmploymentCategory> EmploymentCategory { get; set; }
+        public IEnumerable<PositionDeductionMapping> PositionDeductionMappings { get; set; }
+        public IEnumerable<PositionAllowanceMapping> PositionAllowanceMappings { get; set; }
+        public IEnumerable<PaymentDeduction> PaymentDeductions { get; set; }
+        public IEnumerable<PaymentAllowance> PaymentAllowances { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }
 
         [DisplayName("Package")]
