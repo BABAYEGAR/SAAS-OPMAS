@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.PaymentDataContext;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Payment;
@@ -16,6 +17,7 @@ namespace Opmas.Controllers.Payment
     public class PaymentAllowancesController : Controller
     {
         private PaymentAllowanceDataContext db = new PaymentAllowanceDataContext();
+        private EmployeeDataContext dbc = new EmployeeDataContext();
 
         // GET: PaymentAllowances
         public ActionResult Index()
@@ -23,7 +25,14 @@ namespace Opmas.Controllers.Payment
             var paymentAllowances = db.PaymentAllowances.Include(p => p.Institution);
             return View(paymentAllowances.ToList());
         }
-
+        // GET: AssignPosition
+        public ActionResult AssignPosition(long? id)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employmentPositions = dbc.EmploymentPositions.Where(n => n.InstitutionId == loggedinuser.InstitutionId);
+            ViewBag.Id = id;
+            return View(employmentPositions);
+        }
         // GET: PaymentAllowances/Details/5
         public ActionResult Details(long? id)
         {

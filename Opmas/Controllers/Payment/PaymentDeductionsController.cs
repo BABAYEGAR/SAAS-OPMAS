@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.PaymentDataContext;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Payment;
@@ -13,6 +14,7 @@ namespace Opmas.Controllers.Payment
     public class PaymentDeductionsController : Controller
     {
         private PaymentDeductionDataContext db = new PaymentDeductionDataContext();
+        private EmployeeDataContext dbc = new EmployeeDataContext();
 
         // GET: PaymentDeductions
         public ActionResult Index()
@@ -21,7 +23,14 @@ namespace Opmas.Controllers.Payment
             var paymentDeduction = db.PaymentDeduction.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(p => p.Institution);
             return View(paymentDeduction.ToList());
         }
-
+        // GET: AssignPosition
+        public ActionResult AssignPosition(long? id)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employmentPositions = dbc.EmploymentPositions.Where(n => n.InstitutionId == loggedinuser.InstitutionId);
+            ViewBag.Id = id;
+            return View(employmentPositions);
+        }
         // GET: PaymentDeductions/Details/5
         public ActionResult Details(long? id)
         {
