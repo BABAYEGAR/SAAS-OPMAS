@@ -163,6 +163,14 @@
     <Compile Include="Migrations\201702101540439_migrate30.Designer.cs">
       <DependentUpon>201702101540439_migrate30.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702102230345_migrate31.cs" />
+    <Compile Include="Migrations\201702102230345_migrate31.Designer.cs">
+      <DependentUpon>201702102230345_migrate31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702102231498_migrate32.cs" />
+    <Compile Include="Migrations\201702102231498_migrate32.Designer.cs">
+      <DependentUpon>201702102231498_migrate32.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -239,6 +247,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702101540439_migrate30.resx">
       <DependentUpon>201702101540439_migrate30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702102230345_migrate31.resx">
+      <DependentUpon>201702102230345_migrate31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702102231498_migrate32.resx">
+      <DependentUpon>201702102231498_migrate32.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

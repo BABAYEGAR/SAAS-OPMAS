@@ -28,33 +28,12 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Institution.Name)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ManagePackages)
+            @Html.DisplayNameFor(model => model.RoleType)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManageInstitutions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManageFaculties)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManageDepartments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManageUnits)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManageEmployees)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManageAppUsers)
-        </th>
-        <th></th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -62,33 +41,12 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Institution.Name)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ManagePackages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManageInstitutions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManageFaculties)
+                @Html.DisplayFor(modelItem => item.RoleType)
             </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ManageDepartments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManageUnits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManageEmployees)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManageAppUsers)
-            </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.RoleId}, new {@class = "btn btn-xs btn-default fa fa-television" })
             </td>

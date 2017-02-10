@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.PaymentDataContext;
+using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Payment;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.Payment
 {
@@ -40,7 +42,6 @@ namespace Opmas.Controllers.Payment
         // GET: PaymentAllowances/Create
         public ActionResult Create()
         {
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name");
             return View();
         }
 
@@ -49,16 +50,26 @@ namespace Opmas.Controllers.Payment
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PaymentAllowanceId,Name,Amount,InstitutionId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] PaymentAllowance paymentAllowance)
+        public ActionResult Create([Bind(Include = "PaymentAllowanceId,Name,Amount")] PaymentAllowance paymentAllowance)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                paymentAllowance.DateCreated = DateTime.Now;
+                paymentAllowance.DateLastModified = DateTime.Now;
+                if (loggedinuser != null)
+                {
+                    paymentAllowance.CreatedBy = loggedinuser.AppUserId;
+                    paymentAllowance.LastModifiedBy = loggedinuser.AppUserId;
+                    if (loggedinuser.InstitutionId != null)
+                        paymentAllowance.InstitutionId = (long)loggedinuser.InstitutionId;
+                }
                 db.PaymentAllowances.Add(paymentAllowance);
                 db.SaveChanges();
+                TempData["allowance"] = "you have succesfully added a new payment allowance item!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", paymentAllowance.InstitutionId);
             return View(paymentAllowance);
         }
 
@@ -83,15 +94,19 @@ namespace Opmas.Controllers.Payment
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PaymentAllowanceId,Name,Amount,InstitutionId,CreatedBy,DateCreated,DateLastModified,LastModifiedBy")] PaymentAllowance paymentAllowance)
+        public ActionResult Edit([Bind(Include = "PaymentAllowanceId,Name,Amount,InstitutionId,CreatedBy,DateCreated")] PaymentAllowance paymentAllowance)
         {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                paymentAllowance.DateLastModified = DateTime.Now;
+                if (loggedinuser != null) paymentAllowance.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(paymentAllowance).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["allowance"] = "you have succesfully modified the payment allowance item!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", paymentAllowance.InstitutionId);
             return View(paymentAllowance);
         }
 
@@ -118,6 +133,8 @@ namespace Opmas.Controllers.Payment
             PaymentAllowance paymentAllowance = db.PaymentAllowances.Find(id);
             db.PaymentAllowances.Remove(paymentAllowance);
             db.SaveChanges();
+            TempData["allowance"] = "you have succesfully deleted the payment allowance item!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
 

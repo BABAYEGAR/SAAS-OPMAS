@@ -1,51 +1,47 @@
-﻿@model IEnumerable<Opmas.Data.Objects.Payment.PaymentAllowance>
+﻿@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Payment.PaymentAllowance>
 
 @{
-    Layout = null;
+    ViewBag.Title = "List";
+    ViewBag.Header = "Payment Allowance";
+    ViewBag.Subheader = "List Of Payment Allowances";
+    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
 }
+@if (TempData["allowance"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["allowance"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["allowance"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["allowance"]</div>
+    }
+}
+@section add {
+    @Html.ActionLink("Add data", "Create", null, new {@class = "btn btn-primary btn-xs fa fa-plus"})
+}
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>Action</th>
+    </tr>
+    </thead>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
+    <tbody>
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Institution.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateLastModified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastModifiedBy)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Institution.Name)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -53,25 +49,12 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateLastModified)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedBy)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.PaymentAllowanceId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.PaymentAllowanceId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.PaymentAllowanceId })
+                @Html.ActionLink("Details", "Details", new {id = item.PaymentAllowanceId}, new {@class = "btn btn-xs btn-default fa fa-television"})
+                @Html.ActionLink("Assign to Positions", "Details", new { id = item.PaymentAllowanceId }, new { @class = "btn btn-xs btn-success fa fa-tag" })
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+    </tbody>
+
+
+</table>

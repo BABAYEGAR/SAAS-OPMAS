@@ -1,82 +1,69 @@
 ﻿@model Opmas.Data.Objects.Payment.PaymentDeduction
-
 @{
-    Layout = null;
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Payment Deduction";
+    ViewBag.Subheader = "View payement deduction item details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Institution.Name)
+    </dt>
 
-<!DOCTYPE html>
+    <dd>
+        @Html.DisplayFor(model => model.Institution.Name)
+    </dd>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>PaymentDeduction</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Institution.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Institution.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Rate)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Rate)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CreatedBy)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.DateCreated)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.DateLastModified)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.DateLastModified)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.LastModifiedBy)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.LastModifiedBy)
-            </dd>
-    
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.PaymentDeductionId }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
-</html>
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Rate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Rate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CreatedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CreatedBy)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateCreated)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateCreated)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateLastModified)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateLastModified)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LastModifiedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LastModifiedBy)
+    </dd>
+
+</dl>
+<p>
+    @Html.ActionLink("Edit Item", "Edit", new { id = Model.PaymentDeductionId }, new { @class = "btn btn-primary btn-xs fa fa-pencil" })
+    @Html.ActionLink("Delete Item", "Delete", new { id = Model.PaymentDeductionId }, new { @class = "btn btn-danger btn-xs fa fa-remove" })
+</p>

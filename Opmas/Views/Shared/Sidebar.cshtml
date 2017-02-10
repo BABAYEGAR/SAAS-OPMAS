@@ -201,6 +201,20 @@
                     </ul>
                 </li>
             }
+            @if (userRole.ManagePayment)
+            {
+                <li>
+                    <a><i class="fa fa-money"></i> Payment Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "PaymentAllowances")">Payment Allowance</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "PaymentDeductions")">Payment Deduction</a>
+                        </li>
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
     @*<div class="menu_section">
