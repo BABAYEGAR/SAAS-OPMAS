@@ -50,6 +50,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.EmploymentPositionId }, new { @class = "btn btn-xs btn-default fa fa-television" })
+                    @Html.ActionLink("Manage Income", "UpdateIncome", new { id = item.EmploymentPositionId }, new { @class = "btn btn-xs btn-success fa fa-money" })
                 </td>
             </tr>
         }

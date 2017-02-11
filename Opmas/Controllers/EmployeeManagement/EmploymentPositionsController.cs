@@ -43,7 +43,6 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmploymentPositions/Create
         public ActionResult Create()
         {
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name");
             return View();
         }
 
@@ -52,7 +51,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmploymentPositionId,Name")] EmploymentPosition employmentPosition)
+        public ActionResult Create([Bind(Include = "EmploymentPositionId,Name,Income")] EmploymentPosition employmentPosition)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -74,7 +73,20 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             return View(employmentPosition);
         }
-
+        // GET: EmploymentPositions/UpdateIncome/5
+        public ActionResult UpdateIncome(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            EmploymentPosition employmentPosition = db.EmploymentPosition.Find(id);
+            if (employmentPosition == null)
+            {
+                return HttpNotFound();
+            }
+            return View(employmentPosition);
+        }
         // GET: EmploymentPositions/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -95,7 +107,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmploymentPositionId,Name,InstitutionId,CreatedBy,DateCreated")] EmploymentPosition employmentPosition)
+        public ActionResult Edit([Bind(Include = "EmploymentPositionId,Name,InstitutionId,Income,CreatedBy,DateCreated")] EmploymentPosition employmentPosition)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

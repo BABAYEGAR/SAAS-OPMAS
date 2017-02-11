@@ -71,7 +71,7 @@ namespace Opmas.Controllers.Payment
                             };
                             db.PositionDeductionMappings.Add(positionDeductionMapping);
                             db.SaveChanges();
-                            TempData["employmentposition"] = "you have succesfully assigned the employment position(s) to the payment deduction item !";
+                            TempData["employmentposition"] = "you have succesfully assigned the employment position(s) to the payment deduction item!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }
                         else

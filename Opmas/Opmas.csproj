@@ -5291,6 +5291,8 @@
     <Content Include="Views\PaymentDeductions\Index.cshtml" />
     <Content Include="Views\PaymentDeductions\AssignPosition.cshtml" />
     <Content Include="Views\PaymentAllowances\AssignPosition.cshtml" />
+    <Content Include="Views\EmploymentPositions\UpdateIncome.cshtml" />
+    <Content Include="Views\EmployeeManagement\EmployeePaySlip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -101,6 +101,12 @@
                         <li>
                             <a href="@Url.Action("EditMedicalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Medical Data</a>
                         </li>
+                        @if (loggedinuser.EmployeeId != null)
+                        {
+                            <li>
+                                <a href="@Url.Action("EmployeePaySlip", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Payment Slip</a>
+                            </li>
+                        }
                     </ul>
                 </li>
             }
@@ -133,7 +139,7 @@
                 </li>
             }
 
-            @if (userRole.ManageEmployees && (institution != null))
+            @if (userRole.ManageEmployees || userRole.ManagePayment && (institution != null))
             {
                 <li>
                     <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>

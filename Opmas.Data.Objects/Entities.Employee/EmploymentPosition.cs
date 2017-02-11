@@ -10,6 +10,7 @@ namespace Opmas.Data.Objects.Entities.Employee
     {
         public long EmploymentPositionId { get; set; }
         public string Name { get; set; }
+        public long Income { get; set; }
         public long InstitutionId { get; set; }
 
         [ForeignKey("InstitutionId")]

@@ -72,7 +72,7 @@ namespace Opmas.Controllers.Payment
                             };
                             db.PositionAllowanceMappings.Add(positionDeductionMapping);
                             db.SaveChanges();
-                            TempData["employmentallowance"] = "you have succesfully assigned the employment position(s) to the payment allowance item !";
+                            TempData["employmentallowance"] = "you have succesfully assigned the employment position(s) to the payment allowance item!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }
                         else

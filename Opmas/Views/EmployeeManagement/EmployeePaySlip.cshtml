@@ -1,0 +1,84 @@
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.SystemManagement
+@model Opmas.Data.Objects.Entities.Employee.Employee
+@{
+    var institution = Session["institution"] as Institution;
+
+    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var db = new EmployeeDataContext();
+    var employeeWorkData = db.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == Model.EmployeeId);
+    var employmentPositionId = employeeWorkData?.EmploymentPositionId;
+    var employmentPosition = db.EmploymentPositions.Find(employmentPositionId);
+    var allowanceMapping = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance);
+
+    var allowanceTotal = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance).Sum(n => n.PaymentAllowance.Amount);
+
+    var deductionMapping = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction);
+
+    var deductionTotal = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction).Sum(n => n.PaymentDeduction.Rate*employmentPosition.Income/100);
+
+    ViewBag.Title = "List";
+    ViewBag.Header = "Basic Salary : N" + employmentPosition.Income;
+    ViewBag.Subheader = "Employee Payment Slip";
+}
+
+
+<h2 style="font-weight: bolder">Payment Allowances</h2>
+<table class="table table-striped projects">
+    <thead>
+    <tr>
+        <th>Allowance Item</th>
+        <th>Amount Designated (N)</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in allowanceMapping)
+    {
+        var balance = item.PaymentAllowance.Amount;
+        <tr>
+            <td>
+                @item.PaymentAllowance.Name
+            </td>
+            <td style="color: green">
+                @balance
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<label style="color: green">Total Amount For Allowances : N@(allowanceTotal) </label>
+<br/>
+<br/>
+<br/>
+<h2 style="font-weight: bolder">Payment Deductions</h2>
+<table class="table table-striped projects">
+    <thead>
+    <tr>
+        <th>Deduction Item</th>
+        <th>Amount Deducted (N) </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in deductionMapping)
+    {
+        var balance = item.PaymentDeduction.Rate*employmentPosition.Income/100;
+        <tr>
+            <td>
+                @item.PaymentDeduction.Name
+            </td>
+            <td style="color: red">
+                @balance
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<label style="color: red">Total Amount Deducted : N@(deductionTotal) </label>
+
+<br/>
+<br/>
+<br/>
+
+<label>Net Income : <strong style="color: black; font-size: 14px; font-weight: bolder;">N@(employmentPosition.Income + allowanceTotal - deductionTotal)</strong> </label>

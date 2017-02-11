@@ -1183,5 +1183,16 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         #endregion
+
+        // GET: EmployeeManagement/EmployeePayslip
+        public ActionResult EmployeePaySlip(long? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var employee = _dbEmployee.Employees.Find(id);
+            if (employee == null)
+                return HttpNotFound();
+            return View(employee);
+        }
     }
 }

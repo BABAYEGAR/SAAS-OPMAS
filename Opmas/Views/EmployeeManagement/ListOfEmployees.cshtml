@@ -1,7 +1,6 @@
-﻿@using System.Linq
-@using Opmas.Data.DataContext.DataContext.UserDataContext
+﻿@using Opmas.Data.DataContext.DataContext.UserDataContext
 @using Opmas.Data.Factory.EmployeeManagement
-@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
 
@@ -10,7 +9,7 @@
     ViewBag.Header = "List Of Employees";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var appuser = new AppUserDataContext();
-  
+    var userRole = Session["role"] as Role;
 }
 @if (TempData["employee"] != null)
 {
@@ -69,8 +68,16 @@
                 @Html.DisplayFor(modelItem => item.DateLastModified)
             </td>
             <td>
-                @(appusersExist != null ? Html.ActionLink("Manage", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-success fa fa-wrench"}) : Html.ActionLink("Details  ", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-default fa fa-television"}))
-                @Html.ActionLink("Work Data", "EditWorkData", new {id = item.EmployeeId}, new {@class = "btn btn-xs btn-primary"})
+                @if ((userRole != null) && userRole.ManageEmployees)
+                {
+                    @(appusersExist != null ? Html.ActionLink("Details  ", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-default fa fa-television"}) : Html.ActionLink("Manage", "ConvertEmployeeToAppUser", new {employeeId = item.EmployeeId}, new {@class = "btn btn-xs btn-success fa fa-wrench"}))
+                    @Html.ActionLink("Work Data", "EditWorkData", new {id = item.EmployeeId}, new {@class = "btn btn-xs btn-primary fa fa-pencil"})
+                }
+
+                @if ((userRole != null) && userRole.ManagePayment)
+                {
+                    @Html.ActionLink("Payment Slip", "EmployeePaySlip", new {id = item.EmployeeId}, new {@class = "btn btn-xs btn-success fa fa-money"})
+                }
             </td>
         </tr>
     }
