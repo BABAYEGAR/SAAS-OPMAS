@@ -83,6 +83,8 @@
         <li>
             <a><i class="fa fa-users"></i> Record Management <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
+                @if (loggedinuser.EmployeeId != null)
+                {
                 <li>
                     <a href="@Url.Action("EditPersonalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Personal Data</a>
                 </li>
@@ -101,14 +103,13 @@
                 <li>
                     <a href="@Url.Action("EditMedicalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Medical Data</a>
                 </li>
-                @if (loggedinuser.EmployeeId != null)
-                {
-                    <li>
-                        <a href="@Url.Action("EmployeePaySlip", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Payment Slip</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("EmployeePaymentDeductionRequest", "PaymentDeductionRequests", new {id = loggedinuser.EmployeeId})">Request Deduction</a>
-                    </li>
+
+                <li>
+                    <a href="@Url.Action("EmployeePaySlip", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Payment Slip</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("EmployeePaymentDeductionRequest", "PaymentDeductionRequests", new {id = loggedinuser.EmployeeId})">Request Deduction</a>
+                </li>
                 }
             </ul>
         </li>

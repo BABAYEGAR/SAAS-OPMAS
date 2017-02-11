@@ -22,6 +22,7 @@
     var requestedDeductions = db.PaymentDeductionRequests.Where(n => (n.InstitutionId == Model.InstitutionId) && (n.EmployeeId == Model.EmployeeId) && (n.Status == PaymentDeductionRequestStatus.Granted.ToString()));
 
     var requestedDeductionsTotal = db.PaymentDeductionRequests.Where(n => (n.InstitutionId == Model.InstitutionId) && (n.EmployeeId == Model.EmployeeId) && (n.Status == PaymentDeductionRequestStatus.Granted.ToString())).Sum(n => n.Amount);
+
     ViewBag.Title = "List";
     ViewBag.Header = "Basic Salary : N" + employmentPosition.Income;
     ViewBag.Subheader = "Employee Payment Slip";
