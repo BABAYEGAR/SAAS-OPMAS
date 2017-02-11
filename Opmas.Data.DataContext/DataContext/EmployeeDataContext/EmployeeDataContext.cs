@@ -42,6 +42,8 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<PaymentDeduction> PaymentDeductions { get; set; }
         public virtual DbSet<PositionAllowanceMapping> PositionAllowanceMappings { get; set; }
         public virtual DbSet<PositionDeductionMapping> PositionDeductionMappings { get; set; }
+        public virtual DbSet<InstitutionStructure> InstitutionStructures { get; set; }
+        public virtual DbSet<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

@@ -59,6 +59,7 @@
     <Compile Include="Enums\NameTitle.cs" />
     <Compile Include="Enums\NotificationTypeEnum.cs" />
     <Compile Include="Enums\PackageType.cs" />
+    <Compile Include="Enums\PaymentDeductionRequestStatus.cs" />
     <Compile Include="Enums\RoleType.cs" />
     <Compile Include="Enums\SubscriptionDuration.cs" />
     <Compile Include="Enums\TrainingCompletionEnum.cs" />

@@ -62,11 +62,13 @@
     <Compile Include="Entities.Employee\EmployeePersonalData.cs" />
     <Compile Include="Entities.Employee\EmploymentCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentPosition.cs" />
+    <Compile Include="Entities.SystemManagement\InstitutionStructure.cs" />
     <Compile Include="Mappings\EmployeeTrainingMapping.cs" />
     <Compile Include="Mappings\PositionAllowanceMapping.cs" />
     <Compile Include="Mappings\PositionDeductionMapping.cs" />
     <Compile Include="Payment\PaymentAllowance.cs" />
     <Compile Include="Payment\PaymentDeduction.cs" />
+    <Compile Include="Payment\PaymentDeductionRequest.cs" />
     <Compile Include="Training\EmployeeTraining.cs" />
     <Compile Include="Training\TrainingCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentType.cs" />

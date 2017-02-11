@@ -70,8 +70,10 @@
     <Compile Include="DataContext\MappingDataContext\PositionDeductionMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionAllowanceMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\EmployeeTrainingMappingDataContext.cs" />
+    <Compile Include="DataContext\PaymentDataContext\PaymentDeductionRequestDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentDeductionDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentAllowanceDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\InstitutionStructureDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\FacultyDataContext.cs" />
@@ -175,6 +177,18 @@
     <Compile Include="Migrations\201702110330076_migrate33.Designer.cs">
       <DependentUpon>201702110330076_migrate33.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702110717455_migrate34.cs" />
+    <Compile Include="Migrations\201702110717455_migrate34.Designer.cs">
+      <DependentUpon>201702110717455_migrate34.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702110724279_migrate35.cs" />
+    <Compile Include="Migrations\201702110724279_migrate35.Designer.cs">
+      <DependentUpon>201702110724279_migrate35.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702110833356_migrate36.cs" />
+    <Compile Include="Migrations\201702110833356_migrate36.Designer.cs">
+      <DependentUpon>201702110833356_migrate36.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,6 +274,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702110330076_migrate33.resx">
       <DependentUpon>201702110330076_migrate33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702110717455_migrate34.resx">
+      <DependentUpon>201702110717455_migrate34.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702110724279_migrate35.resx">
+      <DependentUpon>201702110724279_migrate35.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702110833356_migrate36.resx">
+      <DependentUpon>201702110833356_migrate36.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,135 @@
+﻿@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Payment.PaymentDeductionRequest
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Deduction Requests";
+    ViewBag.Subheader = "View deduction details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    var userRole = Session["role"] as Role;
+}
+
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Employee.EmployeeId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Employee.EmployeeId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.RequestTitle)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.RequestTitle)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Reason)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Reason)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Status)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Comment)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Comment)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CreatedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CreatedBy)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateCreated)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateCreated)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateLastModified)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateLastModified)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LastModifiedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LastModifiedBy)
+    </dd>
+
+</dl>
+<p>
+    @if (loggedinuser?.EmployeeId == Model.EmployeeId)
+    {
+        if ((Model.Status == PaymentDeductionRequestStatus.Pending.ToString()))
+         {
+             @Html.ActionLink("Edit Request", "Edit", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
+             @Html.ActionLink("Delete Request", "Delete", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
+         }
+    }
+    @if ((Model.Status == PaymentDeductionRequestStatus.Denied.ToString()) || (Model.Status == PaymentDeductionRequestStatus.Granted.ToString()))
+    {
+    }
+    else
+    {
+        @Html.ActionLink("Approve", "GrantRequest", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-default btn-xs fa fa-check"})
+        if ((userRole != null) && userRole.ManagePayment)
+        {
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-xs fa fa-recycle" data-toggle="modal" data-target="#myModal">
+                Deny Request
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Comment</h4>
+                        </div>
+                        <div class="modal-body">
+                            @{
+                                Html.RenderPartial("DenyPaymentDeductionRequest", Model);
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+
+
+</p>

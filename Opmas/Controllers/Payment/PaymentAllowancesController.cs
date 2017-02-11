@@ -22,7 +22,8 @@ namespace Opmas.Controllers.Payment
         // GET: PaymentAllowances
         public ActionResult Index()
         {
-            var paymentAllowances = db.PaymentAllowances.Include(p => p.Institution);
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var paymentAllowances = db.PaymentAllowances.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(p => p.Institution);
             return View(paymentAllowances.ToList());
         }
         // GET: AssignPosition

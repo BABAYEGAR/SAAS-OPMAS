@@ -1,6 +1,7 @@
 ﻿@using System.Data.Entity
 @using Opmas.Data.DataContext.DataContext.EmployeeDataContext
 @using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.Employee
 @{
     var institution = Session["institution"] as Institution;
@@ -18,6 +19,9 @@
 
     var deductionTotal = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction).Sum(n => n.PaymentDeduction.Rate*employmentPosition.Income/100);
 
+    var requestedDeductions = db.PaymentDeductionRequests.Where(n => n.InstitutionId == Model.InstitutionId && n.EmployeeId == Model.EmployeeId && n.Status == PaymentDeductionRequestStatus.Granted.ToString());
+
+    var requestedDeductionsTotal = db.PaymentDeductionRequests.Where(n => n.InstitutionId == Model.InstitutionId && n.EmployeeId == Model.EmployeeId && n.Status == PaymentDeductionRequestStatus.Granted.ToString()).Sum(n=>n.Amount);
     ViewBag.Title = "List";
     ViewBag.Header = "Basic Salary : N" + employmentPosition.Income;
     ViewBag.Subheader = "Employee Payment Slip";
@@ -75,10 +79,39 @@
     </tbody>
 </table>
 
-<label style="color: red">Total Amount Deducted : N@(deductionTotal) </label>
+<label style="color: red">Total Amount to be Deducted : N@(deductionTotal) </label>
 
 <br/>
 <br/>
 <br/>
 
-<label>Net Income : <strong style="color: black; font-size: 14px; font-weight: bolder;">N@(employmentPosition.Income + allowanceTotal - deductionTotal)</strong> </label>
+<h2 style="font-weight: bolder">Other Payment Deductions</h2>
+<table class="table table-striped projects">
+    <thead>
+    <tr>
+        <th>Deduction Item</th>
+        <th>Amount Deducted (N) </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in requestedDeductions)
+    {
+        <tr>
+            <td>
+                @item.RequestTitle
+            </td>
+            <td style="color: red">
+                @item.Amount
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<label style="color: red">Total Amount to be Deducted : N@(requestedDeductionsTotal) </label>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<label>Net Income : <strong style="color: black; font-size: 14px; font-weight: bolder;">N@((employmentPosition.Income + allowanceTotal - deductionTotal)- requestedDeductionsTotal)</strong> </label>

@@ -53,7 +53,9 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<PositionAllowanceMapping> PositionAllowanceMappings { get; set; }
         public IEnumerable<PaymentDeduction> PaymentDeductions { get; set; }
         public IEnumerable<PaymentAllowance> PaymentAllowances { get; set; }
+        public IEnumerable<InstitutionStructure> InstitutionStructure { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }
+        public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
 
         [DisplayName("Package")]
         public long PackageId { get; set; }

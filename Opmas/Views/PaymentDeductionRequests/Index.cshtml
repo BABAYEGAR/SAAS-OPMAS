@@ -1,0 +1,56 @@
+﻿@using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Payment.PaymentDeductionRequest>
+
+@{
+    ViewBag.Title = "List";
+    ViewBag.Header = "Payment Deduction Request";
+    ViewBag.Subheader = "List Of Requests";
+    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+}
+@if (TempData["deductionrequest"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["deductionrequest"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["deductionrequest"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["deductionrequest"]</div>
+    }
+}
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new {id = item.PaymentDeductionRequestId}, new {@class = "btn btn-xs btn-default fa fa-television"})
+
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>

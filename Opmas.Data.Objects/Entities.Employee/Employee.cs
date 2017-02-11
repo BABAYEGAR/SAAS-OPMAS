@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Mappings;
+using Opmas.Data.Objects.Payment;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -42,6 +43,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public virtual Faculty Faculty { get; set; }
         public bool Selected { get; set; }
         public IEnumerable<Role> Roles { get; set; }
+        public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
 
     }

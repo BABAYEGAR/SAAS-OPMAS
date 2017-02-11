@@ -1,0 +1,90 @@
+﻿@model Opmas.Data.Objects.Payment.PaymentDeductionRequest
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Header = "Payment Deduction";
+    ViewBag.Subheader = "Delete a payment deduction";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+}
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Employee.EmployeeId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Employee.EmployeeId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.RequestTitle)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.RequestTitle)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Reason)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Reason)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Status)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Comment)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Comment)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CreatedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CreatedBy)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateCreated)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateCreated)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateLastModified)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateLastModified)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LastModifiedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LastModifiedBy)
+    </dd>
+
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete Request" class="btn btn-danger btn-xs fa fa-remove"/>
+    </div>
+}

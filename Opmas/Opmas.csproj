@@ -238,6 +238,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
     <Compile Include="Controllers\Payment\PaymentAllowancesController.cs" />
+    <Compile Include="Controllers\Payment\PaymentDeductionRequestsController.cs" />
     <Compile Include="Controllers\Payment\PaymentDeductionsController.cs" />
     <Compile Include="Controllers\TrainingManagement\EmployeeTrainingsController.cs" />
     <Compile Include="Controllers\TrainingManagement\TrainingCategoriesController.cs" />
@@ -5293,6 +5294,13 @@
     <Content Include="Views\PaymentAllowances\AssignPosition.cshtml" />
     <Content Include="Views\EmploymentPositions\UpdateIncome.cshtml" />
     <Content Include="Views\EmployeeManagement\EmployeePaySlip.cshtml" />
+    <Content Include="Views\PaymentDeductionRequests\Create.cshtml" />
+    <Content Include="Views\PaymentDeductionRequests\Delete.cshtml" />
+    <Content Include="Views\PaymentDeductionRequests\Details.cshtml" />
+    <Content Include="Views\PaymentDeductionRequests\Edit.cshtml" />
+    <Content Include="Views\PaymentDeductionRequests\Index.cshtml" />
+    <Content Include="Views\Shared\DenyPaymentDeductionRequest.cshtml" />
+    <Content Include="Views\PaymentDeductionRequests\EmployeePaymentDeductionRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
