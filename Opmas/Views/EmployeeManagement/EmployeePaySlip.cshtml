@@ -19,9 +19,9 @@
 
     var deductionTotal = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction).Sum(n => n.PaymentDeduction.Rate*employmentPosition.Income/100);
 
-    var requestedDeductions = db.PaymentDeductionRequests.Where(n => n.InstitutionId == Model.InstitutionId && n.EmployeeId == Model.EmployeeId && n.Status == PaymentDeductionRequestStatus.Granted.ToString());
+    var requestedDeductions = db.PaymentDeductionRequests.Where(n => (n.InstitutionId == Model.InstitutionId) && (n.EmployeeId == Model.EmployeeId) && (n.Status == PaymentDeductionRequestStatus.Granted.ToString()));
 
-    var requestedDeductionsTotal = db.PaymentDeductionRequests.Where(n => n.InstitutionId == Model.InstitutionId && n.EmployeeId == Model.EmployeeId && n.Status == PaymentDeductionRequestStatus.Granted.ToString()).Sum(n=>n.Amount);
+    var requestedDeductionsTotal = db.PaymentDeductionRequests.Where(n => (n.InstitutionId == Model.InstitutionId) && (n.EmployeeId == Model.EmployeeId) && (n.Status == PaymentDeductionRequestStatus.Granted.ToString())).Sum(n => n.Amount);
     ViewBag.Title = "List";
     ViewBag.Header = "Basic Salary : N" + employmentPosition.Income;
     ViewBag.Subheader = "Employee Payment Slip";
@@ -114,4 +114,4 @@
 <br/>
 <br/>
 
-<label>Net Income : <strong style="color: black; font-size: 14px; font-weight: bolder;">N@((employmentPosition.Income + allowanceTotal - deductionTotal)- requestedDeductionsTotal)</strong> </label>
+<label>Net Income : <strong style="color: black; font-size: 14px; font-weight: bolder;">N@(employmentPosition.Income + allowanceTotal - deductionTotal - requestedDeductionsTotal)</strong> </label>

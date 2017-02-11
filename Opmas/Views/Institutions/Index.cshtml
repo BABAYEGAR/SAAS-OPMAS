@@ -1,10 +1,8 @@
-﻿@using Opmas.Data.Objects.Entities.SystemManagement
-@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Institution>
 @{
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     ViewBag.Title = "Institutions";
-    
 }
 @if (TempData["institution"] != null)
 {

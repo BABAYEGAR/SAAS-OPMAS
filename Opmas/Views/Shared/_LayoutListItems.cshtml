@@ -1,5 +1,4 @@
 ﻿@using Opmas.Data.Objects.Entities.User
-@using Opmas.Data.Service.Enums
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser == null)
@@ -33,9 +32,9 @@
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/ManagementDashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-    
+
     <link href="~/Content/ManagementDashboard/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
@@ -99,10 +98,10 @@
                             <div class="x_title">
                                 <h2>
                                     <small>
-                                      @ViewBag.Subheader  
+                                        @ViewBag.Subheader
                                     </small>
                                 </h2>
-                                
+
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li>
                                         @RenderSection("add", false)
@@ -155,9 +154,9 @@
 
 <!-- Custom Theme Scripts -->
 <script src="~/Content/ManagementDashboard/build/js/custom.min.js"></script>
-    
-    <script src="~/Content/ManagementDashboard/vendors/select2/dist/js/select2.full.min.js"></script>
-    <script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+<script src="~/Content/ManagementDashboard/vendors/select2/dist/js/select2.full.min.js"></script>
+<script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 <!-- Datatables -->
 <script>
@@ -287,15 +286,15 @@
 
 
 </script>
-    <script>
+<script>
     $(document)
         .ready(function() {
             // Init select2 for dropdown select
-           // $('.select-dropdown').select2();
+            // $('.select-dropdown').select2();
         });
-    </script>
-    <!-- bootstrap-daterangepicker -->
-    <script>
+</script>
+<!-- bootstrap-daterangepicker -->
+<script>
     $(document)
         .ready(function() {
             // init datepicker for dob date
@@ -320,6 +319,6 @@
                         $('.endDate').datepicker('setStartDate', e.date);
                     });
         });
-    </script>
+</script>
 </body>
 </html>

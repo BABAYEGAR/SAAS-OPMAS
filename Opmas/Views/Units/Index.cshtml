@@ -1,5 +1,4 @@
-﻿@using Opmas.Data.Objects.Entities.SystemManagement
-@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Unit>
 @{
     ViewBag.Title = "Units";
@@ -47,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new {id = item.UnitId}, new {@class = "btn btn-default btn-xs fa fa-television" })
+                @Html.ActionLink("Details", "Details", new {id = item.UnitId}, new {@class = "btn btn-default btn-xs fa fa-television"})
             </td>
         </tr>
     }

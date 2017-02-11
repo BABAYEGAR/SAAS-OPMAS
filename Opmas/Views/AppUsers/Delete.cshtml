@@ -1,17 +1,14 @@
 ﻿@using Opmas.Data.Objects.Entities.User
-@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.User.AppUser
 
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser != null)
     {
-
-            Layout = "~/Views/Shared/_LayoutForm.cshtml";
-            ViewBag.Title = "Delete";
-            ViewBag.Header = "Application Users";
-            ViewBag.Subheader = "Delete an appliction user";
-
+        Layout = "~/Views/Shared/_LayoutForm.cshtml";
+        ViewBag.Title = "Delete";
+        ViewBag.Header = "Application Users";
+        ViewBag.Subheader = "Delete an appliction user";
     }
 }
 <div>

@@ -65,7 +65,7 @@
                 @Html.DisplayFor(modelItem => item.CoordinatorFullname)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new {id = item.EmployeeTrainingId}, new {@class = "btn btn-xs btn-default fa fa-television" })
+                @Html.ActionLink("Details", "Details", new {id = item.EmployeeTrainingId}, new {@class = "btn btn-xs btn-default fa fa-television"})
                 @Html.ActionLink("Attendee list", "AttendeeList", "EmployeeTrainings", new {id = item.EmployeeTrainingId}, new {@class = "btn btn-xs btn-success fa fa-list"})
             </td>
         </tr>

@@ -59,9 +59,10 @@ namespace Opmas.Controllers.Payment
         }
 
         // POST: PaymentDeductionRequests/DenyRequest
-        public ActionResult DenyRequest(long? id,FormCollection collectedValues)
+        public ActionResult DenyRequest(FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var id = Convert.ToInt64(collectedValues["PaymentDeductionRequestId"]);
             var request = db.PaymentDeductionRequests.Find(id);
             request.Status = PaymentDeductionRequestStatus.Denied.ToString();
             request.DateLastModified = DateTime.Now;

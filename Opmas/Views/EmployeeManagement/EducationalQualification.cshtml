@@ -112,11 +112,11 @@
             </div>
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.EndDate, "End Date", new { @class = "control-label" })<span class="req">*</span>
+                @Html.LabelFor(m => m.EndDate, "End Date", new {@class = "control-label"})<span class="req">*</span>
                 @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select an end date"})
             </div>
             <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.DegreeAttained, "Degree Category", new { @class = "control-label" })<span class="req">*</span>
+                @Html.LabelFor(m => m.DegreeAttained, "Degree Category", new {@class = "control-label"})<span class="req">*</span>
                 @Html.DropDownListFor(m => m.DegreeAttained, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "degreeType"})
             </div>
             <div class="form-group col-md-6" id="degreeClass">
@@ -329,7 +329,7 @@
 
     <div class="col-md-12">
 
-        <a href="@Url.Action("PersonalData", "EmployeeManagement",new { backUrl  = true})" class="btn btn-default">Back</a>
+        <a href="@Url.Action("PersonalData", "EmployeeManagement", new {backUrl = true})" class="btn btn-default">Back</a>
         <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
         <input type="submit" value="Add" class="btn btn-success"/>
 

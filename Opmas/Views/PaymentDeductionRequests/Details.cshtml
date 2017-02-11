@@ -90,11 +90,11 @@
 <p>
     @if (loggedinuser?.EmployeeId == Model.EmployeeId)
     {
-        if ((Model.Status == PaymentDeductionRequestStatus.Pending.ToString()))
-         {
-             @Html.ActionLink("Edit Request", "Edit", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-             @Html.ActionLink("Delete Request", "Delete", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-         }
+        if (Model.Status == PaymentDeductionRequestStatus.Pending.ToString())
+        {
+            @Html.ActionLink("Edit Request", "Edit", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
+            @Html.ActionLink("Delete Request", "Delete", new {id = Model.PaymentDeductionRequestId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
+        }
     }
     @if ((Model.Status == PaymentDeductionRequestStatus.Denied.ToString()) || (Model.Status == PaymentDeductionRequestStatus.Granted.ToString()))
     {

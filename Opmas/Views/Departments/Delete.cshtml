@@ -5,38 +5,38 @@
     ViewBag.Subheader = "Delete a department";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Faculty.Name)
-        </dt>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Faculty.Name)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Faculty.Name)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Faculty.Name)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Institution.Name)
-        </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Institution.Name)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Institution.Name)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Institution.Name)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
 
-    </dl>
+</dl>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete Department" class="btn btn-danger btn-xs fa fa-remove"/>
-        </div>
-    }
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete Department" class="btn btn-danger btn-xs fa fa-remove"/>
+    </div>
+}

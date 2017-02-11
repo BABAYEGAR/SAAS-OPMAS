@@ -2,8 +2,8 @@
 @using Opmas.Data.Factory.EmployeeManagement
 @using Opmas.Data.Objects.Entities.Employee
 @{
-    var dbEmployee  = new EmployeeDataContext();
-    var dbEmployeePosition  = new EmploymentPositionDataContext();
+    var dbEmployee = new EmployeeDataContext();
+    var dbEmployeePosition = new EmploymentPositionDataContext();
     var edit = true;
     var employee = Session["Employee"] as Employee;
     List<EmployeeEducationalQualification> educationaQualification = null;
@@ -494,17 +494,17 @@
 
                             </h4>
                             <h4>
-                                <strong>Faculty</strong><br />
+                                <strong>Faculty</strong><br/>
                                 <label>@dbEmployee.Faculties.Find(employee.FacultyId).Name</label>
 
                             </h4>
                             <h4>
-                                <strong>Department</strong><br />
+                                <strong>Department</strong><br/>
                                 <label>@dbEmployee.Departments.Find(employee.DepartmentId).Name</label>
 
                             </h4>
                             <h4>
-                                <strong>Unit</strong><br />
+                                <strong>Unit</strong><br/>
                                 <label>@dbEmployee.Units.Find(employee.UnitId).Name</label>
 
                             </h4>
@@ -519,7 +519,7 @@
                 </div>
                 <div class="col-md-12 ">
                     @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil"})
-                    
+
                 </div>
             </div>
         </div>
@@ -527,7 +527,7 @@
         {
             @Html.AntiForgeryToken()
             <div class="col-md-12">
-                @Html.ActionLink("Back", "MedicalData", new { backUrl = true }, new { @class = "btn btn-default btn-sm pull-left" })
+                @Html.ActionLink("Back", "MedicalData", new {backUrl = true}, new {@class = "btn btn-default btn-sm pull-left"})
                 <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right fa fa-save"/>
 
             </div>
