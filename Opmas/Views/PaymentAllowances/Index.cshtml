@@ -7,19 +7,19 @@
     ViewBag.Subheader = "List Of Payment Allowances";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
 }
-@if (TempData["allowance"] != null)
+@if (TempData["employmentallowance"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert alert-success alert-dismissable">@TempData["allowance"]</div>
+        <div class="alert alert-success alert-dismissable">@TempData["employmentallowance"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert alert-danger alert-dismissable">@TempData["allowance"]</div>
+        <div class="alert alert-danger alert-dismissable">@TempData["employmentallowance"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert alert-info alert-dismissable">@TempData["allowance"]</div>
+        <div class="alert alert-info alert-dismissable">@TempData["employmentallowance"]</div>
     }
 }
 @section add {
@@ -50,7 +50,7 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.PaymentAllowanceId}, new {@class = "btn btn-xs btn-default fa fa-television"})
-                @Html.ActionLink("Assign to Positions", "Details", new { id = item.PaymentAllowanceId }, new { @class = "btn btn-xs btn-success fa fa-tag" })
+                @Html.ActionLink("Assign Positions", "AssignPosition", new { id = item.PaymentAllowanceId }, new { @class = "btn btn-xs btn-success fa fa-tag" })
             </td>
         </tr>
     }

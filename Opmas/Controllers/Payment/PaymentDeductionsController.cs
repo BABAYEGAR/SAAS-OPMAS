@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.PaymentDataContext;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
 using Opmas.Data.Service.Enums;
 
@@ -30,6 +31,65 @@ namespace Opmas.Controllers.Payment
             var employmentPositions = dbc.EmploymentPositions.Where(n => n.InstitutionId == loggedinuser.InstitutionId);
             ViewBag.Id = id;
             return View(employmentPositions);
+        }
+        // POST: SubmitAssignedPositionList
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitAssignedPositionList(int[] table_records, FormCollection collectedValues)
+        {
+            var allMappings = db.PositionDeductionMappings.ToList();
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var paymentDeductionId = Convert.ToInt64(collectedValues["id"]);
+            if (table_records != null)
+            {
+                var length = table_records.Length;
+                for (var i = 0; i < length; i++)
+                {
+                    var id = table_records[i];
+                    if (
+                        allMappings.Any(
+                            n =>
+                                (n.EmploymentPositionId == id) && (n.InstitutionId == loggedinuser?.InstitutionId) &&
+                                (n.PaymentDeductionId == paymentDeductionId)))
+                    {
+                    }
+                    else
+                    {
+                        if (loggedinuser?.InstitutionId != null)
+                        {
+                            var positionDeductionMapping = new PositionDeductionMapping
+                            {
+                                PaymentDeductionId = paymentDeductionId,
+                                EmploymentPositionId = id,
+                                InstitutionId = (long)loggedinuser.InstitutionId,
+                                DateCreated = DateTime.Now,
+                                DateLastModified = DateTime.Now,
+                                LastModifiedBy = loggedinuser.AppUserId,
+                                CreatedBy = loggedinuser.AppUserId
+                                
+
+                            };
+                            db.PositionDeductionMappings.Add(positionDeductionMapping);
+                            db.SaveChanges();
+                            TempData["employmentposition"] = "you have succesfully assigned the employment position(s) to the payment deduction item !";
+                            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                        }
+                        else
+                        {
+                            TempData["login"] = "Session has expired, Login and try again!";
+                            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                            return RedirectToAction("Login", "Account");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                TempData["employmentposition"] = "no employment position has been selected!";
+                TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
+                return RedirectToAction("AssignPosition", new { id = paymentDeductionId });
+            }
+            return RedirectToAction("AssignPosition", new { id = paymentDeductionId });
         }
         // GET: PaymentDeductions/Details/5
         public ActionResult Details(long? id)
@@ -115,6 +175,24 @@ namespace Opmas.Controllers.Payment
             }
             ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", paymentDeduction.InstitutionId);
             return View(paymentDeduction);
+        }
+        // GET: PaymentDeductions/RemoveMapping/5
+        public ActionResult RemoveMapping(long id)
+        {
+            var deduction = Session["paymentdeduction"] as PaymentDeduction;
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var paymentDeduction =
+                db.PositionDeductionMappings.SingleOrDefault(
+                    n =>
+                        (n.EmploymentPositionId == id) && (n.InstitutionId == loggedinuser.InstitutionId) &&
+                        (n.PaymentDeductionId == deduction.PaymentDeductionId));
+            long deductionId = 0;
+            if (paymentDeduction != null)
+                if (deduction != null) deductionId = deduction.PaymentDeductionId;
+            db.PositionDeductionMappings.Remove(paymentDeduction);
+            db.SaveChanges();
+            Session["paymentdeduction"] = null;
+            return RedirectToAction("AssignPosition", new { id = deductionId });
         }
 
         // GET: PaymentDeductions/Delete/5

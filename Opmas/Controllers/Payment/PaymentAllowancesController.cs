@@ -33,6 +33,65 @@ namespace Opmas.Controllers.Payment
             ViewBag.Id = id;
             return View(employmentPositions);
         }
+        // POST: SubmitAssignedPositionList
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitAssignedPositionList(int[] table_records, FormCollection collectedValues)
+        {
+            var allMappings = db.PositionAllowanceMappings.ToList();
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var paymentAllowanceId = Convert.ToInt64(collectedValues["id"]);
+            if (table_records != null)
+            {
+                var length = table_records.Length;
+                for (var i = 0; i < length; i++)
+                {
+                    var id = table_records[i];
+                    if (
+                        allMappings.Any(
+                            n =>
+                                (n.EmploymentPositionId == id) && (n.InstitutionId == loggedinuser?.InstitutionId) &&
+                                (n.PaymentAllowanceId == paymentAllowanceId)))
+                    {
+                    }
+                    else
+                    {
+                        if (loggedinuser?.InstitutionId != null)
+                        {
+                            var positionDeductionMapping = new PositionAllowanceMapping
+                            {
+                                PaymentAllowanceId = paymentAllowanceId,
+                                EmploymentPositionId = id,
+                                InstitutionId = (long)loggedinuser.InstitutionId,
+                                DateCreated = DateTime.Now,
+                                DateLastModified = DateTime.Now,
+                                LastModifiedBy = loggedinuser.AppUserId,
+                                CreatedBy = loggedinuser.AppUserId
+
+
+                            };
+                            db.PositionAllowanceMappings.Add(positionDeductionMapping);
+                            db.SaveChanges();
+                            TempData["employmentallowance"] = "you have succesfully assigned the employment position(s) to the payment allowance item !";
+                            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                        }
+                        else
+                        {
+                            TempData["login"] = "Session has expired, Login and try again!";
+                            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                            return RedirectToAction("Login", "Account");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                TempData["employmentallowance"] = "no employment position has been selected!";
+                TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
+                return RedirectToAction("AssignPosition", new { id = paymentAllowanceId });
+            }
+            return RedirectToAction("AssignPosition", new { id = paymentAllowanceId });
+        }
         // GET: PaymentAllowances/Details/5
         public ActionResult Details(long? id)
         {
@@ -117,6 +176,24 @@ namespace Opmas.Controllers.Payment
                 return RedirectToAction("Index");
             }
             return View(paymentAllowance);
+        }
+        // GET: PaymentAllowances/RemoveMapping/5
+        public ActionResult RemoveMapping(long id)
+        {
+            var allowance = Session["paymentallowance"] as PaymentAllowance;
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var paymentAllowance =
+                db.PositionAllowanceMappings.SingleOrDefault(
+                    n =>
+                        (n.EmploymentPositionId == id) && (n.InstitutionId == loggedinuser.InstitutionId) &&
+                        (n.PaymentAllowanceId == allowance.PaymentAllowanceId));
+            long allowanceId = 0;
+            if (paymentAllowance != null)
+                if (allowance != null) allowanceId = allowance.PaymentAllowanceId;
+            db.PositionAllowanceMappings.Remove(paymentAllowance);
+            db.SaveChanges();
+            Session["paymentallowance"] = null;
+            return RedirectToAction("AssignPosition", new { id = allowanceId });
         }
 
         // GET: PaymentAllowances/Delete/5

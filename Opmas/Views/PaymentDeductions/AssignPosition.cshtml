@@ -1,11 +1,16 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.DataContext.DataContext.MappingDataContext
+@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmploymentPosition>
 
 @{
     ViewBag.Title = "List";
-    ViewBag.Header = "Departments";
+    ViewBag.Header = "Employment Positions";
     ViewBag.Subheader = "List Of Employment Positions";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var role = Session["role"] as Role;
+    var dbc = new PositionDeductionMappingDataContext();
+    long id = ViewBag.Id;
 }
 @if (TempData["employmentposition"] != null)
 {
@@ -22,9 +27,24 @@
         <div class="alert alert-info alert-dismissable">@TempData["employmentposition"]</div>
     }
 }
-<table id="datatable" class="table table-striped table-bordered">
-    <thead>
+@using (Html.BeginForm("SubmitAssignedPositionList", "PaymentDeductions", FormMethod.Post))
+{
+    @Html.Hidden("id", id)
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="sumbitForm" value="Assign to payment deduction" class="btn btn-success pull-right fa fa-plus-square"/>
+        </div>
+    </div>
+    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+        <thead>
         <tr>
+            @if ((role != null) && role.ManagePayment)
+            {
+                <th>
+                    <input type="checkbox" id="check-all" class="flat">
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -33,12 +53,35 @@
             </th>
             <th>Action</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
 
         @foreach (var item in Model)
         {
             <tr>
+                @{
+                    var mapping = dbc.PositionDeductionMappings.SingleOrDefault(n => (n.EmploymentPositionId == item.EmploymentPositionId) && (n.PaymentDeductionId == id));
+                }
+                @if ((role != null) && role.ManageTraining)
+                {
+                    <td>
+
+                        @if (dbc.PositionDeductionMappings.SingleOrDefault(n => (n.EmploymentPositionId == item.EmploymentPositionId) && (n.InstitutionId == item.InstitutionId) && (n.PaymentDeductionId == id)) != null)
+                        {
+                            var paymentDeduction = dbc.PaymentDeduction.Find(id);
+                            Session["paymentdeduction"] = paymentDeduction;
+                            <a href="@Url.Action("RemoveMapping", "PaymentDeductions", new {id = item.EmploymentPositionId})">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <input type="checkbox" class="flat" name="table_records" value="@item.EmploymentPositionId">
+                        }
+
+
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -46,9 +89,10 @@
                     @Html.DisplayFor(modelItem => item.DateCreated)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.EmploymentPositionId }, new { @class = "btn btn-xs btn-default fa fa-television" })
+                    @Html.ActionLink("Details", "Details", new {id = item.EmploymentPositionId}, new {@class = "btn btn-xs btn-default fa fa-television"})
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
