@@ -119,7 +119,7 @@ namespace Opmas.Controllers.Payment
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PaymentAllowanceId,Name,Amount")] PaymentAllowance paymentAllowance)
+        public ActionResult Create([Bind(Include = "PaymentAllowanceId,Name,Rate")] PaymentAllowance paymentAllowance)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -163,7 +163,7 @@ namespace Opmas.Controllers.Payment
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PaymentAllowanceId,Name,Amount,InstitutionId,CreatedBy,DateCreated")] PaymentAllowance paymentAllowance)
+        public ActionResult Edit([Bind(Include = "PaymentAllowanceId,Name,Rate,InstitutionId,CreatedBy,DateCreated")] PaymentAllowance paymentAllowance)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

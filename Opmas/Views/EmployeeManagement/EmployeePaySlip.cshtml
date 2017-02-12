@@ -13,7 +13,7 @@
     var employmentPosition = db.EmploymentPositions.Find(employmentPositionId);
     var allowanceMapping = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance);
 
-    var allowanceTotal = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance).Sum(n => n.PaymentAllowance.Amount);
+    var allowanceTotal = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance).Sum(n => n.PaymentAllowance.Rate * employmentPosition.Income / 100);
 
     var deductionMapping = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction);
 
@@ -34,16 +34,20 @@
     <thead>
     <tr>
         <th>Allowance Item</th>
+        <th>Rate (%)</th>
         <th>Amount Designated (N)</th>
     </tr>
     </thead>
     <tbody>
     @foreach (var item in allowanceMapping)
     {
-        var balance = item.PaymentAllowance.Amount;
+        var balance = item.PaymentAllowance.Rate * employmentPosition.Income / 100;
         <tr>
             <td>
                 @item.PaymentAllowance.Name
+            </td>
+            <td>
+                @item.PaymentAllowance.Rate
             </td>
             <td style="color: green">
                 @balance

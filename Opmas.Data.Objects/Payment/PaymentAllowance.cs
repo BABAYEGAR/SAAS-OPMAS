@@ -11,7 +11,7 @@ namespace Opmas.Data.Objects.Payment
         [Required]
         public string Name { get; set; }
         [Required]
-        public long Amount { get; set; }
+        public long Rate { get; set; }
         public long InstitutionId { get; set; }
 
         [ForeignKey("InstitutionId")]

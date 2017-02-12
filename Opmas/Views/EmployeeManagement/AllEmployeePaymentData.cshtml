@@ -92,7 +92,7 @@ tr td:first-child:before
         long allowanceTotal = 0;
         if (allowance.Count > 0)
         {
-            allowanceTotal = allowance.Sum(n => n.PaymentAllowance.Amount);
+            allowanceTotal = allowance.Sum(n => n.PaymentAllowance.Rate * employmentPosition.Income / 100);
         }
 
         var deductionTotal = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction).Sum(n => n.PaymentDeduction.Rate*employmentPosition.Income/100);
