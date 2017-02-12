@@ -1,0 +1,141 @@
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.DataContext.DataContext.UserDataContext
+@using Opmas.Data.Factory.EmployeeManagement
+@using Opmas.Data.Objects.Entities.SystemManagement
+@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
+
+@{
+    ViewBag.Title = "List";
+    ViewBag.Header = "List Of All Employees Payment";
+    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var appuser = new AppUserDataContext();
+    var institution = Session["institution"] as Institution;
+    var db = new EmployeeDataContext();
+}
+@if (TempData["employee"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["employee"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["employee"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["employee"]</div>
+    }
+}
+<style>
+body
+{
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+table
+{
+    border-collapse: separate;
+}
+
+tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content: counter(Serial); /* Display the counter */
+}
+</style>
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayName("#")
+        </th>
+        <th>
+            @Html.DisplayName("Firstname")
+        </th>
+        <th>
+            @Html.DisplayName("Lastname")
+        </th>
+        <th>
+            @Html.DisplayName("Email")
+        </th>
+        <th>
+            @Html.DisplayName("Basic Salary")
+        </th>
+        <th>
+            @Html.DisplayName("Total Bonunses")
+        </th>
+        <th>
+            @Html.DisplayName("Gross Income")
+        </th>
+        <th>
+            @Html.DisplayName("Total Deductions")
+        </th>
+        <th>
+            @Html.DisplayName("Total Requested Deductions")
+        </th>
+        <th>
+            @Html.DisplayName("Net Income")
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        var employeeWorkData = db.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
+        var employmentPositionId = employeeWorkData?.EmploymentPositionId;
+        var employmentPosition = db.EmploymentPositions.Find(employmentPositionId);
+
+        var allowance = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance).ToList();
+        long allowanceTotal = 0;
+        if (allowance.Count > 0)
+        {
+            allowanceTotal = allowance.Sum(n => n.PaymentAllowance.Amount);
+        }
+
+        var deductionTotal = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction).Sum(n => n.PaymentDeduction.Rate*employmentPosition.Income/100);
+
+        var requestedDeductions = db.PaymentDeductionRequests.Where(n => (n.InstitutionId == item.InstitutionId) && (n.EmployeeId == item.EmployeeId) && (n.Status == PaymentDeductionRequestStatus.Granted.ToString())).ToList();
+        long? requestedDeductionsTotal = 0;
+        if (requestedDeductions.Count > 0)
+        {
+            requestedDeductionsTotal = requestedDeductions.Sum(n => n.Amount);
+        }
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)
+            </td>
+            <td>
+                @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Lastname)
+            </td>
+            <td>
+                @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
+            </td>
+            <td>
+                @employmentPosition.Income
+            </td>
+            <td>
+                @allowanceTotal
+            </td>
+            <td>
+                @(allowanceTotal + employmentPosition.Income)
+            </td>
+            <td>
+                @deductionTotal
+            </td>
+            <td>
+                @requestedDeductionsTotal
+            </td>
+            <td>
+                @(employmentPosition.Income + allowanceTotal - deductionTotal - requestedDeductionsTotal)
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>

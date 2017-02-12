@@ -1194,5 +1194,13 @@ namespace Opmas.Controllers.EmployeeManagement
                 return HttpNotFound();
             return View(employee);
         }
+
+        // GET: EmployeeManagement/AllEmployeePaymentData
+        public ActionResult AllEmployeePaymentData(long? id)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employees = _dbEmployee.Employees.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).ToList();
+            return View(employees);
+        }
     }
 }

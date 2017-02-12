@@ -5301,6 +5301,7 @@
     <Content Include="Views\PaymentDeductionRequests\Index.cshtml" />
     <Content Include="Views\Shared\DenyPaymentDeductionRequest.cshtml" />
     <Content Include="Views\PaymentDeductionRequests\EmployeePaymentDeductionRequest.cshtml" />
+    <Content Include="Views\EmployeeManagement\AllEmployeePaymentData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
