@@ -40,7 +40,6 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmploymentCategories/Create
         public ActionResult Create()
         {
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name");
             return View();
         }
 
@@ -49,7 +48,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmploymentCategoryId,Name")] EmploymentCategory employmentCategory)
+        public ActionResult Create([Bind(Include = "EmploymentCategoryId,Name,Description")] EmploymentCategory employmentCategory)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -92,7 +91,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmploymentCategoryId,Name,InstitutionId,CreatedBy,DateCreated")] EmploymentCategory employmentCategory)
+        public ActionResult Edit([Bind(Include = "EmploymentCategoryId,Name,InstitutionId,CreatedBy,DateCreated,Description")] EmploymentCategory employmentCategory)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

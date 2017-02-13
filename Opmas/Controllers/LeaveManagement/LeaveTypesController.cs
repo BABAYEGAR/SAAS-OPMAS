@@ -1,140 +1,138 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.DataContext.DataContext.LeaveDataContext;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Service.Enums;
-using EmploymentType = Opmas.Data.Objects.Entities.Employee.EmploymentType;
 
-namespace Opmas.Controllers.EmployeeManagement
+namespace Opmas.Controllers.LeaveManagement
 {
-    public class EmploymentTypesController : Controller
+    public class LeaveTypesController : Controller
     {
-        private EmploymentTypeDataContext db = new EmploymentTypeDataContext();
+        private LeaveTypeDataContext db = new LeaveTypeDataContext();
 
-        // GET: EmploymentTypes
+        // GET: LeaveTypes
         public ActionResult Index()
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var employmentTypes = db.EmploymentTypes.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(e => e.Institution);
-            return View(employmentTypes.ToList());
+            var leaveTypes = db.LeaveTypes.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(l => l.Institution);
+            return View(leaveTypes.ToList());
         }
 
-        // GET: EmploymentTypes/Details/5
+        // GET: LeaveTypes/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            if (employmentType == null)
+            LeaveType leaveType = db.LeaveTypes.Find(id);
+            if (leaveType == null)
             {
                 return HttpNotFound();
             }
-            return View(employmentType);
+            return View(leaveType);
         }
 
-        // GET: EmploymentTypes/Create
+        // GET: LeaveTypes/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: EmploymentTypes/Create
+        // POST: LeaveTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmploymentTypeId,Name,Description")] EmploymentType employmentType)
+        public ActionResult Create([Bind(Include = "LeaveTypeId,Name,Description")] LeaveType leaveType)
         {
-
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                employmentType.DateCreated = DateTime.Now;
-                employmentType.DateLastModified = DateTime.Now;
+                leaveType.DateCreated = DateTime.Now;
+                leaveType.DateLastModified = DateTime.Now;
                 if (loggedinuser != null)
                 {
-                    employmentType.CreatedBy = loggedinuser.AppUserId;
-                    employmentType.LastModifiedBy = loggedinuser.AppUserId;
+                    leaveType.CreatedBy = loggedinuser.AppUserId;
+                    leaveType.LastModifiedBy = loggedinuser.AppUserId;
                     if (loggedinuser.InstitutionId != null)
-                        employmentType.InstitutionId = (long)loggedinuser.InstitutionId;
+                        leaveType.InstitutionId = (long)loggedinuser.InstitutionId;
                 }
-                db.EmploymentTypes.Add(employmentType);
+                db.LeaveTypes.Add(leaveType);
                 db.SaveChanges();
-                TempData["employmentType"] = "you have succesfully created a new Employement Type!";
+                TempData["leavetype"] = "you have succesfully added a new leave type!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
-            return View(employmentType);
+
+            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", leaveType.InstitutionId);
+            return View(leaveType);
         }
 
-        // GET: EmploymentTypes/Edit/5
+        // GET: LeaveTypes/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            if (employmentType == null)
+            LeaveType leaveType = db.LeaveTypes.Find(id);
+            if (leaveType == null)
             {
                 return HttpNotFound();
             }
-            return View(employmentType);
+            return View(leaveType);
         }
 
-        // POST: EmploymentTypes/Edit/5
+        // POST: LeaveTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmploymentTypeId,Name,InstitutionId,CreatedBy,DateCreated,Description")] EmploymentType employmentType)
+        public ActionResult Edit([Bind(Include = "LeaveTypeId,Name,InstitutionId,CreatedBy,DateCreated,Description")] LeaveType leaveType)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                employmentType.DateLastModified = DateTime.Now;
-                if (loggedinuser != null) employmentType.LastModifiedBy = loggedinuser.AppUserId;
-                db.Entry(employmentType).State = EntityState.Modified;
+                leaveType.DateLastModified = DateTime.Now;
+                if (loggedinuser != null) leaveType.LastModifiedBy = loggedinuser.AppUserId;
+                db.Entry(leaveType).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["employmentType"] = "you have succesfully modified the Employement Type!";
+                TempData["leavetype"] = "you have succesfully modified the leave type!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
-            return View(employmentType);
+            return View(leaveType);
         }
 
-        // GET: EmploymentTypes/Delete/5
+        // GET: LeaveTypes/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            if (employmentType == null)
+            LeaveType leaveType = db.LeaveTypes.Find(id);
+            if (leaveType == null)
             {
                 return HttpNotFound();
             }
-            return View(employmentType);
+            return View(leaveType);
         }
 
-        // POST: EmploymentTypes/Delete/5
+        // POST: LeaveTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            EmploymentType employmentType = db.EmploymentTypes.Find(id);
-            db.EmploymentTypes.Remove(employmentType);
+            LeaveType leaveType = db.LeaveTypes.Find(id);
+            db.LeaveTypes.Remove(leaveType);
             db.SaveChanges();
-            TempData["employmentType"] = "you have succesfully deleted the Employement Type!";
+            TempData["leavetype"] = "you have succesfully deleted the leave type!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

@@ -17,7 +17,8 @@ namespace Opmas.Controllers.TrainingManagement
         // GET: TrainingCategories
         public ActionResult Index()
         {
-            var trainingCategory = db.TrainingCategory.Include(t => t.Institution);
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var trainingCategory = db.TrainingCategory.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(t => t.Institution);
             return View(trainingCategory.ToList());
         }
 
@@ -39,7 +40,6 @@ namespace Opmas.Controllers.TrainingManagement
         // GET: TrainingCategories/Create
         public ActionResult Create()
         {
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace Opmas.Controllers.TrainingManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TrainingCategoryId,Name")] TrainingCategory trainingCategory)
+        public ActionResult Create([Bind(Include = "TrainingCategoryId,Name,Description")] TrainingCategory trainingCategory)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -84,7 +84,6 @@ namespace Opmas.Controllers.TrainingManagement
             {
                 return HttpNotFound();
             }
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "InstitutionId", "Name", trainingCategory.InstitutionId);
             return View(trainingCategory);
         }
 
@@ -93,7 +92,7 @@ namespace Opmas.Controllers.TrainingManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TrainingCategoryId,Name,InstitutionId,CreatedBy,DateCreated")] TrainingCategory trainingCategory)
+        public ActionResult Edit([Bind(Include = "TrainingCategoryId,Name,InstitutionId,CreatedBy,DateCreated,Description")] TrainingCategory trainingCategory)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

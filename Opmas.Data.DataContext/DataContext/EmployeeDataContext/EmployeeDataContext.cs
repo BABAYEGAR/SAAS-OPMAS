@@ -3,6 +3,7 @@ using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
 using Opmas.Data.Objects.Training;
@@ -44,6 +45,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<PositionDeductionMapping> PositionDeductionMappings { get; set; }
         public virtual DbSet<InstitutionStructure> InstitutionStructures { get; set; }
         public virtual DbSet<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
+        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

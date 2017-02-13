@@ -67,6 +67,7 @@
     <Compile Include="DataContext\EmployeeDataContext\EmployeePastExperienceDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeWorkDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeePersonalDataContext.cs" />
+    <Compile Include="DataContext\LeaveDataContext\LeaveTypeDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionDeductionMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionAllowanceMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\EmployeeTrainingMappingDataContext.cs" />
@@ -193,6 +194,18 @@
     <Compile Include="Migrations\201702122303571_migrate37.Designer.cs">
       <DependentUpon>201702122303571_migrate37.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702132239187_migrate38.cs" />
+    <Compile Include="Migrations\201702132239187_migrate38.Designer.cs">
+      <DependentUpon>201702132239187_migrate38.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702132320053_migrate39.cs" />
+    <Compile Include="Migrations\201702132320053_migrate39.Designer.cs">
+      <DependentUpon>201702132320053_migrate39.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702132341237_migrate40.cs" />
+    <Compile Include="Migrations\201702132341237_migrate40.Designer.cs">
+      <DependentUpon>201702132341237_migrate40.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -290,6 +303,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702122303571_migrate37.resx">
       <DependentUpon>201702122303571_migrate37.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702132239187_migrate38.resx">
+      <DependentUpon>201702132239187_migrate38.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702132320053_migrate39.resx">
+      <DependentUpon>201702132320053_migrate39.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702132341237_migrate40.resx">
+      <DependentUpon>201702132341237_migrate40.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

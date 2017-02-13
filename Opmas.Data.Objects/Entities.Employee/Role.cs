@@ -10,6 +10,7 @@ namespace Opmas.Data.Objects.Entities.Employee
     {
         public long RoleId { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         [DisplayName("Manage Packages")]
         public bool ManagePackages { get; set; }
         [DisplayName("Manage Institutions")]
@@ -40,6 +41,10 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageEmploymentTypes { get; set; }
         [DisplayName("Manage Payment")]
         public bool ManagePayment { get; set; }
+        [DisplayName("Manage Leave Types")]
+        public bool ManageLeaveTypes { get; set; }
+        [DisplayName("Manage Leave")]
+        public bool ManageLeave { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public long? InstitutionId { get; set; }

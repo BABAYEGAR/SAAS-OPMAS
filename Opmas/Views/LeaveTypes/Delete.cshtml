@@ -1,9 +1,8 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentPosition
-
+﻿@model Opmas.Data.Objects.LeaveManagement.LeaveType
 @{
-    ViewBag.Title = "Details";
-    ViewBag.Header = "Employment Position";
-    ViewBag.Subheader = "View employment position details";
+    ViewBag.Title = "Delete";
+    ViewBag.Header = "Leave Type";
+    ViewBag.Subheader = "Delete a leave type";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
 <dl class="dl-horizontal">
@@ -62,7 +61,12 @@
     </dd>
 
 </dl>
-<p>
-    @Html.ActionLink("Edit Position", "Edit", new {id = Model.EmploymentPositionId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    @Html.ActionLink("Delete Position", "Delete", new {id = Model.EmploymentPositionId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete Position" class="btn btn-danger btn-xs fa fa-remove"/>
+    </div>
+}

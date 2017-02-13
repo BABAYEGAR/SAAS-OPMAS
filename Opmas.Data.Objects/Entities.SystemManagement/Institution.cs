@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Opmas.Data.Objects.Entities.AccessManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
 using Opmas.Data.Objects.Training;
@@ -56,6 +57,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<InstitutionStructure> InstitutionStructure { get; set; }
         public IEnumerable<Employee.Employee> Employees { get; set; }
         public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
+        public IEnumerable<LeaveType> LeaveTypes { get; set; }
 
         [DisplayName("Package")]
         public long PackageId { get; set; }

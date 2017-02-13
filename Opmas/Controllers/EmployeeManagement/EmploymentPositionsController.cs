@@ -51,7 +51,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmploymentPositionId,Name,Income")] EmploymentPosition employmentPosition)
+        public ActionResult Create([Bind(Include = "EmploymentPositionId,Name,Income,Description")] EmploymentPosition employmentPosition)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -107,7 +107,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmploymentPositionId,Name,InstitutionId,Income,CreatedBy,DateCreated")] EmploymentPosition employmentPosition)
+        public ActionResult Edit([Bind(Include = "EmploymentPositionId,Name,InstitutionId,Income,CreatedBy,DateCreated,Description")] EmploymentPosition employmentPosition)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

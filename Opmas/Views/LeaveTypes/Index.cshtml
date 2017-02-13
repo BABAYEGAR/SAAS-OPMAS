@@ -1,25 +1,25 @@
 ﻿@using Opmas.Data.Service.Enums
-@model IEnumerable<Opmas.Data.Objects.Payment.PaymentAllowance>
+@model IEnumerable<Opmas.Data.Objects.LeaveManagement.LeaveType>
 
 @{
     ViewBag.Title = "List";
-    ViewBag.Header = "Payment Allowance";
-    ViewBag.Subheader = "List Of Payment Allowances";
+    ViewBag.Header = "Leave Types";
+    ViewBag.Subheader = "List Of Leave Types";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
 }
-@if (TempData["employmentallowance"] != null)
+@if (TempData["leavetype"] != null)
 {
     if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
     {
-        <div class="alert alert-success alert-dismissable">@TempData["employmentallowance"]</div>
+        <div class="alert alert-success alert-dismissable">@TempData["leavetype"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
     {
-        <div class="alert alert-danger alert-dismissable">@TempData["employmentallowance"]</div>
+        <div class="alert alert-danger alert-dismissable">@TempData["leavetype"]</div>
     }
     else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
     {
-        <div class="alert alert-info alert-dismissable">@TempData["employmentallowance"]</div>
+        <div class="alert alert-info alert-dismissable">@TempData["leavetype"]</div>
     }
 }
 @section add {
@@ -31,13 +31,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
-            @Html.DisplayName("Rate (%)")
-        </th>
         <th>Action</th>
     </tr>
     </thead>
-
     <tbody>
     @foreach (var item in Model)
     {
@@ -46,15 +42,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new {id = item.PaymentAllowanceId}, new {@class = "btn btn-xs btn-default fa fa-television"})
-                @Html.ActionLink("Assign Positions", "AssignPosition", new {id = item.PaymentAllowanceId}, new {@class = "btn  btn-success btn-xs fa fa-tag"})
+                @Html.ActionLink("Details", "Details", new {id = item.LeaveTypeId}, new {@class = "btn btn-xs btn-default fa fa-television"})
             </td>
         </tr>
     }
     </tbody>
-
-
 </table>

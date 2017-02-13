@@ -111,6 +111,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PayStack.Net, Version=0.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayStack.Net.0.6.6\lib\net45\PayStack.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -166,6 +170,10 @@
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XtremeIT.Library.Pins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5f275dd942b1b995, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayStack.Net.0.6.6\lib\net45\XtremeIT.Library.Pins.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -235,6 +243,7 @@
     <Compile Include="Controllers\EmployeeManagement\EmploymentTypesController.cs" />
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveManagement\LeaveTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
     <Compile Include="Controllers\Payment\PaymentAllowancesController.cs" />
@@ -5302,6 +5311,11 @@
     <Content Include="Views\Shared\DenyPaymentDeductionRequest.cshtml" />
     <Content Include="Views\PaymentDeductionRequests\EmployeePaymentDeductionRequest.cshtml" />
     <Content Include="Views\EmployeeManagement\AllEmployeePaymentData.cshtml" />
+    <Content Include="Views\LeaveTypes\Create.cshtml" />
+    <Content Include="Views\LeaveTypes\Delete.cshtml" />
+    <Content Include="Views\LeaveTypes\Details.cshtml" />
+    <Content Include="Views\LeaveTypes\Edit.cshtml" />
+    <Content Include="Views\LeaveTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

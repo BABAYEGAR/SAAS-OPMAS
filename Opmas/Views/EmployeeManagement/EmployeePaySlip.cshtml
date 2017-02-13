@@ -13,7 +13,7 @@
     var employmentPosition = db.EmploymentPositions.Find(employmentPositionId);
     var allowanceMapping = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance);
 
-    var allowanceTotal = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance).Sum(n => n.PaymentAllowance.Rate * employmentPosition.Income / 100);
+    var allowanceTotal = db.PositionAllowanceMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentAllowance).Sum(n => n.PaymentAllowance.Rate*employmentPosition.Income/100);
 
     var deductionMapping = db.PositionDeductionMappings.Where(n => (n.EmploymentPositionId == employmentPositionId) && (n.InstitutionId == institution.InstitutionId)).Include(n => n.PaymentDeduction);
 
@@ -121,9 +121,6 @@
 
 <br/>
 <br/>
-<br/>
-<br/>
-
 <label>Net Income : <strong style="color: black; font-size: 14px; font-weight: bolder;">N@(employmentPosition.Income + allowanceTotal - deductionTotal - requestedDeductionsTotal)</strong> </label><br/>
 <div class="row no-print">
     <div class="col-xs-12">

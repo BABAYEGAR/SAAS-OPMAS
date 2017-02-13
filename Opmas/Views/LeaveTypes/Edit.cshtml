@@ -1,18 +1,13 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentPosition
+﻿@model Opmas.Data.Objects.LeaveManagement.LeaveType
 @{
-    ViewBag.Title = "Edit";
-    ViewBag.Header = "Employment Position";
-    ViewBag.Subheader = "Edit employment position";
+    ViewBag.Title = "Create";
+    ViewBag.Header = "Leave Types";
+    ViewBag.Subheader = "Create a new leave type";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-@using (Html.BeginForm("Edit", "EmploymentPositions", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "LeaveTypes", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.InstitutionId)
-    @Html.HiddenFor(m => m.EmploymentPositionId)
-    @Html.HiddenFor(m => m.DateCreated)
-    @Html.HiddenFor(m => m.CreatedBy)
-    @Html.HiddenFor(m => m.Income)
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -31,7 +26,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-success pull-right" />
+            <input type="submit" value="Create" class="btn btn-success pull-right" />
         </div>
     </div>
 }
