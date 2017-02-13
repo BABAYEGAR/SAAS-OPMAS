@@ -5,9 +5,13 @@
     ViewBag.Subheader = "Create a new leave type";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-@using (Html.BeginForm("Create", "LeaveTypes", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "LeaveTypes", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m=>m.LeaveTypeId)
+    @Html.HiddenFor(m=>m.InstitutionId)
+    @Html.HiddenFor(m=>m.DateCreated)
+    @Html.HiddenFor(m=>m.CreatedBy)
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <div class="form-group">
