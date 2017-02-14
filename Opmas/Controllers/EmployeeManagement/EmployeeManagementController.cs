@@ -661,7 +661,7 @@ namespace Opmas.Controllers.EmployeeManagement
                         employeeMedicalData.EmploymentTypeId = 0;
                         employeeMedicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
                         employeeMedicalData.UnitId = 0;
-                        employeeMedicalData.EmploymentCategory = "NULL";
+                        employeeMedicalData.EmploymentCategoryId = 0;
                         _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
                     }
                     _dbEmployee.SaveChanges();
@@ -1046,10 +1046,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeMedicalData = _dbEmployee.EmployeeMedicalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeMedicalData == null)
                 return HttpNotFound();
-            var bloodgroup = new SelectList(typeof(BloodGroup).GetEnumNames());
-            var genotype = new SelectList(typeof(Genotype).GetEnumNames());
-            ViewBag.bloodgroup = bloodgroup;
-            ViewBag.genotype = genotype;
+
             return View(employeeMedicalData);
         }
 
@@ -1058,25 +1055,21 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult EditMedicalData([Bind(
                                                  Include =
-                                                     "EmployeeMedicalDataId")] EmployeeMedicalData medicalData,
+                                                     "EmployeeMedicalDataId,EmployeeId,RoleId,UnitId,EmploymentCategoryId,EmploymentDate,DepartmentId,FacultyId,EmploymentPositionId,EmploymentTypeId")] EmployeeMedicalData medicalData,
             FormCollection collectedValues)
         {
-            var employeeId = collectedValues["EmployeeId"];
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employeeId = Convert.ToInt64(collectedValues["EmployeeId"]);
             //medical data
             medicalData.BloodGroup = typeof(BloodGroup).GetEnumName(int.Parse(collectedValues["BloodGroup"]));
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
-            medicalData.EmployeeId = Convert.ToInt64(employeeId);
 
-            //set helper values to null
-            medicalData.RoleId = 0;
-            medicalData.DepartmentId = 0;
-            medicalData.FacultyId = 0;
-            medicalData.EmploymentPositionId = 0;
-            medicalData.EmploymentTypeId = 0;
-            medicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
-            medicalData.UnitId = 0;
-            medicalData.EmploymentCategory = "NULL";
+            var employee = _dbEmployee.Employees.Find(employeeId);
+            if (loggedinuser != null) employee.LastModifiedBy = loggedinuser.AppUserId;
+            employee.DateLastModified = DateTime.Now;
+
             //update data
+            _dbEmployee.Entry(employee).State = EntityState.Modified;
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
             TempData["dashboard"] =

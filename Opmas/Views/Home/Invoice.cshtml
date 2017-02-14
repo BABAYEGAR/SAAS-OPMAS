@@ -138,9 +138,38 @@
         <div class="row no-print">
             <div class="col-xs-12">
                 <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-                <input type="submit" value="Submit Payment" class="btn btn-success pull-right fa fa-credit-card"/>
+                <input type="submit" value="Make Payment" onclick="payWithPaystack()" class="btn btn-success pull-right fa fa-credit-card"/>
                 <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
             </div>
         </div>
     </section>
 }
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+    function payWithPaystack() {
+        var handler = PaystackPop.setup({
+            key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
+            email: 'customer@email.com',
+            amount: 10000,
+            ref: "UNIQUE TRANSACTION REFERENCE HERE",
+            metadata: {
+                custom_fields: [
+                    {
+                        display_name: "Mobile Number",
+                        variable_name: "mobile_number",
+                        value: "+2348012345678"
+                    }
+                ]
+            },
+            callback: function(response) {
+                alert('success. transaction ref is ' + response.reference);
+            },
+            onClose: function() {
+                alert('window closed');
+            }
+        });
+        handler.openIframe();
+    }
+</script>

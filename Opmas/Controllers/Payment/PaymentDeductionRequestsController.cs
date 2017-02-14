@@ -55,7 +55,7 @@ namespace Opmas.Controllers.Payment
             db.SaveChanges();
             TempData["deductionrequest"] = "you have succesfully granted the payment deduction request!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
-            return RedirectToAction("Index");
+            return RedirectToAction("EmployeePaymentDeductionRequest");
         }
 
         // POST: PaymentDeductionRequests/DenyRequest
@@ -105,7 +105,7 @@ namespace Opmas.Controllers.Payment
                 db.SaveChanges();
                 TempData["deductionrequest"] = "you have succesfully requested for a deduction in your payment!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("EmployeePaymentDeductionRequest");
             }
             return View(paymentDeductionRequest);
         }

@@ -81,7 +81,7 @@
     @if ((userRole.Name != "Platform Administrator") && (userRole.Name != "Institution Administrator") && (loggedinuser.EmployeeId != null))
     {
         <li>
-            <a><i class="fa fa-users"></i> Record Management <span class="fa fa-chevron-down"></span></a>
+            <a><i class="fa fa-users"></i> My Records <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 @if (loggedinuser.EmployeeId != null)
                 {

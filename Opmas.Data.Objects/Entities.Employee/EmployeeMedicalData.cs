@@ -15,8 +15,6 @@ namespace Opmas.Data.Objects.Entities.Employee
         [Required]
         public string BloodGroup { get; set; }
         [Required]
-        public string EmploymentCategory { get; set; }
-        [Required]
         public DateTime? EmploymentDate { get; set; }
         public long EmployeeId { get; set; }
 
