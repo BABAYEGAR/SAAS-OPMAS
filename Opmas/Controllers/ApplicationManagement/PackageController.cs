@@ -45,6 +45,7 @@ namespace Opmas.Controllers.ApplicationManagement
                 package.DateCreated = DateTime.Now;
                 package.DateLastModified = DateTime.Now;
                 package.Amount = long.Parse(collection["Amount"]);
+                package.Description = collection["Description"];
                 package.Name = collection["Name"];
                 package.Type = typeof(PackageType).GetEnumName(int.Parse(collection["Type"]));
                
@@ -86,7 +87,7 @@ namespace Opmas.Controllers.ApplicationManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
-            [Bind(Include = "PackageId,Name,Amount,Type,CreatedBy,DateCreated")] Package package)
+            [Bind(Include = "PackageId,Name,Amount,Description,Type,CreatedBy,DateCreated")] Package package)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)

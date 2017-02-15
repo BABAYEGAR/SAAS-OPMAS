@@ -11,6 +11,7 @@ namespace Opmas.Data.Objects.Entities.AccessManagement
         public long PackageId { get; set; }
         [Required]
         public string Name { get; set; }
+        public string Description { get; set; }
         [Required]
         public double Amount { get; set; }
         public string Type { get; set; }

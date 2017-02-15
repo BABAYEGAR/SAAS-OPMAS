@@ -30,6 +30,12 @@ namespace Opmas.Controllers.UserManagement
             var appUsers = db.AppUsers.Include(a => a.Employee).Include(n=>n.Institution);
             return View(appUsers.ToList().Where(n=> institution != null && n.InstitutionId == institution.InstitutionId));
         }
+        // GET: ViewProfile
+        public ActionResult ViewProfile(long? id)
+        {
+            var appUser = db.AppUsers.Find(id);
+            return View(appUser);
+        }
         // GET: GetAdminAppUsers
         public ActionResult GetAdminAppUsers()
         {
@@ -66,8 +72,6 @@ namespace Opmas.Controllers.UserManagement
         // GET: AppUsers/Create
         public ActionResult Create()
         {
-            ViewBag.EmployeeId = new SelectList(db.Employee, "EmployeeId", "EmployeeId");
-            ViewBag.RoleId = new SelectList(dbc.Roles, "Name", "RoleId");
             return View();
         }
 
@@ -101,8 +105,6 @@ namespace Opmas.Controllers.UserManagement
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.EmployeeId = new SelectList(db.Employee, "EmployeeId", "EmployeeId", appUser.EmployeeId);
             return View(appUser);
         }
 
@@ -118,7 +120,6 @@ namespace Opmas.Controllers.UserManagement
             {
                 return HttpNotFound();
             }
-            ViewBag.EmployeeId = new SelectList(db.Employee, "EmployeeId", "EmployeeId", appUser.EmployeeId);
             return View(appUser);
         }
 
@@ -127,18 +128,31 @@ namespace Opmas.Controllers.UserManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile,Password,Role,AppUserImage,FingerPrint,RememberMe,EmployeeId,CreatedBy,DateCreated,LastModifiedBy")] AppUser appUser)
+        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile,Password,Role,AppUserImage,FingerPrint,EmployeeId,CreatedBy,DateCreated,LastModifiedBy")] AppUser appUser,FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                HttpPostedFileBase profileImage = Request.Files["avatar-2"];
+                if (profileImage != null && profileImage.FileName == "")
+                {
+                    appUser.AppUserImage = collectedValues["AppUserImage"];
+                }
+                else
+                {
+                    appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
+                }
                 appUser.DateLastModified = DateTime.Now;
                 if (loggedinuser != null) appUser.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(appUser).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["opmasloggedinuser"] = appUser;
+                if (loggedinuser != null && loggedinuser.AppUserId == appUser.AppUserId)
+                {
+                    return RedirectToAction("Dashboard", "Home");
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.EmployeeId = new SelectList(db.Employee, "EmployeeId", "EmployeeId", appUser.EmployeeId);
             return View(appUser);
         }
 

@@ -80,7 +80,7 @@
                                 @package.Name@:</td>
                                 <td>455-981-221</td>
                                 <td>
-                                    El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson
+                                    @package.Description
                                 </td>
                                 @:<td>$@package.Amount 
                             }
@@ -138,7 +138,7 @@
         <div class="row no-print">
             <div class="col-xs-12">
                 <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-                <input type="submit" value="Make Payment" onclick="payWithPaystack()" class="btn btn-success pull-right fa fa-credit-card"/>
+                <button type="button" class="btn btn-success pull-right fa fa-credit-card" onclick="payWithPaystack();"> Make Payment </button>
                 <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
             </div>
         </div>
@@ -151,15 +151,15 @@
     function payWithPaystack() {
         var handler = PaystackPop.setup({
             key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
-            email: 'customer@email.com',
-            amount: 10000,
+            email: '@institution.ContactEmail',
+            amount: @package.Amount,
             ref: "UNIQUE TRANSACTION REFERENCE HERE",
             metadata: {
                 custom_fields: [
                     {
                         display_name: "Mobile Number",
                         variable_name: "mobile_number",
-                        value: "+2348012345678"
+                        value: "@institution.ContactNumber"
                     }
                 ]
             },

@@ -21,9 +21,11 @@
     @Html.HiddenFor(m => m.AppUserImage)
     @Html.HiddenFor(m => m.EmployeeId)
     @Html.HiddenFor(m => m.FingerPrint)
-    @Html.HiddenFor(m => m.RememberMe)
     @Html.HiddenFor(m => m.InstitutionId)
     @Html.HiddenFor(m => m.Password)
+    @Html.HiddenFor(m => m.RoleId)
+    @Html.HiddenFor(m => m.DepartmentId)
+    @Html.HiddenFor(m => m.FacultyId)
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
     <div class="col-md-8">
         <div class="form-group">
@@ -59,12 +61,6 @@
             @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
             <div class="col-md-6 col-sm-6 col-xs-12">
                 @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.DropDownListFor(m => m.Role, EnumHelper.GetSelectList(typeof(AdminUserType)), "select administrative Role", new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
             </div>
         </div>
     </div>
@@ -110,7 +106,7 @@
                         elErrorContainer: '#kv-avatar-errors-2',
                         msgErrorClass: 'alert alert-block alert-danger',
                         defaultPreviewContent:
-                            '<img src="../../UploadedFiles/@loggedinuser.AppUserImage" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
+                            '<img src="../../UploadedFiles/@(loggedinuser.AppUserImage)" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
                         layoutTemplates: { main2: '{preview} ' + btnCust + ' {remove} {browse}' },
                         allowedFileExtensions: ["jpg", "png", "gif"]
                     });

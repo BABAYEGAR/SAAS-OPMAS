@@ -1,0 +1,282 @@
+﻿@using Opmas.Data.Objects.Entities.User
+@{
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    if (loggedinuser == null)
+    {
+        new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap -->
+    <link href="~/Content/ManagementDashboard/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/Content/ManagementDashboard/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/Content/ManagementDashboard/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="~/Content/ManagementDashboard/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/ManagementDashboard/build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="@Url.Action("Dashboard", "Home")" class="site_title">
+                        <i class="fa fa-paw"></i> <span>OPMaS</span>
+                    </a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile">
+                    <div class="profile_pic">
+                        <img src="~/UploadedFiles/ProfileImage/@loggedinuser.AppUserImage" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>@loggedinuser.Firstname</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                @{ Html.RenderPartial("Sidebar"); }
+                <!-- /sidebar menu -->
+                <!-- /menu footer buttons -->
+                @{ Html.RenderPartial("FooterButtons"); }
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        @{ Html.RenderPartial("NavigationBar"); }
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>User Profile</h3>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>
+                                    User Report <small>Activity report</small>
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="#">Settings 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="close-link">
+                                            <i class="fa fa-close"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            @RenderBody()
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+           @{ Html.RenderPartial("Footer"); }
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="~/Content/ManagementDashboard/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="~/Content/ManagementDashboard/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="~/Content/ManagementDashboard/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="~/Content/ManagementDashboard/vendors/nprogress/nprogress.js"></script>
+<!-- morris.js -->
+<script src="~/Content/ManagementDashboard/vendors/raphael/raphael.min.js"></script>
+<script src="~/Content/ManagementDashboard/vendors/morris.js/morris.min.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="~/Content/ManagementDashboard/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="~/Content/ManagementDashboard/vendors/moment/min/moment.min.js"></script>
+<script src="~/Content/ManagementDashboard/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="~/Content/ManagementDashboard/build/js/custom.min.js"></script>
+
+<script>
+    $(function() {
+        Morris.Bar({
+            element: 'graph_bar',
+            data: [
+                { "period": "Jan", "Hours worked": 80 },
+                { "period": "Feb", "Hours worked": 125 },
+                { "period": "Mar", "Hours worked": 176 },
+                { "period": "Apr", "Hours worked": 224 },
+                { "period": "May", "Hours worked": 265 },
+                { "period": "Jun", "Hours worked": 314 },
+                { "period": "Jul", "Hours worked": 347 },
+                { "period": "Aug", "Hours worked": 287 },
+                { "period": "Sep", "Hours worked": 240 },
+                { "period": "Oct", "Hours worked": 211 }
+            ],
+            xkey: 'period',
+            hideHover: 'auto',
+            barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+            ykeys: ['Hours worked', 'sorned'],
+            labels: ['Hours worked', 'SORN'],
+            xLabelAngle: 60,
+            resize: true
+        });
+
+        $MENU_TOGGLE.on('click',
+            function() {
+                $(window).resize();
+            });
+    });
+</script>
+
+<!-- datepicker -->
+<script type="text/javascript">
+    $(document)
+        .ready(function() {
+
+            var cb = function(start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+            };
+            var optionSet1 = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [
+                        moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')
+                    ]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Clear',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: [
+                        'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                        'October',
+                        'November', 'December'
+                    ],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span')
+                .html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange')
+                .on('show.daterangepicker',
+                    function() {
+                        console.log("show event fired");
+                    });
+            $('#reportrange')
+                .on('hide.daterangepicker',
+                    function() {
+                        console.log("hide event fired");
+                    });
+            $('#reportrange')
+                .on('apply.daterangepicker',
+                    function(ev, picker) {
+                        console.log("apply event fired, start/end dates are " +
+                            picker.startDate.format('MMMM D, YYYY') +
+                            " to " +
+                            picker.endDate.format('MMMM D, YYYY'));
+                    });
+            $('#reportrange')
+                .on('cancel.daterangepicker',
+                    function(ev, picker) {
+                        console.log("cancel event fired");
+                    });
+            $('#options1')
+                .click(function() {
+                    $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+                });
+            $('#options2')
+                .click(function() {
+                    $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+                });
+            $('#destroy')
+                .click(function() {
+                    $('#reportrange').data('daterangepicker').remove();
+                });
+        });
+</script>
+<!-- /datepicker -->
+</body>
+</html>

@@ -5316,6 +5316,8 @@
     <Content Include="Views\LeaveTypes\Details.cshtml" />
     <Content Include="Views\LeaveTypes\Edit.cshtml" />
     <Content Include="Views\LeaveTypes\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutProfile.cshtml" />
+    <Content Include="Views\AppUsers\ViewProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
