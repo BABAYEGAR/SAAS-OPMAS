@@ -13,6 +13,8 @@ namespace Opmas.Data.Service.Enums
         Granted,
         [Display(Name = "Request Denied")]
         Denied,
-        Pending
+        Pending,
+        [Display(Name = "Canceled")]
+        Cancel
     }
 }

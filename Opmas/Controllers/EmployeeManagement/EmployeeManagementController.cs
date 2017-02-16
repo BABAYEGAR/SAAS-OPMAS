@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -996,6 +997,21 @@ namespace Opmas.Controllers.EmployeeManagement
 
         #region Edit Employee data
 
+        private string GetSelectedEnum(string value)
+        {
+            // Get the MemberInfo object for supplied enum value
+            var memberInfo = value.GetType().GetMember(value);
+            if (memberInfo.Length != 1)
+                return null;
+
+            // Get DisplayAttibute on the supplied enum value
+            var displayAttribute = memberInfo[0].GetCustomAttributes(typeof(DisplayAttribute), false)
+                                   as DisplayAttribute[];
+            if (displayAttribute == null || displayAttribute.Length != 1)
+                return null;
+
+            return displayAttribute[0].Name;
+        }
         // GET: EmployeeManagement/EditPersonalData/5
         public ActionResult EditPersonalData(long? id)
         {
@@ -1005,6 +1021,7 @@ namespace Opmas.Controllers.EmployeeManagement
             if (employeePersonalData == null)
                 return HttpNotFound();
             ViewBag.StateId = new SelectList(_db.States, "StateId", "Name",Convert.ToInt32(employeePersonalData.StateId));
+            employeePersonalData.Title = GetSelectedEnum(employeePersonalData.Title);
             return View(employeePersonalData);
         }
 
@@ -1016,13 +1033,14 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult EditPersonalData(
             [Bind(
                  Include =
-                     "EmployeePersonalDataId,Firstname,Middlename,Lastname,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
+                     "EmployeePersonalDataId,Firstname,Middlename,Lastname,DateOfBirth,Title,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
              )] EmployeePersonalData employeePersonalData, FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
                 employeePersonalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
+                employeePersonalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
                 var employeeId = Convert.ToInt64(collectedValues["EmployeeId"]);
                 var employee = _dbEmployee.Employees.Find(employeeId);
                 employee.DateLastModified = DateTime.Now;
@@ -1035,6 +1053,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Dashboard", "Home");
             }
+            ViewBag.StateId = new SelectList(_db.States, "StateId", "Name", Convert.ToInt32(employeePersonalData.StateId));
             return View(employeePersonalData);
         }
 

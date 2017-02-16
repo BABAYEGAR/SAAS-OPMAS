@@ -1,4 +1,5 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmployeePersonalData
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.Employee.EmployeePersonalData
 @{
     ViewBag.Title = "Edit";
     ViewBag.Header = "Personal Data";
@@ -15,6 +16,10 @@
                 @Html.HiddenFor(m => m.EmployeeId)
                 @Html.HiddenFor(m => m.EmployeePersonalDataId)
                 <fieldset>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(m => m.Title, new { @class = "control-label" }) <span class="req">*</span>
+                        @Html.DropDownListFor(m => m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), new { @class = "form-control select-dropdown" })
+                    </div>
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>
                         @Html.TextBoxFor(m => m.Firstname, new {@class = "form-control", placeholder = "Please enter your first name"})
@@ -124,28 +129,6 @@
     <script>
         $(document)
             .ready(function() {
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-
-                // init datepicker for issue date
-                $('.dob').datepicker({ 'endDate': new Date() });
-
-                // init datepicker for issue date
-                $('.issueDate').datepicker();
-
-                // init datepicker for expiry date
-                $('.expiryDate').datepicker();
-
-                // set start date of expiry based on selected date of issue
-                $('.issueDate')
-                    .datepicker()
-                    .on('changeDate',
-                        function(e) {
-
-                            // apply selected date as start date for expiry
-                            $('.expiryDate').datepicker('setStartDate', e.date);
-                        });
 
                 //checks if the state has a value before displaying assigned lga
                 if ($('#state').val() != '') {

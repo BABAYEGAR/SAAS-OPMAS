@@ -128,7 +128,7 @@ namespace Opmas.Controllers.UserManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,Email,Mobile,Password,Role,AppUserImage,FingerPrint,EmployeeId,CreatedBy,DateCreated,LastModifiedBy")] AppUser appUser,FormCollection collectedValues)
+        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Middlename,Lastname,InstitutionId,Email,Mobile,DepartmentId,RoleId,FacultyId,Password,Role,AppUserImage,FingerPrint,EmployeeId,CreatedBy,DateCreated,LastModifiedBy")] AppUser appUser,FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)

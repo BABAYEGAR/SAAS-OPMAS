@@ -12,37 +12,40 @@ namespace Opmas.Controllers.Payment
 {
     public class PaymentDeductionRequestsController : Controller
     {
-        private PaymentDeductionRequestDataContext db = new PaymentDeductionRequestDataContext();
+        private readonly PaymentDeductionRequestDataContext db = new PaymentDeductionRequestDataContext();
 
         // GET: PaymentDeductionRequests
         public ActionResult Index()
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var paymentDeductionRequests = db.PaymentDeductionRequests.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).Include(p => p.Employee);
+            var paymentDeductionRequests =
+                db.PaymentDeductionRequests.Where(n => n.InstitutionId == loggedinuser.InstitutionId)
+                    .Include(p => p.Employee);
             return View(paymentDeductionRequests.ToList());
         }
+
         // GET: EmployeePaymentDeductionRequest
         public ActionResult EmployeePaymentDeductionRequest(long? id)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var paymentDeductionRequests = db.PaymentDeductionRequests.Where(n => n.InstitutionId == loggedinuser.InstitutionId && n.EmployeeId == id).Include(p => p.Employee);
+            var paymentDeductionRequests =
+                db.PaymentDeductionRequests.Where(
+                        n => (n.InstitutionId == loggedinuser.InstitutionId) && (n.EmployeeId == id))
+                    .Include(p => p.Employee);
             return View(paymentDeductionRequests.ToList());
         }
-        
+
         // GET: PaymentDeductionRequests/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PaymentDeductionRequest paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
+            var paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
             if (paymentDeductionRequest == null)
-            {
                 return HttpNotFound();
-            }
             return View(paymentDeductionRequest);
         }
+
         // GET: PaymentDeductionRequests/GrantRequest
         public ActionResult GrantRequest(long? id)
         {
@@ -55,7 +58,24 @@ namespace Opmas.Controllers.Payment
             db.SaveChanges();
             TempData["deductionrequest"] = "you have succesfully granted the payment deduction request!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
-            return RedirectToAction("EmployeePaymentDeductionRequest");
+            return RedirectToAction("Index");
+        }
+
+        // GET: PaymentDeductionRequests/StopDeduction
+        public ActionResult StopDeduction(long? id)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var request = db.PaymentDeductionRequests.Find(id);
+            request.Status = PaymentDeductionRequestStatus.Cancel.ToString();
+            request.DateLastModified = DateTime.Now;
+            if (loggedinuser != null) request.LastModifiedBy = loggedinuser.AppUserId;
+            db.Entry(request).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["deductionrequest"] = "you have succesfully stopped the deduction!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+            if (loggedinuser != null)
+                return RedirectToAction("EmployeePaymentDeductionRequest", new {id = loggedinuser.EmployeeId});
+            return RedirectToAction("Index");
         }
 
         // POST: PaymentDeductionRequests/DenyRequest
@@ -74,6 +94,7 @@ namespace Opmas.Controllers.Payment
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
+
         // GET: PaymentDeductionRequests/Create
         public ActionResult Create()
         {
@@ -85,7 +106,9 @@ namespace Opmas.Controllers.Payment
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PaymentDeductionRequestId,Amount,RequestTitle,Reason,Comment")] PaymentDeductionRequest paymentDeductionRequest)
+        public ActionResult Create(
+            [Bind(Include = "PaymentDeductionRequestId,Amount,RequestTitle,Reason,Comment")] PaymentDeductionRequest
+                paymentDeductionRequest)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -99,7 +122,7 @@ namespace Opmas.Controllers.Payment
                     paymentDeductionRequest.LastModifiedBy = loggedinuser.AppUserId;
                     paymentDeductionRequest.EmployeeId = loggedinuser.EmployeeId;
                     if (loggedinuser.InstitutionId != null)
-                        paymentDeductionRequest.InstitutionId = (long)loggedinuser.InstitutionId;
+                        paymentDeductionRequest.InstitutionId = (long) loggedinuser.InstitutionId;
                 }
                 db.PaymentDeductionRequests.Add(paymentDeductionRequest);
                 db.SaveChanges();
@@ -114,15 +137,12 @@ namespace Opmas.Controllers.Payment
         public ActionResult Edit(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PaymentDeductionRequest paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
+            var paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
             if (paymentDeductionRequest == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "EmployeeId", paymentDeductionRequest.EmployeeId);
+            ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "EmployeeId",
+                paymentDeductionRequest.EmployeeId);
             return View(paymentDeductionRequest);
         }
 
@@ -131,7 +151,11 @@ namespace Opmas.Controllers.Payment
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PaymentDeductionRequestId,RequestTitle,Amount,Reason,Status,Comment,EmployeeId,CreatedBy,DateCreated,InstitutionId")] PaymentDeductionRequest paymentDeductionRequest)
+        public ActionResult Edit(
+            [Bind(
+                 Include =
+                     "PaymentDeductionRequestId,RequestTitle,Amount,Reason,Status,Comment,EmployeeId,CreatedBy,DateCreated,InstitutionId"
+             )] PaymentDeductionRequest paymentDeductionRequest)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -142,7 +166,8 @@ namespace Opmas.Controllers.Payment
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "EmployeeId", paymentDeductionRequest.EmployeeId);
+            ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "EmployeeId",
+                paymentDeductionRequest.EmployeeId);
             return View(paymentDeductionRequest);
         }
 
@@ -150,23 +175,20 @@ namespace Opmas.Controllers.Payment
         public ActionResult Delete(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PaymentDeductionRequest paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
+            var paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
             if (paymentDeductionRequest == null)
-            {
                 return HttpNotFound();
-            }
             return View(paymentDeductionRequest);
         }
 
         // POST: PaymentDeductionRequests/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            PaymentDeductionRequest paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
+            var paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
             db.PaymentDeductionRequests.Remove(paymentDeductionRequest);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -175,9 +197,7 @@ namespace Opmas.Controllers.Payment
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }
