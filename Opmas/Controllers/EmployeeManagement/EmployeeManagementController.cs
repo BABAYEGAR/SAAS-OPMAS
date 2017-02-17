@@ -48,9 +48,15 @@ namespace Opmas.Controllers.EmployeeManagement
         /// <param name="id"> faculty id</param>
         /// <returns>lgas</returns>
         /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
-        public JsonResult GetDepartmentForFaculty(int id)
+        public JsonResult GetDepartmentForFaculty(int? id)
         {
-            var departments = _dbEmployee.Departments.Where(n => n.FacultyId == id);
+            var institution = Session["institution"] as Institution;
+            if (id == null)
+            {
+                var departmentsWithoutFaculty = _dbEmployee.Departments.Where(n=>n.InstitutionId == institution.InstitutionId);
+                return Json(departmentsWithoutFaculty, JsonRequestBehavior.AllowGet);
+            }
+            var departments = _dbEmployee.Departments.Where(n => n.FacultyId == id && n.InstitutionId == institution.InstitutionId);
             return Json(departments, JsonRequestBehavior.AllowGet);
         }
 
@@ -499,8 +505,17 @@ namespace Opmas.Controllers.EmployeeManagement
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
             if (_employee != null)
             {
+                var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
                 _employee.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
-                _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+                if (institutionStructureSession != null && institutionStructureSession.Faculty)
+                {
+                    _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+                }
+                else
+                {
+                    _employee.FacultyId = 0;
+                }
+             
                 _employee.UnitId = Convert.ToInt64(collectedValues["UnitId"]);
                 _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
 

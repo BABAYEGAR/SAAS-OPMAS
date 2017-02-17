@@ -32,6 +32,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public string AccessCode { get; set; }
         [DisplayName("Registration Number")]
         public string RegistrationNumber { get; set; }
+        public string SetUpStatus { get; set; }
 
         [Required]
         [DisplayName("Contact Number")]

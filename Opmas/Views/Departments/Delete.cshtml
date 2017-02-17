@@ -1,19 +1,23 @@
-﻿@model Opmas.Data.Objects.Entities.SystemManagement.Department
+﻿@using Opmas.Data.Objects.Entities.SystemManagement
+@model Opmas.Data.Objects.Entities.SystemManagement.Department
 @{
     ViewBag.Title = "Delete";
     ViewBag.Header = "Deparments";
     ViewBag.Subheader = "Delete a department";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
 }
 <dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.Faculty.Name)
-    </dt>
+    @if (institutionStructureSession != null && institutionStructureSession.Faculty)
+    {
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty.Name)
+        </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.Faculty.Name)
-    </dd>
-
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.Name)
+        </dd>
+    }
     <dt>
         @Html.DisplayNameFor(model => model.Institution.Name)
     </dt>

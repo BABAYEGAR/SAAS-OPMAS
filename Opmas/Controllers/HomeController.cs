@@ -30,8 +30,8 @@ namespace Opmas.Controllers
         {
             Session["institution"] = null;
             ViewBag.Institutions =
-                new SelectList(_dbInstitution.Institutions.Where(n => n.SubscriptonEndDate > DateTime.Now),
-                    "InstitutionId", "Name");
+                    new SelectList(_dbInstitution.Institutions.Where(n => n.SubscriptonEndDate > DateTime.Now && n.SetUpStatus == SetUpStatus.Completed.ToString()),
+                        "InstitutionId", "Name");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace Opmas.Controllers
             else
             {
                 ViewBag.Institutions =
-                    new SelectList(_dbInstitution.Institutions.Where(n => n.SubscriptonEndDate > DateTime.Now),
+                    new SelectList(_dbInstitution.Institutions.Where(n => n.SubscriptonEndDate > DateTime.Now && n.SetUpStatus == SetUpStatus.Completed.ToString()),
                         "InstitutionId", "Name");
                 TempData["access"] = "Access code doesn't match institution!Try Again";
                 TempData["notificationType"] = NotificationTypeEnum.Error.ToString();

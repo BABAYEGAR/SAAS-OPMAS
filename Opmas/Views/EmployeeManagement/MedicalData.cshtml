@@ -11,6 +11,7 @@
     var faculty = new FacultyDataContext();
     ViewBag.RoleId = new SelectList(role.Roles.Where(n => (n.InstitutionId == institution.InstitutionId) && (n.Name != "Institution Administrator") && (n.Name != "Platform Administrator")), "RoleId", "Name");
     ViewBag.FacultyId = new SelectList(faculty.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");
+    var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
 }
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
@@ -120,13 +121,15 @@
                         @Html.Label("Employment Position", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.EmploymentPositionId, null, "--Please select your position--", new {@class = "form-control select-dropdown col-md-12"})
                     </div>
+                    @if (institutionStructureSession != null && institutionStructureSession.Faculty == true)
+                    {
+                        <div class="form-group col-md-6">
+                            @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label col-md-12"})
+                            @Html.DropDownListFor(m => m.FacultyId, null, "--Please select your faculty--", new {@class = "form-control select-dropdown col-md-12", id = "faculty"})
 
-                    <div class="form-group col-md-6">
-                        @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label col-md-12"})
-                        @Html.DropDownListFor(m => m.FacultyId, null, "--Please select your faculty--", new {@class = "form-control select-dropdown col-md-12", id = "faculty"})
 
-
-                    </div>
+                        </div>
+                    }
                     <div class="form-group col-md-6">
                         @Html.Label("DepartmentId", "Assigned Department", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.DepartmentId, new SelectList(string.Empty, "Value", "Text"), "--Please select your deparment--", new {@class = "form-control select-dropdown col-md-12", id = "department"})

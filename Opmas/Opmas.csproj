@@ -235,6 +235,7 @@
     <Compile Include="Controllers\ApplicationManagement\DepartmentsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\FacultiesController.cs" />
     <Compile Include="Controllers\ApplicationManagement\InstitutionsController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\InstitutionStructuresController.cs" />
     <Compile Include="Controllers\ApplicationManagement\PackageController.cs" />
     <Compile Include="Controllers\ApplicationManagement\UnitsController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmployeeManagementController.cs" />
@@ -5318,6 +5319,11 @@
     <Content Include="Views\LeaveTypes\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutProfile.cshtml" />
     <Content Include="Views\AppUsers\ViewProfile.cshtml" />
+    <Content Include="Views\InstitutionStructures\Create.cshtml" />
+    <Content Include="Views\InstitutionStructures\Delete.cshtml" />
+    <Content Include="Views\InstitutionStructures\Details.cshtml" />
+    <Content Include="Views\InstitutionStructures\Edit.cshtml" />
+    <Content Include="Views\InstitutionStructures\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

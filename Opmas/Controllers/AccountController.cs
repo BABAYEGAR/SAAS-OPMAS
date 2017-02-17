@@ -88,6 +88,11 @@ namespace Opmas.Controllers
                 //encrypt the ticket and add it to a cookie
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
                 Response.Cookies.Add(cookie);
+                if (institution.SetUpStatus == SetUpStatus.Incomplete.ToString() && userRole.Name == "Institution Administrator")
+                {
+                    return RedirectToAction("Create", "InstitutionStructures");
+                }
+
                 return RedirectToAction("Dashboard", "Home");
             }
             TempData["login"] = "Incorrect Username/Password";
@@ -148,7 +153,6 @@ namespace Opmas.Controllers
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);

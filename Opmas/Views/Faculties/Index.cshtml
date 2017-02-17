@@ -8,6 +8,7 @@
     ViewBag.Subheader = "List Of Faculties";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var faculty = new Faculty();
+    var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
 }
 @if (TempData["faculty"] != null)
 {
@@ -74,7 +75,10 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-default fa fa-television"})
-                @Html.ActionLink("Manage Departments", "FacultyDepartments", "Departments", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-success fa fa-wrench"})
+                @if ((institutionStructureSession != null) && institutionStructureSession.Faculty)
+                {
+                    @Html.ActionLink("Manage Departments", "FacultyDepartments", "Departments", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-success fa fa-wrench"})
+                }
             </td>
         </tr>
     }

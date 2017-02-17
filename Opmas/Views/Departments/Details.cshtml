@@ -1,12 +1,16 @@
-﻿@model Opmas.Data.Objects.Entities.SystemManagement.Department
+﻿@using Opmas.Data.Objects.Entities.SystemManagement
+@model Opmas.Data.Objects.Entities.SystemManagement.Department
 
 @{
     ViewBag.Title = "Details";
     ViewBag.Header = "Deparments";
     ViewBag.Subheader = "View depatment details";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
 }
 <dl class="dl-horizontal">
+    @if (institutionStructureSession != null && institutionStructureSession.Faculty)
+    {
     <dt>
         @Html.DisplayNameFor(model => model.Faculty.Name)
     </dt>
@@ -14,7 +18,7 @@
     <dd>
         @Html.DisplayFor(model => model.Faculty.Name)
     </dd>
-
+}
     <dt>
         @Html.DisplayNameFor(model => model.Institution.Name)
     </dt>

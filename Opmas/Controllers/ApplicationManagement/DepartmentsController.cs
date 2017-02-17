@@ -53,7 +53,11 @@ namespace Opmas.Controllers.ApplicationManagement
         // GET: Departments/Create
         public ActionResult Create()
         {
-            ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name");
+            var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
+            if (institutionStructureSession != null && institutionStructureSession.Faculty)
+            {
+                ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name");
+            }
             ViewBag.InstitutionId = new SelectList(db.Universities, "InstitutionId", "Name");
             return View();
         }
@@ -67,7 +71,12 @@ namespace Opmas.Controllers.ApplicationManagement
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
-            var facultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+            long facultyId = 0;
+            var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
+            if (institutionStructureSession != null && institutionStructureSession.Faculty)
+            {
+                 facultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+            }
             bool returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
             if (institution != null)
             { 
@@ -78,10 +87,17 @@ namespace Opmas.Controllers.ApplicationManagement
                     db.SaveChanges();
                     TempData["department"] = "You have successfully created a department";
                     TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
-                    var facultyDepartments = db.Departments.Where(n => n.FacultyId == facultyId).Include(d => d.Faculty).Include(d => d.Institution).Where(n => n.InstitutionId == institution.InstitutionId);
-                    if (returnUrl)
+                    if (institutionStructureSession != null && institutionStructureSession.Faculty)
                     {
-                        return View("Index",facultyDepartments);
+                        var facultyDepartments =
+                            db.Departments.Where(n => n.FacultyId == facultyId)
+                                .Include(d => d.Faculty)
+                                .Include(d => d.Institution)
+                                .Where(n => n.InstitutionId == institution.InstitutionId);
+                        if (returnUrl)
+                        {
+                            return View("Index", facultyDepartments);
+                        }
                     }
                     return RedirectToAction("Index");
                 }
@@ -92,8 +108,10 @@ namespace Opmas.Controllers.ApplicationManagement
                 TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
                 return RedirectToAction("SelectInstitution", "Home");
             }
-
-            ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
+            if (institutionStructureSession != null && institutionStructureSession.Faculty)
+            {
+                ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
+            }
             ViewBag.InstitutionId = new SelectList(db.Universities, "InstitutionId", "Name", department.InstitutionId);
             return View(department);
         }
