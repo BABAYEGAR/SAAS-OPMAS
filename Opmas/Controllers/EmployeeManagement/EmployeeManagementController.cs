@@ -50,6 +50,7 @@ namespace Opmas.Controllers.EmployeeManagement
         /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
         public JsonResult GetDepartmentForFaculty(int? id)
         {
+            _dbEmployee.Configuration.ProxyCreationEnabled = false;
             var institution = Session["institution"] as Institution;
             if (id == null)
             {

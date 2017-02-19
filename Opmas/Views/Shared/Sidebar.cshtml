@@ -20,8 +20,8 @@
     var dbd = new InstitutionStructureDataContext();
     var mapping = dbc.EmployeeTrainingMappings.Where(n => (n.EmployeeId == loggedinuser.EmployeeId) && (n.InstitutionId == loggedinuser.InstitutionId)).ToList();
 
-    var isUserDepartmentManager = dbEmployee.Departments.SingleOrDefault(n => n.EmployeeId == loggedinuser.EmployeeId);
-    var isUserFacultyManager = dbEmployee.Faculties.SingleOrDefault(n => n.EmployeeId == loggedinuser.EmployeeId);
+    var isUserDepartmentManager = dbEmployee.Departments.FirstOrDefault(n => n.EmployeeId == loggedinuser.EmployeeId && n.InstitutionId == loggedinuser.InstitutionId);
+    var isUserFacultyManager = dbEmployee.Faculties.FirstOrDefault(n => n.EmployeeId == loggedinuser.EmployeeId && n.InstitutionId == loggedinuser.InstitutionId);
 }
 @if (userRole != null)
 {

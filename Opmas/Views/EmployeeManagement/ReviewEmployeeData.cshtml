@@ -495,7 +495,11 @@
                             </h4>
                             <h4>
                                 <strong>Faculty</strong><br/>
-                                <label>@dbEmployee.Faculties.Find(employee.FacultyId).Name</label>
+                                <label>
+                                    @{
+                                        var faculty = dbEmployee.Faculties.Find(employee.FacultyId);
+                                    }@faculty?.Name;
+                                </label>
 
                             </h4>
                             <h4>
