@@ -215,6 +215,29 @@ namespace Opmas.Controllers.LeaveManagement
             }
             return RedirectToAction("Index");
         }
+        // GET: Leaves/ApprovedLeaveByFaculty
+        public ActionResult ApprovedLeaveByFaculty(long? id)
+        {
+
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            if (ModelState.IsValid)
+            {
+                var leave = db.Leaves.Find(id);
+                leave.Status = LeaveStatus.ApprovedByFaculty.ToString();
+                leave.DateLastModified = DateTime.Now;
+                if (loggedinuser != null)
+                {
+                    leave.LastModifiedBy = loggedinuser.AppUserId;
+                }
+
+                db.Entry(leave).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["leave"] = "you have approved the leave!";
+                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
         // GET: Leaves/Edit/5
         public ActionResult Edit(long? id)
         {

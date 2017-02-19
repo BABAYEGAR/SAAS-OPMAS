@@ -8,6 +8,8 @@ namespace Opmas.Data.Service.Enums
         Approved,
         [Display(Name = "  Approved By Department")]
         ApprovedByDepartment,
+        [Display(Name = "  Approved By Faculty")]
+        ApprovedByFaculty,
         Rejected,
         Cancelled
     }
