@@ -48,13 +48,14 @@ namespace Opmas.Controllers.LeaveManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LeaveTypeId,Name,Description")] LeaveType leaveType)
+        public ActionResult Create([Bind(Include = "LeaveTypeId,Name,Description,Duration")] LeaveType leaveType,FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
                 leaveType.DateCreated = DateTime.Now;
                 leaveType.DateLastModified = DateTime.Now;
+                leaveType.DurationIn  = typeof(DurationType).GetEnumName(int.Parse(collectedValues["DurationIn"]));
                 if (loggedinuser != null)
                 {
                     leaveType.CreatedBy = loggedinuser.AppUserId;
@@ -93,11 +94,12 @@ namespace Opmas.Controllers.LeaveManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LeaveTypeId,Name,InstitutionId,CreatedBy,DateCreated,Description")] LeaveType leaveType)
+        public ActionResult Edit([Bind(Include = "LeaveTypeId,Name,InstitutionId,CreatedBy,DateCreated,Description,Duration")] LeaveType leaveType,FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                leaveType.DurationIn = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["DurationIn"]));
                 leaveType.DateLastModified = DateTime.Now;
                 if (loggedinuser != null) leaveType.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(leaveType).State = EntityState.Modified;

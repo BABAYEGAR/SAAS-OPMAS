@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.DataContext.DataContext.MappingDataContext
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.DataContext.DataContext.MappingDataContext
 @using Opmas.Data.DataContext.DataContext.SystemDataContext
 @using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Objects.Entities.SystemManagement
@@ -14,9 +15,13 @@
         new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         return;
     }
+    var dbEmployee = new EmployeeDataContext();
     var dbc = new EmployeeTrainingMappingDataContext();
     var dbd = new InstitutionStructureDataContext();
     var mapping = dbc.EmployeeTrainingMappings.Where(n => (n.EmployeeId == loggedinuser.EmployeeId) && (n.InstitutionId == loggedinuser.InstitutionId)).ToList();
+
+    var isUserDepartmentManager = dbEmployee.Departments.SingleOrDefault(n => n.EmployeeId == loggedinuser.EmployeeId);
+    var isUserFacultyManager = dbEmployee.Faculties.SingleOrDefault(n => n.EmployeeId == loggedinuser.EmployeeId);
 }
 @if (userRole != null)
 {
@@ -257,26 +262,49 @@
              </ul>
          </li>
      }
-    if (userRole.ManageLeave || userRole.ManageLeaveTypes)
-     {
-         <li>
-             <a><i class="fa fa-plane"></i> Leave Management <span class="fa fa-chevron-down"></span></a>
-             <ul class="nav child_menu">
-                 @if (userRole.ManageLeave)
-                 {
-                     <li>
-                         <a href="@Url.Action("Index", "PaymentAllowances")">Employees Leave</a>
-                     </li>
-                 }
-                 @if (userRole.ManageLeaveTypes)
-                 {
-                     <li>
-                         <a href="@Url.Action("Index", "LeaveTypes")">Leave Types</a>
-                     </li>
-                 }
-             </ul>
-         </li>
-     }
+
+    <li>
+        @if (institutionStructureSession != null && (institutionStructureSession.Faculty || isUserFacultyManager != null && isUserDepartmentManager != null || userRole.ManageLeaveTypes || userRole.ManageLeave || loggedinuser.EmployeeId != null))
+        {
+        <a><i class="fa fa-plane"></i> Leave Management <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+                @if (loggedinuser.EmployeeId != null)
+                {
+                    <li>
+                        <a href="@Url.Action("EmployeeLeave", "Leaves")">My Leave</a>
+                    </li>
+                }
+                @if (isUserDepartmentManager != null)
+                {
+                    <li>
+                        <a href="@Url.Action("DepartmentLeave", "Leaves")">Department Leave</a>
+                    </li>
+                }
+
+                @if ((institutionStructureSession.Faculty && isUserFacultyManager != null))
+                {
+                    <li>
+                        <a href="@Url.Action("FacultyLeave", "Leaves")">Faculty Leave</a>
+                    </li>
+                }
+         
+                @if (userRole.ManageLeave)
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Leaves")">Leave</a>
+                    </li>
+                }
+
+                @if (userRole.ManageLeaveTypes)
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "LeaveTypes")">Leave Types</a>
+                    </li>
+                }
+            </ul>
+}
+    </li>
+     
 }
     </ul>
     </div>

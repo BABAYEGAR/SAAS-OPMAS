@@ -29,6 +29,21 @@ namespace Opmas.Controllers.LeaveManagement
             return View(leaves.ToList());
         }
 
+        // GET: FacultyLeave
+        public ActionResult FacultyLeave()
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var leaves = db.Leaves.Where(n => n.InstitutionId == loggedinuser.InstitutionId && n.FacultyId == loggedinuser.FacultyId).Include(l => l.Employee).Include(l => l.Institution).Include(l => l.LeaveType);
+            return View("Index",leaves.ToList());
+        }
+        // GET: DepartmentLeave
+        public ActionResult DepartmentLeave()
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var leaves = db.Leaves.Where(n => n.InstitutionId == loggedinuser.InstitutionId && n.DepartmentId == loggedinuser.DepartmentId).Include(l => l.Employee).Include(l => l.Institution).Include(l => l.LeaveType);
+            return View("Index", leaves.ToList());
+        }
+
 
         // GET: Leaves/Details/5
         public ActionResult Details(long? id)
@@ -65,6 +80,7 @@ namespace Opmas.Controllers.LeaveManagement
             {
                 leave.DateCreated = DateTime.Now;
                 leave.DateLastModified = DateTime.Now;
+                leave.Status = LeaveStatus.Pending.ToString();
                 if (loggedinuser != null)
                 {
                     leave.CreatedBy = loggedinuser.AppUserId;
@@ -72,6 +88,8 @@ namespace Opmas.Controllers.LeaveManagement
                     if (loggedinuser.InstitutionId != null)
                     {
                         leave.InstitutionId = (long) loggedinuser.InstitutionId;
+                        if (loggedinuser.DepartmentId != null) leave.DepartmentId = (long) loggedinuser.DepartmentId;
+                        if (loggedinuser.FacultyId != null) leave.FacultyId = (long) loggedinuser.FacultyId;
                         if (loggedinuser.EmployeeId != null) leave.EmployeeId = (long) loggedinuser.EmployeeId;
                     }
                 }
@@ -84,11 +102,7 @@ namespace Opmas.Controllers.LeaveManagement
             ViewBag.LeaveTypeId = new SelectList(db.LeaveTypes, "LeaveTypeId", "Name", leave.LeaveTypeId);
             return View(leave);
         }
-        // POST: Leaves/ApproveLeave
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: Leaves/ApproveLeave
         public ActionResult ApproveLeave(long? id)
         {
 
@@ -155,11 +169,7 @@ namespace Opmas.Controllers.LeaveManagement
             }
             return RedirectToAction("Index");
         }
-        // POST: Leaves/RejectLeave
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: Leaves/RejectLeave
         public ActionResult CancelLeave(long? id)
         {
 
@@ -182,11 +192,7 @@ namespace Opmas.Controllers.LeaveManagement
             }
             return RedirectToAction("Index");
         }
-        // POST: Leaves/ApprovedLeaveByDepartment
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: Leaves/ApprovedLeaveByDepartment
         public ActionResult ApprovedLeaveByDepartment(long? id)
         {
 
@@ -194,7 +200,7 @@ namespace Opmas.Controllers.LeaveManagement
             if (ModelState.IsValid)
             {
                 var leave = db.Leaves.Find(id);
-                leave.Status = LeaveStatus.Approved.ToString();
+                leave.Status = LeaveStatus.ApprovedByDepartment.ToString();
                 leave.DateLastModified = DateTime.Now;
                 if (loggedinuser != null)
                 {

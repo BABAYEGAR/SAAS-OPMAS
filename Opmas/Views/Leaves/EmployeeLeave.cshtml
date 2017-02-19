@@ -29,13 +29,13 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Employee.EmployeeId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.LeaveType.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            Date Applied
         </th>
         <th>Action</th>
     </tr>
@@ -45,18 +45,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.LeaveType.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
+                </td> 
+                   <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LeaveId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.LeaveId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LeaveId })
+                    @Html.ActionLink("Details", "Details", new { id = item.LeaveId }, new { @class = "btn btn-default btn-xs fa fa-television" })
+                    
                 </td>
             </tr>
         }

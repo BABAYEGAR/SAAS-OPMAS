@@ -19,6 +19,7 @@ namespace Opmas.Controllers
     public class AccountController : Controller
     {
         private readonly InstitutionDataContext _dbInstitution = new InstitutionDataContext();
+        private readonly InstitutionStructureDataContext _dbInstitutionStructure = new InstitutionStructureDataContext();
         private readonly RoleDataContext _dbRole = new RoleDataContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -68,11 +69,13 @@ namespace Opmas.Controllers
             {
                 var institution = _dbInstitution.Institutions.Find(appuser.InstitutionId);
                 var userRole = _dbRole.Roles.Find(appuser.RoleId);
+                var institutionStructure = _dbInstitutionStructure.InstitutionStructures.SingleOrDefault(n=>n.InstitutionId == institution.InstitutionId);
 
                 //store objects in a session
                 Session["opmasloggedinuser"] = appuser;
                 Session["institution"] = institution;
                 Session["role"] = userRole;
+                Session["institutionstructure"] = institutionStructure;
 
                 //create the authentication ticket
                 var authTicket = new FormsAuthenticationTicket(

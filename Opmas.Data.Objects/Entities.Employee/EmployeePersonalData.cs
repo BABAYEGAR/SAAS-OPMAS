@@ -73,5 +73,8 @@ namespace Opmas.Data.Objects.Entities.Employee
 
         [ForeignKey("EmployeeId")]
         public virtual Employee Employee { get; set; }
+        public string DisplayName
+      => Firstname + " " + Lastname;
+
     }
 }

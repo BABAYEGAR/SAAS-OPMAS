@@ -1,4 +1,7 @@
-﻿@using Opmas.Data.Objects.Entities.SystemManagement
+﻿@using System.Data.Entity
+@using System.Linq
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Faculty>
 
@@ -9,6 +12,8 @@
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var faculty = new Faculty();
     var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
+    var db = new EmployeeDataContext();
+   
 }
 @if (TempData["faculty"] != null)
 {
@@ -58,7 +63,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
+           Line Manager
         </th>
         <th>Action</th>
     </tr>
@@ -71,7 +76,14 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
+
+                @{
+                    var employee = db.EmployeePersonalDatas.SingleOrDefault(n=>n.EmployeeId == item.EmployeeId);
+                }
+                @if (employee != null)
+                {
+                    @employee.DisplayName
+                }
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.FacultyId}, new {@class = "btn btn-xs btn-default fa fa-television"})

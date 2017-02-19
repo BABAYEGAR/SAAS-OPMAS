@@ -1,4 +1,6 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.LeaveManagement.Leave>
 
 @{
@@ -6,6 +8,8 @@
     ViewBag.Header = "Leaves";
     ViewBag.Subheader = "List Of Leaves";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var db = new EmployeeDataContext();
+    var employeesData = db.EmployeePersonalDatas.Include(n => n.Employee);
 }
 @if (TempData["leave"] != null)
 {
@@ -26,7 +30,7 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Employee.EmployeeId)
+            Employee
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LeaveType.Name)
@@ -34,15 +38,22 @@
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
+        <th>
+            Date Applied
+        </th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
+            var employee = employeesData.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+                    @if (employee != null)
+                    {
+                        @employee.DisplayName
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LeaveType.Name)
@@ -51,9 +62,10 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LeaveId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.LeaveId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LeaveId })
+                    @item.DateCreated.ToShortDateString()
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.LeaveId },new {@class = "btn btn-default btn-xs fa fa-television"}) 
                 </td>
             </tr>
         }

@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.Objects.Entities.SystemManagement
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.Department>
 
@@ -7,7 +8,7 @@
     ViewBag.Header = "Departments";
     ViewBag.Subheader = "List Of Departments";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
-    var department = new Department();
+    var db = new EmployeeDataContext();
 }
 @if (TempData["department"] != null)
 {
@@ -33,6 +34,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
+        <th>
+            Line Manager
+        </th>
         <th>Action</th>
     </tr>
     </thead>
@@ -42,6 +46,16 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+
+                @{
+                    var employee = db.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
+                }
+                @if (employee != null)
+                {
+                    @employee.DisplayName
+                }
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.DepartmentId}, new {@class = "btn btn-xs btn-default fa fa-television"})
