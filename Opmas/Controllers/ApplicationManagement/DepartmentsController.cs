@@ -25,6 +25,20 @@ namespace Opmas.Controllers.ApplicationManagement
             var departments = db.Departments.Include(d => d.Faculty).Include(d => d.Institution).Where(n=>n.InstitutionId == institution.InstitutionId);
             return View(departments.ToList());
         }
+        // POST: FacultyDepartments/AssignDepartmentManager
+        public ActionResult AssignDepartmentManager(FormCollection collectedValues)
+        {
+            var departmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
+            var employeeId = Convert.ToInt64(collectedValues["EmployeeId"]);
+            var department = db.Departments.Find(departmentId);
+            department.EmployeeId = employeeId;
+            db.Entry(department).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["department"] = "you have succesfully assigned the line manager for the department!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+            return RedirectToAction("Index");
+        }
+
         // GET: FacultyDepartments
         public ActionResult FacultyDepartments(long? id)
         {
@@ -67,7 +81,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentId,Name,FacultyId")] Department department , FormCollection collectedValues)
+        public ActionResult Create([Bind(Include = "DepartmentId,Name,FacultyId,EmployeeId")] Department department , FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
@@ -138,7 +152,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DepartmentId,Name,FacultyId,InstitutionId")] Department department)
+        public ActionResult Edit([Bind(Include = "DepartmentId,Name,FacultyId,InstitutionId,EmployeeId")] Department department)
         {
             if (ModelState.IsValid)
             {

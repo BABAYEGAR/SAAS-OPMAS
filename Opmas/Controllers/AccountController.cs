@@ -88,7 +88,7 @@ namespace Opmas.Controllers
                 //encrypt the ticket and add it to a cookie
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
                 Response.Cookies.Add(cookie);
-                if (institution.SetUpStatus == SetUpStatus.Incomplete.ToString() && userRole.Name == "Institution Administrator")
+                if (institution != null && (institution.SetUpStatus == SetUpStatus.Incomplete.ToString() && userRole.Name == "Institution Administrator"))
                 {
                     return RedirectToAction("Create", "InstitutionStructures");
                 }

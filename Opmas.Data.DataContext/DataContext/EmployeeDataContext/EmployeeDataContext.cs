@@ -46,6 +46,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<InstitutionStructure> InstitutionStructures { get; set; }
         public virtual DbSet<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<Leave> Leaves { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

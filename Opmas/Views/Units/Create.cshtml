@@ -3,13 +3,13 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
-    long departmentId = ViewBag.DepartmentId;
+    long? departmentId = ViewBag.DepartmentId;
 }
 @using (Html.BeginForm("Create", "Units", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-    @Html.HiddenFor(m => m.DepartmentId, departmentId)
+    @Html.Hidden("DepartmentId", departmentId)
     <div class="form-group">
         @Html.Label("Unit Name", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
         <div class="col-md-6 col-sm-6 col-xs-12">

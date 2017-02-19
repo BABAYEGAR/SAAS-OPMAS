@@ -21,6 +21,7 @@ namespace Opmas.Data.DataContext.DataContext.SystemDataContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
         }
     }
 }

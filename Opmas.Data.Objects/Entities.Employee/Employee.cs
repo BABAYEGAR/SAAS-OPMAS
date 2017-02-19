@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Build.Framework;
 using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
+using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
 
@@ -10,6 +12,7 @@ namespace Opmas.Data.Objects.Entities.Employee
 {
     public class Employee : Transport
     {
+
         public long EmployeeId { get; set; }
         public List<EmployeeBankData> EmployeeBankDatas { get; set; }
         public List<EmployeePersonalData> EmployeePersonalData { get; set; }
@@ -36,6 +39,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         [DisplayName("Assigned Department")]
         public long? DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
+        [Required]
         public virtual Department Department { get; set; }
         [DisplayName("Assigned Faculty")]
         public long? FacultyId { get; set; }
@@ -45,6 +49,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         public IEnumerable<Role> Roles { get; set; }
         public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
-
+        public IEnumerable<Leave> Leaves { get; set; }
+        public IEnumerable<Department> Departments { get; set; }
+        public IEnumerable<Faculty> Faculties { get; set; }
     }
 }

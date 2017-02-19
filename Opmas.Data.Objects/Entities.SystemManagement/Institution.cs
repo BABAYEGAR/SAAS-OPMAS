@@ -59,6 +59,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<Employee.Employee> Employees { get; set; }
         public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         public IEnumerable<LeaveType> LeaveTypes { get; set; }
+        public IEnumerable<Leave> Leaves { get; set; }
 
         [DisplayName("Package")]
         public long PackageId { get; set; }

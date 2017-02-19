@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Objects.Entities.SystemManagement;
@@ -39,10 +36,10 @@ namespace Opmas.Controllers.ApplicationManagement
         }
 
         // GET: Units/Create
-        public ActionResult Create()
+        public ActionResult Create(long? id)
         {
             //ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name");
-            //ViewBag.DepartmentId = id;
+            ViewBag.DepartmentId = id;
             return View();
         }
 

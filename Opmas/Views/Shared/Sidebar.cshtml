@@ -101,6 +101,7 @@
                 </ul>
             </li>
         }
+  
         if ((userRole.Name != "Platform Administrator") && (userRole.Name != "Institution Administrator") && (loggedinuser.EmployeeId != null))
         {
             <li>
@@ -138,9 +139,7 @@
             </li>
         }
     }
-    @if (institution != null && (loggedinuser.InstitutionId != null && institution.SetUpStatus == SetUpStatus.Completed.ToString()))
-    {
-        if (userRole.ManageAllInstitutions)
+        @if (userRole.ManageAllInstitutions)
         {
             <li>
                 <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
@@ -157,127 +156,128 @@
                 </ul>
             </li>
         }
-        if (userRole.ManagePackages)
-        {
-            <li>
-                <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Index", "Package")">Packages</a>
-                    </li>
-                </ul>
-            </li>
-        }
+            @if (userRole.ManagePackages)
+            {
+                <li>
+                    <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="@Url.Action("Index", "Package")">Packages</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+@if (institution != null && (loggedinuser.InstitutionId != null && institution.SetUpStatus == SetUpStatus.Completed.ToString()))
+{
+   if (userRole.ManageEmployees || (userRole.ManagePayment))
+     {
+         <li>
+             <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+                 <li>
+                     <a href="@Url.Action("ListOfEmployees", "EmployeeManagement")">Employee(s)</a>
+                 </li>
+             </ul>
+         </li>
+     }
 
-        if (userRole.ManageEmployees || (userRole.ManagePayment))
-        {
-            <li>
-                <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("ListOfEmployees", "EmployeeManagement")">Employee(s)</a>
-                    </li>
-                </ul>
-            </li>
-        }
+    if (userRole.ManageRolePriviledges)
+     {
+         <li>
+             <a><i class="fa fa-universal-access"></i> User Priviledges <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+                 <li>
+                     <a href="@Url.Action("Index", "Roles")">Roles</a>
+                 </li>
+             </ul>
+         </li>
+     }
 
-        if (userRole.ManageRolePriviledges)
-        {
-            <li>
-                <a><i class="fa fa-universal-access"></i> User Priviledges <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Index", "Roles")">Roles</a>
-                    </li>
-                </ul>
-            </li>
-        }
+    if (userRole.ManageTraining || (mapping.Count > 0) || userRole.ManageTrainingTypes)
+     {
+         <li>
+             <a><i class="fa fa-gift"></i>Training Management<span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
 
-        if (userRole.ManageTraining || (mapping.Count > 0) || userRole.ManageTrainingTypes)
-        {
-            <li>
-                <a><i class="fa fa-gift"></i>Training Management<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-
-                    @if (userRole.ManageTraining)
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
-                        </li>
-                    }
-                    @if (mapping.Count > 0)
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "EmployeeTrainingMappings")">My Trainings</a>
-                        </li>
-                    }
-                    @if (userRole.ManageTrainingTypes)
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "TrainingCategories")">Training Types</a>
-                        </li>
-                    }
-                </ul>
-            </li>
-        }
-        if (userRole.ManageEmploymentTypes)
-        {
-            <li>
-                <a><i class="fa fa-wrench"></i> Employment Settings <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Index", "EmploymentTypes")">Employment Type</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "EmploymentCategories")">Employment Category</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "EmploymentPositions")">Employment Positions</a>
-                    </li>
-                </ul>
-            </li>
-        }
-        if (userRole.ManagePayment)
-        {
-            <li>
-                <a><i class="fa fa-money"></i> Payment Management <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="@Url.Action("Index", "PaymentAllowances")">Payment Allowance</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "PaymentDeductions")">Payment Deduction</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "PaymentDeductionRequests")">Payment Deduction Requests</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("AllEmployeePaymentData", "EmployeeManagement")">All Employees Payment</a>
-                    </li>
-                </ul>
-            </li>
-        }
-        if (userRole.ManageLeave || userRole.ManageLeaveTypes)
-        {
-            <li>
-                <a><i class="fa fa-plane"></i> Leave Management <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    @if (userRole.ManageLeave)
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "PaymentAllowances")">Employees Leave</a>
-                        </li>
-                    }
-                    @if (userRole.ManageLeaveTypes)
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "LeaveTypes")">Leave Types</a>
-                        </li>
-                    }
-                </ul>
-            </li>
-        }
-    }
+                 @if (userRole.ManageTraining)
+                 {
+                     <li>
+                         <a href="@Url.Action("Index", "EmployeeTrainings")">Trainings</a>
+                     </li>
+                 }
+                 @if (mapping.Count > 0)
+                 {
+                     <li>
+                         <a href="@Url.Action("Index", "EmployeeTrainingMappings")">My Trainings</a>
+                     </li>
+                 }
+                 @if (userRole.ManageTrainingTypes)
+                 {
+                     <li>
+                         <a href="@Url.Action("Index", "TrainingCategories")">Training Types</a>
+                     </li>
+                 }
+             </ul>
+         </li>
+     }
+    if (userRole.ManageEmploymentTypes)
+     {
+         <li>
+             <a><i class="fa fa-wrench"></i> Employment Settings <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+                 <li>
+                     <a href="@Url.Action("Index", "EmploymentTypes")">Employment Type</a>
+                 </li>
+                 <li>
+                     <a href="@Url.Action("Index", "EmploymentCategories")">Employment Category</a>
+                 </li>
+                 <li>
+                     <a href="@Url.Action("Index", "EmploymentPositions")">Employment Positions</a>
+                 </li>
+             </ul>
+         </li>
+     }
+    if (userRole.ManagePayment)
+     {
+         <li>
+             <a><i class="fa fa-money"></i> Payment Management <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+                 <li>
+                     <a href="@Url.Action("Index", "PaymentAllowances")">Payment Allowance</a>
+                 </li>
+                 <li>
+                     <a href="@Url.Action("Index", "PaymentDeductions")">Payment Deduction</a>
+                 </li>
+                 <li>
+                     <a href="@Url.Action("Index", "PaymentDeductionRequests")">Payment Deduction Requests</a>
+                 </li>
+                 <li>
+                     <a href="@Url.Action("AllEmployeePaymentData", "EmployeeManagement")">All Employees Payment</a>
+                 </li>
+             </ul>
+         </li>
+     }
+    if (userRole.ManageLeave || userRole.ManageLeaveTypes)
+     {
+         <li>
+             <a><i class="fa fa-plane"></i> Leave Management <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+                 @if (userRole.ManageLeave)
+                 {
+                     <li>
+                         <a href="@Url.Action("Index", "PaymentAllowances")">Employees Leave</a>
+                     </li>
+                 }
+                 @if (userRole.ManageLeaveTypes)
+                 {
+                     <li>
+                         <a href="@Url.Action("Index", "LeaveTypes")">Leave Types</a>
+                     </li>
+                 }
+             </ul>
+         </li>
+     }
+}
     </ul>
     </div>
 

@@ -21,6 +21,22 @@ namespace Opmas.Controllers.ApplicationManagement
             var faculties = db.Faculties.Include(f => f.Institution).Where(n=>n.InstitutionId == institution.InstitutionId);
             return View(faculties.ToList());
         }
+        // POST: Faculties/AssignFacultyManager
+        public ActionResult AssignFacultyManager(FormCollection collectedValues)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var facultyId = Convert.ToInt64(collectedValues["FacultyId"]);
+            var employeeId = Convert.ToInt64(collectedValues["EmployeeId"]);
+            var faculty = db.Faculties.Find(facultyId);
+            faculty.EmployeeId = employeeId;
+            faculty.DateLastModified = DateTime.Now;
+            if (loggedinuser != null) faculty.LastModifiedBy = loggedinuser.AppUserId;
+            db.Entry(faculty).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["faculty"] = "you have succesfully assigned the line manager for the faculty!";
+            TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+            return RedirectToAction("Index");
+        }
 
         // GET: Faculties/Details/5
         public ActionResult Details(long? id)
@@ -45,7 +61,7 @@ namespace Opmas.Controllers.ApplicationManagement
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FacultyId,Name")] Faculty faculty)
+        public ActionResult Create([Bind(Include = "FacultyId,Name,EmployeeId")] Faculty faculty)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
@@ -96,7 +112,7 @@ namespace Opmas.Controllers.ApplicationManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
-            [Bind(Include = "FacultyId,Name,InstitutionId,CreatedBy,DateCreated")] Faculty faculty)
+            [Bind(Include = "FacultyId,Name,EmployeeId,InstitutionId,CreatedBy,DateCreated")] Faculty faculty)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)

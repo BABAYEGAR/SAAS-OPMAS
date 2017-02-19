@@ -244,6 +244,7 @@
     <Compile Include="Controllers\EmployeeManagement\EmploymentTypesController.cs" />
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveManagement\LeavesController.cs" />
     <Compile Include="Controllers\LeaveManagement\LeaveTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
@@ -5324,6 +5325,14 @@
     <Content Include="Views\InstitutionStructures\Details.cshtml" />
     <Content Include="Views\InstitutionStructures\Edit.cshtml" />
     <Content Include="Views\InstitutionStructures\Index.cshtml" />
+    <Content Include="Views\Leaves\Create.cshtml" />
+    <Content Include="Views\Leaves\Delete.cshtml" />
+    <Content Include="Views\Leaves\Details.cshtml" />
+    <Content Include="Views\Leaves\Edit.cshtml" />
+    <Content Include="Views\Leaves\Index.cshtml" />
+    <Content Include="Views\Leaves\EmployeeLeave.cshtml" />
+    <Content Include="Views\Shared\_AssignFacultyManager.cshtml" />
+    <Content Include="Views\Shared\_AssignDepartmentManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

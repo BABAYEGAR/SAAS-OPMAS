@@ -64,6 +64,7 @@
     <Compile Include="Entities.Employee\EmploymentPosition.cs" />
     <Compile Include="Entities.SystemManagement\InstitutionStructure.cs" />
     <Compile Include="Entities.User\DepartmentManager.cs" />
+    <Compile Include="LeaveManagement\Leave.cs" />
     <Compile Include="LeaveManagement\LeaveType.cs" />
     <Compile Include="Mappings\EmployeeTrainingMapping.cs" />
     <Compile Include="Mappings\PositionAllowanceMapping.cs" />
