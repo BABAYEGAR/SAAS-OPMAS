@@ -3,10 +3,9 @@ using System.IO;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
-using BhuInfo.Data.Objects.Entities;
-using BhuInfo.Data.Service.Configuration;
+using Opmas.Data.Objects.Entities.User;
 
-namespace BhuInfo.Data.Service.EmailService
+namespace Opmas.Data.Service.EmailService
 {
     public class MailerDaemon
     {
@@ -18,7 +17,7 @@ namespace BhuInfo.Data.Service.EmailService
         {
             var message = new MailMessage
             {
-                From = new MailAddress(Config.SupportEmailAddress),
+                From = new MailAddress(""),
                 Subject = "New User Details",
                 Priority = MailPriority.High,
                 SubjectEncoding = Encoding.UTF8,
@@ -50,8 +49,8 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("USERNAME", user.Email)
                     .Replace("PASSWORD", user.Password)
                     .Replace("URL", "http://10.10.15.77/bhuinfo/Account/Login")
-                    .Replace("ROLE", user.Role)
-                    .Replace("FROM", Config.SupportEmailAddress);
+                    .Replace("ROLE", "")
+                    .Replace("FROM", "");
         }
         /// <summary>
         ///     This method sends an email containing a username and password to a newly created user
@@ -62,7 +61,7 @@ namespace BhuInfo.Data.Service.EmailService
         {
             var message = new MailMessage
             {
-                From = new MailAddress(Config.SupportEmailAddress),
+                From = new MailAddress(""),
                 Subject = "Delete Action Details",
                 Priority = MailPriority.High,
                 SubjectEncoding = Encoding.UTF8,
@@ -98,61 +97,14 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("DeletedBy", loggedinuser.DisplayName)
                     .Replace("Date", DateTime.Now.ToShortDateString())
                     .Replace("Time", DateTime.Now.ToShortTimeString())
-                    .Replace("FROM", Config.SupportEmailAddress);
+                    .Replace("FROM", "");
         }
-        /// <summary>
-        ///     This method sends an email containing a username and access code to a newly subscribed advert
-        /// </summary>
-        /// <param name="advertisement"></param>
-        public void SuscribeAdvert(Advertisement advertisement)
-        {
-            var message = new MailMessage
-            {
-                From = new MailAddress(Config.SupportEmailAddress),
-                Subject = "New Adevert Subscribed",
-                Priority = MailPriority.High,
-                SubjectEncoding = Encoding.UTF8,
-                Body = GetEmailBody_NewAdvertSubscribed(advertisement),
-                IsBodyHtml = true
-            };
-            //message.To.Add(Config.DevEmailAddress);
-            message.To.Add(advertisement.Email);
-            try
-            {
-                new SmtpClient().Send(message);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-        }
-
-        /// <summary>
-        ///     Html page content for the subscribed email
-        /// </summary>
-        /// <param name="advertisement"></param>
-        /// <returns></returns>
-        private static string GetEmailBody_NewAdvertSubscribed(Advertisement advertisement)
-        {
-            return
-                new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/SubscribedAdvert.html")).ReadToEnd()
-                    .Replace("DISPLAYNAME", advertisement.AdvertCompanyName)
-                    .Replace("EMAIL", advertisement.Email)
-                    .Replace("PASSWORD", advertisement.AccessCode)
-                    .Replace("URL", "http://10.10.15.77/bhuinfo")
-                    .Replace("CODE", advertisement.AccessCode)
-                    .Replace("FROM", Config.SupportEmailAddress);
-        }
-        /// <summary>
-        /// This method is used to send password reset link emails
-        /// </summary>
-        /// <param name="user"></param>
 
         public void ResetUserPassword(AppUser user)
         {
             var message = new MailMessage();
 
-            message.From = new MailAddress(Config.SupportEmailAddress);
+            message.From = new MailAddress("");
             message.To.Add(user.Email);
             message.Subject = "New Password";
             message.Priority = MailPriority.High;
@@ -178,7 +130,7 @@ namespace BhuInfo.Data.Service.EmailService
             return
                 new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ResetPassword.html"))
                     .ReadToEnd()
-                    .Replace("FROM", Config.SupportEmailAddress)
+                    .Replace("FROM", "")
                     .Replace("DISPLAYNAME", user.Firstname)
                     .Replace("URL", "http://10.10.15.77/bhuinfo/Account/ResetPassword/" + user.AppUserId);
         }
@@ -192,7 +144,7 @@ namespace BhuInfo.Data.Service.EmailService
         {
             var message = new MailMessage();
             message.From = new MailAddress(email);
-            message.To.Add(Config.SupportEmailAddress);
+            message.To.Add("");
             message.Subject = "New Contact";
             message.Priority = MailPriority.High;
             message.SubjectEncoding = Encoding.UTF8;

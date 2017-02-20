@@ -62,6 +62,7 @@
     <Compile Include="Entities.Employee\EmployeePersonalData.cs" />
     <Compile Include="Entities.Employee\EmploymentCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentPosition.cs" />
+    <Compile Include="Entities.SystemManagement\ApplicationNotification.cs" />
     <Compile Include="Entities.SystemManagement\InstitutionStructure.cs" />
     <Compile Include="Entities.User\DepartmentManager.cs" />
     <Compile Include="LeaveManagement\Leave.cs" />

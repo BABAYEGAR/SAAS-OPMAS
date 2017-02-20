@@ -3,7 +3,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.DataContext.DataContext.LeaveDataContext;
 using Opmas.Data.DataContext.DataContext.PaymentDataContext;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Payment;
 using Opmas.Data.Service.Enums;
@@ -13,6 +16,7 @@ namespace Opmas.Controllers.Payment
     public class PaymentDeductionRequestsController : Controller
     {
         private readonly PaymentDeductionRequestDataContext db = new PaymentDeductionRequestDataContext();
+        private EmployeeDataContext dbc = new EmployeeDataContext();
 
         // GET: PaymentDeductionRequests
         public ActionResult Index()
@@ -56,6 +60,21 @@ namespace Opmas.Controllers.Payment
             if (loggedinuser != null) request.LastModifiedBy = loggedinuser.AppUserId;
             db.Entry(request).State = EntityState.Modified;
             db.SaveChanges();
+            if (loggedinuser != null)
+            {
+                ApplicationNotification notify = new ApplicationNotification
+                {
+                    AssignedTo = request.CreatedBy,
+                    Description = "Your payment deduction request has been granted!",
+                    CreatedBy = loggedinuser.AppUserId,
+                    DateCreated = DateTime.Now,
+                    InstitutionId = loggedinuser.InstitutionId,
+                    NotificationType = ApplicationNotificationType.PaymentDeductionRequest.ToString(),
+                    ItemId = request.PaymentDeductionRequestId
+                };
+                dbc.ApplicationNotifications.Add(notify);
+                dbc.SaveChanges();
+            }
             TempData["deductionrequest"] = "you have succesfully granted the payment deduction request!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
@@ -90,6 +109,21 @@ namespace Opmas.Controllers.Payment
             if (loggedinuser != null) request.LastModifiedBy = loggedinuser.AppUserId;
             db.Entry(request).State = EntityState.Modified;
             db.SaveChanges();
+            if (loggedinuser != null)
+            {
+                ApplicationNotification notify = new ApplicationNotification
+                {
+                    AssignedTo = request.CreatedBy,
+                    Description = "Your payment deduction request has been denied!",
+                    CreatedBy = loggedinuser.AppUserId,
+                    DateCreated = DateTime.Now,
+                    InstitutionId = loggedinuser.InstitutionId,
+                    NotificationType = ApplicationNotificationType.PaymentDeductionRequest.ToString(),
+                    ItemId = request.PaymentDeductionRequestId
+                };
+                dbc.ApplicationNotifications.Add(notify);
+                dbc.SaveChanges();
+            }
             TempData["deductionrequest"] = "you have succesfully denied the payment deduction request!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");

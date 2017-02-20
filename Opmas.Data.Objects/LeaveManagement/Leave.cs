@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Build.Framework;
 using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.SystemManagement;
 
@@ -12,7 +13,9 @@ namespace Opmas.Data.Objects.LeaveManagement
     public class Leave: Transport
     {
         public long LeaveId { get; set; }
+        [Required]
         public string Reason { get; set; }
+        [Required]
         public long LeaveTypeId { get; set; }
         [ForeignKey("LeaveTypeId")]
         public LeaveType LeaveType { get; set; }

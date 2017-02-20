@@ -1,4 +1,6 @@
-﻿@using Opmas.Data.Objects.Entities.User
+﻿@using Opmas.Data.DataContext.DataContext.SystemDataContext
+@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.DateTimeHelper
 @using Opmas.Data.Service.Enums
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
@@ -7,6 +9,8 @@
         new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         return;
     }
+    var dbNotification = new ApplicationNotificationDataContext();
+    var allNotifications = dbNotification.ApplicationNotifications.Where(n => (n.InstitutionId == loggedinuser.InstitutionId) && (n.AssignedTo == loggedinuser.EmployeeId));
 }
 <div class="top_nav">
     <div class="nav_menu">
@@ -39,7 +43,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li>
-                            <a href="@Url.Action("ViewProfile","AppUsers",new {id = loggedinuser.AppUserId})"> Profile</a>
+                            <a href="@Url.Action("ViewProfile", "AppUsers", new {id = loggedinuser.AppUserId})"> Profile</a>
                         </li>
                         <li>
                             <a href="javascript:;">
@@ -60,65 +64,61 @@
                 <li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-green">6</span>
+                        <span class="badge bg-green">@allNotifications.ToList().Count</span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li>
-                            <a>
-                                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>@loggedinuser.DisplayName</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="text-center">
-                                <a>
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
+                        @foreach (var item in allNotifications)
+                        {
+                            <li>
+                                @if (item.NotificationType == ApplicationNotificationType.Leave.ToString())
+                                {
+                                    <a href="@Url.Action("Details", "Leaves", new {id = item.ItemId})">
+                                        <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                                            <span>@loggedinuser.DisplayName</span>
+                                            <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                                        </span>
+                                        <span class="message">
+                                            @item.Description
+                                        </span>
+                                    </a>
+                                }
+                                @if (item.NotificationType == ApplicationNotificationType.Training.ToString())
+                                {
+                                    <a href="@Url.Action("Details", "EmployeeTrainings", new {id = item.ItemId})">
+                                        <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                                            <span>@loggedinuser.DisplayName</span>
+                                            <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                                        </span>
+                                        <span class="message">
+                                            @item.Description
+                                        </span>
+                                    </a>
+                                }
+                                @if (item.NotificationType == ApplicationNotificationType.PaymentDeductionRequest.ToString())
+                                {
+                                    <a href="@Url.Action("Details", "PaymentDeductionRequests", new {id = item.ItemId})">
+                                        <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                                            <span>@loggedinuser.DisplayName</span>
+                                            <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                                        </span>
+                                        <span class="message">
+                                            @item.Description
+                                        </span>
+                                    </a>
+                                }
+                            </li>
+                            <li>
+                                <div class="text-center">
+                                    <a>
+                                        <strong>See All Alerts</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </li>
             </ul>

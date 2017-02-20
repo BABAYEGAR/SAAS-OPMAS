@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using System.Data.Entity.Core.Objects.DataClasses
+@using Opmas.Data.Service.Enums
 @model Opmas.Data.Objects.Entities.Employee.EmployeeFamilyData
 @{
     ViewBag.Title = "Edit";
@@ -6,14 +7,6 @@
     ViewBag.Subheader = "Edit Next Of Kin Data";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
 }
-@section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
-    <!-- Datatables -->
-    <link href="~/Content/ManagementDashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
-
-}
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -81,7 +74,7 @@
                         @Html.LabelFor(m => m.Relationship, "Relationship:", new {@class = "control-label control-label col-md-3 col-sm-3 col-xs-12"}) <span class="req">*</span>
                     
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            @Html.DropDownListFor(m => m.Relationship, (SelectList) ViewBag.relationship, "select relationship", new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
+                            @Html.DropDownListFor(m => m.Relationship, EnumHelper.GetSelectList(typeof(RelationshipKind)), "select relationship", new {@class = "form-control col-md-7 col-xs-12 select-dropdown"})
                         </div>
                     </div>
 
@@ -93,26 +86,3 @@
         </div>
     </div>
 </div>
-
-@section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script src="~/Content/ManagementDashboard/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/Content/ManagementDashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script>
-
-        $(document)
-            .ready(function() {
-
-                // init datepicker for date of birth 
-                $('.dob').datepicker({ 'endDate': new Date() });
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-                //datatables
-                $('#datatable1').DataTable();
-
-            });
-    </script>
-
-}

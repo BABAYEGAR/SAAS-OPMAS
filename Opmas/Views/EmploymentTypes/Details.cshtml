@@ -1,9 +1,11 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentType
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@model Opmas.Data.Objects.Entities.Employee.EmploymentType
 @{
     ViewBag.Title = "Details";
     ViewBag.Header = "Employment type";
     ViewBag.Subheader = "View employment type details";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var db = new EmployeeDataContext();
 }
 <div>
     <dl class="dl-horizontal">
@@ -42,7 +44,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateCreated)
+            @(db.AppUsers.Find(Model.CreatedBy).DisplayName)
         </dd>
 
         <dt>
@@ -58,7 +60,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastModifiedBy)
+            @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
         </dd>
 
     </dl>

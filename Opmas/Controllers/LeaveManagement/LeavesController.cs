@@ -3,7 +3,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.LeaveDataContext;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Service.Enums;
@@ -13,6 +15,7 @@ namespace Opmas.Controllers.LeaveManagement
     public class LeavesController : Controller
     {
         private LeaveDataContext db = new LeaveDataContext();
+        private EmployeeDataContext dbc = new EmployeeDataContext();
 
         // GET: Leaves
         public ActionResult Index()
@@ -133,9 +136,24 @@ namespace Opmas.Controllers.LeaveManagement
                     {
                         leave.LastModifiedBy = loggedinuser.AppUserId;
                     }
-                
+       
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    ApplicationNotification notify = new ApplicationNotification
+                    {
+                        AssignedTo = leave.CreatedBy,
+                        Description = "Your leave request has been finally granted!",
+                        CreatedBy = loggedinuser.AppUserId,
+                        DateCreated = DateTime.Now,
+                        NotificationType = ApplicationNotificationType.Leave.ToString(),
+                        InstitutionId = loggedinuser.InstitutionId,
+                        ItemId = leave.LeaveId
+                    };
+                    dbc.ApplicationNotifications.Add(notify);
+                    dbc.SaveChanges();
+                }
                 TempData["leave"] = "you have approved the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
@@ -163,6 +181,21 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    ApplicationNotification notify = new ApplicationNotification
+                    {
+                        AssignedTo = leave.CreatedBy,
+                        Description = "Your leave request has been rejected!",
+                        CreatedBy = loggedinuser.AppUserId,
+                        DateCreated = DateTime.Now,
+                        NotificationType = ApplicationNotificationType.Leave.ToString(),
+                        InstitutionId = loggedinuser.InstitutionId,
+                        ItemId = leave.LeaveId
+                    };
+                    dbc.ApplicationNotifications.Add(notify);
+                    dbc.SaveChanges();
+                }
                 TempData["leave"] = "you have rejected the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
@@ -209,6 +242,21 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    ApplicationNotification notify = new ApplicationNotification
+                    {
+                        AssignedTo = leave.CreatedBy,
+                        Description = "Your leave request has been approved from your department!",
+                        CreatedBy = loggedinuser.AppUserId,
+                        DateCreated = DateTime.Now,
+                        NotificationType = ApplicationNotificationType.Leave.ToString(),
+                        InstitutionId = loggedinuser.InstitutionId,
+                        ItemId = leave.LeaveId
+                    };
+                    dbc.ApplicationNotifications.Add(notify);
+                    dbc.SaveChanges();
+                }
                 TempData["leave"] = "you have approved the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
@@ -232,6 +280,21 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    ApplicationNotification notify = new ApplicationNotification
+                    {
+                        AssignedTo = leave.CreatedBy,
+                        Description = "Your leave request has approved from your faculty!",
+                        CreatedBy = loggedinuser.AppUserId,
+                        DateCreated = DateTime.Now,
+                        NotificationType = ApplicationNotificationType.Leave.ToString(),
+                        InstitutionId = loggedinuser.InstitutionId,
+                        ItemId = leave.LeaveId
+                    };
+                    dbc.ApplicationNotifications.Add(notify);
+                    dbc.SaveChanges();
+                }
                 TempData["leave"] = "you have approved the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");

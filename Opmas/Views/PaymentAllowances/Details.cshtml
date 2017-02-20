@@ -1,9 +1,11 @@
-﻿@model Opmas.Data.Objects.Payment.PaymentAllowance
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@model Opmas.Data.Objects.Payment.PaymentAllowance
 @{
     ViewBag.Title = "Details";
     ViewBag.Header = "Payment Allowance";
     ViewBag.Subheader = "View payement allowance item details";
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var db = new EmployeeDataContext();
 }
 <dl class="dl-horizontal">
     <dt>
@@ -23,11 +25,11 @@
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.Amount)
+        @Html.DisplayNameFor(model => model.Rate)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Amount)
+        @Html.DisplayFor(model => model.Rate)
     </dd>
 
     <dt>
@@ -35,7 +37,7 @@
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CreatedBy)
+        @(db.AppUsers.Find(Model.CreatedBy).DisplayName)
     </dd>
 
     <dt>
@@ -59,7 +61,7 @@
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.LastModifiedBy)
+        @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
     </dd>
 
 </dl>

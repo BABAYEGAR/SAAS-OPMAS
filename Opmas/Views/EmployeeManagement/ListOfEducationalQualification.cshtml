@@ -1,6 +1,6 @@
 ﻿@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
-@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeeEducationalQualification>
+@model IEnumerable<EmployeeEducationalQualification>
 
 @{
     ViewBag.Title = "List";
@@ -82,10 +82,10 @@
                 @Html.DisplayFor(modelItem => item.InstitutionName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @item.StartDate.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @item.EndDate.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClassOfDegree)

@@ -1,11 +1,11 @@
 ﻿@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
-@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmployeePastWorkExperience>
+@model IEnumerable<EmployeePastWorkExperience>
 
 @{
     ViewBag.Title = "List";
     ViewBag.Header = "Past Work Experience";
-    ViewBag.Subheader = "List Of Past Work Experienc";
+    ViewBag.Subheader = "List Of Past Work Experience";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var pastWorkExperience = new EmployeePastWorkExperience();
 }
@@ -80,10 +80,10 @@
                 @Html.DisplayFor(modelItem => item.EmployerName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @item.StartDate.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @item.EndDate.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmployerContact)

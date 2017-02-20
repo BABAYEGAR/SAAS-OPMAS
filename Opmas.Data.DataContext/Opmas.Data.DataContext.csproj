@@ -75,6 +75,7 @@
     <Compile Include="DataContext\PaymentDataContext\PaymentDeductionRequestDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentDeductionDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentAllowanceDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\ApplicationNotificationDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionStructureDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
@@ -243,6 +244,14 @@
     <Compile Include="Migrations\201702191044191_migrate51.Designer.cs">
       <DependentUpon>201702191044191_migrate51.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702201404518_migrate53.cs" />
+    <Compile Include="Migrations\201702201404518_migrate53.Designer.cs">
+      <DependentUpon>201702201404518_migrate53.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702201424212_migrate54.cs" />
+    <Compile Include="Migrations\201702201424212_migrate54.Designer.cs">
+      <DependentUpon>201702201424212_migrate54.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -376,6 +385,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702191044191_migrate51.resx">
       <DependentUpon>201702191044191_migrate51.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201404518_migrate53.resx">
+      <DependentUpon>201702201404518_migrate53.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201424212_migrate54.resx">
+      <DependentUpon>201702201424212_migrate54.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

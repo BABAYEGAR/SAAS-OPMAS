@@ -38,12 +38,6 @@
         <th>
             @Html.DisplayName("Email")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateLastModified)
-        </th>
         <th>Action</th>
     </tr>
     </thead>
@@ -60,12 +54,6 @@
             </td>
             <td>
                 @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateLastModified)
             </td>
             <td>
                 @if ((userRole != null) && userRole.ManageEmployees)

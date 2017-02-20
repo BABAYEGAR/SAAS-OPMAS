@@ -1155,8 +1155,6 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeFamilyData = _dbEmployee.EmployeeFamilyDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeFamilyData == null)
                 return HttpNotFound();
-            var relationship = new SelectList(typeof(FamilyEnum).GetEnumNames());
-            ViewBag.relationship = relationship;
             return View(employeeFamilyData);
         }
 

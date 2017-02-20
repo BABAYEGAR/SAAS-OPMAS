@@ -42,9 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeHelper\DateTimeCalculator.cs" />
+    <Compile Include="EmailService\MailerDaemon.cs" />
     <Compile Include="Encryption\Md5Ecryption.cs" />
     <Compile Include="Encryption\QueryStingEncoder.cs" />
     <Compile Include="Enums\AccountTypeEnum.cs" />
+    <Compile Include="Enums\ApplicationNotificationType.cs" />
     <Compile Include="Enums\LeaveStatus.cs" />
     <Compile Include="Enums\DurationType.cs" />
     <Compile Include="Enums\BloodGroup.cs" />
@@ -73,8 +76,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextFormatter\RemoveCharacters.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="EmailService\" />
+    <ProjectReference Include="..\Opmas.Data.Objects\Opmas.Data.Objects.csproj">
+      <Project>{F66834AB-D691-4595-855A-AD0FD040567E}</Project>
+      <Name>Opmas.Data.Objects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

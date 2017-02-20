@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.DataContext.DataContext.MappingDataContext;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Training;
@@ -19,6 +20,7 @@ namespace Opmas.Controllers.TrainingManagement
         private readonly EmployeeTrainingDataContext _db = new EmployeeTrainingDataContext();
         private readonly EmployeeTrainingMappingDataContext _dbc = new EmployeeTrainingMappingDataContext();
         private readonly EmployeeDataContext _dbd = new EmployeeDataContext();
+        private EmployeeDataContext dbc = new EmployeeDataContext();
 
         // GET: EmployeeTrainings
         public ActionResult Index()
@@ -86,6 +88,19 @@ namespace Opmas.Controllers.TrainingManagement
                             };
                             _dbc.EmployeeTrainingMappings.Add(trainingMapping);
                             _dbc.SaveChanges();
+                                ApplicationNotification notify = new ApplicationNotification
+                                {
+                                    AssignedTo = trainingMapping.EmployeeId,
+                                    Description = "You have been attached to a training session!",
+                                    CreatedBy = loggedinuser.AppUserId,
+                                    DateCreated = DateTime.Now,
+                                    InstitutionId = loggedinuser.InstitutionId,
+                                    NotificationType = ApplicationNotificationType.Training.ToString(),
+                                    ItemId = trainingMapping.EmployeeTrainingId
+                                };
+                                dbc.ApplicationNotifications.Add(notify);
+                                dbc.SaveChanges();
+                            
                             TempData["training"] = "you have succesfully added the employee(s) to the training event!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }

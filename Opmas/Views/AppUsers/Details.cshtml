@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.Objects.Entities.User
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.User
 @model Opmas.Data.Objects.Entities.User.AppUser
 
 
@@ -10,7 +11,9 @@
         ViewBag.Title = "Details";
         ViewBag.Header = "Application Users";
         ViewBag.Subheader = "View application user details";
+
     }
+    var db = new EmployeeDataContext();
 }
 
 
@@ -60,7 +63,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
+            @(db.AppUsers.Find(Model.CreatedBy).DisplayName)
         </dd>
 
         <dt>
@@ -84,7 +87,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastModifiedBy)
+            @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
         </dd>
 
     </dl>

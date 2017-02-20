@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rate)
+                @(item.Rate + "%")
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.PaymentAllowanceId}, new {@class = "btn btn-xs btn-default fa fa-television"})
