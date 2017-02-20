@@ -20,6 +20,7 @@ namespace Opmas.Controllers
         private readonly InstitutionDataContext _dbInstitution = new InstitutionDataContext();
         private readonly PackageDataContext _dbPackage = new PackageDataContext();
         private readonly RoleDataContext _dbRole = new RoleDataContext();
+        private readonly EmployeeDataContext _dbEmployee = new EmployeeDataContext();
 
         public ActionResult Dashboard()
         {
@@ -188,7 +189,15 @@ namespace Opmas.Controllers
             Session["institution"] = null;
             return RedirectToAction("Login", "Account");
         }
-
+        [HttpGet]
+        public ActionResult RealoadNavigation()
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var notifications =
+                _dbEmployee.ApplicationNotifications.Where(
+                    n => n.InstitutionId == loggedinuser.InstitutionId && n.AssignedTo == loggedinuser.EmployeeId);
+            return PartialView("_NotificationCount", notifications);
+        }
         public ActionResult Index()
         {
             return View();

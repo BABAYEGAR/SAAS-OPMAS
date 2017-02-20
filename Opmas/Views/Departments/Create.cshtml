@@ -20,7 +20,7 @@
             @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
         </div>
     </div>
-    if (institutionStructureSession != null && institutionStructureSession.Faculty)
+    if ((institutionStructureSession != null) && institutionStructureSession.Faculty)
     {
         <div class="form-group">
             @Html.LabelFor(model => model.FacultyId, "Faculty", new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})

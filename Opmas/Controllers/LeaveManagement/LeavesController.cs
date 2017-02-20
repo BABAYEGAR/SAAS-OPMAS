@@ -49,7 +49,7 @@ namespace Opmas.Controllers.LeaveManagement
 
 
         // GET: Leaves/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id,long? readId)
         {
             if (id == null)
             {
@@ -60,6 +60,7 @@ namespace Opmas.Controllers.LeaveManagement
             {
                 return HttpNotFound();
             }
+            ViewBag.ReadId = readId;
             return View(leave);
         }
 
@@ -139,17 +140,19 @@ namespace Opmas.Controllers.LeaveManagement
        
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                var createdBy = dbc.AppUsers.Find(leave.CreatedBy);
                 if (loggedinuser != null)
                 {
                     ApplicationNotification notify = new ApplicationNotification
                     {
-                        AssignedTo = leave.CreatedBy,
+                        AssignedTo = createdBy.EmployeeId,
                         Description = "Your leave request has been finally granted!",
                         CreatedBy = loggedinuser.AppUserId,
                         DateCreated = DateTime.Now,
                         NotificationType = ApplicationNotificationType.Leave.ToString(),
                         InstitutionId = loggedinuser.InstitutionId,
-                        ItemId = leave.LeaveId
+                        ItemId = leave.LeaveId,
+                        Read = false
                     };
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
@@ -181,17 +184,19 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                var createdBy = dbc.AppUsers.Find(leave.CreatedBy);
                 if (loggedinuser != null)
                 {
                     ApplicationNotification notify = new ApplicationNotification
                     {
-                        AssignedTo = leave.CreatedBy,
+                        AssignedTo = createdBy.EmployeeId,
                         Description = "Your leave request has been rejected!",
                         CreatedBy = loggedinuser.AppUserId,
                         DateCreated = DateTime.Now,
                         NotificationType = ApplicationNotificationType.Leave.ToString(),
                         InstitutionId = loggedinuser.InstitutionId,
-                        ItemId = leave.LeaveId
+                        ItemId = leave.LeaveId,
+                        Read = false
                     };
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
@@ -242,17 +247,19 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                var createdBy = dbc.AppUsers.Find(leave.CreatedBy);
                 if (loggedinuser != null)
                 {
                     ApplicationNotification notify = new ApplicationNotification
                     {
-                        AssignedTo = leave.CreatedBy,
+                        AssignedTo = createdBy.EmployeeId,
                         Description = "Your leave request has been approved from your department!",
                         CreatedBy = loggedinuser.AppUserId,
                         DateCreated = DateTime.Now,
                         NotificationType = ApplicationNotificationType.Leave.ToString(),
                         InstitutionId = loggedinuser.InstitutionId,
-                        ItemId = leave.LeaveId
+                        ItemId = leave.LeaveId,
+                        Read = false
                     };
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
@@ -280,17 +287,19 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
+                var createdBy = dbc.AppUsers.Find(leave.CreatedBy);
                 if (loggedinuser != null)
                 {
                     ApplicationNotification notify = new ApplicationNotification
                     {
-                        AssignedTo = leave.CreatedBy,
+                        AssignedTo = createdBy.EmployeeId,
                         Description = "Your leave request has approved from your faculty!",
                         CreatedBy = loggedinuser.AppUserId,
                         DateCreated = DateTime.Now,
                         NotificationType = ApplicationNotificationType.Leave.ToString(),
                         InstitutionId = loggedinuser.InstitutionId,
-                        ItemId = leave.LeaveId
+                        ItemId = leave.LeaveId,
+                        Read = false
                     };
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();

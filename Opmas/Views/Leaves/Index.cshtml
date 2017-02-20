@@ -45,29 +45,29 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            var employee = employeesData.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
-            <tr>
-                <td>
-                    @if (employee != null)
-                    {
-                        @employee.DisplayName
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LeaveType.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @item.DateCreated.ToShortDateString()
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.LeaveId },new {@class = "btn btn-default btn-xs fa fa-television"}) 
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        var employee = employeesData.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
+        <tr>
+            <td>
+                @if (employee != null)
+                {
+                    @employee.DisplayName
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @item.DateCreated.ToShortDateString()
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new {id = item.LeaveId}, new {@class = "btn btn-default btn-xs fa fa-television"})
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

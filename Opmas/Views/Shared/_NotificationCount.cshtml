@@ -1,0 +1,70 @@
+﻿@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.DateTimeHelper
+@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.ApplicationNotification>
+@{
+    var allNotificationRead = Model.Where(n => n.Read);
+    var numberOfNotifications = Model.ToList().Count - allNotificationRead.ToList().Count;
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+}
+<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+    <i class="fa fa-envelope-o"></i>
+    <span class="badge bg-green">@numberOfNotifications</span>
+</a>
+<ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+    @foreach (var item in Model)
+    {
+        <li>
+            @if (item.NotificationType == ApplicationNotificationType.Leave.ToString())
+            {
+                <a href="@Url.Action("Details", "Leaves", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                    <span>
+                        <span>@loggedinuser.DisplayName</span>
+                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                    </span>
+                    <span class="message">
+                        @item.Description
+                    </span>
+
+                </a>
+            }
+            @if (item.NotificationType == ApplicationNotificationType.Training.ToString())
+            {
+                <a href="@Url.Action("Details", "EmployeeTrainings", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                    <span>
+                        <span>@loggedinuser.DisplayName</span>
+                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                    </span>
+                    <span class="message">
+                        @item.Description
+                    </span>
+
+                </a>
+            }
+            @if (item.NotificationType == ApplicationNotificationType.PaymentDeductionRequest.ToString())
+            {
+                <a href="@Url.Action("Details", "PaymentDeductionRequests", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                    <span>
+                        <span>@loggedinuser.DisplayName</span>
+                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                    </span>
+                    <span class="message">
+                        @item.Description
+                    </span>
+
+                </a>
+            }
+        </li>
+    }
+    <li>
+        <div class="text-center">
+            <a>
+                <strong>See All Alerts</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </li>
+</ul>

@@ -121,7 +121,7 @@
                         @Html.Label("Employment Position", new {@class = "control-label col-md-12"})
                         @Html.DropDownListFor(m => m.EmploymentPositionId, null, "--Please select your position--", new {@class = "form-control select-dropdown col-md-12"})
                     </div>
-                    @if (institutionStructureSession != null && institutionStructureSession.Faculty == true)
+                    @if ((institutionStructureSession != null) && institutionStructureSession.Faculty)
                     {
                         <div class="form-group col-md-6">
                             @Html.Label("FacultyId", "Assigned Faculty", new {@class = "control-label col-md-12"})
@@ -169,10 +169,10 @@
                 if ($('#faculty').val() != '') {
                     getDepartmentForFaculty();
 
-                }else{
-                  
+                } else {
 
-}
+
+                }
                 if ($('#department').val() != '') {
                     getUnitsForDepartment();
 

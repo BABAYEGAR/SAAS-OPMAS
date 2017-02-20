@@ -320,5 +320,22 @@
                     });
         });
 </script>
+<script type="text/javascript">
+    $(document)
+        .ready(function() {
+
+            $(function() {
+                setInterval(function() {
+                        $('#numberOfNotifications')
+                            .load('@Url.Action("RealoadNavigation", "Home")');
+
+                    },
+                    1000);
+
+            });
+
+
+        });
+</script>
 </body>
 </html>

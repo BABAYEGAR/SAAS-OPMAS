@@ -410,6 +410,24 @@
     gauge.set(3200);
     gauge.setTextField(document.getElementById("gauge-text"));
 </script>
-<!-- /gauge.js -->
+<script type="text/javascript">
+    $(document)
+        .ready(function() {
+
+            $(function() {
+                setInterval(function() {
+                        $('#numberOfNotifications')
+                            .load('@Url.Action("RealoadNavigation", "Home")');
+
+                    },
+                    1000);
+
+            });
+
+
+        });
+</script>
+
+
 </body>
 </html>

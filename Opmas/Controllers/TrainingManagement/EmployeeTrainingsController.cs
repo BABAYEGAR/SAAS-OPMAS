@@ -96,7 +96,8 @@ namespace Opmas.Controllers.TrainingManagement
                                     DateCreated = DateTime.Now,
                                     InstitutionId = loggedinuser.InstitutionId,
                                     NotificationType = ApplicationNotificationType.Training.ToString(),
-                                    ItemId = trainingMapping.EmployeeTrainingId
+                                    ItemId = trainingMapping.EmployeeTrainingId,
+                                    Read = false
                                 };
                                 dbc.ApplicationNotifications.Add(notify);
                                 dbc.SaveChanges();
@@ -123,13 +124,14 @@ namespace Opmas.Controllers.TrainingManagement
         }
 
         // GET: EmployeeTrainings/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id,long? readId)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var employeeTraining = _db.EmployeeTrainings.Find(id);
             if (employeeTraining == null)
                 return HttpNotFound();
+            ViewBag.ReadId = readId;
             return View(employeeTraining);
         }
 

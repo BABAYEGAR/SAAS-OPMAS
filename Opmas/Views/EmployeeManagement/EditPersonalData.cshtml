@@ -17,8 +17,8 @@
                 @Html.HiddenFor(m => m.EmployeePersonalDataId)
                 <fieldset>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(m => m.Title, new { @class = "control-label" }) <span class="req">*</span>
-                        @Html.DropDownListFor(m => m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), new { @class = "form-control select-dropdown" })
+                        @Html.LabelFor(m => m.Title, new {@class = "control-label"}) <span class="req">*</span>
+                        @Html.DropDownListFor(m => m.Title, EnumHelper.GetSelectList(typeof(NameTitle)), new {@class = "form-control select-dropdown"})
                     </div>
                     <div class="form-group col-md-4">
                         @Html.LabelFor(m => m.Firstname, new {@class = "control-label"}) <span class="req">*</span>

@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
 @using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Objects.Entities.User
@@ -19,6 +20,20 @@
     var employmentPositionId = dbEmployee.EmployeeWorkDatas.FirstOrDefault(n => n.EmployeeId == Model.EmployeeId).EmploymentPositionId;
     var seniorStaff = dbEmployee.EmploymentPositions.Find(employmentPositionId);
     var db = new EmployeeDataContext();
+
+    //check if leave is from notification and mark as read
+    long? notificationId = ViewBag.ReadId;
+
+    var notification = db.ApplicationNotifications.Find(notificationId);
+    notification.Read = true;
+    if (notificationId == null)
+    {
+    }
+    else
+    {
+        db.Entry(notification).State = EntityState.Modified;
+        db.SaveChanges();
+    }
 }
 <dl class="dl-horizontal">
     <dt>
@@ -146,8 +161,8 @@
     {
         @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
     }
-    
-    
+
+
 
     @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember && userRole.ManageSeniorStaffLeave)
     {
@@ -156,13 +171,13 @@
 
     @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember && userRole.ManageSeniorStaffLeave)
     {
-        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new { id = Model.LeaveId }, new { @class = "btn btn-danger btn-xs fa fa-check" })
+        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
     }
-    
 
-    @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember == false )
+
+    @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && (seniorStaff.SeniorMember == false))
     {
-        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new { id = Model.LeaveId }, new { @class = "btn btn-danger btn-xs fa fa-check" })
+        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
     }
 
     @if ((Model.Status == LeaveStatus.Pending.ToString()) && (Model.EmployeeId == loggedinuser?.EmployeeId))

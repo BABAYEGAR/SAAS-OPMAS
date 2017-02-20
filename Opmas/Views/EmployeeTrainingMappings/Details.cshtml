@@ -76,7 +76,7 @@
         <dd>
             @Html.DisplayFor(model => model.EmployeeTrainings.CoordinatorCompany)
         </dd>
-        @if (loggedinuser != null && loggedinuser.AppUserId == Model.CreatedBy)
+        @if ((loggedinuser != null) && (loggedinuser.AppUserId == Model.CreatedBy))
         {
             <dt>
                 @Html.DisplayNameFor(model => model.CreatedBy)

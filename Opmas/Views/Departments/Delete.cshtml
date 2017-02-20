@@ -8,7 +8,7 @@
     var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
 }
 <dl class="dl-horizontal">
-    @if (institutionStructureSession != null && institutionStructureSession.Faculty)
+    @if ((institutionStructureSession != null) && institutionStructureSession.Faculty)
     {
         <dt>
             @Html.DisplayNameFor(model => model.Faculty.Name)

@@ -18,15 +18,15 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.LeaveTypeId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        @Html.LabelFor(model => model.LeaveTypeId, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
         <div class="col-md-6 col-sm-6 col-xs-12">
-            @Html.DropDownListFor(model => model.LeaveTypeId,null,new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
-            @Html.ValidationMessageFor(model => model.LeaveTypeId, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.LeaveTypeId, null, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+            @Html.ValidationMessageFor(model => model.LeaveTypeId, "", new {@class = "text-danger"})
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Submit Request" class="btn btn-success pull-right" />
+            <input type="submit" value="Submit Request" class="btn btn-success pull-right"/>
         </div>
     </div>
 }

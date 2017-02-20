@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
 @using Opmas.Data.Objects.Entities.Employee
 @model Opmas.Data.Objects.Training.EmployeeTraining
 @{
@@ -8,6 +9,14 @@
     Layout = "~/Views/Shared/_LayoutForm.cshtml";
     var role = Session["role"] as Role;
     var db = new EmployeeDataContext();
+
+    //check if leave is from notification and mark as read
+    long? notificationId = ViewBag.ReadId;
+
+    var notification = db.ApplicationNotifications.Find(notificationId);
+    notification.Read = true;
+    db.Entry(notification).State = EntityState.Modified;
+    db.SaveChanges();
 }
 <div>
 

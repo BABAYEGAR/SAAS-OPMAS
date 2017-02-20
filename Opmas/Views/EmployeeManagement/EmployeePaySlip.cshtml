@@ -46,7 +46,7 @@
     <tbody>
     @foreach (var item in allowanceMapping)
     {
-        var balance = item.PaymentAllowance.Rate * employmentPosition.Income / 100;
+        var balance = item.PaymentAllowance.Rate*employmentPosition.Income/100;
         <tr>
             <td>
                 @item.PaymentAllowance.Name

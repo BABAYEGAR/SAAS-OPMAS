@@ -5333,6 +5333,7 @@
     <Content Include="Views\Leaves\EmployeeLeave.cshtml" />
     <Content Include="Views\Shared\_AssignFacultyManager.cshtml" />
     <Content Include="Views\Shared\_AssignDepartmentManager.cshtml" />
+    <Content Include="Views\Shared\_NotificationCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

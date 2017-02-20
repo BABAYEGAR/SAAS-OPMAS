@@ -13,6 +13,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public long? ItemId { get; set; }
         public string Description { get; set; }
         public string NotificationType { get; set; }
+        public bool Read { get; set; }
         public DateTime DateCreated { get; set; }
         public long? CreatedBy { get; set; }
         public long? AssignedTo { get; set; }

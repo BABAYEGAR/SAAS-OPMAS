@@ -24,10 +24,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            @Html.LabelFor(model => model.Description, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
             <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control col-md-7 col-xs-12"}})
+                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
             </div>
         </div>
         <div class="form-group">
@@ -153,20 +153,20 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ManageLeave, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ManageLeave, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.ManageLeave)
-                    @Html.ValidationMessageFor(model => model.ManageLeave, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ManageLeave, "", new {@class = "text-danger"})
                 </div>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ManageLeaveTypes, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ManageLeaveTypes, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.ManageLeaveTypes)
-                    @Html.ValidationMessageFor(model => model.ManageLeaveTypes, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ManageLeaveTypes, "", new {@class = "text-danger"})
                 </div>
             </div>
         </div>

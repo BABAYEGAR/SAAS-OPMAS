@@ -40,13 +40,14 @@ namespace Opmas.Controllers.Payment
         }
 
         // GET: PaymentDeductionRequests/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id, long? readId)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var paymentDeductionRequest = db.PaymentDeductionRequests.Find(id);
             if (paymentDeductionRequest == null)
                 return HttpNotFound();
+            ViewBag.ReadId = readId;
             return View(paymentDeductionRequest);
         }
 
@@ -60,17 +61,19 @@ namespace Opmas.Controllers.Payment
             if (loggedinuser != null) request.LastModifiedBy = loggedinuser.AppUserId;
             db.Entry(request).State = EntityState.Modified;
             db.SaveChanges();
+            var createdBy = dbc.AppUsers.Find(request.CreatedBy);
             if (loggedinuser != null)
             {
                 ApplicationNotification notify = new ApplicationNotification
                 {
-                    AssignedTo = request.CreatedBy,
+                    AssignedTo =createdBy.EmployeeId,
                     Description = "Your payment deduction request has been granted!",
                     CreatedBy = loggedinuser.AppUserId,
                     DateCreated = DateTime.Now,
                     InstitutionId = loggedinuser.InstitutionId,
                     NotificationType = ApplicationNotificationType.PaymentDeductionRequest.ToString(),
-                    ItemId = request.PaymentDeductionRequestId
+                    ItemId = request.PaymentDeductionRequestId,
+                    Read = false
                 };
                 dbc.ApplicationNotifications.Add(notify);
                 dbc.SaveChanges();
@@ -109,17 +112,19 @@ namespace Opmas.Controllers.Payment
             if (loggedinuser != null) request.LastModifiedBy = loggedinuser.AppUserId;
             db.Entry(request).State = EntityState.Modified;
             db.SaveChanges();
+            var createdBy = dbc.AppUsers.Find(request.CreatedBy);
             if (loggedinuser != null)
             {
                 ApplicationNotification notify = new ApplicationNotification
                 {
-                    AssignedTo = request.CreatedBy,
+                    AssignedTo = createdBy.EmployeeId,
                     Description = "Your payment deduction request has been denied!",
                     CreatedBy = loggedinuser.AppUserId,
                     DateCreated = DateTime.Now,
                     InstitutionId = loggedinuser.InstitutionId,
                     NotificationType = ApplicationNotificationType.PaymentDeductionRequest.ToString(),
-                    ItemId = request.PaymentDeductionRequestId
+                    ItemId = request.PaymentDeductionRequestId,
+                    Read = false
                 };
                 dbc.ApplicationNotifications.Add(notify);
                 dbc.SaveChanges();

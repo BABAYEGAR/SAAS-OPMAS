@@ -1,6 +1,5 @@
 ﻿@using System.Data.Entity
 @using Opmas.Data.DataContext.DataContext.EmployeeDataContext
-@using Opmas.Data.DataContext.DataContext.SystemDataContext
 @using Opmas.Data.Objects.Entities.SystemManagement
 @model Opmas.Data.Objects.Entities.SystemManagement.Department
 
@@ -15,16 +14,16 @@
     var employees = employeesData.Where(n => n.Employee.DepartmentId == Model.DepartmentId);
 }
 <dl class="dl-horizontal">
-    @if (institutionStructureSession != null && institutionStructureSession.Faculty)
+    @if ((institutionStructureSession != null) && institutionStructureSession.Faculty)
     {
-    <dt>
-        @Html.DisplayNameFor(model => model.Faculty.Name)
-    </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty.Name)
+        </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.Faculty.Name)
-    </dd>
-}
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.Name)
+        </dd>
+    }
     <dt>
         @Html.DisplayNameFor(model => model.Institution.Name)
     </dt>
@@ -44,7 +43,7 @@
 </dl>
 <p>
     @Html.ActionLink("Edit Department", "Edit", new {id = Model.DepartmentId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    @Html.ActionLink("Delete Department", "Delete", new { id = Model.DepartmentId }, new { @class = "btn btn-danger btn-xs fa fa-remove" })
+    @Html.ActionLink("Delete Department", "Delete", new {id = Model.DepartmentId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
     <button type="button" class="btn btn-success btn-xs fa fa-user" data-toggle="modal" data-target="#myModal">
         Department Manager
     </button>
@@ -62,7 +61,7 @@
                 <div class="modal-body">
                     @{
                         ViewBag.EmployeeId = new SelectList(employees, "EmployeeId", "DisplayName");
-                        Html.RenderPartial("_AssignDepartmentManager",Model);
+                        Html.RenderPartial("_AssignDepartmentManager", Model);
                     }
                 </div>
             </div>
@@ -70,5 +69,5 @@
 
     </div>
 
-   
+
 </p>
