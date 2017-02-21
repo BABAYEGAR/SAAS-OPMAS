@@ -496,9 +496,9 @@
                             <h4>
                                 <strong>Faculty</strong><br/>
                                 <label>
-                                    @{
-                                        var faculty = dbEmployee.Faculties.Find(employee.FacultyId);
-                                    }@faculty?.Name;
+                               
+                                      @(dbEmployee.Faculties.SingleOrDefault(n=>n.FacultyId == employee.FacultyId).Name)
+                                    
                                 </label>
 
                             </h4>

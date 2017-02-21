@@ -12,7 +12,7 @@
     <span class="badge bg-green">@numberOfNotifications</span>
 </a>
 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-    @foreach (var item in Model)
+    @foreach (var item in Model.OrderByDescending(n=>n.DateCreated))
     {
         <li>
             @if (item.NotificationType == ApplicationNotificationType.Leave.ToString())
@@ -20,7 +20,10 @@
                 <a href="@Url.Action("Details", "Leaves", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
                     <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
                     <span>
-                        <span>@loggedinuser.DisplayName</span>
+                        <span>@if (loggedinuser != null)
+                              {
+                                  @loggedinuser.DisplayName
+                              }</span>
                         <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
                     </span>
                     <span class="message">
@@ -34,7 +37,10 @@
                 <a href="@Url.Action("Details", "EmployeeTrainings", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
                     <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
                     <span>
-                        <span>@loggedinuser.DisplayName</span>
+                        <span>@if (loggedinuser != null)
+                              {
+                                  @loggedinuser.DisplayName
+                              }</span>
                         <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
                     </span>
                     <span class="message">
@@ -48,7 +54,10 @@
                 <a href="@Url.Action("Details", "PaymentDeductionRequests", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
                     <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
                     <span>
-                        <span>@loggedinuser.DisplayName</span>
+                        <span>@if (loggedinuser != null)
+                              {
+                                  @loggedinuser.DisplayName
+                              }</span>
                         <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
                     </span>
                     <span class="message">
