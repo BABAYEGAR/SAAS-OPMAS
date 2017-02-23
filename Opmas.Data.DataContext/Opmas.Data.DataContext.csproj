@@ -54,6 +54,8 @@
     <Compile Include="DataContext\AccessDataContext\PackageDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmploymentCategoryDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmploymentPositionDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\PositionChangeDataContext.cs" />
+    <Compile Include="DataContext\EmployeeDataContext\ResponsibilityDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmploymentTypeDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeBankDataContext.cs" />
     <Compile Include="DataContext\EmployeeDataContext\EmployeeDataContext.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="DataContext\LeaveDataContext\LeaveDataContext.cs" />
     <Compile Include="DataContext\LeaveDataContext\LeaveTypeDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\AppraisalPositionMappingDataContext.cs" />
+    <Compile Include="DataContext\MappingDataContext\EmployeeResponsibilityMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionDeductionMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionAllowanceMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\EmployeeTrainingMappingDataContext.cs" />
@@ -276,6 +279,26 @@
     <Compile Include="Migrations\201702222044123_migrate59.Designer.cs">
       <DependentUpon>201702222044123_migrate59.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702231727411_migrate60.cs" />
+    <Compile Include="Migrations\201702231727411_migrate60.Designer.cs">
+      <DependentUpon>201702231727411_migrate60.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702231819448_migrate61.cs" />
+    <Compile Include="Migrations\201702231819448_migrate61.Designer.cs">
+      <DependentUpon>201702231819448_migrate61.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702232003325_migrate62.cs" />
+    <Compile Include="Migrations\201702232003325_migrate62.Designer.cs">
+      <DependentUpon>201702232003325_migrate62.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702232017502_migrate63.cs" />
+    <Compile Include="Migrations\201702232017502_migrate63.Designer.cs">
+      <DependentUpon>201702232017502_migrate63.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702232107481_migrate64.cs" />
+    <Compile Include="Migrations\201702232107481_migrate64.Designer.cs">
+      <DependentUpon>201702232107481_migrate64.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -430,6 +453,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702222044123_migrate59.resx">
       <DependentUpon>201702222044123_migrate59.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702231727411_migrate60.resx">
+      <DependentUpon>201702231727411_migrate60.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702231819448_migrate61.resx">
+      <DependentUpon>201702231819448_migrate61.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702232003325_migrate62.resx">
+      <DependentUpon>201702232003325_migrate62.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702232017502_migrate63.resx">
+      <DependentUpon>201702232017502_migrate63.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702232107481_migrate64.resx">
+      <DependentUpon>201702232107481_migrate64.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

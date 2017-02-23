@@ -242,6 +242,8 @@
     <Compile Include="Controllers\EmployeeManagement\EmploymentCategoriesController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmploymentPositionsController.cs" />
     <Compile Include="Controllers\EmployeeManagement\EmploymentTypesController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PositionChangesController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\ResponsibilitiesController.cs" />
     <Compile Include="Controllers\EmployeeManagement\RolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeaveManagement\LeavesController.cs" />
@@ -5353,6 +5355,19 @@
     <Content Include="Views\AppraisalPositionMappings\Edit.cshtml" />
     <Content Include="Views\AppraisalPositionMappings\Index.cshtml" />
     <Content Include="Views\AppraisalCategories\AssignPosition.cshtml" />
+    <Content Include="Views\Responsibilities\Create.cshtml" />
+    <Content Include="Views\Responsibilities\Delete.cshtml" />
+    <Content Include="Views\Responsibilities\Details.cshtml" />
+    <Content Include="Views\Responsibilities\Edit.cshtml" />
+    <Content Include="Views\Responsibilities\Index.cshtml" />
+    <Content Include="Views\Responsibilities\AppointeeList.cshtml" />
+    <Content Include="Views\PositionChanges\Create.cshtml" />
+    <Content Include="Views\PositionChanges\Delete.cshtml" />
+    <Content Include="Views\PositionChanges\Details.cshtml" />
+    <Content Include="Views\PositionChanges\Edit.cshtml" />
+    <Content Include="Views\PositionChanges\Index.cshtml" />
+    <Content Include="Views\EmployeeManagement\EmployeesPositionChange.cshtml" />
+    <Content Include="Views\Shared\PosititonChange.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

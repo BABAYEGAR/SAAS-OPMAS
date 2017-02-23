@@ -10,8 +10,6 @@
     }
     var dbNotification = new ApplicationNotificationDataContext();
     var allNotifications = dbNotification.ApplicationNotifications.Where(n => (n.InstitutionId == loggedinuser.InstitutionId) && (n.AssignedTo == loggedinuser.EmployeeId));
-    var allNotificationRead = allNotifications.Where(n => n.Read);
-    var numberOfNotifications = allNotifications.ToList().Count - allNotificationRead.ToList().Count;
 }
 <div class="top_nav">
     <div class="nav_menu">

@@ -1,0 +1,74 @@
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@model Opmas.Data.Objects.Entities.Employee.Responsibility
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Appointment Responsibility";
+    ViewBag.Subheader = "View appointment responsibility details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var db = new EmployeeDataContext();
+
+    //check if leave is from notification and mark as read
+    long? notificationId = ViewBag.ReadId;
+
+    var notification = db.ApplicationNotifications.Find(notificationId);
+    notification.Read = true;
+    db.Entry(notification).State = EntityState.Modified;
+    db.SaveChanges();
+}
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Institution.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Institution.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+    
+            <dd>
+                @(db.AppUsers.Find(Model.CreatedBy).DisplayName)
+            </dd>
+
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateLastModified)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateLastModified)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LastModifiedBy)
+            </dt>
+    
+
+            <dd>
+                @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
+            </dd>
+    
+        </dl>
+<p>
+    @Html.ActionLink("Edit Responsibility", "Edit", new { id = Model.ResponsibilityId }, new { @class = "btn btn-primary btn-xs" })
+    @Html.ActionLink("Delete Responsibility", "Edit", new { id = Model.ResponsibilityId }, new { @class = "btn btn-danger btn-xs" })
+</p>

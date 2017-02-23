@@ -1,0 +1,45 @@
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.User
+@model Opmas.Data.Objects.Entities.Employee.PositionChange
+@{
+    var db = new PositionChangeDataContext();
+    var dbc = new EmployeeDataContext();
+    long employeeId = Model.EmployeeId;
+    string action = ViewBag.action;
+
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    var employeeWorkData = dbc.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
+    var employmentPosition =
+        dbc.EmploymentPositions.SingleOrDefault(
+            n => n.EmploymentPositionId == employeeWorkData.EmploymentPositionId);
+    ViewBag.EmploymentPositionId =
+        new SelectList(
+            db.EmploymentPositions.Where(
+                n => n.EmploymentPositionId != employmentPosition.EmploymentPositionId && n.InstitutionId == loggedinuser.InstitutionId), "EmploymentPositionId",
+            "Name");
+}
+@using (Html.BeginForm("Create", "PositionChanges", FormMethod.Post, new
+{
+    @class = "form-horizontal",
+    id = "demo-form2",
+    enctype = "multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("EmployeeId", employeeId)
+    @Html.Hidden("Action", action)
+    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmploymentPositionId, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownListFor(model => model.EmploymentPositionId, null, new {@class = "form-control select-dropdown col-md-7 col-xs-12"})
+            @Html.ValidationMessageFor(model => model.EmploymentPositionId, "", new {@class = "text-danger"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update " class="btn btn-primary pull-right"/>
+        </div>
+    </div>
+}

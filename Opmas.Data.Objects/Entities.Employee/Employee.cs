@@ -51,8 +51,10 @@ namespace Opmas.Data.Objects.Entities.Employee
         public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
         public IEnumerable<AppraisalScoreCard> AppraisalScoreCards { get; set; }
+        public IEnumerable<EmployeeResponsibilityMapping> ResponsibilityMappings { get; set; }
         public IEnumerable<Leave> Leaves { get; set; }
         public IEnumerable<Department> Departments { get; set; }
         public IEnumerable<Faculty> Faculties { get; set; }
+        public IEnumerable<PositionChange> PositionChanges { get; set; }
     }
 }

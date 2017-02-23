@@ -49,6 +49,10 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageSeniorStaffLeave { get; set; }
         [DisplayName("Manage Appriasal Setting")]
         public bool ManageAppriasalSetting { get; set; }
+        [DisplayName("Manage Appointments")]
+        public bool ManageAppointments { get; set; }
+        [DisplayName("Manage Position Change")]
+        public bool ManagePositionChange { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public long? InstitutionId { get; set; }

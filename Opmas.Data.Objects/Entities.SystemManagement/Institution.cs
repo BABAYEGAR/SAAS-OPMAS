@@ -65,12 +65,16 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<AppraisalFactor> Appraisals { get; set; }
         public IEnumerable<AppraisalPositionMapping> AppraisalPositionMappings { get; set; }
         public IEnumerable<AppraisalScoreCard> AppraisalScoreCards { get; set; }
+        public IEnumerable<Responsibility> Responsibilities { get; set; }
+        public IEnumerable<EmployeeResponsibilityMapping> EmployeeResponsibilityMappings { get; set; }
+        public IEnumerable<PositionChange> PositionChanges { get; set; }
 
         [DisplayName("Package")]
         public long PackageId { get; set; }
 
         [ForeignKey("PackageId")]
         public virtual Package Packages { get; set; }
+
 
     }
 }

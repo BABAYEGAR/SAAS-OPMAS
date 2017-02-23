@@ -6,6 +6,7 @@
         Leave,
         PaymentDeduction,
         PaymentDeductionRequest,
-        PaymentAllowance
+        PaymentAllowance,
+        Appointment
     }
 }

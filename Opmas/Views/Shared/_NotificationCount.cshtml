@@ -66,6 +66,25 @@
 
                 </a>
             }
+            @if (item.NotificationType == ApplicationNotificationType.Appointment.ToString())
+            {
+                <a href="@Url.Action("Details", "Responsibilities", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                    <span>
+                        <span>
+                            @if (loggedinuser != null)
+                        {
+                            @loggedinuser.DisplayName
+                        }
+                    </span>
+                    <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                </span>
+                <span class="message">
+                    @item.Description
+                </span>
+
+            </a>
+            }
         </li>
     }
     <li>

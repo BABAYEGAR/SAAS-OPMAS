@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities.Employee\PositionChange.cs" />
+    <Compile Include="Entities.Employee\Responsibility.cs" />
     <Compile Include="Entities.Employee\Bank.cs" />
     <Compile Include="Entities.Employee\Employee.cs" />
     <Compile Include="Entities.Employee\EmployeeBankData.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="LeaveManagement\Leave.cs" />
     <Compile Include="LeaveManagement\LeaveType.cs" />
     <Compile Include="Mappings\AppraisalPositionMapping.cs" />
+    <Compile Include="Mappings\EmployeeResponsibilityMapping.cs" />
     <Compile Include="Mappings\EmployeeTrainingMapping.cs" />
     <Compile Include="Mappings\PositionAllowanceMapping.cs" />
     <Compile Include="Mappings\PositionDeductionMapping.cs" />

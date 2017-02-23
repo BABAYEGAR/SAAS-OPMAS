@@ -108,6 +108,15 @@ namespace Opmas.Controllers.EmployeeManagement
                     _dbEmployee.Employees.ToList()
                         .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId)));
         }
+        // POST: EmployeeManagement/EmployeesPositionChange
+        public ActionResult EmployeesPositionChange()
+        {
+            var institution = Session["institution"] as Institution;
+            return
+                View(
+                    _dbEmployee.Employees.ToList()
+                        .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId)));
+        }
 
         #endregion
 

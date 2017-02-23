@@ -25,6 +25,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public IEnumerable<PositionDeductionMapping> AssignPaymentDeductions { get; set; }
         public IEnumerable<PositionAllowanceMapping> AssignPaymentAllowances { get; set; }
         public IEnumerable<AppraisalPositionMapping> AppraisalPositionMappings { get; set; }
+        public IEnumerable<PositionChange> PositionChanges { get; set; }
 
     }
 }

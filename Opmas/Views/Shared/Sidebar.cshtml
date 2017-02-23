@@ -174,7 +174,7 @@
     }
     @if ((institution != null) && (loggedinuser.InstitutionId != null) && (institution.SetUpStatus == SetUpStatus.Completed.ToString()))
     {
-        if (userRole.ManageEmployees || userRole.ManagePayment)
+        if (userRole.ManageEmployees || userRole.ManagePayment || userRole.ManagePositionChange)
         {
             <li>
                 <a><i class="fa fa-user-times"></i> Employee Management <span class="fa fa-chevron-down"></span></a>
@@ -182,6 +182,12 @@
                     <li>
                         <a href="@Url.Action("ListOfEmployees", "EmployeeManagement")">Employee(s)</a>
                     </li>
+                    @if (userRole.ManageEmployees || userRole.ManagePayment)
+                    {
+                        <li>
+                            <a href="@Url.Action("EmployeesPositionChange", "EmployeeManagement")">Employee(s) Promotion/Demotion</a>
+                        </li>
+                    }
                 </ul>
             </li>
         }
@@ -308,6 +314,17 @@
                     }
                 </ul>
             }
+        </li>
+    }
+    @if (userRole.ManageAppointments)
+    {
+        <li>
+            <a><i class="fa fa-tags"></i> Appointments<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+                <li>
+                    <a href="@Url.Action("Index", "Responsibilities")">Responsibility</a>
+                </li>
+            </ul>
         </li>
     }
     @if (userRole.ManageAppriasalSetting)

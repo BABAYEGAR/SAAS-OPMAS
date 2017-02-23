@@ -53,6 +53,9 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<AppraisalCategory> AppraisalCategories { get; set; }
         public virtual DbSet<AppraisalPositionMapping> AppraisalPositionMappings { get; set; }
         public virtual DbSet<AppraisalScoreCard> AppraisalScoreCards { get; set; }
+        public virtual DbSet<Responsibility> Responsibilities { get; set; }
+        public virtual DbSet<EmployeeResponsibilityMapping> EmployeeResponsibilityMappings { get; set; }
+        public virtual DbSet<PositionChange> PositionChanges { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
