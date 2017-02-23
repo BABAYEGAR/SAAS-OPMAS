@@ -1,6 +1,6 @@
 ﻿namespace Opmas.Data.Service.Enums
 {
-    public enum PositionChange
+    public enum PositionChangeEnum
     {
         Promotion,
         Demotion,

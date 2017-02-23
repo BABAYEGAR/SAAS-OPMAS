@@ -25,7 +25,10 @@
     long? notificationId = ViewBag.ReadId;
 
     var notification = db.ApplicationNotifications.Find(notificationId);
-    notification.Read = true;
+    if (notification != null)
+    {
+        notification.Read = true;
+    }
     if (notificationId == null)
     {
     }

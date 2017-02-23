@@ -14,7 +14,10 @@
     long? notificationId = ViewBag.ReadId;
 
     var notification = db.ApplicationNotifications.Find(notificationId);
-    notification.Read = true;
+    if (notification != null)
+    {
+        notification.Read = true;
+    }
     db.Entry(notification).State = EntityState.Modified;
     db.SaveChanges();
 }

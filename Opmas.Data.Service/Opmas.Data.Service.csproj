@@ -47,7 +47,7 @@
     <Compile Include="Encryption\Md5Ecryption.cs" />
     <Compile Include="Encryption\QueryStingEncoder.cs" />
     <Compile Include="Enums\AccountTypeEnum.cs" />
-    <Compile Include="Enums\PositionChange.cs" />
+    <Compile Include="Enums\PositionChangeEnum.cs" />
     <Compile Include="Enums\ApplicationNotificationType.cs" />
     <Compile Include="Enums\LeaveStatus.cs" />
     <Compile Include="Enums\DurationType.cs" />

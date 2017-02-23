@@ -5367,7 +5367,6 @@
     <Content Include="Views\PositionChanges\Edit.cshtml" />
     <Content Include="Views\PositionChanges\Index.cshtml" />
     <Content Include="Views\EmployeeManagement\EmployeesPositionChange.cshtml" />
-    <Content Include="Views\Shared\PosititonChange.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

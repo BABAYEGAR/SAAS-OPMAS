@@ -1,7 +1,6 @@
 ﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
 @using Opmas.Data.Factory.EmployeeManagement
 @using Opmas.Data.Service.Enums
-@using PositionChange = Opmas.Data.Objects.Entities.Employee.PositionChange
 @model IEnumerable<Opmas.Data.Objects.Entities.Employee.Employee>
 
 @{
@@ -9,7 +8,9 @@
     ViewBag.Header = "List Of Employees";
     Layout = "~/Views/Shared/_LayoutListItems.cshtml";
     var employeeData = new EmployeeDataContext();
-    var positionChange = new PositionChange();
+
+    ViewBag.promote = PositionChangeEnum.Promotion.ToString();
+    ViewBag.demote = PositionChangeEnum.Promotion.ToString();
 }
 @if (TempData["employee"] != null)
 {
@@ -50,7 +51,7 @@
     <tbody>
     @foreach (var item in Model)
     {
-        long id = item.EmployeeId;
+        var id = item.EmployeeId;
         var workData = employeeData.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
         var positionChanged = employeeData.PositionChanges.Where(n => n.EmployeeId == item.EmployeeId);
         <tr>
@@ -63,17 +64,9 @@
             <td>
                 @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
             </td>
+        
             @if (workData != null)
             {
-             
-                <td>
-                    @employeeData.EmploymentPositions.Find(workData.EmploymentPositionId).Name
-                </td>
-
-            }
-            @if (workData != null)
-            {
-
                 <td>
 
                     @{
@@ -81,67 +74,21 @@
                     }
                     @if (firstOrDefault != null)
                     {
-                        @employeeData.EmploymentPositions.Find(firstOrDefault.EmploymentPositionId).Name
+                        @employeeData.EmploymentPositions.Find(firstOrDefault.PreviousPositionId).Name
                     }
                 </td>
-
             }
-
+            @if (workData != null)
+            {
+                <td>
+                    @employeeData.EmploymentPositions.Find(workData.EmploymentPositionId).Name
+                </td>
+            }
             <td>
+                @Html.ActionLink("Promote Employee", "Create","PositionChanges", new { id = item.EmployeeId,ViewBag.promote }, new { @class = "btn btn-success btn-xs fa fa-arrow-circle-up" })
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-xs fa fa-arrow-circle-up" data-toggle="modal" data-target="#myModal1">
-                    Promote Employee
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Promote Employee</h4>
-                            </div>
-                            <div class="modal-body">
-                                @{
-                                    positionChange.EmployeeId = id;
-                                    
-                                    ViewBag.action = Opmas.Data.Service.Enums.PositionChange.Promotion.ToString();
-                                    Html.RenderPartial("PosititonChange", positionChange);
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger btn-xs fa fa-arrow-circle-down" data-toggle="modal" data-target="#myModal2">
-                    Demote Employee
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Demote Employee</h4>
-                            </div>
-                            <div class="modal-body">
-                                @{
-                                    positionChange.EmployeeId = id;
-                                    ViewBag.action = Opmas.Data.Service.Enums.PositionChange.Demotion.ToString();
-                                    Html.RenderPartial("PosititonChange", positionChange);
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                @Html.ActionLink("Demote Employee", "Create", "PositionChanges", new { id = item.EmployeeId,ViewBag.demote }, new { @class = "btn btn-danger btn-xs fa fa-arrow-circle-down" })
+                
             </td>
         </tr>
     }

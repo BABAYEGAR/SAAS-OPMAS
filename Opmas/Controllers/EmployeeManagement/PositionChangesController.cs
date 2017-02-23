@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
-using PositionChange = Opmas.Data.Objects.Entities.Employee.PositionChange;
 
 namespace Opmas.Controllers.EmployeeManagement
 {
@@ -41,9 +38,27 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         // GET: PositionChanges/Create
-        public ActionResult Create(long id)
+        public ActionResult Create(long id,string promote,string demote)
         {
-       
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var employeeWorkData = dbc.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == id);
+            var employmentPosition =
+                dbc.EmploymentPositions.SingleOrDefault(
+                    n => n.EmploymentPositionId == employeeWorkData.EmploymentPositionId);
+            ViewBag.EmploymentPositionId =
+                new SelectList(
+                    db.EmploymentPositions.Where(
+                        n => n.EmploymentPositionId != employmentPosition.EmploymentPositionId && n.InstitutionId == loggedinuser.InstitutionId), "EmploymentPositionId",
+                    "Name");
+
+            if (promote != null)
+                ViewBag.action = promote;
+
+            if (demote != null)
+                ViewBag.action = demote;
+
+
+                ViewBag.id = id;
             return View();
         }
 
@@ -63,13 +78,13 @@ namespace Opmas.Controllers.EmployeeManagement
                 var status = collectedValues["Action"];
                 positionChange.EmployeeId = Convert.ToInt64(collectedValues["EmployeeId"]);
                 
-                if (status == Data.Service.Enums.PositionChange.Demotion.ToString())
+                if (status == PositionChangeEnum.Demotion.ToString())
                 {
-                    positionChange.Action = Data.Service.Enums.PositionChange.Demotion.ToString();
+                    positionChange.Action = PositionChangeEnum.Demotion.ToString();
                 }
-                if (status == Data.Service.Enums.PositionChange.Promotion.ToString())
+                if (status == PositionChangeEnum.Promotion.ToString())
                 {
-                    positionChange.Action = Data.Service.Enums.PositionChange.Promotion.ToString();
+                    positionChange.Action = PositionChangeEnum.Promotion.ToString();
                 }
                 if (loggedinuser != null)
                 {
@@ -95,8 +110,17 @@ namespace Opmas.Controllers.EmployeeManagement
                 }
                 db.PositionChanges.Add(positionChange);
                 db.SaveChanges();
-                TempData["employee"] = "you have succesfully "+ status +" the employee!";
-                TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                if (status == PositionChangeEnum.Promotion.ToString())
+                {
+                    TempData["employee"] = "you have succesfully promoted the employee!";
+                    TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                }
+                if (status == PositionChangeEnum.Demotion.ToString())
+                {
+                    
+                    TempData["employee"] = "you have succesfully demoted the employee!";
+                    TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
+                }
                 return RedirectToAction("EmployeesPositionChange","EmployeeManagement");
             }
             var employeeWorkData = dbc.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
@@ -106,7 +130,7 @@ namespace Opmas.Controllers.EmployeeManagement
             ViewBag.EmploymentPositionId =
               new SelectList(
                   db.EmploymentPositions.Where(
-                      n => n.EmploymentPositionId != employmentPosition.EmploymentPositionId), "EmploymentPositionId",
+                      n => n.EmploymentPositionId != employmentPosition.EmploymentPositionId && n.InstitutionId == loggedinuser.InstitutionId), "EmploymentPositionId",
                   "Name");
             return View(positionChange);
         }
