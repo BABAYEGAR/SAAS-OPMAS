@@ -1,0 +1,89 @@
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.Employee
+@using Opmas.Data.Service.Enums
+@model IEnumerable<Opmas.Data.Objects.Entities.Employee.EmploymentPosition>
+
+@{
+    ViewBag.Title = "List";
+    ViewBag.Header = "Employment Positions";
+    ViewBag.Subheader = "List Of Employment Positions";
+    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var role = Session["role"] as Role;
+    var dbc = new EmployeeDataContext();
+    long id = ViewBag.Id;
+}
+@if (TempData["employmentposition"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+    {
+        <div class="alert alert-success alert-dismissable">@TempData["employmentposition"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable">@TempData["employmentposition"]</div>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["employmentposition"]</div>
+    }
+}
+@using (Html.BeginForm("SubmitAssignedPositionList", "AppraisalCategories", FormMethod.Post))
+{
+    @Html.Hidden("id", id)
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="sumbitForm" value="Assign to category" class="btn btn-success pull-right fa fa-plus-square"/>
+        </div>
+    </div>
+    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+        <thead>
+        <tr>
+            @if ((role != null) && role.ManageAppriasalSetting)
+            {
+                <th>
+                    <input type="checkbox" id="check-all" class="flat">
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if ((role != null) && role.ManageTraining)
+                {
+                    <td>
+
+                        @if (dbc.AppraisalPositionMappings.SingleOrDefault(n => (n.EmploymentPositionId == item.EmploymentPositionId) && (n.InstitutionId == item.InstitutionId) && (n.AppraisalCategoryId == id)) != null)
+                        {
+                            var category = dbc.AppraisalCategories.Find(id);
+                            Session["category"] = category;
+                            <a href="@Url.Action("RemoveMapping", "PaymentDeductions", new {id = item.EmploymentPositionId})">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <input type="checkbox" class="flat" name="table_records" value="@item.EmploymentPositionId">
+                        }
+
+
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new {id = item.EmploymentPositionId}, new {@class = "btn btn-xs btn-default fa fa-television"})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

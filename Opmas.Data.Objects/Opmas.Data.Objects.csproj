@@ -67,12 +67,16 @@
     <Compile Include="Entities.User\DepartmentManager.cs" />
     <Compile Include="LeaveManagement\Leave.cs" />
     <Compile Include="LeaveManagement\LeaveType.cs" />
+    <Compile Include="Mappings\AppraisalPositionMapping.cs" />
     <Compile Include="Mappings\EmployeeTrainingMapping.cs" />
     <Compile Include="Mappings\PositionAllowanceMapping.cs" />
     <Compile Include="Mappings\PositionDeductionMapping.cs" />
     <Compile Include="Payment\PaymentAllowance.cs" />
     <Compile Include="Payment\PaymentDeduction.cs" />
     <Compile Include="Payment\PaymentDeductionRequest.cs" />
+    <Compile Include="PerformanceManagement\AppraisalScoreCard.cs" />
+    <Compile Include="PerformanceManagement\AppraisalCategory.cs" />
+    <Compile Include="PerformanceManagement\AppraisalFactor.cs" />
     <Compile Include="Training\EmployeeTraining.cs" />
     <Compile Include="Training\TrainingCategory.cs" />
     <Compile Include="Entities.Employee\EmploymentType.cs" />

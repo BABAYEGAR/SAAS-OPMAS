@@ -247,10 +247,13 @@
     <Compile Include="Controllers\LeaveManagement\LeavesController.cs" />
     <Compile Include="Controllers\LeaveManagement\LeaveTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MappingManagement\AppraisalPositionMappingsController.cs" />
     <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
     <Compile Include="Controllers\Payment\PaymentAllowancesController.cs" />
     <Compile Include="Controllers\Payment\PaymentDeductionRequestsController.cs" />
     <Compile Include="Controllers\Payment\PaymentDeductionsController.cs" />
+    <Compile Include="Controllers\PerformanceManagement\AppraisalCategoriesController.cs" />
+    <Compile Include="Controllers\PerformanceManagement\AppraisalFactorsController.cs" />
     <Compile Include="Controllers\TrainingManagement\EmployeeTrainingsController.cs" />
     <Compile Include="Controllers\TrainingManagement\TrainingCategoriesController.cs" />
     <Compile Include="Controllers\UserManagement\AppUsersController.cs" />
@@ -5334,6 +5337,22 @@
     <Content Include="Views\Shared\_AssignFacultyManager.cshtml" />
     <Content Include="Views\Shared\_AssignDepartmentManager.cshtml" />
     <Content Include="Views\Shared\_NotificationCount.cshtml" />
+    <Content Include="Views\AppraisalCategories\Create.cshtml" />
+    <Content Include="Views\AppraisalCategories\Delete.cshtml" />
+    <Content Include="Views\AppraisalCategories\Details.cshtml" />
+    <Content Include="Views\AppraisalCategories\Edit.cshtml" />
+    <Content Include="Views\AppraisalCategories\Index.cshtml" />
+    <Content Include="Views\AppraisalFactors\Create.cshtml" />
+    <Content Include="Views\AppraisalFactors\Delete.cshtml" />
+    <Content Include="Views\AppraisalFactors\Details.cshtml" />
+    <Content Include="Views\AppraisalFactors\Edit.cshtml" />
+    <Content Include="Views\AppraisalFactors\Index.cshtml" />
+    <Content Include="Views\AppraisalPositionMappings\Create.cshtml" />
+    <Content Include="Views\AppraisalPositionMappings\Delete.cshtml" />
+    <Content Include="Views\AppraisalPositionMappings\Details.cshtml" />
+    <Content Include="Views\AppraisalPositionMappings\Edit.cshtml" />
+    <Content Include="Views\AppraisalPositionMappings\Index.cshtml" />
+    <Content Include="Views\AppraisalCategories\AssignPosition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

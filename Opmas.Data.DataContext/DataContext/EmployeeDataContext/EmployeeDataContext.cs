@@ -6,6 +6,7 @@ using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
+using Opmas.Data.Objects.PerformanceManagement;
 using Opmas.Data.Objects.Training;
 
 namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
@@ -48,6 +49,10 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
         public virtual DbSet<ApplicationNotification> ApplicationNotifications { get; set; }
+        public virtual DbSet<AppraisalFactor> AppraisalFactors { get; set; }
+        public virtual DbSet<AppraisalCategory> AppraisalCategories { get; set; }
+        public virtual DbSet<AppraisalPositionMapping> AppraisalPositionMappings { get; set; }
+        public virtual DbSet<AppraisalScoreCard> AppraisalScoreCards { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

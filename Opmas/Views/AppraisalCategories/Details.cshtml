@@ -1,0 +1,85 @@
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@model Opmas.Data.Objects.PerformanceManagement.AppraisalCategory
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Appraisal Category";
+    ViewBag.Subheader = "View appraisal category details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var db = new EmployeeDataContext();
+}
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Institution.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Institution.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MaximumScore)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MaximumScore)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentScore)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CurrentScore)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+    
+            <dd>
+                @(db.AppUsers.Find(Model.CreatedBy).DisplayName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateLastModified)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateLastModified)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LastModifiedBy)
+            </dt>
+    
+            <dd>
+                @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
+            </dd>
+    
+        </dl>
+<p>
+    @Html.ActionLink("Edit Category", "Edit", new { id = Model.AppraisalCategoryId }, new { @class = "btn btn-primary btn-xs fa fa-pencil" })
+    @Html.ActionLink("Delete Category", "Edit", new { id = Model.AppraisalCategoryId }, new { @class = "btn btn-danger btn-xs fa fa-remove" })
+</p>

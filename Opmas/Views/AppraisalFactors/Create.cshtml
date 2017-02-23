@@ -1,0 +1,47 @@
+﻿@model Opmas.Data.Objects.PerformanceManagement.AppraisalFactor
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Header = "Appraisal Factor";
+    ViewBag.Subheader = "Create a new appraisal factor";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+}
+@using (Html.BeginForm("Create", "AppraisalFactors", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Factor, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Factor, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Factor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FactorScore, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.FactorScore, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.FactorScore, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AppraisalCategoryId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownListFor(model => model.AppraisalCategoryId, null,"Select the appraisal ",new { @class = "form-control col-md-7 col-xs-12 select-dropdown" })
+            @Html.ValidationMessageFor(model => model.AppraisalCategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-success pull-right" />
+        </div>
+    </div>
+}

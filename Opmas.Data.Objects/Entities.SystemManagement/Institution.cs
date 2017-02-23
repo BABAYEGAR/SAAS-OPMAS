@@ -9,6 +9,7 @@ using Opmas.Data.Objects.Entities.Employee;
 using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
+using Opmas.Data.Objects.PerformanceManagement;
 using Opmas.Data.Objects.Training;
 
 namespace Opmas.Data.Objects.Entities.SystemManagement
@@ -61,6 +62,9 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<LeaveType> LeaveTypes { get; set; }
         public IEnumerable<Leave> Leaves { get; set; }
         public IEnumerable<ApplicationNotification> ApplicationNotifications { get; set; }
+        public IEnumerable<AppraisalFactor> Appraisals { get; set; }
+        public IEnumerable<AppraisalPositionMapping> AppraisalPositionMappings { get; set; }
+        public IEnumerable<AppraisalScoreCard> AppraisalScoreCards { get; set; }
 
         [DisplayName("Package")]
         public long PackageId { get; set; }

@@ -69,12 +69,16 @@
     <Compile Include="DataContext\EmployeeDataContext\EmployeePersonalDataContext.cs" />
     <Compile Include="DataContext\LeaveDataContext\LeaveDataContext.cs" />
     <Compile Include="DataContext\LeaveDataContext\LeaveTypeDataContext.cs" />
+    <Compile Include="DataContext\MappingDataContext\AppraisalPositionMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionDeductionMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\PositionAllowanceMappingDataContext.cs" />
     <Compile Include="DataContext\MappingDataContext\EmployeeTrainingMappingDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentDeductionRequestDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentDeductionDataContext.cs" />
     <Compile Include="DataContext\PaymentDataContext\PaymentAllowanceDataContext.cs" />
+    <Compile Include="DataContext\PerformanceDataContext\AppraisalCategoryDataContext.cs" />
+    <Compile Include="DataContext\PerformanceDataContext\AppraisalScoreCardDataContext.cs" />
+    <Compile Include="DataContext\PerformanceDataContext\AppraisalFactorDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\ApplicationNotificationDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionStructureDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
@@ -256,6 +260,22 @@
     <Compile Include="Migrations\201702201937538_migrate55.Designer.cs">
       <DependentUpon>201702201937538_migrate55.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702221811062_migrate56.cs" />
+    <Compile Include="Migrations\201702221811062_migrate56.Designer.cs">
+      <DependentUpon>201702221811062_migrate56.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702221830184_migrate57.cs" />
+    <Compile Include="Migrations\201702221830184_migrate57.Designer.cs">
+      <DependentUpon>201702221830184_migrate57.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702221853548_migrate58.cs" />
+    <Compile Include="Migrations\201702221853548_migrate58.Designer.cs">
+      <DependentUpon>201702221853548_migrate58.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702222044123_migrate59.cs" />
+    <Compile Include="Migrations\201702222044123_migrate59.Designer.cs">
+      <DependentUpon>201702222044123_migrate59.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -399,7 +419,20 @@
     <EmbeddedResource Include="Migrations\201702201937538_migrate55.resx">
       <DependentUpon>201702201937538_migrate55.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702221811062_migrate56.resx">
+      <DependentUpon>201702221811062_migrate56.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702221830184_migrate57.resx">
+      <DependentUpon>201702221830184_migrate57.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702221853548_migrate58.resx">
+      <DependentUpon>201702221853548_migrate58.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702222044123_migrate59.resx">
+      <DependentUpon>201702222044123_migrate59.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

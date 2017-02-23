@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
+using Opmas.Data.Objects.PerformanceManagement;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -22,6 +24,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public IEnumerable<EmployeeWorkData> EmployeeWorkDatas { get; set; }
         public IEnumerable<PositionDeductionMapping> AssignPaymentDeductions { get; set; }
         public IEnumerable<PositionAllowanceMapping> AssignPaymentAllowances { get; set; }
+        public IEnumerable<AppraisalPositionMapping> AppraisalPositionMappings { get; set; }
 
     }
 }

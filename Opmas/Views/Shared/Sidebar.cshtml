@@ -310,6 +310,20 @@
             }
         </li>
     }
+    @if (userRole.ManageAppriasalSetting)
+    {
+        <li>
+            <a><i class="fa fa-sticky-note-o"></i> Appraisal Management <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+                <li>
+                    <a href="@Url.Action("Index", "AppraisalCategories")">Apprisal Category</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AppraisalFactors")">Appraisal Facors</a>
+                </li>
+            </ul>
+        </li>
+    }
     </ul>
     </div>
 

@@ -7,6 +7,7 @@ using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Objects.LeaveManagement;
 using Opmas.Data.Objects.Mappings;
 using Opmas.Data.Objects.Payment;
+using Opmas.Data.Objects.PerformanceManagement;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -49,6 +50,7 @@ namespace Opmas.Data.Objects.Entities.Employee
         public IEnumerable<Role> Roles { get; set; }
         public IEnumerable<PaymentDeductionRequest> PaymentDeductionRequests { get; set; }
         public IEnumerable<EmployeeTrainingMapping> EmployeeTrainingMappings { get; set; }
+        public IEnumerable<AppraisalScoreCard> AppraisalScoreCards { get; set; }
         public IEnumerable<Leave> Leaves { get; set; }
         public IEnumerable<Department> Departments { get; set; }
         public IEnumerable<Faculty> Faculties { get; set; }
