@@ -1,0 +1,53 @@
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@model IEnumerable<Opmas.Data.Objects.Entities.SystemManagement.ApplicationStatistic>
+@{
+    ViewBag.Title = "List";
+    ViewBag.Header = "Session Management";
+    ViewBag.Subheader = "List Of Sessions";
+    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    var dataBase = new EmployeeDataContext();
+}
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Action)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOccured)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstitutionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoggedInUserId)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Action)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOccured)
+                </td>
+                <td>
+                    @if (item.InstitutionId != null)
+                    {
+                        @dataBase.Institutions.Find(item.InstitutionId).Name
+                    }
+                </td>
+                <td>
+                    @if (item.LoggedInUserId != null)
+                    {
+                        @dataBase.AppUsers.Find(item.LoggedInUserId).DisplayName
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+</table>

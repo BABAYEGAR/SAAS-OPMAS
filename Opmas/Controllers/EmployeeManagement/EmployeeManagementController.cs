@@ -9,6 +9,7 @@ using System.Web.Security;
 using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.TextFormatter;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
+using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.DataContext.DataContext.UserDataContext;
 using Opmas.Data.Factory.EmployeeManagement;
 using Opmas.Data.Objects.Entities.Employee;
@@ -125,6 +126,7 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/PersonalData
         public ActionResult PersonalData(bool? returnUrl, bool? backUrl)
         {
+          var institution =   Session["institution"] as Institution ;
             _employee = Session["Employee"] as Employee;
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
             if ((returnUrl != null) && returnUrl.Value)
@@ -138,6 +140,14 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 if (_employee != null) return View(_employee.EmployeePersonalData.SingleOrDefault());
             }
+            var dataBase = new ApplicationStatisticDataContext();
+            var statistics = new ApplicationStatistic();
+            if (institution != null) statistics.InstitutionId = institution.InstitutionId;
+            statistics.Action = StatisticsEnum.Registration.ToString();
+            statistics.DateOccured = DateTime.Now;
+
+            dataBase.ApplicationStatistics.Add(statistics);
+            dataBase.SaveChanges();
             return View(_employee?.EmployeePersonalData.SingleOrDefault());
         }
 

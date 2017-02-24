@@ -47,6 +47,7 @@
     <Compile Include="Encryption\Md5Ecryption.cs" />
     <Compile Include="Encryption\QueryStingEncoder.cs" />
     <Compile Include="Enums\AccountTypeEnum.cs" />
+    <Compile Include="Enums\DashboardTheme.cs" />
     <Compile Include="Enums\PositionChangeEnum.cs" />
     <Compile Include="Enums\ApplicationNotificationType.cs" />
     <Compile Include="Enums\LeaveStatus.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Enums\PaymentDeductionRequestStatus.cs" />
     <Compile Include="Enums\SetUpStatus.cs" />
     <Compile Include="Enums\RoleType.cs" />
+    <Compile Include="Enums\StatisticsEnum.cs" />
     <Compile Include="Enums\SubscriptionDuration.cs" />
     <Compile Include="Enums\TrainingCompletionEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />

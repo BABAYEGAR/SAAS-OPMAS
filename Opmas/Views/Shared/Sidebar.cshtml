@@ -132,7 +132,9 @@
                         <li>
                             <a href="@Url.Action("EditMedicalData", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Medical Data</a>
                         </li>
-
+                        <li>
+                            <a href="@Url.Action("EmployeePositionChanges", "PositionChanges", new {id = loggedinuser.EmployeeId})">Position Movement</a>
+                        </li>
                         <li>
                             <a href="@Url.Action("EmployeePaySlip", "EmployeeManagement", new {id = loggedinuser.EmployeeId})">My Payment Slip</a>
                         </li>
@@ -147,7 +149,7 @@
     @if (userRole.ManageAllInstitutions)
     {
         <li>
-            <a><i class="fa fa-hospital-o"></i> Institutions <span class="fa fa-chevron-down"></span></a>
+            <a><i class="fa fa-hospital-o"></i> Institution Management <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 <li>
                     <a href="@Url.Action("Index", "Institutions")">All Institutions</a>
@@ -164,7 +166,7 @@
     @if (userRole.ManagePackages)
     {
         <li>
-            <a><i class="fa fa-gift"></i> Packages <span class="fa fa-chevron-down"></span></a>
+            <a><i class="fa fa-gift"></i> Package Management <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 <li>
                     <a href="@Url.Action("Index", "Package")">Packages</a>
@@ -172,6 +174,17 @@
             </ul>
         </li>
     }
+        @if (userRole.Name == "Platform Administrator")
+        {
+            <li>
+                <a><i class="fa fa-arrows-v"></i> Session Management <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="@Url.Action("Index", "ApplicationStatistics")">Sessions</a>
+                    </li>
+                </ul>
+            </li>
+        }
     @if ((institution != null) && (loggedinuser.InstitutionId != null) && (institution.SetUpStatus == SetUpStatus.Completed.ToString()))
     {
         if (userRole.ManageEmployees || userRole.ManagePayment || userRole.ManagePositionChange)

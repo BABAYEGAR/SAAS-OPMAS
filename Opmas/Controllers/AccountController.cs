@@ -12,6 +12,7 @@ using Opmas.Data.Service.Enums;
 using Opmas.Models;
 using System.Linq;
 using System.Web.Security;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Controllers
 {
@@ -69,13 +70,17 @@ namespace Opmas.Controllers
             {
                 var institution = _dbInstitution.Institutions.Find(appuser.InstitutionId);
                 var userRole = _dbRole.Roles.Find(appuser.RoleId);
-                var institutionStructure = _dbInstitutionStructure.InstitutionStructures.SingleOrDefault(n=>n.InstitutionId == institution.InstitutionId);
-
+                if (appuser.InstitutionId != null)
+                {
+                    var institutionStructure =
+                        _dbInstitutionStructure.InstitutionStructures.SingleOrDefault(
+                            n => n.InstitutionId == institution.InstitutionId);
+                    Session["institutionstructure"] = institutionStructure;
+                }
                 //store objects in a session
                 Session["opmasloggedinuser"] = appuser;
                 Session["institution"] = institution;
                 Session["role"] = userRole;
-                Session["institutionstructure"] = institutionStructure;
 
                 //create the authentication ticket
                 var authTicket = new FormsAuthenticationTicket(
@@ -91,9 +96,21 @@ namespace Opmas.Controllers
                 //encrypt the ticket and add it to a cookie
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
                 Response.Cookies.Add(cookie);
-                if (institution != null && (institution.SetUpStatus == SetUpStatus.Incomplete.ToString() && userRole.Name == "Institution Administrator"))
+                var dataBase = new ApplicationStatisticDataContext();
+                var statistics = new ApplicationStatistic();
+                if (institution != null)
                 {
-                    return RedirectToAction("Create", "InstitutionStructures");
+                    statistics.InstitutionId = institution.InstitutionId;
+                    statistics.Action = StatisticsEnum.Login.ToString();
+                    statistics.DateOccured = DateTime.Now;
+                    statistics.LoggedInUserId = appuser.AppUserId;
+
+                    dataBase.ApplicationStatistics.Add(statistics);
+                    dataBase.SaveChanges();
+                    if ((institution.SetUpStatus == SetUpStatus.Incomplete.ToString() && userRole.Name == "Institution Administrator"))
+                    {
+                        return RedirectToAction("Create", "InstitutionStructures");
+                    }
                 }
 
                 return RedirectToAction("Dashboard", "Home");

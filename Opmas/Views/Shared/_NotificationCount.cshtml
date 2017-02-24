@@ -5,6 +5,9 @@
 @{
     var allNotificationRead = Model.Where(n => n.Read);
     var numberOfNotifications = Model.ToList().Count - allNotificationRead.ToList().Count;
+    var notificationsCount = Model.Take(6);
+    var notifications = notificationsCount.OrderByDescending(n => n.DateCreated);
+
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
 }
 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
@@ -12,87 +15,215 @@
     <span class="badge bg-green">@numberOfNotifications</span>
 </a>
 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-    @foreach (var item in Model.OrderByDescending(n=>n.DateCreated))
-    {
-        <li>
-            @if (item.NotificationType == ApplicationNotificationType.Leave.ToString())
-            {
-                <a href="@Url.Action("Details", "Leaves", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
-                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                    <span>
-                        <span>@if (loggedinuser != null)
-                              {
-                                  @loggedinuser.DisplayName
-                              }</span>
+@foreach (var item in notifications)
+{
+    <li>
+        @if (item.NotificationType == ApplicationNotificationType.Leave.ToString())
+        {
+            <a href="@Url.Action("Details", "Leaves", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                <span>
+@if (item.Read)
+{
+    <span>@if (loggedinuser != null)
+          {
+              @loggedinuser.DisplayName
+          }</span>
+}
+else
+{
+    <span  style="font-weight: bolder">
+        @if (loggedinuser != null)
+        {
+            @loggedinuser.DisplayName
+        }
+    </span>
+}
                         <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
                     </span>
+                @if (item.Read)
+                {
                     <span class="message">
-                        @item.Description
-                    </span>
+                            @item.Description
+                        </span>
+                }
+                else
+                {
+                    <span class="message" style="font-weight: bolder">
+                            @item.Description - (unread)
+                        </span>
+                }
 
-                </a>
-            }
-            @if (item.NotificationType == ApplicationNotificationType.Training.ToString())
-            {
-                <a href="@Url.Action("Details", "EmployeeTrainings", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
-                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                    <span>
-                        <span>@if (loggedinuser != null)
-                              {
-                                  @loggedinuser.DisplayName
-                              }</span>
-                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
-                    </span>
-                    <span class="message">
-                        @item.Description
-                    </span>
-
-                </a>
-            }
-            @if (item.NotificationType == ApplicationNotificationType.PaymentDeductionRequest.ToString())
-            {
-                <a href="@Url.Action("Details", "PaymentDeductionRequests", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
-                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                    <span>
-                        <span>@if (loggedinuser != null)
-                              {
-                                  @loggedinuser.DisplayName
-                              }</span>
-                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
-                    </span>
-                    <span class="message">
-                        @item.Description
-                    </span>
-
-                </a>
-            }
-            @if (item.NotificationType == ApplicationNotificationType.Appointment.ToString())
-            {
-                <a href="@Url.Action("Details", "Responsibilities", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
-                    <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
-                    <span>
-                        <span>
+            </a>
+        }
+        @if (item.NotificationType == ApplicationNotificationType.Training.ToString())
+        {
+            <a href="@Url.Action("Details", "EmployeeTrainings", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                      @if (item.Read)
+                      {
+                          <span>
                             @if (loggedinuser != null)
+                            {
+                                @loggedinuser.DisplayName
+                            }
+                    </span>
+                      }
+                      else
+                      {
+                          <span  style="font-weight: bolder">
+                            @if (loggedinuser != null)
+                            {
+                                @loggedinuser.DisplayName
+                            }
+                        </span>
+                      }
+                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                    </span>
+                @if (item.Read)
+                {
+                    <span class="message">
+                        @item.Description
+                    </span>
+                }
+                else
+                {
+                    <span class="message" style="font-weight: bolder">
+                            @item.Description - (unread)
+                        </span>
+                }
+
+            </a>
+        }
+        @if (item.NotificationType == ApplicationNotificationType.PaymentDeductionRequest.ToString())
+        {
+            <a href="@Url.Action("Details", "PaymentDeductionRequests", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                     @if (item.Read)
+                     {
+                         <span>
+                            @if (loggedinuser != null)
+                            {
+                                @loggedinuser.DisplayName
+                            }
+                    </span>
+                     }
+                     else
+                     {
+                         <span style="font-weight: bolder">
+                            @if (loggedinuser != null)
+                            {
+                                @loggedinuser.DisplayName
+                            }
+                        </span>
+                     }
+                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                    </span>
+                @if (item.Read)
+                {
+                    <span class="message">
+                            @item.Description
+                        </span>
+                }
+                else
+                {
+                    <span class="message" style="font-weight: bolder">
+                         @item.Description - (unread)
+                        </span>
+                }
+
+            </a>
+        }
+        @if (item.NotificationType == ApplicationNotificationType.Appointment.ToString())
+        {
+            <a href="@Url.Action("Details", "Responsibilities", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                 @if (item.Read)
+                 {
+                     <span>
+                        @if (loggedinuser != null)
+                        {
+                            @loggedinuser.DisplayName
+                        }
+                </span>
+                 }
+                 else
+                 {
+                     <span style="font-weight: bolder">
+                        @if (loggedinuser != null)
                         {
                             @loggedinuser.DisplayName
                         }
                     </span>
+                 }
                     <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
                 </span>
-                <span class="message">
-                    @item.Description
-                </span>
+                @if (item.Read)
+                {
+                    <span class="message">
+                            @item.Description
+                        </span>
+                }
+                else
+                {
+                    <span class="message" style="font-weight: bolder">
+                            @item.Description - (unread)
+                        </span>
+                }
 
             </a>
-            }
-        </li>
-    }
-    <li>
-        <div class="text-center">
-            <a>
-                <strong>See All Alerts</strong>
-                <i class="fa fa-angle-right"></i>
+        }
+        @if (item.NotificationType == ApplicationNotificationType.PositionChange.ToString())
+        {
+            <a href="@Url.Action("Details", "PositionChanges", new {id = item.ItemId, readId = item.ApplicationNotificationId})">
+                <span class="image"><img src="~/Content/ManagementDashboard/production/images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                   @if (item.Read)
+                   {
+                       <span>
+                        @if (loggedinuser != null)
+                        {
+                            @loggedinuser.DisplayName
+                        }
+                </span>
+                   }
+                   else
+                   {
+                       <span style="font-weight: bolder">
+                        @if (loggedinuser != null)
+                        {
+                            @loggedinuser.DisplayName
+                        }
+                    </span>
+                   }
+                        <span class="time">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</span>
+                    </span>
+                @if (item.Read)
+                {
+                    <span class="message">
+                            @item.Description
+                        </span>
+                }
+                else
+                {
+                    <span class="message" style="font-weight: bolder">
+                         @item.Description - (unread)
+                        </span>
+                }
+
             </a>
-        </div>
+        }
     </li>
+}
+<li>
+    <div class="text-center">
+        <a href="@Url.Action("GetAllUserNotifications","ApplicationNotifications")">
+            <strong>See All Alerts</strong>
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</li>
 </ul>

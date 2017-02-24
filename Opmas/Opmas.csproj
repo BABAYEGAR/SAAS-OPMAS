@@ -232,6 +232,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationManagement\ApplicationManagementController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\ApplicationNotificationsController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\ApplicationStatisticsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\DepartmentsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\FacultiesController.cs" />
     <Compile Include="Controllers\ApplicationManagement\InstitutionsController.cs" />
@@ -5367,6 +5369,16 @@
     <Content Include="Views\PositionChanges\Edit.cshtml" />
     <Content Include="Views\PositionChanges\Index.cshtml" />
     <Content Include="Views\EmployeeManagement\EmployeesPositionChange.cshtml" />
+    <Content Include="Views\ApplicationNotifications\Create.cshtml" />
+    <Content Include="Views\ApplicationNotifications\Delete.cshtml" />
+    <Content Include="Views\ApplicationNotifications\Details.cshtml" />
+    <Content Include="Views\ApplicationNotifications\Edit.cshtml" />
+    <Content Include="Views\ApplicationNotifications\Index.cshtml" />
+    <Content Include="Views\ApplicationStatistics\Create.cshtml" />
+    <Content Include="Views\ApplicationStatistics\Delete.cshtml" />
+    <Content Include="Views\ApplicationStatistics\Details.cshtml" />
+    <Content Include="Views\ApplicationStatistics\Edit.cshtml" />
+    <Content Include="Views\ApplicationStatistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

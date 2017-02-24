@@ -95,6 +95,7 @@
 <script src="~/Content/ManagementDashboard/vendors/Chart.js/dist/Chart.min.js"></script>
 <!-- gauge.js -->
 <script src="~/Content/ManagementDashboard/vendors/gauge.js/dist/gauge.min.js"></script>
+<script src="~/Content/ManagementDashboard/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- bootstrap-progressbar -->
 <script src="~/Content/ManagementDashboard/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 <!-- iCheck -->
@@ -113,6 +114,7 @@
 <script src="~/Content/ManagementDashboard/vendors/flot.curvedlines/curvedLines.js"></script>
 <!-- DateJS -->
 <script src="~/Content/ManagementDashboard/vendors/DateJS/build/date.js"></script>
+
 <!-- JQVMap -->
 <script src="~/Content/ManagementDashboard/vendors/jqvmap/dist/jquery.vmap.js"></script>
 <script src="~/Content/ManagementDashboard/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
@@ -290,6 +292,53 @@
         });
 </script>
 <!-- /Doughnut Chart -->
+<!-- jQuery Sparklines -->
+<script>
+    $(document)
+        .ready(function() {
+            $(".sparkline_one")
+                .sparkline([
+                        2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6
+                    ],
+                    {
+                        type: 'bar',
+                        height: '125',
+                        barWidth: 13,
+                        colorMap: {
+                            '7': '#a1a1a1'
+                        },
+                        barSpacing: 2,
+                        barColor: '#26B99A'
+                    });
+
+            $(".sparkline11")
+                .sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3],
+                {
+                    type: 'bar',
+                    height: '40',
+                    barWidth: 8,
+                    colorMap: {
+                        '7': '#a1a1a1'
+                    },
+                    barSpacing: 2,
+                    barColor: '#26B99A'
+                });
+
+            $(".sparkline22")
+                .sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6],
+                {
+                    type: 'line',
+                    height: '40',
+                    width: '200',
+                    lineColor: '#26B99A',
+                    fillColor: '#ffffff',
+                    lineWidth: 3,
+                    spotColor: '#34495E',
+                    minSpotColor: '#34495E'
+                });
+        });
+</script>
+<!-- /jQuery Sparklines -->
 <!-- bootstrap-daterangepicker -->
 <script>
     $(document)

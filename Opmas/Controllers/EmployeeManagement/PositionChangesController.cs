@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.EmployeeDataContext;
 using Opmas.Data.Objects.Entities.Employee;
+using Opmas.Data.Objects.Entities.SystemManagement;
 using Opmas.Data.Objects.Entities.User;
 using Opmas.Data.Service.Enums;
 
@@ -21,9 +22,16 @@ namespace Opmas.Controllers.EmployeeManagement
             var positionChanges = db.PositionChanges.Include(p => p.Employee).Include(p => p.EmploymentPosition).Include(p => p.Institution);
             return View(positionChanges.ToList());
         }
+        // GET: EmployeePositionChanges
+        public ActionResult EmployeePositionChanges(long id)
+        {
+            var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+            var positionChanges = db.PositionChanges.Where(n=>n.EmployeeId == id && n.InstitutionId == loggedinuser.InstitutionId).Include(p => p.Employee).Include(p => p.EmploymentPosition).Include(p => p.Institution);
+            return View("Index",positionChanges.ToList());
+        }
 
         // GET: PositionChanges/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id,long? readId)
         {
             if (id == null)
             {
@@ -34,6 +42,7 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 return HttpNotFound();
             }
+            ViewBag.ReadId = readId;
             return View(positionChange);
         }
 
@@ -107,9 +116,33 @@ namespace Opmas.Controllers.EmployeeManagement
                     dbc.Entry(workData).State = EntityState.Modified;
                     dbc.Entry(employee).State = EntityState.Modified;
                     dbc.SaveChanges();
+                    db.PositionChanges.Add(positionChange);
+                    db.SaveChanges();
                 }
-                db.PositionChanges.Add(positionChange);
-                db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    ApplicationNotification notify = new ApplicationNotification
+                    {
+                        AssignedTo = positionChange.EmployeeId,
+                        CreatedBy = loggedinuser.AppUserId,
+                        DateCreated = DateTime.Now,
+                        InstitutionId = loggedinuser.InstitutionId,
+                        NotificationType = ApplicationNotificationType.PositionChange.ToString(),
+                        ItemId = positionChange.PositionChangeId,
+                        Read = false
+                    };
+                    if (status == PositionChangeEnum.Promotion.ToString())
+                    {
+                        notify.Description = "You have been Promoted!";
+                    }
+                    if (status == PositionChangeEnum.Demotion.ToString())
+                    {
+                        notify.Description = "You have been Demoted!";
+                    }
+                    dbc.ApplicationNotifications.Add(notify);
+                }
+                dbc.SaveChanges();
+
                 if (status == PositionChangeEnum.Promotion.ToString())
                 {
                     TempData["employee"] = "you have succesfully promoted the employee!";

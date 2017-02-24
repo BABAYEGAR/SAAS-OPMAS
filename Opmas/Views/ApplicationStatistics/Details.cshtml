@@ -1,0 +1,58 @@
+﻿@model Opmas.Data.Objects.Entities.SystemManagement.ApplicationStatistic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>ApplicationStatistic</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Action)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Action)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateOccured)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateOccured)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.InstitutionId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.InstitutionId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LoggedInUserId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LoggedInUserId)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ApplicationStatisticId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

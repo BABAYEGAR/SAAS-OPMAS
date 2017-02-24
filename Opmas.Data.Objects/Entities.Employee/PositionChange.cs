@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ namespace Opmas.Data.Objects.Entities.Employee
     {
         public long PositionChangeId { get; set; }
         public string Action { get; set; }
+        [DisplayName("Previous Position")]
         public long PreviousPositionId { get; set; }
+        [DisplayName("Current Position")]
         public long EmploymentPositionId { get; set; }
         [ForeignKey("EmploymentPositionId")]
         public virtual EmploymentPosition EmploymentPosition { get; set; }

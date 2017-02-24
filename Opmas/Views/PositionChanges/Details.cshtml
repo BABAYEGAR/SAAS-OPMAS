@@ -1,90 +1,96 @@
-﻿@model Opmas.Data.Objects.Entities.Employee.PositionChange
-
+﻿@using System.Data.Entity
+@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.User
+@model Opmas.Data.Objects.Entities.Employee.PositionChange
 @{
-    Layout = null;
+    ViewBag.Title = "Details";
+    ViewBag.Header = "Position Change";
+    ViewBag.Subheader = "View position change details";
+    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    var loggedinuser = Session["opmasloggedinuser"] as AppUser;
+    var dbEmployee = new EmployeeDataContext();
+    var db = new EmployeeDataContext();
+
+    //check if leave is from notification and mark as read
+    long? notificationId = ViewBag.ReadId;
+
+    var notification = db.ApplicationNotifications.Find(notificationId);
+    if (notification != null)
+    {
+        notification.Read = true;
+    }
+    if (notificationId == null)
+    {
+    }
+    else
+    {
+        db.Entry(notification).State = EntityState.Modified;
+        db.SaveChanges();
+    }
 }
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Employee.EmployeeId)
+    </dt>
 
-<!DOCTYPE html>
+    <dd>
+        @Html.DisplayFor(model => model.Employee.EmployeeId)
+    </dd>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>PositionChange</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Employee.EmployeeId)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Employee.EmployeeId)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.EmploymentPosition.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.EmploymentPosition.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Institution.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Institution.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Action)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Action)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CreatedBy)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.DateCreated)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.DateLastModified)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.DateLastModified)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.LastModifiedBy)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.LastModifiedBy)
-            </dd>
-    
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.PositionChangeId }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
-</html>
+    <dt>
+        @Html.DisplayNameFor(model => model.EmploymentPosition.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.EmploymentPosition.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Institution.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Institution.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Action)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Action)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CreatedBy)
+    </dt>
+
+    <dd>
+        @(db.AppUsers.Find(Model.CreatedBy).DisplayName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateCreated)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateCreated)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateLastModified)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateLastModified)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LastModifiedBy)
+    </dt>
+
+    <dd>
+        @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
+    </dd>
+
+</dl>

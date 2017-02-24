@@ -7,6 +7,7 @@
         PaymentDeduction,
         PaymentDeductionRequest,
         PaymentAllowance,
-        Appointment
+        Appointment,
+        PositionChange
     }
 }

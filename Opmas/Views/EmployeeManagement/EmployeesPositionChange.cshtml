@@ -10,7 +10,7 @@
     var employeeData = new EmployeeDataContext();
 
     ViewBag.promote = PositionChangeEnum.Promotion.ToString();
-    ViewBag.demote = PositionChangeEnum.Promotion.ToString();
+    ViewBag.demote = PositionChangeEnum.Demotion.ToString();
 }
 @if (TempData["employee"] != null)
 {
@@ -77,9 +77,6 @@
                         @employeeData.EmploymentPositions.Find(firstOrDefault.PreviousPositionId).Name
                     }
                 </td>
-            }
-            @if (workData != null)
-            {
                 <td>
                     @employeeData.EmploymentPositions.Find(workData.EmploymentPositionId).Name
                 </td>
