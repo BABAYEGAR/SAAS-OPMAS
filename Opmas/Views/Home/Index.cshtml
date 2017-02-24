@@ -1,7 +1,4 @@
 ﻿@using Opmas.Data.DataContext.DataContext.AccessDataContext
-@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
-@using Opmas.Data.DataContext.DataContext.SystemDataContext
-@using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Service.Enums
 @{
     Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
@@ -10,15 +7,6 @@
     var goldPackage = allPackages.SingleOrDefault(n => n.Type == PackageType.Gold.ToString());
     var silverPackage = allPackages.SingleOrDefault(n => n.Type == PackageType.Silver.ToString());
     var bronzePackage = allPackages.SingleOrDefault(n => n.Type == PackageType.Bronze.ToString());
-
-    var dataBase = new ApplicationStatisticDataContext();
-    var statistics = new ApplicationStatistic();
-    statistics.InstitutionId = null;
-    statistics.Action = StatisticsEnum.HomePageAccess.ToString();
-    statistics.DateOccured = DateTime.Now;
-
-    dataBase.ApplicationStatistics.Add(statistics);
-    dataBase.SaveChanges();
 }
 <div class="blog" id="blog">
     <div class="wrap">

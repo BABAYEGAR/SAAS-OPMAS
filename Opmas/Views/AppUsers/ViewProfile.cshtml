@@ -1,5 +1,6 @@
 ﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
 @using Opmas.Data.DataContext.DataContext.SystemDataContext
+@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Objects.Entities.SystemManagement
 @using Opmas.Data.Objects.Entities.User
 @model Opmas.Data.Objects.Entities.User.AppUser
@@ -12,21 +13,26 @@
     }
     var institution = Session["institution"] as Institution;
     var state = new StateDataContext();
-    var lga = new LgaDataContext();
     var department = new DepartmentDataContext();
     var unit = new UnitDataContext();
     var role = new RoleDataContext();
     var position = new EmploymentPositionDataContext();
     var employeeData = new EmployeeDataContext();
-    var employee = employeeData.Employees.Find(loggedinuser.EmployeeId);
-    var personalData = employeeData.EmployeePersonalDatas.Find(loggedinuser.EmployeeId);
+    var employee = employeeData.Employees.SingleOrDefault(n=>n.EmployeeId == loggedinuser.EmployeeId);
+    var personalData = employeeData.EmployeePersonalDatas.SingleOrDefault(n=>n.EmployeeId == loggedinuser.EmployeeId);
     var workData = employeeData.EmployeeWorkDatas.Find(loggedinuser.EmployeeId);
-    var userState = state.States.Find(personalData.StateId);
-    var userLga = state.Lgas.Find(personalData.LgaId);
-    var userDepartment = department.Departments.Find(employee.DepartmentId);
-    var userUnit = unit.Units.Find(employee.UnitId);
+    State userState = null;
+    Lga userLga = null;
+    if (personalData != null)
+    {
+        userState = state.States.Find(personalData.StateId);
+        userLga = state.Lgas.Find(personalData.LgaId);
+    }
+
+    var userDepartment = department.Departments.SingleOrDefault(n=>n.DepartmentId == employee.DepartmentId);
+    var userUnit = unit.Units.SingleOrDefault(n=>n.UnitId == employee.UnitId);
     var userPosition = position.EmploymentPosition.Find(workData.EmploymentPositionId);
-    var userRole = role.Roles.Find(employee.RoleId);
+    var userRole = role.Roles.SingleOrDefault(n=>n.RoleId == employee.RoleId);
 }
 @{
     ViewBag.Title = "Profile";
@@ -43,16 +49,23 @@
     <h3>@loggedinuser.DisplayName</h3>
 
     <ul class="list-unstyled user_data">
-        <li>
-            <i class="fa fa-map-marker user-profile-icon"></i> @userLga.Name, @userState.Name, Nigeria
-        </li>
-        <li>
-            <i class="fa fa-building user-profile-icon"></i> @userUnit.Name unit, @userDepartment.Name department,@institution.Name
-        </li>
-        <li>
-            <i class="fa fa-briefcase user-profile-icon"></i> Employed as @userPosition.Name, @userRole.Name role
-        </li>
+        @if (userLga != null && userState != null)
+        {
+            <li>
 
+                <i class="fa fa-map-marker user-profile-icon"></i> @userLga.Name, @userState.Name, Nigeria
+
+            </li>
+        }
+@if (userUnit != null && userDepartment != null && userRole != null && institution != null)
+{
+    <li>
+        <i class="fa fa-building user-profile-icon"></i> @userUnit.Name unit, @userDepartment.Name department,@institution.Name
+    </li>
+    <li>
+        <i class="fa fa-briefcase user-profile-icon"></i> Employed as @userPosition.Name, @userRole.Name role
+    </li>
+}
     </ul>
 
     <a class="btn btn-success" href="@Url.Action("Edit", "AppUsers", new {id = loggedinuser.AppUserId})"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>

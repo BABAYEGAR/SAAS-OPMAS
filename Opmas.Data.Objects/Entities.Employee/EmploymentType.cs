@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Build.Framework;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
     public class EmploymentType : Transport
     {
         public long EmploymentTypeId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
         public long InstitutionId { get; set; }
 
