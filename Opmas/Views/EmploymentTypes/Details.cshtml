@@ -65,7 +65,60 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit Employment type", "Edit", new {id = Model.EmploymentTypeId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    @Html.ActionLink("Delete Employment type", "Delete", new {id = Model.EmploymentTypeId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-</p>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary  fa fa-pencil" data-toggle="modal" data-target="#myModal">
+    Edit Type
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Employment Type</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("InstitutionManagement/EditEmploymentType", Model);
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger fa fa-trash" data-toggle="modal" data-target="#myModal1">
+    Delete Type
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Delete EmploymentType</h4>
+            </div>@using (Html.BeginForm("Delete", "EmploymentTypes", new { id = Model.EmploymentTypeId }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    <p>
+                        Are you sure you want to delete the employment type?
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
+                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

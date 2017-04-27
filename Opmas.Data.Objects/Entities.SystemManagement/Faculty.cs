@@ -12,6 +12,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         [Key,ForeignKey("Employee")]
         public long FacultyId { get; set; }
         [DisplayName("Faculty Name")]
+        [Required]
         public string Name { get; set; }
         [DisplayName("Institution Name")]
         public long InstitutionId { get; set; }

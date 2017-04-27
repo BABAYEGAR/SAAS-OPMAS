@@ -66,32 +66,85 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit Faculty", "Edit", new {id = Model.FacultyId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    @Html.ActionLink("Delete Faculty", "Delete", new {id = Model.FacultyId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-    <button type="button" class="btn btn-success btn-xs fa fa-user" data-toggle="modal" data-target="#myModal">
-        Faculty Manager
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Assign Faculty Manager</h4>
-                </div>
-                <div class="modal-body">
-                    @{
-                        ViewBag.EmployeeId = new SelectList(employees, "EmployeeId", "Firstname");
-                        Html.RenderPartial("_AssignFacultyManager", Model);
-                    }
-                </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary  fa fa-pencil" data-toggle="modal" data-target="#myModal1">
+    Edit Faculty
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Edit Faculty</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("InstitutionManagement/EditFauculty", Model);
+                }
             </div>
         </div>
-
     </div>
 
-</p>
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger fa fa-trash" data-toggle="modal" data-target="#myModal2">
+    Delete Faculty
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">Delete Faculty</h4>
+            </div>@using (Html.BeginForm("Delete", "Faculties", new {id = Model.FacultyId}))
+                  {
+                      <div class="modal-body">
+
+                          @Html.AntiForgeryToken()
+                          <p>
+                              Are you sure you want to delete the faculty?
+                          </p>
+
+                      </div>
+                      <div class="modal-footer">
+                          <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash"/>
+                          <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left"/>
+                      </div>
+                  }
+        </div>
+    </div>
+
+</div>
+<button type="button" class="btn btn-success fa fa-user" data-toggle="modal" data-target="#myModal">
+    Assign Faculty Manager
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Assign Faculty Manager</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    ViewBag.EmployeeId = new SelectList(employees, "EmployeeId", "Firstname");
+                    Html.RenderPartial("InstitutionManagement/_AssignFacultyManager", Model);
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

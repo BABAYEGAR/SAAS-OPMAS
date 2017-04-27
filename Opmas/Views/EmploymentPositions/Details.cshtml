@@ -62,9 +62,61 @@
     <dd>
         @(db.AppUsers.Find(Model.LastModifiedBy).DisplayName)
     </dd>
-
 </dl>
-<p>
-    @Html.ActionLink("Edit Position", "Edit", new {id = Model.EmploymentPositionId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    @Html.ActionLink("Delete Position", "Delete", new {id = Model.EmploymentPositionId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-</p>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary  fa fa-pencil" data-toggle="modal" data-target="#myModal">
+    Edit Position
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Position</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("InstitutionManagement/EditEmploymentPosition", Model);
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger fa fa-trash" data-toggle="modal" data-target="#myModal1">
+    Delete Position
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Delete Position</h4>
+            </div>@using (Html.BeginForm("Delete", "EmploymentPositions", new { id = Model.EmploymentPositionId }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    <p>
+                        Are you sure you want to delete the position?
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
+                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

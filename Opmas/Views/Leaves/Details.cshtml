@@ -135,56 +135,110 @@
     </dd>
 
 </dl>
-<p>
-    @if ((Model.Status == LeaveStatus.Pending.ToString()) && (Model.EmployeeId == loggedinuser?.EmployeeId))
-    {
-        @Html.ActionLink("Edit Leave", "Edit", new {id = Model.LeaveId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    }
+@if ((Model.Status == LeaveStatus.Pending.ToString()) && (Model.EmployeeId == loggedinuser?.EmployeeId))
+{
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary  fa fa-pencil" data-toggle="modal" data-target="#myModal">
+        Edit Leave
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Leave</h4>
+                </div>
+                <div class="modal-body">
+                    @{
+                        Html.RenderPartial("LeaveManagement/EditLeave", Model);
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger fa fa-trash" data-toggle="modal" data-target="#myModal1">
+        Delete Leave
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel1">Delete Leave</h4>
+                </div>@using (Html.BeginForm("Delete", "Leaves", new {id = Model.LeaveId}))
+                      {
+                          <div class="modal-body">
+
+                              @Html.AntiForgeryToken()
+                              <p>
+                                  Are you sure you want to delete the Leave?
+                              </p>
+
+                          </div>
+                          <div class="modal-footer">
+                              <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash"/>
+                              <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left"/>
+                          </div>
+                      }
+            </div>
+        </div>
+
+    </div>
+}
 
 
 
 
-    @if ((institutionStructure != null) && institutionStructure.Faculty && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId))
-    {
-        @Html.ActionLink("Approve Request", "ApprovedLeaveByDepartment", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
+@if ((institutionStructure != null) && institutionStructure.Faculty && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId))
+{
+    @Html.ActionLink("Approve Request", "ApprovedLeaveByDepartment", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
 
 
 
 
-    @if ((institutionStructure != null) && institutionStructure.Faculty && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.FacultyId == Model.FacultyId) && (seniorStaff.SeniorMember == false))
-    {
-        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
-    @if ((institutionStructure != null) && institutionStructure.Faculty && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.FacultyId == Model.FacultyId) && seniorStaff.SeniorMember)
-    {
-        @Html.ActionLink("Approve Request", "ApprovedLeaveByFaculty", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
-    @if ((userRole != null) && userRole.ManageSeniorStaffLeave && (Model.Status == LeaveStatus.ApprovedByFaculty.ToString()))
-    {
-        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
+@if ((institutionStructure != null) && institutionStructure.Faculty && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.FacultyId == Model.FacultyId) && (seniorStaff.SeniorMember == false))
+{
+    @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
+@if ((institutionStructure != null) && institutionStructure.Faculty && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.FacultyId == Model.FacultyId) && seniorStaff.SeniorMember)
+{
+    @Html.ActionLink("Approve Request", "ApprovedLeaveByFaculty", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
+@if ((userRole != null) && userRole.ManageSeniorStaffLeave && (Model.Status == LeaveStatus.ApprovedByFaculty.ToString()))
+{
+    @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
 
 
 
-    @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember && userRole.ManageSeniorStaffLeave)
-    {
-        @Html.ActionLink("Approve Request", "ApprovedLeaveByDepartment", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
+@if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember && userRole.ManageSeniorStaffLeave)
+{
+    @Html.ActionLink("Approve Request", "ApprovedLeaveByDepartment", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
 
-    @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember && userRole.ManageSeniorStaffLeave)
-    {
-        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
+@if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.ApprovedByDepartment.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && seniorStaff.SeniorMember && userRole.ManageSeniorStaffLeave)
+{
+    @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
 
 
-    @if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && (seniorStaff.SeniorMember == false))
-    {
-        @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
-    }
+@if ((institutionStructure != null) && (institutionStructure.Faculty == false) && (Model.Status == LeaveStatus.Pending.ToString()) && (isUserDepartmentManager != null) && (isUserDepartmentManager.DepartmentId == Model.DepartmentId) && (seniorStaff.SeniorMember == false))
+{
+    @Html.ActionLink("Approve Request", "ApproveLeave", "Leaves", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-check"})
+}
 
-    @if ((Model.Status == LeaveStatus.Pending.ToString()) && (Model.EmployeeId == loggedinuser?.EmployeeId))
-    {
-        @Html.ActionLink("Cancel Request", "CancelLeave", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-    }
-</p>
+@if ((Model.Status == LeaveStatus.Pending.ToString()) && (Model.EmployeeId == loggedinuser?.EmployeeId))
+{
+    @Html.ActionLink("Cancel Request", "CancelLeave", new {id = Model.LeaveId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
+}

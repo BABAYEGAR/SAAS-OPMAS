@@ -1,0 +1,38 @@
+﻿@model Opmas.Data.Objects.Payment.PaymentDeductionRequest
+@{
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
+}
+@using (Html.BeginForm("Create", "PaymentDeductionRequests", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.RequestTitle, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.RequestTitle, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.RequestTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Reason, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Amount, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit Request" class="btn btn-primary pull-right" />
+        </div>
+    </div>
+}

@@ -9,9 +9,6 @@
     ViewBag.Subheader = "View depatment details";
     Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
-    var db = new EmployeeDataContext();
-    var employeesData = db.EmployeePersonalDatas.Include(n => n.Employee);
-    var employees = employeesData.Where(n => n.Employee.DepartmentId == Model.DepartmentId);
 }
 <dl class="dl-horizontal">
     @if ((institutionStructureSession != null) && institutionStructureSession.Faculty)
@@ -41,33 +38,60 @@
     </dd>
 
 </dl>
-<p>
-    @Html.ActionLink("Edit Department", "Edit", new {id = Model.DepartmentId}, new {@class = "btn btn-primary btn-xs fa fa-pencil"})
-    @Html.ActionLink("Delete Department", "Delete", new {id = Model.DepartmentId}, new {@class = "btn btn-danger btn-xs fa fa-remove"})
-    <button type="button" class="btn btn-success btn-xs fa fa-user" data-toggle="modal" data-target="#myModal">
-        Department Manager
-    </button>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary  fa fa-pencil" data-toggle="modal" data-target="#myModal">
+    Edit Department
+</button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Assign Department Manager</h4>
-                </div>
-                <div class="modal-body">
-                    @{
-                        ViewBag.EmployeeId = new SelectList(employees, "EmployeeId", "DisplayName");
-                        Html.RenderPartial("_AssignDepartmentManager", Model);
-                    }
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Department</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("InstitutionManagement/EditDepartment", Model);
+                }
             </div>
         </div>
-
     </div>
 
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger fa fa-trash" data-toggle="modal" data-target="#myModal1">
+    Delete Department
+</button>
 
-</p>
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Delete Department</h4>
+            </div>@using (Html.BeginForm("Delete", "Departments", new { id = Model.DepartmentId }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    <p>
+                        Are you sure you want to delete the department?
+                    </p>
+
+                </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
+                        <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                    </div>
+            }
+        </div>
+    </div>
+
+</div>

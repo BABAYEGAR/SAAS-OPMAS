@@ -1,0 +1,33 @@
+﻿@model Opmas.Data.Objects.Entities.Employee.EmploymentCategory
+
+@{
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
+}
+@using (Html.BeginForm("Edit", "EmploymentCategories", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.InstitutionId)
+    @Html.HiddenFor(m => m.EmploymentCategoryId)
+    @Html.HiddenFor(m => m.DateCreated)
+    @Html.HiddenFor(m => m.CreatedBy)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-success pull-right" />
+        </div>
+    </div>
+}

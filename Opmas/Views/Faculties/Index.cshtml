@@ -12,21 +12,6 @@
     var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
     var db = new EmployeeDataContext();
 }
-@if (TempData["faculty"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert alert-success alert-dismissable">@TempData["faculty"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert alert-danger alert-dismissable">@TempData["faculty"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert alert-info alert-dismissable">@TempData["faculty"]</div>
-    }
-}
 @section add {
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#myModal">

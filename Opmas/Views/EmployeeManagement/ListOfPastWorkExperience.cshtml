@@ -9,21 +9,6 @@
     Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var pastWorkExperience = new EmployeePastWorkExperience();
 }
-@if (TempData["work"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert alert-success alert-dismissable">@TempData["work"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert alert-danger alert-dismissable">@TempData["work"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert alert-info alert-dismissable">@TempData["work"]</div>
-    }
-}
 @section add {
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#myModal">
@@ -42,7 +27,7 @@
                 </div>
                 <div class="modal-body">
                     @{
-                        Html.RenderPartial("CreateSinglePastWorkExperience", pastWorkExperience);
+                        Html.RenderPartial("EmployeeManagement/CreateSinglePastWorkExperience", pastWorkExperience);
                     }
                 </div>
             </div>

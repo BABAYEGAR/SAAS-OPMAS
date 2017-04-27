@@ -1,4 +1,5 @@
-﻿@using Opmas.Data.Service.Enums
+﻿@using Opmas.Data.Objects.LeaveManagement
+@using Opmas.Data.Service.Enums
 @model IEnumerable<Opmas.Data.Objects.LeaveManagement.LeaveType>
 
 @{
@@ -6,24 +7,33 @@
     ViewBag.Header = "Leave Types";
     ViewBag.Subheader = "List Of Leave Types";
     Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
-}
-@if (TempData["leavetype"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert alert-success alert-dismissable">@TempData["leavetype"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert alert-danger alert-dismissable">@TempData["leavetype"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert alert-info alert-dismissable">@TempData["leavetype"]</div>
-    }
+    var type = new LeaveType();
 }
 @section add {
-    @Html.ActionLink("Add data", "Create", null, new {@class = "btn btn-primary btn-xs fa fa-plus"})
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#myModal">
+        Add Leave Type
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Add a new Leave Type</h4>
+                </div>
+                <div class="modal-body">
+                    @{
+                        Html.RenderPartial("LeaveManagement/CreateLeaveType",type );
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
 }
 <div class="table-responsive">
     <table id="datatable" class="table table-striped table-bordered">

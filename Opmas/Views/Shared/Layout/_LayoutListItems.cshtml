@@ -82,21 +82,6 @@
         <!-- /top navigation -->
         <!-- page content -->
         <div class="right_col" role="main">
-            @if (TempData["displaynotification"] != null)
-            {
-                if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-                {
-                    <div class="alert alert-success alert-dismissable">@TempData["displaynotification"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-                {
-                    <div class="alert alert-danger alert-dismissable">@TempData["displaynotification"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-                {
-                    <div class="alert alert-info alert-dismissable">@TempData["displaynotification"]</div>
-                }
-            }
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
@@ -110,7 +95,27 @@
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-
+                        @if (TempData["message"] != null)
+                        {
+                            if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                            {
+                                <div class="alert alert-success alert-dismissable">
+                                    @TempData["message"] <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                            {
+                                <div class="alert alert-danger alert-dismissable">
+                                    @TempData["message"] <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                            {
+                                <div class="alert alert-info alert-dismissable">
+                                    @TempData["message"] <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            }
+                        }
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>
@@ -263,53 +268,6 @@
         });
 </script>
 <!-- /Datatables -->
-<script>
-    $(document)
-        .ready(function() {
-
-            // initialize the validator function
-            validator.message.date = 'not a real date';
-
-            // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
-            $('form')
-                .on('blur', 'input[required], input.optional, select.required', validator.checkField)
-                .on('change', 'select.required', validator.checkField)
-                .on('keypress', 'input[required][pattern]', validator.keypress);
-
-            $('.multi.required')
-                .on('keyup blur',
-                    'input',
-                    function() {
-                        validator.checkField.apply($(this).siblings().last()[0]);
-                    });
-
-            $('form')
-                .submit(function(e) {
-                    e.preventDefault();
-                    var submit = true;
-
-                    // evaluate the form using generic validaing
-                    if (!validator.checkAll($(this))) {
-                        submit = false;
-                    }
-
-                    if (submit)
-                        this.submit();
-
-                    return false;
-                });
-
-        });
-
-
-</script>
-<script>
-    $(document)
-        .ready(function() {
-            // Init select2 for dropdown select
-            // $('.select-dropdown').select2();
-        });
-</script>
 <!-- bootstrap-daterangepicker -->
 <script>
     $(document)
@@ -356,3 +314,4 @@
 </script>
 </body>
 </html>
+@Scripts.Render("~/bundles/jqueryval")

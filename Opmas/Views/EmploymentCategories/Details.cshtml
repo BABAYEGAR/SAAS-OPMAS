@@ -66,7 +66,60 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit Category", "Edit", new {id = Model.EmploymentCategoryId}, new {@class = "btn btn-primary btn-xs"})
-    @Html.ActionLink("Delete Category", "Delete", new {id = Model.EmploymentCategoryId}, new {@class = "btn btn-danger btn-xs"})
-</p>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary  fa fa-pencil" data-toggle="modal" data-target="#myModal">
+    Edit Category
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("InstitutionManagement/EditDepartment", Model);
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger fa fa-trash" data-toggle="modal" data-target="#myModal1">
+    Delete Category
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Delete Category</h4>
+            </div>@using (Html.BeginForm("Delete", "EmploymentCategories", new { id = Model.EmploymentCategoryId }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    <p>
+                        Are you sure you want to delete the category?
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
+                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

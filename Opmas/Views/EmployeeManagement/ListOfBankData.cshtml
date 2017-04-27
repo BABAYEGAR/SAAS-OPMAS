@@ -11,21 +11,6 @@
     Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var employeeBankData = new EmployeeBankData();
 }
-@if (TempData["bank"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert alert-success alert-dismissable">@TempData["bank"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert alert-danger alert-dismissable">@TempData["bank"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert alert-info alert-dismissable">@TempData["bank"]</div>
-    }
-}
 @section add {
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#myModal">
@@ -44,7 +29,7 @@
                 </div>
                 <div class="modal-body">
                     @{
-                        Html.RenderPartial("CreateSingleBankData", employeeBankData);
+                        Html.RenderPartial("EmployeeManagement/CreateSingleBankData", employeeBankData);
                     }
                 </div>
             </div>

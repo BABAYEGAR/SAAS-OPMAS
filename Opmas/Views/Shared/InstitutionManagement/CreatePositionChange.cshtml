@@ -1,0 +1,45 @@
+﻿@using Opmas.Data.Service.Enums
+@model Opmas.Data.Objects.Entities.Employee.PositionChange
+
+@{
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
+
+    long? employeeId = ViewBag.id;
+    string action = ViewBag.action;
+
+    if (action == PositionChangeEnum.Promotion.ToString())
+    {
+        ViewBag.Subheader = "Promote Employee";
+    }
+    if (action == PositionChangeEnum.Demotion.ToString())
+    {
+        ViewBag.Subheader = "Demote Employee";
+    }
+}
+@using (Html.BeginForm("Create", "PositionChanges", FormMethod.Post, new { @class = "form-horizontal", id = "demo-form2", enctype = "multipart/form-data" }))
+{
+    @Html.Hidden("EmployeeId", employeeId)
+    @Html.Hidden("Action", action)
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmploymentPositionId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownListFor(model => model.EmploymentPositionId, null, new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
+            @Html.ValidationMessageFor(model => model.EmploymentPositionId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @if (action == PositionChangeEnum.Promotion.ToString())
+            {
+                <input type="submit" value="Promote Employee" class="btn btn-success pull-right" />
+            }
+            @if (action == PositionChangeEnum.Demotion.ToString())
+            {
+                <input type="submit" value="Demote Employee" class="btn btn-success pull-right" />
+            }
+
+        </div>
+    </div>
+}

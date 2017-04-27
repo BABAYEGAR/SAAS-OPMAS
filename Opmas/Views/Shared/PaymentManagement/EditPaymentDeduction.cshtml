@@ -1,0 +1,34 @@
+﻿@model Opmas.Data.Objects.Payment.PaymentDeduction
+
+@{
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
+}
+@using (Html.BeginForm("Edit", "PaymentDeductions", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PaymentDeductionId)
+    @Html.HiddenFor(m => m.InstitutionId)
+    @Html.HiddenFor(m => m.DateCreated)
+    @Html.HiddenFor(m => m.CreatedBy)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Rate, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-primary pull-right" />
+        </div>
+    </div>
+}

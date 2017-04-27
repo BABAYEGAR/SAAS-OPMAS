@@ -7,101 +7,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>@ViewBag.Title</title>
-
-
     @RenderSection("css", false)
-    <style>
-        span.req { color: #ff0808; }
 
-        textarea:focus,
-        input[type="text"]:focus,
-        input[type="password"]:focus,
-        input[type="datetime"]:focus,
-        input[type="datetime-local"]:focus,
-        input[type="date"]:focus,
-        input[type="month"]:focus,
-        input[type="time"]:focus,
-        input[type="week"]:focus,
-        input[type="number"]:focus,
-        input[type="email"]:focus,
-        input[type="url"]:focus,
-        input[type="search"]:focus,
-        input[type="tel"]:focus,
-        input[type="color"]:focus,
-        .uneditable-input:focus,
-        .select-dropdown:focus {
-            -moz-box-shadow: inset 0 1px 1px rgba(70, 70, 70, 0.075), 0 0 8px #7686B6;
-            /* IE6-9 */
-            -webkit-box-shadow: inset 0 1px 1px rgba(70, 70, 70, 0.075), 0 0 8px #7686B6;
-            border-color: #4D6099 !important;
-            box-shadow: inset 0 1px 1px rgba(70, 70, 70, 0.075), 0 0 8px #7686B6;
-            outline: 0;
-            outline: thin dotted \9;
-        }
-
-        .form-control, .select2-selection {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-color: #ccc !important;
-            border-radius: 0 !important;
-            box-shadow: none;
-            min-height: 40px !important;
-        }
-
-        .form-control.input-validation-error, .form-control.input-validation-error:focus, .select2-selection.input-validation-error, .select2-selection.input-validation-error:focus {
-            -moz-box-shadow: none !important;
-            -webkit-box-shadow: none !important;
-            border-color: #ff0808 !important;
-            box-shadow: none !important;
-        }
-    </style>
 </head>
-
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <!-- page content -->
-        <div class="col-md-12" role="main">
-            @if (TempData["displaynotification"] != null)
-            {
-                if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-                {
-                    <div class="alert alert-success alert-dismissable">@TempData["displaynotification"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-                {
-                    <div class="alert alert-danger alert-dismissable">@TempData["displaynotification"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-                {
-                    <div class="alert alert-info alert-dismissable">@TempData["displaynotification"]</div>
-                }
-            }
-            <div class="">
-                <div class="clearfix"></div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_content">
-                                <br/>
-                                @RenderBody()
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-        </div>
-    </div>
-    <!-- /page content -->
-</div>
-
+<body>
+    @RenderBody()
 </body>
 </html>
-
-@RenderSection("scripts", false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,38 @@
+﻿@model Opmas.Data.Objects.LeaveManagement.Leave
+@{
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
+}
+@using (Html.BeginForm("Edit", "Leaves", FormMethod.Post, new { @class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.LeaveId)
+    @Html.HiddenFor(m => m.LeaveTypeId)
+    @Html.HiddenFor(m => m.InstitutionId)
+    @Html.HiddenFor(m => m.EmployeeId)
+    @Html.HiddenFor(m => m.StartDate)
+    @Html.HiddenFor(m => m.EndDate)
+    @Html.HiddenFor(m => m.Comment)
+    @Html.HiddenFor(m => m.Status)
+    @Html.HiddenFor(m => m.DateCreated)
+    @Html.HiddenFor(m => m.CreatedBy)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Reason, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+            @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.LeaveTypeId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.DropDownListFor(model => model.LeaveTypeId, null, new { @class = "form-control select-dropdown col-md-7 col-xs-12" })
+            @Html.ValidationMessageFor(model => model.LeaveTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-success pull-right" />
+        </div>
+    </div>
+}

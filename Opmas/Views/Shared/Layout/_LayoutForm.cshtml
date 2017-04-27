@@ -129,21 +129,6 @@
         <!-- /top navigation -->
         <!-- page content -->
         <div class="right_col" role="main">
-            @if (TempData["displaynotification"] != null)
-            {
-                if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-                {
-                    <div class="alert alert-success alert-dismissable">@TempData["displaynotification"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-                {
-                    <div class="alert alert-danger alert-dismissable">@TempData["displaynotification"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-                {
-                    <div class="alert alert-info alert-dismissable">@TempData["displaynotification"]</div>
-                }
-            }
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
@@ -153,6 +138,27 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        @if (TempData["message"] != null)
+                        {
+                            if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                            {
+                                <div class="alert alert-success alert-dismissable">
+                                    @TempData["message"] <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                            {
+                                <div class="alert alert-danger alert-dismissable">
+                                    @TempData["message"] <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                            {
+                                <div class="alert alert-info alert-dismissable">
+                                    @TempData["message"] <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            }
+                        }
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>
@@ -216,8 +222,8 @@
 <script src="~/Content/ManagementDashboard/vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
 <script src="~/Content/ManagementDashboard/vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
- <script src="~/Content/ManagementDashboard/vendors/validator/validator.js"></script>
+<!-- validator -->
+<script src="~/Content/ManagementDashboard/vendors/validator/validator.js"></script>
 <!-- bootstrap-progressbar -->
 <script src="~/Content/ManagementDashboard/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 <!-- iCheck -->
@@ -381,7 +387,7 @@
         });
 </script>
 <!-- /Autosize -->
-    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     $(document)
         .ready(function() {
@@ -401,4 +407,5 @@
 </script>
 </body>
 </html>
+@Scripts.Render("~/bundles/jqueryval")
 @RenderSection("scripts", false)

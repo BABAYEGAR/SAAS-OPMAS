@@ -5194,7 +5194,6 @@
     <Content Include="Scripts\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Scripts\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Views\Shared\Layout\Sidebar.cshtml" />
-    <Content Include="Views\Admin\AdminDashboard.cshtml" />
     <Content Include="Views\Package\Create.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
     <Content Include="Views\Institutions\Create.cshtml" />
@@ -5278,7 +5277,6 @@
     <Content Include="Views\EmployeeTrainingMappings\Edit.cshtml" />
     <Content Include="Views\EmployeeTrainingMappings\Index.cshtml" />
     <Content Include="Views\Shared\AttendeeList.cshtml" />
-    <Content Include="Views\Shared\InstitutionManagement\CreateTraining.cshtml" />
     <Content Include="Views\Shared\Layout\_LayoutInvoice.cshtml" />
     <Content Include="Views\Home\Invoice.cshtml" />
     <Content Include="Views\EmploymentTypes\Create.cshtml" />
@@ -5378,6 +5376,30 @@
     <Content Include="Views\ApplicationStatistics\Details.cshtml" />
     <Content Include="Views\ApplicationStatistics\Edit.cshtml" />
     <Content Include="Views\ApplicationStatistics\Index.cshtml" />
+    <Content Include="Views\Shared\TrainingManagement\CreateTraining.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\CreateEmploymentCategory.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\CreateEmploymentPosition.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\CreateEmploymentType.cshtml" />
+    <Content Include="Views\Shared\LeaveManagement\CreateLeaveType.cshtml" />
+    <Content Include="Views\Shared\LeaveManagement\CreateLeave.cshtml" />
+    <Content Include="Views\Shared\PaymentManagement\CreatePaymentAllowance.cshtml" />
+    <Content Include="Views\Shared\PaymentManagement\CreatePaymentDeductionReqest.cshtml" />
+    <Content Include="Views\Shared\PaymentManagement\CreatePaymentDeduction.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\CreatePositionChange.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\CreateResponsibility.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditDepartment.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditUnit.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditResponsibility.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditEmploymentType.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditEmploymentPosition.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditEmploymentCategory.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditFauculty.cshtml" />
+    <Content Include="Views\Shared\PaymentManagement\EditPaymentAllowance.cshtml" />
+    <Content Include="Views\Shared\PaymentManagement\EditPaymentDeduction.cshtml" />
+    <Content Include="Views\Shared\PaymentManagement\EditPaymentDeductionReqest.cshtml" />
+    <Content Include="Views\Shared\LeaveManagement\EditLeave.cshtml" />
+    <Content Include="Views\Shared\LeaveManagement\EditLeaveType.cshtml" />
+    <Content Include="Views\Shared\TrainingManagement\EditTraining.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
