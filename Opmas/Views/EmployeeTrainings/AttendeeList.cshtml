@@ -8,7 +8,7 @@
     long id = ViewBag.Id;
     ViewBag.Title = "Employees";
     ViewBag.Header = "List Of Employees";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var dbc = new EmployeeTrainingMappingDataContext();
     var role = Session["role"] as Role;
 }
@@ -36,107 +36,109 @@
             <input type="submit" id="sumbitForm" value="Add to training" class="btn btn-success pull-right fa fa-plus-square"/>
         </div>
     </div>
-    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-        <thead>
-        <tr>
-            @if ((role != null) && role.ManageTraining)
-            {
-                <th>
-                    <input type="checkbox" id="check-all" class="flat">
-                </th>
-            }
-            <th>
-                @Html.DisplayName("Firstname")
-            </th>
-            <th>
-                @Html.DisplayName("Lastname")
-            </th>
-            <th>
-                @Html.DisplayName("Email")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department.Name)
-            </th>
-            <th>
-                @Html.DisplayName("Status")
-            </th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model)
-        {
+    <div class="table-responsive">
+        <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+            <thead>
             <tr>
-                @{
-                    var mapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
-                }
                 @if ((role != null) && role.ManageTraining)
                 {
-                    <td>
-
-                        @if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && (n.EmployeeTrainingId == id)) != null)
-                        {
-                            if ((mapping != null) && (mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString()))
-                            {
-                                var training = dbc.EmployeeTrainings.Find(id);
-                                Session["training"] = training;
-                                <a href="@Url.Action("RemoveMapping", "EmployeeTrainings", new {id = item.EmployeeId})">
-                                    <i class="fa fa-remove"></i>
-                                </a>
-                            }
-                        }
-                        else
-                        {
-                            <input type="checkbox" class="flat" name="table_records" value="@item.EmployeeId">
-                        }
-
-
-                    </td>
+                    <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                    </th>
                 }
-                <td>
-                    @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)
-                </td>
-                <td>
-                    @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Lastname)
-                </td>
-                <td>
-                    @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Department.Name)
-                </td>
-                <td>
-
-                    @{
-                        var employeeTrainingMapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
-                    }
-                    @if (employeeTrainingMapping != null)
-                    {
-                        @employeeTrainingMapping.CompletionStatus
-                    }
-                </td>
-                @if ((role != null) && role.ManageTraining)
-                {
-                    <td>
-
-
-                        @if (mapping != null)
-                        {
-                            if (mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString())
-                            {
-                                @Html.ActionLink("Mark as Successfull", "ChangeTrainingStatusToSuccessfull", "EmployeeTrainingMappings", new {id = mapping.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-success"})
-                                @Html.ActionLink("Mark as UnSuccessfull", "ChangeTrainingStatusToUnSuccessfull", "EmployeeTrainingMappings", new {id = mapping.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-danger"})
-                            }
-                            if ((mapping.CompletionStatus != TrainingCompletionEnum.Successfull.ToString()) || (mapping.CompletionStatus != TrainingCompletionEnum.UnSuccessful.ToString()))
-                            {
-                            }
-                        }
-
-                    </td>
-                }
+                <th>
+                    @Html.DisplayName("Firstname")
+                </th>
+                <th>
+                    @Html.DisplayName("Lastname")
+                </th>
+                <th>
+                    @Html.DisplayName("Email")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department.Name)
+                </th>
+                <th>
+                    @Html.DisplayName("Status")
+                </th>
+                <th>Action</th>
             </tr>
-        }
-        </tbody>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @{
+                        var mapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
+                    }
+                    @if ((role != null) && role.ManageTraining)
+                    {
+                        <td>
 
-    </table>
-}
+                            @if (dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.InstitutionId == item.InstitutionId) && (n.EmployeeTrainingId == id)) != null)
+                            {
+                                if ((mapping != null) && (mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString()))
+                                {
+                                    var training = dbc.EmployeeTrainings.Find(id);
+                                    Session["training"] = training;
+                                    <a href="@Url.Action("RemoveMapping", "EmployeeTrainings", new {id = item.EmployeeId})">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="flat" name="table_records" value="@item.EmployeeId">
+                            }
+
+
+                        </td>
+                    }
+                    <td>
+                        @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Firstname)
+                    </td>
+                    <td>
+                        @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Lastname)
+                    </td>
+                    <td>
+                        @(new EmployeeFactory().GetEmployeePersonalData(item.EmployeeId).Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department.Name)
+                    </td>
+                    <td>
+
+                        @{
+                            var employeeTrainingMapping = dbc.EmployeeTrainingMappings.SingleOrDefault(n => (n.EmployeeId == item.EmployeeId) && (n.EmployeeTrainingId == id));
+                        }
+                        @if (employeeTrainingMapping != null)
+                        {
+                            @employeeTrainingMapping.CompletionStatus
+                        }
+                    </td>
+                    @if ((role != null) && role.ManageTraining)
+                    {
+                        <td>
+
+
+                            @if (mapping != null)
+                            {
+                                if (mapping.CompletionStatus == TrainingCompletionEnum.Pending.ToString())
+                                {
+                                    @Html.ActionLink("Mark as Successfull", "ChangeTrainingStatusToSuccessfull", "EmployeeTrainingMappings", new {id = mapping.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-success"})
+                                    @Html.ActionLink("Mark as UnSuccessfull", "ChangeTrainingStatusToUnSuccessfull", "EmployeeTrainingMappings", new {id = mapping.EmployeeTrainingMappingId}, new {@class = "btn btn-xs btn-danger"})
+                                }
+                                if ((mapping.CompletionStatus != TrainingCompletionEnum.Successfull.ToString()) || (mapping.CompletionStatus != TrainingCompletionEnum.UnSuccessful.ToString()))
+                                {
+                                }
+                            }
+
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+
+        </table>
+    </div>
+        }

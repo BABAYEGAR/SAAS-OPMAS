@@ -7,7 +7,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Faculties";
     ViewBag.Subheader = "View faculty details";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var db = new EmployeeDataContext();
     var facultyId = Model.FacultyId;
     var employeesData = db.EmployeePersonalDatas.Include(n => n.Employee);

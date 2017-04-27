@@ -3,7 +3,7 @@
 @model Opmas.Data.Objects.Entities.SystemManagement.Department
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_LayoutModalForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
     var facuties = new FacultyDataContext();
     var institution = Session["institution"] as Institution;
     ViewBag.FacultyId = new SelectList(facuties.Faculties.Where(n => n.InstitutionId == institution.InstitutionId), "FacultyId", "Name");

@@ -66,14 +66,14 @@ namespace Opmas.Controllers.EmployeeManagement
                 {
                     if (item.Name == collectedValues["Name"])
                     {
-                        TempData["role"] = "Role already exist, try another role name!";
+                        TempData["message"] = "Role already exist, try another role name!";
                         TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
                         return View(role);
                     }   
                 }
                 db.Roles.Add(role);
                 db.SaveChanges();
-                TempData["role"] = "You have successfully created a role!";
+                TempData["message"] = "You have successfully created a role!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -108,7 +108,7 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["role"] = "You have successfully modified a role!";
+                TempData["message"] = "You have successfully modified a role!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -138,7 +138,7 @@ namespace Opmas.Controllers.EmployeeManagement
             Role role = db.Roles.Find(id);
             db.Roles.Remove(role);
             db.SaveChanges();
-            TempData["role"] = "You have successfully deleted a role!";
+            TempData["message"] = "You have successfully deleted a role!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

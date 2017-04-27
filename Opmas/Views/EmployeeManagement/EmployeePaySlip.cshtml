@@ -6,7 +6,7 @@
 @{
     var institution = Session["institution"] as Institution;
 
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var db = new EmployeeDataContext();
     var employeeWorkData = db.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == Model.EmployeeId);
     var employmentPositionId = employeeWorkData?.EmploymentPositionId;

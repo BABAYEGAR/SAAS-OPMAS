@@ -2,7 +2,7 @@
     ViewBag.Title = "Create";
     ViewBag.Header = "Training";
     ViewBag.Subheader = "create a new training";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
 }
 @model Opmas.Data.Objects.Training.EmployeeTraining
 @using (Html.BeginForm("Create", "EmployeeTrainings", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))

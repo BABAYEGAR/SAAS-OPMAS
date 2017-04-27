@@ -3,7 +3,7 @@
     ViewBag.Title = "Create";
     ViewBag.Header = "Training Category";
     ViewBag.Subheader = "create a new training category";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
 }
 @using (Html.BeginForm("Create", "TrainingCategories", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {

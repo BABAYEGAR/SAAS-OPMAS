@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using Opmas.Data.DataContext.DataContext.SystemDataContext;
 using Opmas.Data.Objects.Entities.SystemManagement;
+using Opmas.Data.Service.Enums;
 
 namespace Opmas.Controllers.ApplicationManagement
 {
@@ -58,6 +59,9 @@ namespace Opmas.Controllers.ApplicationManagement
                 unit.Description = collectedValues["Description"];
                 db.Units.Add(unit);
                 db.SaveChanges();
+                TempData["message"] =
+                        "You have successfully added a unit!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 ViewBag.DepartmentId = departmentId;
                 return RedirectToAction("Index",new {id = departmentId});
             }
@@ -91,6 +95,9 @@ namespace Opmas.Controllers.ApplicationManagement
             {
                 db.Entry(unit).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] =
+                        "You have successfully modified the package!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", unit.DepartmentId);
@@ -120,6 +127,9 @@ namespace Opmas.Controllers.ApplicationManagement
             Unit unit = db.Units.Find(id);
             db.Units.Remove(unit);
             db.SaveChanges();
+            TempData["message"] =
+                        "You have successfully deleted the package!";
+            TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index",new {id = unit.DepartmentId});
         }
 

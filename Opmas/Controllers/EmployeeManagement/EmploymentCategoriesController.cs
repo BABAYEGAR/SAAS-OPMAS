@@ -64,7 +64,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 }
                 db.EmploymentCategorys.Add(employmentCategory);
                 db.SaveChanges();
-                TempData["employmentcategory"] = "you have succesfully created a new Employement Category!";
+                TempData["message"] = "you have succesfully created a new Employement Category!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -99,7 +99,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 employmentCategory.DateLastModified = DateTime.Now;
                 if (loggedinuser != null) employmentCategory.LastModifiedBy = loggedinuser.AppUserId;
                 
-                TempData["employmentcategory"] = "you have succesfully modified the Employement Category!";
+                TempData["message"] = "you have succesfully modified the Employement Category!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 db.Entry(employmentCategory).State = EntityState.Modified;
                 db.SaveChanges();
@@ -131,7 +131,7 @@ namespace Opmas.Controllers.EmployeeManagement
             EmploymentCategory employmentCategory = db.EmploymentCategorys.Find(id);
             db.EmploymentCategorys.Remove(employmentCategory);
             db.SaveChanges();
-            TempData["employmentcategory"] = "you have succesfully deleted the Employement Category!";
+            TempData["message"] = "you have succesfully deleted the Employement Category!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

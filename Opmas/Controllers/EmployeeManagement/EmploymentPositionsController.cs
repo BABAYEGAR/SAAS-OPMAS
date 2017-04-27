@@ -67,7 +67,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 }
                 db.EmploymentPosition.Add(employmentPosition);
                 db.SaveChanges();
-                TempData["employmentposition"] = "you have succesfully created a new Employement position for your organization!";
+                TempData["message"] = "you have succesfully created a new Employement position for your organization!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -115,7 +115,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 employmentPosition.DateLastModified = DateTime.Now;
                 if (loggedinuser != null) employmentPosition.LastModifiedBy = loggedinuser.AppUserId;
 
-                TempData["employmentposition"] = "you have succesfully modified the Employement Position!";
+                TempData["message"] = "you have succesfully modified the Employement Position!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 db.Entry(employmentPosition).State = EntityState.Modified;
                 db.SaveChanges();
@@ -147,7 +147,7 @@ namespace Opmas.Controllers.EmployeeManagement
             EmploymentPosition employmentPosition = db.EmploymentPosition.Find(id);
             db.EmploymentPosition.Remove(employmentPosition);
             db.SaveChanges();
-            TempData["employmentposition"] = "you have succesfully deleted the Employement Position!";
+            TempData["message"] = "you have succesfully deleted the Employement Position!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

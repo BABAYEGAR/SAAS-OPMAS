@@ -7,7 +7,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Deparments";
     ViewBag.Subheader = "View depatment details";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
     var db = new EmployeeDataContext();
     var employeesData = db.EmployeePersonalDatas.Include(n => n.Employee);

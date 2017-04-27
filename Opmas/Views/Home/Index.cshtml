@@ -1,7 +1,7 @@
 ﻿@using Opmas.Data.DataContext.DataContext.AccessDataContext
 @using Opmas.Data.Service.Enums
 @{
-    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutLandingPage.cshtml";
     var dbPackage = new PackageDataContext();
     var allPackages = dbPackage.Packages.ToList();
     var goldPackage = allPackages.SingleOrDefault(n => n.Type == PackageType.Gold.ToString());

@@ -1,4 +1,5 @@
 ﻿@using Opmas.Data.Objects.Entities.User
+@using Opmas.Data.Service.Enums
 @{
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser == null)
@@ -68,19 +69,34 @@
                 <br/>
 
                 <!-- sidebar menu -->
-                @{ Html.RenderPartial("Sidebar"); }
+                @{ Html.RenderPartial("Layout/Sidebar"); }
                 <!-- /sidebar menu -->
                 <!-- /menu footer buttons -->
-                @{ Html.RenderPartial("FooterButtons"); }
+                @{ Html.RenderPartial("Layout/FooterButtons"); }
                 <!-- /menu footer buttons -->
             </div>
         </div>
 
         <!-- top navigation -->
-        @{ Html.RenderPartial("NavigationBar"); }
+        @{ Html.RenderPartial("Layout/NavigationBar"); }
         <!-- /top navigation -->
         <!-- page content -->
         <div class="right_col" role="main">
+            @if (TempData["displaynotification"] != null)
+            {
+                if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                {
+                    <div class="alert alert-success alert-dismissable">@TempData["displaynotification"]</div>
+                }
+                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                {
+                    <div class="alert alert-danger alert-dismissable">@TempData["displaynotification"]</div>
+                }
+                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                {
+                    <div class="alert alert-info alert-dismissable">@TempData["displaynotification"]</div>
+                }
+            }
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
@@ -94,6 +110,7 @@
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>
@@ -119,7 +136,7 @@
         </div>
         <!-- /page content -->
         <!-- footer content -->
-        @{ Html.RenderPartial("Footer"); }
+        @{ Html.RenderPartial("Layout/Footer"); }
         <!-- /footer content -->
     </div>
 </div>

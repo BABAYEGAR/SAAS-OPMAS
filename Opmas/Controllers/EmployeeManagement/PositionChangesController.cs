@@ -145,13 +145,13 @@ namespace Opmas.Controllers.EmployeeManagement
 
                 if (status == PositionChangeEnum.Promotion.ToString())
                 {
-                    TempData["employee"] = "you have succesfully promoted the employee!";
+                    TempData["message"] = "you have succesfully promoted the employee!";
                     TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 }
                 if (status == PositionChangeEnum.Demotion.ToString())
                 {
                     
-                    TempData["employee"] = "you have succesfully demoted the employee!";
+                    TempData["message"] = "you have succesfully demoted the employee!";
                     TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 }
                 return RedirectToAction("EmployeesPositionChange","EmployeeManagement");

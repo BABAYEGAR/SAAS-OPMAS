@@ -99,7 +99,7 @@ namespace Opmas.Controllers.LeaveManagement
                 }
                 db.Leaves.Add(leave);
                 db.SaveChanges();
-                TempData["leave"] = "you have succesfully applied for a leave!";
+                TempData["message"] = "you have succesfully applied for a leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -157,7 +157,7 @@ namespace Opmas.Controllers.LeaveManagement
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
                 }
-                TempData["leave"] = "you have approved the leave!";
+                TempData["message"] = "you have approved the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -201,7 +201,7 @@ namespace Opmas.Controllers.LeaveManagement
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
                 }
-                TempData["leave"] = "you have rejected the leave!";
+                TempData["message"] = "you have rejected the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -224,7 +224,7 @@ namespace Opmas.Controllers.LeaveManagement
 
                 db.Entry(leave).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["leave"] = "you have cancelled your leave!";
+                TempData["message"] = "you have cancelled your leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("EmployeeLeave");
             }
@@ -264,7 +264,7 @@ namespace Opmas.Controllers.LeaveManagement
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
                 }
-                TempData["leave"] = "you have approved the leave!";
+                TempData["message"] = "you have approved the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -304,7 +304,7 @@ namespace Opmas.Controllers.LeaveManagement
                     dbc.ApplicationNotifications.Add(notify);
                     dbc.SaveChanges();
                 }
-                TempData["leave"] = "you have approved the leave!";
+                TempData["message"] = "you have approved the leave!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }

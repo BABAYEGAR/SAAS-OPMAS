@@ -9,7 +9,7 @@
 @{
     ViewBag.Title = "List";
     ViewBag.Header = "Employees Payment Information";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var appUserDataContext = new AppUserDataContext();
     var institution = Session["institution"] as Institution;
     var db = new EmployeeDataContext();

@@ -5,7 +5,7 @@
     ViewBag.Title = "Create";
     ViewBag.Header = "Deparments";
     ViewBag.Subheader = "Create a new Department";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
 }
 @using (Html.BeginForm("Create", "Departments", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))

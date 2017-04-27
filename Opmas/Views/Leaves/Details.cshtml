@@ -10,7 +10,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Leave";
     ViewBag.Subheader = "View leave details";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     var userRole = Session["role"] as Role;
     var institutionStructure = Session["institutionstructure"] as InstitutionStructure;

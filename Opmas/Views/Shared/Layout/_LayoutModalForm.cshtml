@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Opmas.Data.Service.Enums
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -62,6 +63,21 @@
     <div class="main_container">
         <!-- page content -->
         <div class="col-md-12" role="main">
+            @if (TempData["displaynotification"] != null)
+            {
+                if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
+                {
+                    <div class="alert alert-success alert-dismissable">@TempData["displaynotification"]</div>
+                }
+                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
+                {
+                    <div class="alert alert-danger alert-dismissable">@TempData["displaynotification"]</div>
+                }
+                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
+                {
+                    <div class="alert alert-info alert-dismissable">@TempData["displaynotification"]</div>
+                }
+            }
             <div class="">
                 <div class="clearfix"></div>
                 <div class="row">

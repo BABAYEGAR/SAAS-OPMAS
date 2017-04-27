@@ -6,7 +6,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Position Change";
     ViewBag.Subheader = "View position change details";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     var dbEmployee = new EmployeeDataContext();
     var db = new EmployeeDataContext();

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
     ViewBag.Header = "Payment Deduction";
     ViewBag.Subheader = "create a new payment deduction item";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
 }
 @using (Html.BeginForm("Create", "PaymentDeductions", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {

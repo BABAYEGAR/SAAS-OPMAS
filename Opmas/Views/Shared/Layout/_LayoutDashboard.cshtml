@@ -63,22 +63,22 @@
 
                 <br/>
                 <!-- sidebar menu -->
-                @{ Html.RenderPartial("Sidebar"); }
+                @{ Html.RenderPartial("Layout/Sidebar"); }
                 <!-- /sidebar menu -->
                 <!-- /menu footer buttons -->
-                @{ Html.RenderPartial("FooterButtons"); }
+                @{ Html.RenderPartial("Layout/FooterButtons"); }
                 <!-- /menu footer buttons -->
             </div>
         </div>
 
         <!-- top navigation -->
-        @{ Html.RenderPartial("NavigationBar"); }
+        @{ Html.RenderPartial("Layout/NavigationBar"); }
         <!-- /top navigation -->
         <!-- page content -->
         @RenderBody()
         <!-- /page content -->
         <!-- footer content -->
-        @{ Html.RenderPartial("Footer"); }
+        @{ Html.RenderPartial("Layout/Footer"); }
         <!-- /footer content -->
     </div>
 </div>

@@ -6,7 +6,7 @@
     ViewBag.Title = "List";
     ViewBag.Header = "Payment Deduction Request";
     ViewBag.Subheader = "List Of Requests";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
 }
 @if (TempData["deductionrequest"] != null)

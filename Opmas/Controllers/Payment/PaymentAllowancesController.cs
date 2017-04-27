@@ -73,12 +73,12 @@ namespace Opmas.Controllers.Payment
                             };
                             db.PositionAllowanceMappings.Add(positionDeductionMapping);
                             db.SaveChanges();
-                            TempData["employmentallowance"] = "you have succesfully assigned the employment position(s) to the payment allowance item!";
+                            TempData["message"] = "you have succesfully assigned the employment position(s) to the payment allowance item!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }
                         else
                         {
-                            TempData["login"] = "Session has expired, Login and try again!";
+                            TempData["message"] = "Session has expired, Login and try again!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                             return RedirectToAction("Login", "Account");
                         }
@@ -87,7 +87,7 @@ namespace Opmas.Controllers.Payment
             }
             else
             {
-                TempData["employmentallowance"] = "no employment position has been selected!";
+                TempData["message"] = "no employment position has been selected!";
                 TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
                 return RedirectToAction("AssignPosition", new { id = paymentAllowanceId });
             }
@@ -135,7 +135,7 @@ namespace Opmas.Controllers.Payment
                 }
                 db.PaymentAllowances.Add(paymentAllowance);
                 db.SaveChanges();
-                TempData["allowance"] = "you have succesfully added a new payment allowance item!";
+                TempData["message"] = "you have succesfully added a new payment allowance item!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -172,7 +172,7 @@ namespace Opmas.Controllers.Payment
                 if (loggedinuser != null) paymentAllowance.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(paymentAllowance).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["allowance"] = "you have succesfully modified the payment allowance item!";
+                TempData["message"] = "you have succesfully modified the payment allowance item!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -220,7 +220,7 @@ namespace Opmas.Controllers.Payment
             PaymentAllowance paymentAllowance = db.PaymentAllowances.Find(id);
             db.PaymentAllowances.Remove(paymentAllowance);
             db.SaveChanges();
-            TempData["allowance"] = "you have succesfully deleted the payment allowance item!";
+            TempData["message"] = "you have succesfully deleted the payment allowance item!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

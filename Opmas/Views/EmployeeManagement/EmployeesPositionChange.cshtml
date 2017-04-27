@@ -6,7 +6,7 @@
 @{
     ViewBag.Title = "Employees";
     ViewBag.Header = "List Of Employees";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var employeeData = new EmployeeDataContext();
 
     ViewBag.promote = PositionChangeEnum.Promotion.ToString();

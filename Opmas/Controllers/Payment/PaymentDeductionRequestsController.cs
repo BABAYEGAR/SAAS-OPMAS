@@ -78,7 +78,7 @@ namespace Opmas.Controllers.Payment
                 dbc.ApplicationNotifications.Add(notify);
                 dbc.SaveChanges();
             }
-            TempData["deductionrequest"] = "you have succesfully granted the payment deduction request!";
+            TempData["message"] = "you have succesfully granted the payment deduction request!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
@@ -93,7 +93,7 @@ namespace Opmas.Controllers.Payment
             if (loggedinuser != null) request.LastModifiedBy = loggedinuser.AppUserId;
             db.Entry(request).State = EntityState.Modified;
             db.SaveChanges();
-            TempData["deductionrequest"] = "you have succesfully stopped the deduction!";
+            TempData["message"] = "you have succesfully stopped the deduction!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             if (loggedinuser != null)
                 return RedirectToAction("EmployeePaymentDeductionRequest", new {id = loggedinuser.EmployeeId});
@@ -129,7 +129,7 @@ namespace Opmas.Controllers.Payment
                 dbc.ApplicationNotifications.Add(notify);
                 dbc.SaveChanges();
             }
-            TempData["deductionrequest"] = "you have succesfully denied the payment deduction request!";
+            TempData["message"] = "you have succesfully denied the payment deduction request!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
@@ -165,7 +165,7 @@ namespace Opmas.Controllers.Payment
                 }
                 db.PaymentDeductionRequests.Add(paymentDeductionRequest);
                 db.SaveChanges();
-                TempData["deductionrequest"] = "you have succesfully requested for a deduction in your payment!";
+                TempData["message"] = "you have succesfully requested for a deduction in your payment!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("EmployeePaymentDeductionRequest");
             }

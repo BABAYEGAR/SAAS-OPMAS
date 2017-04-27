@@ -101,12 +101,12 @@ namespace Opmas.Controllers.EmployeeManagement
                             dbc.ApplicationNotifications.Add(notify);
                             dbc.SaveChanges();
 
-                            TempData["responsibility"] = "you have succesfully appointed the employee(s)!";
+                            TempData["message"] = "you have succesfully appointed the employee(s)!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }
                         else
                         {
-                            TempData["login"] = "Session has expired, Login and try again!";
+                            TempData["message"] = "Session has expired, Login and try again!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                             return RedirectToAction("Login", "Account");
                         }
@@ -115,7 +115,7 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             else
             {
-                TempData["responsibility"] = "no employee has been selected!";
+                TempData["message"] = "no employee has been selected!";
                 TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
                 return RedirectToAction("AppointeeList", new { id = responsibilityId });
             }
@@ -166,7 +166,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 }
                 db.Responsibilities.Add(responsibility);
                 db.SaveChanges();
-                TempData["responsibility"] = "you have succesfully created a new appointment responsibility!";
+                TempData["message"] = "you have succesfully created a new appointment responsibility!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -206,7 +206,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 }
                 db.Entry(responsibility).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["responsibility"] = "you have succesfully modified the appointment responsibility!";
+                TempData["message"] = "you have succesfully modified the appointment responsibility!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -236,7 +236,7 @@ namespace Opmas.Controllers.EmployeeManagement
             Responsibility responsibility = db.Responsibilities.Find(id);
             db.Responsibilities.Remove(responsibility);
             db.SaveChanges();
-            TempData["responsibility"] = "you have succesfully deleted the appointment responsibility!";
+            TempData["message"] = "you have succesfully deleted the appointment responsibility!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

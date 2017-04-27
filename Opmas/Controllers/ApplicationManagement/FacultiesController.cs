@@ -33,7 +33,7 @@ namespace Opmas.Controllers.ApplicationManagement
             if (loggedinuser != null) faculty.LastModifiedBy = loggedinuser.AppUserId;
             db.Entry(faculty).State = EntityState.Modified;
             db.SaveChanges();
-            TempData["faculty"] = "you have succesfully assigned the line manager for the faculty!";
+            TempData["message"] = "you have succesfully assigned the line manager for the faculty!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }
@@ -78,15 +78,15 @@ namespace Opmas.Controllers.ApplicationManagement
                         faculty.InstitutionId = institution.InstitutionId;
                         db.Faculties.Add(faculty);
                         db.SaveChanges();
-                        TempData["faculty"] = "You have successfully created a faculty";
+                        TempData["displaynotification"] = "You have successfully created a faculty";
                         TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         return RedirectToAction("Index");
                     }
-                    TempData["faculty"] = "Session Expired,Login Again";
+                    TempData["displaynotification"] = "Session Expired,Login Again";
                     TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
                     return RedirectToAction("SelectInstitution","Home");
                 }
-                TempData["login"] = "Session Expired,Login Again";
+                TempData["message"] = "Session Expired,Login Again";
                 TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
                 return RedirectToAction("Login", "Account");
             }
@@ -123,14 +123,14 @@ namespace Opmas.Controllers.ApplicationManagement
                     faculty.LastModifiedBy = loggedinuser.AppUserId;
                     db.Entry(faculty).State = EntityState.Modified;
                     db.SaveChanges();
-                    TempData["faculty"] = "You have successfully modified the faculty";
+                    TempData["message"] = "You have successfully modified the faculty";
                     TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                     return RedirectToAction("Index");
                 }
             }
             else
             { 
-                TempData["faculty"] = "Session Expired,Login Again";
+                TempData["message"] = "Session Expired,Login Again";
                 TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
                 return RedirectToAction("SelectInstitution", "Home");
             }
@@ -158,7 +158,7 @@ namespace Opmas.Controllers.ApplicationManagement
             var faculty = db.Faculties.Find(id);
             db.Faculties.Remove(faculty);
             db.SaveChanges();
-            TempData["faculty"] = "You have successfully deleted a faculty";
+            TempData["message"] = "You have successfully deleted a faculty";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

@@ -9,7 +9,7 @@
     ViewBag.Title = "Details";
     ViewBag.Header = "Deduction Requests";
     ViewBag.Subheader = "View deduction details";
-    Layout = "~/Views/Shared/_LayoutForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     var userRole = Session["role"] as Role;
     var db = new EmployeeDataContext();

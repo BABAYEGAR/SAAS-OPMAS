@@ -7,52 +7,39 @@
     ViewBag.Title = "List";
     ViewBag.Header = "Leaves";
     ViewBag.Subheader = "List Of Leaves";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var db = new EmployeeDataContext();
     var employeesData = db.EmployeePersonalDatas.Include(n => n.Employee);
 }
-@if (TempData["leave"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert alert-success alert-dismissable">@TempData["leave"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert alert-danger alert-dismissable">@TempData["leave"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert alert-info alert-dismissable">@TempData["leave"]</div>
-    }
-}
-<table id="datatable" class="table table-striped table-bordered">
-    <thead>
-    <tr>
-        <th>
-            Employee
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LeaveType.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            Date Applied
-        </th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Employee
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LeaveType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    Date Applied
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
     {
         var employee = employeesData.SingleOrDefault(n => n.EmployeeId == item.EmployeeId);
         <tr>
             <td>
                 @if (employee != null)
                 {
-                    @employee.DisplayName
+                @employee.DisplayName
                 }
             </td>
             <td>
@@ -69,5 +56,6 @@
             </td>
         </tr>
     }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    </div>

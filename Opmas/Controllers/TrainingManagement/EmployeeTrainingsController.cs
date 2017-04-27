@@ -102,12 +102,12 @@ namespace Opmas.Controllers.TrainingManagement
                                 dbc.ApplicationNotifications.Add(notify);
                                 dbc.SaveChanges();
                             
-                            TempData["training"] = "you have succesfully added the employee(s) to the training event!";
+                            TempData["message"] = "you have succesfully added the employee(s) to the training event!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }
                         else
                         {
-                            TempData["login"] = "Session has expired, Login and try again!";
+                            TempData["message"] = "Session has expired, Login and try again!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                             return RedirectToAction("Login", "Account");
                         }
@@ -116,7 +116,7 @@ namespace Opmas.Controllers.TrainingManagement
             }
             else
             {
-                TempData["training"] = "no employee has been selected!";
+                TempData["message"] = "no employee has been selected!";
                 TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
                 return RedirectToAction("AttendeeList", new {id = trainingId});
             }
@@ -167,7 +167,7 @@ namespace Opmas.Controllers.TrainingManagement
                 }
                 _db.EmployeeTrainings.Add(employeeTraining);
                 _db.SaveChanges();
-                TempData["training"] = "you have succesfully created a new training event!";
+                TempData["message"] = "you have succesfully created a new training event!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -229,7 +229,7 @@ namespace Opmas.Controllers.TrainingManagement
             var employeeTraining = _db.EmployeeTrainings.Find(id);
             _db.EmployeeTrainings.Remove(employeeTraining);
             _db.SaveChanges();
-            TempData["training"] = "you have succesfully deleted a training event!";
+            TempData["message"] = "you have succesfully deleted a training event!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

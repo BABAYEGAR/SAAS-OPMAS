@@ -5,7 +5,7 @@
     var loggedinuser = Session["opmasloggedinuser"] as AppUser;
     if (loggedinuser != null)
     {
-        Layout = "~/Views/Shared/_LayoutForm.cshtml";
+        Layout = "~/Views/Shared/Layout/_LayoutForm.cshtml";
         ViewBag.Title = "Create";
         ViewBag.Header = "Application Users";
         ViewBag.Subheader = "Create a new appliction user";

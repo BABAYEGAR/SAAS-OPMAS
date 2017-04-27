@@ -64,7 +64,7 @@ namespace Opmas.Controllers.TrainingManagement
                 }
                 db.TrainingCategory.Add(trainingCategory);
                 db.SaveChanges();
-                TempData["trainingcategory"] = "you have succesfully added a new training category!";
+                TempData["message"] = "you have succesfully added a new training category!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -101,7 +101,7 @@ namespace Opmas.Controllers.TrainingManagement
                 if (loggedinuser != null) trainingCategory.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(trainingCategory).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["trainingcategory"] = "you have succesfully modified a training category!";
+                TempData["message"] = "you have succesfully modified a training category!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -131,7 +131,7 @@ namespace Opmas.Controllers.TrainingManagement
             TrainingCategory trainingCategory = db.TrainingCategory.Find(id);
             db.TrainingCategory.Remove(trainingCategory);
             db.SaveChanges();
-            TempData["trainingcategory"] = "you have succesfully deleted a training category!";
+            TempData["message"] = "you have succesfully deleted a training category!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

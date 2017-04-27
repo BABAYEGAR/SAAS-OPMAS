@@ -65,7 +65,7 @@ namespace Opmas.Controllers.LeaveManagement
                 }
                 db.LeaveTypes.Add(leaveType);
                 db.SaveChanges();
-                TempData["leavetype"] = "you have succesfully added a new leave type!";
+                TempData["message"] = "you have succesfully added a new leave type!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -104,7 +104,7 @@ namespace Opmas.Controllers.LeaveManagement
                 if (loggedinuser != null) leaveType.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(leaveType).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["leavetype"] = "you have succesfully modified the leave type!";
+                TempData["message"] = "you have succesfully modified the leave type!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -134,7 +134,7 @@ namespace Opmas.Controllers.LeaveManagement
             LeaveType leaveType = db.LeaveTypes.Find(id);
             db.LeaveTypes.Remove(leaveType);
             db.SaveChanges();
-            TempData["leavetype"] = "you have succesfully deleted the leave type!";
+            TempData["message"] = "you have succesfully deleted the leave type!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

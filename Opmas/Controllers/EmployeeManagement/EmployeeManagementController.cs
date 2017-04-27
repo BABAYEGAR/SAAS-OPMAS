@@ -286,7 +286,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     if (degree == DegreeTypeEnum.MSc.ToString())
                         if (checkMasters.Any(item => endDate < item.StartDate))
                         {
-                            TempData["education"] =
+                            TempData["message"] =
                                 "You cannot offer a masters degree before basic and college education!";
                             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                             return View();
@@ -294,7 +294,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     if (degree == DegreeTypeEnum.Phd.ToString())
                         if (checkPhd.Any(item => endDate < item.StartDate))
                         {
-                            TempData["education"] =
+                            TempData["message"] =
                                 "You cannot offer a doctorate degree before basic,college and masters education!";
                             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                             return View();
@@ -316,7 +316,7 @@ namespace Opmas.Controllers.EmployeeManagement
                             ? new FileUploader().UploadFile(file, UploadType.Education)
                             : null
                 });
-                TempData["education"] = "You ave successfully added a " + degree + " qualification!";
+                TempData["message"] = "You ave successfully added a " + degree + " qualification!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 //store data in a session
                 Session["Employee"] = _employee;
@@ -365,7 +365,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
-                TempData["work"] =
+                TempData["message"] =
                     "You have successfully added a work experience!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
@@ -471,7 +471,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 });
                 //store data in a session
                 Session["Employee"] = _employee;
-                TempData["bank"] =
+                TempData["message"] =
                     "You have successfully added a bank data!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
@@ -547,7 +547,7 @@ namespace Opmas.Controllers.EmployeeManagement
                         n => (n.RoleId == role.RoleId) && (n.DepartmentId == _employee.DepartmentId));
                 if ((role.RoleType == RoleType.Single.ToString()) && (allEmployees.ToList().Count > 0))
                 {
-                    TempData["medical"] =
+                    TempData["message"] =
                         "This role has been assigned to an employee cannot be assigned to more than one employee!";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                     _employee.RoleId = null;
@@ -751,7 +751,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     if (degree == DegreeTypeEnum.MSc.ToString())
                         if (checkMasters.Any(item => endDate < item.StartDate))
                         {
-                            TempData["education"] =
+                            TempData["message"] =
                                 "You cannot offer a masters degree before basic and college education!";
                             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                             return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
@@ -760,7 +760,7 @@ namespace Opmas.Controllers.EmployeeManagement
                     if (degree == DegreeTypeEnum.Phd.ToString())
                         if (checkPhd.Any(item => endDate < item.StartDate))
                         {
-                            TempData["education"] =
+                            TempData["message"] =
                                 "You cannot offer a doctorate degree before basic,college and masters education!";
                             TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                             return View();
@@ -782,7 +782,7 @@ namespace Opmas.Controllers.EmployeeManagement
 
                 _dbEmployee.EmployeeEducationalQualifications?.Add(educationalQualification);
                 _dbEmployee.SaveChanges();
-                TempData["education"] =
+                TempData["message"] =
                     "You have successfully added a " + degree + " qualification!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             }
@@ -809,7 +809,7 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             _dbEmployee.EmployeeBankDatas.Add(employeeBankData);
             _dbEmployee.SaveChanges();
-            TempData["bank"] =
+            TempData["message"] =
                 "You have successfully added a new bank data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
 
@@ -833,7 +833,7 @@ namespace Opmas.Controllers.EmployeeManagement
             }
             _dbEmployee.EmployeePastWorkExperiences.Add(pastWorkExperience);
             _dbEmployee.SaveChanges();
-            TempData["work"] =
+            TempData["message"] =
                 "You have successfully added a new past work experience data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("ListOfPastWorkExperience", "EmployeeManagement",
@@ -1083,7 +1083,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employeePersonalData).State = EntityState.Modified;
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
-                TempData["dashboard"] =
+                TempData["message"] =
                      "You have successfully modified the employee's personal data!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Dashboard", "Home");
@@ -1194,7 +1194,6 @@ namespace Opmas.Controllers.EmployeeManagement
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Dashboard", "Home");
         }
-
         #endregion
 
         #region List of employee data

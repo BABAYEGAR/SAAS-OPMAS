@@ -7,7 +7,7 @@
     ViewBag.Title = "List";
     ViewBag.Header = "Employment Positions";
     ViewBag.Subheader = "List Of Employment Positions";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var role = Session["role"] as Role;
     var dbc = new EmployeeDataContext();
     long id = ViewBag.Id;

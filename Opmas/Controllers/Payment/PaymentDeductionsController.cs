@@ -71,12 +71,12 @@ namespace Opmas.Controllers.Payment
                             };
                             db.PositionDeductionMappings.Add(positionDeductionMapping);
                             db.SaveChanges();
-                            TempData["employmentposition"] = "you have succesfully assigned the employment position(s) to the payment deduction item!";
+                            TempData["message"] = "you have succesfully assigned the employment position(s) to the payment deduction item!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         }
                         else
                         {
-                            TempData["login"] = "Session has expired, Login and try again!";
+                            TempData["message"] = "Session has expired, Login and try again!";
                             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                             return RedirectToAction("Login", "Account");
                         }
@@ -85,7 +85,7 @@ namespace Opmas.Controllers.Payment
             }
             else
             {
-                TempData["employmentposition"] = "no employment position has been selected!";
+                TempData["message"] = "no employment position has been selected!";
                 TempData["notificationtype"] = NotificationTypeEnum.Error.ToString();
                 return RedirectToAction("AssignPosition", new { id = paymentDeductionId });
             }
@@ -133,7 +133,7 @@ namespace Opmas.Controllers.Payment
                 }
                 db.PaymentDeduction.Add(paymentDeduction);
                 db.SaveChanges();
-                TempData["deduction"] = "you have succesfully added a new payment deduction item!";
+                TempData["message"] = "you have succesfully added a new payment deduction item!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();                                                                                                                                                                                         
                 return RedirectToAction("Index");
             }
@@ -169,7 +169,7 @@ namespace Opmas.Controllers.Payment
                 if (loggedinuser != null) paymentDeduction.LastModifiedBy = loggedinuser.AppUserId;
                 db.Entry(paymentDeduction).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["deduction"] = "you have succesfully modified the payment deduction item!";
+                TempData["message"] = "you have succesfully modified the payment deduction item!";
                 TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
@@ -218,7 +218,7 @@ namespace Opmas.Controllers.Payment
             PaymentDeduction paymentDeduction = db.PaymentDeduction.Find(id);
             db.PaymentDeduction.Remove(paymentDeduction);
             db.SaveChanges();
-            TempData["deduction"] = "you have succesfully deleted the payment deduction item!";
+            TempData["message"] = "you have succesfully deleted the payment deduction item!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Index");
         }

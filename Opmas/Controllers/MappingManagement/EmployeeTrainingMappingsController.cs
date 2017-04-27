@@ -38,7 +38,7 @@ namespace Opmas.Controllers.MappingManagement
             employeeTrainingMapping.CompletionStatus = TrainingCompletionEnum.UnSuccessful.ToString();
             db.Entry(employeeTrainingMapping).State = EntityState.Modified;
             db.SaveChanges();
-            TempData["training"] = "you have succesfully marked the employee's training as UnSuccessfull!";
+            TempData["message"] = "you have succesfully marked the employee's training as UnSuccessfull!";
             TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("AttendeeList", "EmployeeTrainings", new { id = employeeTrainingMapping.EmployeeTrainingId });
         }

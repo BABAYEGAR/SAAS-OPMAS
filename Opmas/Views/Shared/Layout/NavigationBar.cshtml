@@ -19,21 +19,6 @@
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
-            @if (TempData["dashboard"] != null)
-            {
-                if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-                {
-                    <div class="alert alert-success alert-dismissable">@TempData["dashboard"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-                {
-                    <div class="alert alert-danger alert-dismissable">@TempData["dashboard"]</div>
-                }
-                else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-                {
-                    <div class="alert alert-info alert-dismissable">@TempData["dashboard"]</div>
-                }
-            }
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

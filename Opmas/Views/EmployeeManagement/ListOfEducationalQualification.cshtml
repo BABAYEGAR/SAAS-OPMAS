@@ -6,7 +6,7 @@
     ViewBag.Title = "List";
     ViewBag.Header = "Educational Qualifications";
     ViewBag.Subheader = "List Of Educational Qualifications";
-    Layout = "~/Views/Shared/_LayoutListItems.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var educationalQualification = new EmployeeEducationalQualification();
 }
 @section css {
@@ -53,6 +53,7 @@
 
     </div>
 }
+<div class="table-responsive">
 <table id="datatable" class="table table-striped table-bordered">
     <thead>
     <tr>
@@ -103,29 +104,30 @@
     </tbody>
 
 </table>
-@section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script>
+    </div>
+    @section scripts {
+        <script src="~/Scripts/plugins/moment/moment.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+        <script>
 
-        $(document)
-            .ready(function() {
+            $(document)
+                .ready(function () {
 
-                // init datepicker for start date
-                $('.startDate').datepicker();
+                    // init datepicker for start date
+                    $('.startDate').datepicker();
 
-                // init datepicker for end date
-                $('.endDate').datepicker();
+                    // init datepicker for end date
+                    $('.endDate').datepicker();
 
-                // set start date of expiry based on selected date of end
-                $('.startDate')
-                    .datepicker()
-                    .on('changeDate',
-                        function(e) {
+                    // set start date of expiry based on selected date of end
+                    $('.startDate')
+                        .datepicker()
+                        .on('changeDate',
+                            function (e) {
 
-                            // apply selected date as start date for expiry
-                            $('.endDate').datepicker('setStartDate', e.date);
-                        });
-            });
-    </script>
-}
+                                // apply selected date as start date for expiry
+                                $('.endDate').datepicker('setStartDate', e.date);
+                            });
+                });
+        </script>
+    }

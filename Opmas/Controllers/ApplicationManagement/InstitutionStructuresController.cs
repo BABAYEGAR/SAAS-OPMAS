@@ -71,7 +71,7 @@ namespace Opmas.Controllers.ApplicationManagement
                 _db.SaveChanges();
                 Session["institutionstructure"] = institutionStructure;
                 Session["institution"] = institution;
-                TempData["dashboard"] = "You have successfully defined your institutions structure";
+                TempData["message"] = "You have successfully defined your institutions structure";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Dashboard","Home");
             }
@@ -108,7 +108,7 @@ namespace Opmas.Controllers.ApplicationManagement
                 _db.Entry(institutionStructure).State = EntityState.Modified;
                 _db.SaveChanges();
                 Session["institutionstructure"] = institutionStructure;
-                TempData["dashboard"] = "You have successfully modified your institutions structure";
+                TempData["message"] = "You have successfully modified your institutions structure";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Dashboard","Home");
             }

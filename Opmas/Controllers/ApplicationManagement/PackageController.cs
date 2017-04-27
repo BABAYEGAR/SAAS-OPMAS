@@ -51,20 +51,23 @@ namespace Opmas.Controllers.ApplicationManagement
                
                 if (allPackages.Count >= 3)
                 {
-                    TempData["package"] =
+                    TempData["message"] =
                                   "You cannot added a package!";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                     return RedirectToAction("Index");
                 }
                 if (allPackages.Any(n => n.Type == package.Type))
                 {
-                    TempData["package"] =
+                    TempData["message"] =
                         "You cannot add this package because this type exist!";
                     TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                     return RedirectToAction("Index");
                 }
                 _db.Packages.Add(package);
                 _db.SaveChanges();
+                TempData["message"] =
+                               "You have successfully added a new package!";
+                TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Index");
             }
             return View(package);
@@ -98,14 +101,14 @@ namespace Opmas.Controllers.ApplicationManagement
                     package.LastModifiedBy = loggedinuser.AppUserId;
                     _db.Entry(package).State = EntityState.Modified;
                     _db.SaveChanges();
-                    TempData["package"] = "You have successfully modified the package";
+                    TempData["message"] = "You have successfully modified the package";
                     TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                     return RedirectToAction("Index");
                 }
             }
             else
             {
-                TempData["login"] = "Session Expired,Login Again";
+                TempData["message"] = "Session Expired,Login Again";
                 TempData["notificationtype"] = NotificationTypeEnum.Info.ToString();
                 return RedirectToAction("Login", "Account");
             }

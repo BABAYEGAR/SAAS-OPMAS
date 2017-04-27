@@ -2,13 +2,8 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_LayoutModalForm.cshtml";
+    Layout = "~/Views/Shared/Layout/_LayoutModalForm.cshtml";
 }
-@section css {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-}
-
 @using (Html.BeginForm("CreateSinglePastWorkExperience", "EmployeeManagement", FormMethod.Post, new {@class = "form-horizontal form-label-left", id = "demo-form2", enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
@@ -62,35 +57,4 @@
     <div class="modal-footer">
         <input type="submit" value="Create" class="btn btn-success pull-right"/>
     </div>
-}
-
-
-@section scripts {
-    <script src="~/Scripts/plugins/moment/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script src="~/Scripts/plugins/select2/js/select2.min.js"></script>
-
-    <script>
-
-        $(document)
-            .ready(function() {
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-                // init datepicker for start date
-                $('.startDate').datepicker();
-
-                // init datepicker for end date
-                $('.endDate').datepicker();
-
-                // set start date of expiry based on selected date of end
-                $('.startDate')
-                    .datepicker()
-                    .on('changeDate',
-                        function(e) {
-
-                            // apply selected date as start date for expiry
-                            $('.endDate').datepicker('setStartDate', e.date);
-                        });
-            });
-    </script>
 }
