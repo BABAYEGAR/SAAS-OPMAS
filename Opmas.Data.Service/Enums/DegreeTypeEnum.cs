@@ -6,9 +6,9 @@ namespace Opmas.Data.Service.Enums
     {
         [Display(Name = "Basic Education")]
         Basic,
-        [Display(Name = "Junior High School")]
+        [Display(Name = "JSCE")]
         JSCE,
-        [Display(Name = "Senior High School")]
+        [Display(Name = "SSCE/WAEC")]
         SSCE,
         [Display(Name = "B.Arch")]
         Ba,
