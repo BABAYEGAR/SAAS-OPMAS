@@ -283,6 +283,7 @@
     <Content Include="Content\img\default_avatar_male.jpg" />
     <Content Include="Content\img\group_header.jpg" />
     <Content Include="Content\img\header.jpg" />
+    <Content Include="Content\img\OPMAS.png" />
     <Content Include="Content\LandingPage\css\magnific-popup.css" />
     <Content Include="Content\LandingPage\css\owl.carousel.css" />
     <Content Include="Content\LandingPage\css\slider.css" />
