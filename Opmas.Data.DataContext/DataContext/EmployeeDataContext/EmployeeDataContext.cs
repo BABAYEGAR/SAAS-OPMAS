@@ -57,6 +57,7 @@ namespace Opmas.Data.DataContext.DataContext.EmployeeDataContext
         public virtual DbSet<EmployeeResponsibilityMapping> EmployeeResponsibilityMappings { get; set; }
         public virtual DbSet<PositionChange> PositionChanges { get; set; }
         public virtual DbSet<ApplicationStatistic> ApplicationStatistics { get; set; }
+        public virtual DbSet<InstitutionQualification> InstitutionQualifications { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

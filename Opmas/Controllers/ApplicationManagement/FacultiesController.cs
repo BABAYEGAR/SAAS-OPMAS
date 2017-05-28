@@ -78,7 +78,7 @@ namespace Opmas.Controllers.ApplicationManagement
                         faculty.InstitutionId = institution.InstitutionId;
                         db.Faculties.Add(faculty);
                         db.SaveChanges();
-                        TempData["displaynotification"] = "You have successfully created a faculty";
+                        TempData["message"] = "You have successfully created a faculty";
                         TempData["notificationtype"] = NotificationTypeEnum.Success.ToString();
                         return RedirectToAction("Index");
                     }

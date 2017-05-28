@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Opmas.Data.Objects.Entities.SystemManagement;
 
 namespace Opmas.Data.Objects.Entities.Employee
 {
@@ -21,10 +22,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         [DisplayName("End Date")]
 
         public DateTime EndDate { get; set; }
-        [ Required]
         [DisplayName("Degree Attained")]
         public string DegreeAttained { get; set; }
-        [ Required]
         [DisplayName("Class Of Degree")]
         [DefaultValue("None")]
         public string ClassOfDegree { get; set; }
@@ -32,6 +31,10 @@ namespace Opmas.Data.Objects.Entities.Employee
         public string FileUpload { get; set; }
         public long FakeId { get; set; }
 
+        public long? InstitutionQualificationId { get; set; }
+
+        [ForeignKey("InstitutionQualificationId")]
+        public virtual InstitutionQualification InstitutionQualification { get; set; }
         public long EmployeeId { get; set; }
 
         [ForeignKey("EmployeeId")]

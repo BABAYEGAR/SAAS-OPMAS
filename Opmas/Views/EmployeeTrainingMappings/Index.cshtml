@@ -8,21 +8,6 @@
     Layout = "~/Views/Shared/Layout/_LayoutListItems.cshtml";
     var role = Session["role"] as Role;
 }
-@if (TempData["training"] != null)
-{
-    if (TempData["notificationtype"].Equals(NotificationTypeEnum.Success.ToString()))
-    {
-        <div class="alert alert-success alert-dismissable">@TempData["training"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Error.ToString()))
-    {
-        <div class="alert alert-danger alert-dismissable">@TempData["training"]</div>
-    }
-    else if (TempData["notificationtype"].Equals(NotificationTypeEnum.Info.ToString()))
-    {
-        <div class="alert alert-info alert-dismissable">@TempData["training"]</div>
-    }
-}
 <div class="table-responsive">
 <table id="datatable" class="table table-striped table-bordered">
     <thead>

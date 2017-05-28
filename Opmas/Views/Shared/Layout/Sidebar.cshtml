@@ -244,6 +244,17 @@
                 </ul>
             </li>
         }
+        if (userRole.ManageAppointments)
+         {
+             <li>
+                 <a><i class="fa fa-tags"></i> Educational Qualifications<span class="fa fa-chevron-down"></span></a>
+                 <ul class="nav child_menu">
+                     <li>
+                         <a href="@Url.Action("Index", "InstitutionQualifications")">Qualifications</a>
+                     </li>
+                 </ul>
+             </li>
+         }
         if (userRole.ManageEmploymentTypes)
         {
             <li>

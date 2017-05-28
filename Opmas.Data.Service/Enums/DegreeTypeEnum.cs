@@ -34,6 +34,7 @@ namespace Opmas.Data.Service.Enums
         MSc,
         [Display(Name = "Phd")]
         Phd,
+        Other
 
     }
 }

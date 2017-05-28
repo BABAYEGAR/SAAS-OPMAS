@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -235,6 +235,7 @@
     <Compile Include="Controllers\ApplicationManagement\ApplicationStatisticsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\DepartmentsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\FacultiesController.cs" />
+    <Compile Include="Controllers\ApplicationManagement\InstitutionQualificationsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\InstitutionsController.cs" />
     <Compile Include="Controllers\ApplicationManagement\InstitutionStructuresController.cs" />
     <Compile Include="Controllers\ApplicationManagement\PackageController.cs" />
@@ -252,9 +253,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MappingManagement\AppraisalPositionMappingsController.cs" />
     <Compile Include="Controllers\MappingManagement\EmployeeTrainingMappingsController.cs" />
-    <Compile Include="Controllers\Payment\PaymentAllowancesController.cs" />
-    <Compile Include="Controllers\Payment\PaymentDeductionRequestsController.cs" />
-    <Compile Include="Controllers\Payment\PaymentDeductionsController.cs" />
+    <Compile Include="Controllers\PaymentManagement\PaymentAllowancesController.cs" />
+    <Compile Include="Controllers\PaymentManagement\PaymentDeductionRequestsController.cs" />
+    <Compile Include="Controllers\PaymentManagement\PaymentDeductionsController.cs" />
     <Compile Include="Controllers\PerformanceManagement\AppraisalCategoriesController.cs" />
     <Compile Include="Controllers\PerformanceManagement\AppraisalFactorsController.cs" />
     <Compile Include="Controllers\TrainingManagement\EmployeeTrainingsController.cs" />
@@ -5400,6 +5401,13 @@
     <Content Include="Views\Shared\LeaveManagement\EditLeave.cshtml" />
     <Content Include="Views\Shared\LeaveManagement\EditLeaveType.cshtml" />
     <Content Include="Views\Shared\TrainingManagement\EditTraining.cshtml" />
+    <Content Include="Views\InstitutionQualifications\Create.cshtml" />
+    <Content Include="Views\InstitutionQualifications\Delete.cshtml" />
+    <Content Include="Views\InstitutionQualifications\Details.cshtml" />
+    <Content Include="Views\InstitutionQualifications\Edit.cshtml" />
+    <Content Include="Views\InstitutionQualifications\Index.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\CreateQualification.cshtml" />
+    <Content Include="Views\Shared\InstitutionManagement\EditQualification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

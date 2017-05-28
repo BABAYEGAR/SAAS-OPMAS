@@ -1,6 +1,7 @@
-﻿@using Opmas.Data.Objects.Entities.Employee
+﻿@using Opmas.Data.DataContext.DataContext.EmployeeDataContext
+@using Opmas.Data.Objects.Entities.Employee
 @using Opmas.Data.Service.Enums
-@model Opmas.Data.Objects.Entities.Employee.EmployeeEducationalQualification
+@model EmployeeEducationalQualification
 @{
     ViewBag.Title = "Step Two: Employee Educational Qualification";
     ViewBag.HeaderClass = "page-header";
@@ -8,10 +9,10 @@
 @{
     var employee = Session["Employee"] as Employee;
     var educationaQualification = employee?.EmployeeEducationalQualifications;
-    var basicEducation = educationaQualification?.Where(n => n.DegreeAttained == DegreeTypeEnum.Basic.ToString());
-    var secondaryEducation = educationaQualification?.Where(n => (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) || (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()));
-    var higherEducation = educationaQualification?.Where(n => (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()) || (n.DegreeAttained == DegreeTypeEnum.MSc.ToString()) || (n.DegreeAttained == DegreeTypeEnum.Phd.ToString()));
+    var basicEducation = educationaQualification?.Where(n => n.InstitutionQualificationId == null);
+    var institutionalEducationaQualification = educationaQualification?.Where(n => n.InstitutionQualificationId != null);
     bool? returnUrl = ViewBag.returnUrl ?? false;
+    var db = new EmployeeDataContext();
 }
 @section css {
     <!-- Datatables -->
@@ -116,19 +117,21 @@
                 @Html.TextBoxFor(m => m.EndDate, new {@class = "form-control endDate", placeholder = "Please select an end date"})
             </div>
             <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.DegreeAttained, "Degree Category", new {@class = "control-label"})<span class="req">*</span>
+                @Html.LabelFor(m => m.DegreeAttained, new {@class = "control-label"})<span class="req">*</span>
                 @Html.DropDownListFor(m => m.DegreeAttained, EnumHelper.GetSelectList(typeof(DegreeTypeEnum)), "select the degree you attained", new {@class = "form-control select-dropdown", id = "degreeType"})
             </div>
             <div class="form-group col-md-6" id="degreeClass">
-                @Html.LabelFor(m => m.ClassOfDegree, "Class Of Degree", new {@class = "control-label"}) <span class="req">*</span>
+                @Html.LabelFor(m => m.ClassOfDegree, new {@class = "control-label"}) <span class="req">*</span>
                 @Html.DropDownListFor(m => m.ClassOfDegree, EnumHelper.GetSelectList(typeof(ClassOfDegreeEnum)), new {@class = "form-control select-dropdown", id = "classText"})
+            </div>
+            <div class="form-group col-md-6" id="qualification">
+                @Html.LabelFor(m => m.InstitutionQualification, new {@class = "control-label col-md-12"})
+                @Html.DropDownListFor(m => m.InstitutionQualificationId, (SelectList) ViewBag.InstitutionQualificationId, "--Please select your Qualification--", new {@class = "form-control select-dropdown"})
             </div>
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.FileUpload, new {@class = "control-label"})
                 <input type="file" name="file" id="file" style="width: 100%;"/>
                 @Html.ValidationMessageFor(model => model.FileUpload, "", new {@class = "text-danger"})
-
-
             </div>
         </fieldset>
     </div>
@@ -136,13 +139,10 @@
         <div class="tabbable">
             <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
                 <li class="active">
-                    <a data-toggle="tab" style="color: #5A738E" href="#active">Basic Education</a>
+                    <a data-toggle="tab" style="color: #5A738E" href="#active">Education</a>
                 </li>
                 <li>
-                    <a data-toggle="tab" style="color: #5A738E" href="#secondary">Secodary Education</a>
-                </li>
-                <li>
-                    <a data-toggle="tab" style="color: #5A738E" href="#higher">Higher Education</a>
+                    <a data-toggle="tab" style="color: #5A738E" href="#secondary">Other Qualification</a>
                 </li>
             </ul>
             <div class="table-responsive">
@@ -215,14 +215,16 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.EndDate)
                                 </th>
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DegreeAttained)
+                                </th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @if (secondaryEducation != null)
+                            @if (institutionalEducationaQualification != null)
                             {
-                                foreach (var item in secondaryEducation)
+                                foreach (var item in institutionalEducationaQualification)
                                 {
                                     <tr>
                                         <td>
@@ -234,74 +236,16 @@
                                         <td>
                                             @item.EndDate.ToShortDateString()
                                         </td>
-
                                         <td>
-                                            @if (returnUrl == true)
-                                            {
-                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {fakeId = item.FakeId, returnUrl = true}, new {@class = "btn btn-danger"})
+
+                                            @{
+                                                var institutionQualification = db.InstitutionQualifications.Find(item.InstitutionQualificationId);
                                             }
-                                            else
+                                            @if (institutionQualification != null)
                                             {
-                                                @Html.ActionLink("Remove", "RemoveEducationalQualification", new {item.FakeId}, new {@class = "btn btn-danger"})
+                                                @institutionQualification.Name
                                             }
-                                            <a href="../../UploadedFiles/@UploadType.Education.ToString()/@item.FileUpload" target="_blank" class="btn btn-warning">View File</a>
                                         </td>
-
-                                    </tr>
-                                }
-                            }
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div id="higher" class="tab-pane fade">
-                        <table class="table table-condensed table-hover" id="datatable3">
-                            <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.InstitutionName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.StartDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.EndDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.ClassOfDegree)
-                                </th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if (higherEducation != null)
-                            {
-                                foreach (var item in higherEducation)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.InstitutionName)
-                                        </td>
-                                        <td>
-                                            @item.StartDate.ToShortDateString()
-                                        </td>
-                                        <td>
-                                            @item.EndDate.ToShortDateString()
-                                        </td>
-                                        @if (item.ClassOfDegree != null)
-                                        {
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ClassOfDegree)
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                No Class Of Degree Offered!
-                                            </td>
-                                        }
-
                                         <td>
                                             @if (returnUrl == true)
                                             {
@@ -333,7 +277,7 @@
         <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
         <input type="submit" value="Add" class="btn btn-success"/>
 
-        @if ((educationaQualification != null) && (educationaQualification.Count > 0))
+        @if (educationaQualification != null && educationaQualification.Count > 0)
         {
             if (returnUrl == true)
             {
@@ -360,19 +304,21 @@
             .ready(function() {
                 $('#datatable1').DataTable();
                 $('#datatable2').DataTable();
-                $('#datatable3').DataTable();
                 $("#degreeClass").hide(0);
+                $("#qualification").hide(0);
                 var type = $("#degreeType");
                 type.change(function() {
                     var sel = $(this).val(),
-                        file = $("#degreeClass");
-                    var text = $("#classText");
-                    if (sel === "0" || sel === "1" || sel === "2" || sel === "4" || sel === "5") {
-                        file.hide(100);
+                        classType = $("#degreeClass");
+                    if (sel === "0" || sel === "1" || sel === "2") {
+                        classType.hide(100);
                     } else if (sel === "3") {
-                        file.show(0);
+                        classType.show(0);
+                    } else if (sel === "15") {
+                        $("#qualification").show(0);
+                        classType.hide(100);
                     } else {
-                        file.hide(0);
+                        classType.show(0);
                     }
                 });
             });

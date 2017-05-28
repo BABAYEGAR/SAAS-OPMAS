@@ -84,6 +84,7 @@
     <Compile Include="DataContext\PerformanceDataContext\AppraisalFactorDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\ApplicationStatisticDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\ApplicationNotificationDataContext.cs" />
+    <Compile Include="DataContext\SystemDataContext\InstitutionQualificationDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\InstitutionStructureDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\UnitDataContext.cs" />
     <Compile Include="DataContext\SystemDataContext\DepartmentDataContext.cs" />
@@ -308,6 +309,26 @@
     <Compile Include="Migrations\201704271430198_migrate66.Designer.cs">
       <DependentUpon>201704271430198_migrate66.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705281640325_migrate67.cs" />
+    <Compile Include="Migrations\201705281640325_migrate67.Designer.cs">
+      <DependentUpon>201705281640325_migrate67.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705281705216_migrate68.cs" />
+    <Compile Include="Migrations\201705281705216_migrate68.Designer.cs">
+      <DependentUpon>201705281705216_migrate68.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705281715082_migrate69.cs" />
+    <Compile Include="Migrations\201705281715082_migrate69.Designer.cs">
+      <DependentUpon>201705281715082_migrate69.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705281746169_migrate70.cs" />
+    <Compile Include="Migrations\201705281746169_migrate70.Designer.cs">
+      <DependentUpon>201705281746169_migrate70.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705282227532_migrate71.cs" />
+    <Compile Include="Migrations\201705282227532_migrate71.Designer.cs">
+      <DependentUpon>201705282227532_migrate71.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -483,6 +504,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704271430198_migrate66.resx">
       <DependentUpon>201704271430198_migrate66.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705281640325_migrate67.resx">
+      <DependentUpon>201705281640325_migrate67.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705281705216_migrate68.resx">
+      <DependentUpon>201705281705216_migrate68.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705281715082_migrate69.resx">
+      <DependentUpon>201705281715082_migrate69.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705281746169_migrate70.resx">
+      <DependentUpon>201705281746169_migrate70.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705282227532_migrate71.resx">
+      <DependentUpon>201705282227532_migrate71.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

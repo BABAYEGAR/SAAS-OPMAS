@@ -53,6 +53,8 @@ namespace Opmas.Data.Objects.Entities.Employee
         public bool ManageAppointments { get; set; }
         [DisplayName("Manage Position Change")]
         public bool ManagePositionChange { get; set; }
+        [DisplayName("Manage Qualification")]
+        public bool ManageQualification { get; set; }
         public IEnumerable<AppUser> AppUsers { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public long? InstitutionId { get; set; }

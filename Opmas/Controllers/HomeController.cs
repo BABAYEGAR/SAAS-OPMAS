@@ -127,6 +127,7 @@ namespace Opmas.Controllers
             role.ManageUnits = true;
             role.ManageEmploymentTypes = true;
             role.ManageTrainingTypes = true;
+            role.ManageQualification = true;
             role.Name = "Institution Administrator";
             Session["role"] = role;
 

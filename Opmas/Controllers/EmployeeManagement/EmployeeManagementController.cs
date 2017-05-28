@@ -55,10 +55,12 @@ namespace Opmas.Controllers.EmployeeManagement
             var institution = Session["institution"] as Institution;
             if (id == null)
             {
-                var departmentsWithoutFaculty = _dbEmployee.Departments.Where(n=>n.InstitutionId == institution.InstitutionId);
+                var departmentsWithoutFaculty =
+                    _dbEmployee.Departments.Where(n => n.InstitutionId == institution.InstitutionId);
                 return Json(departmentsWithoutFaculty, JsonRequestBehavior.AllowGet);
             }
-            var departments = _dbEmployee.Departments.Where(n => n.FacultyId == id && n.InstitutionId == institution.InstitutionId);
+            var departments =
+                _dbEmployee.Departments.Where(n => n.FacultyId == id && n.InstitutionId == institution.InstitutionId);
             return Json(departments, JsonRequestBehavior.AllowGet);
         }
 
@@ -107,8 +109,9 @@ namespace Opmas.Controllers.EmployeeManagement
             return
                 View(
                     _dbEmployee.Employees.ToList()
-                        .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId)));
+                        .Where(n => institution != null && n.InstitutionId == institution.InstitutionId));
         }
+
         // POST: EmployeeManagement/EmployeesPositionChange
         public ActionResult EmployeesPositionChange()
         {
@@ -116,7 +119,7 @@ namespace Opmas.Controllers.EmployeeManagement
             return
                 View(
                     _dbEmployee.Employees.ToList()
-                        .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId)));
+                        .Where(n => institution != null && n.InstitutionId == institution.InstitutionId));
         }
 
         #endregion
@@ -126,20 +129,18 @@ namespace Opmas.Controllers.EmployeeManagement
         // GET: EmployeeManagement/PersonalData
         public ActionResult PersonalData(bool? returnUrl, bool? backUrl)
         {
-          var institution =   Session["institution"] as Institution ;
+            var institution = Session["institution"] as Institution;
             _employee = Session["Employee"] as Employee;
             ViewBag.State = new SelectList(_db.States, "StateId", "Name");
-            if ((returnUrl != null) && returnUrl.Value)
+            if (returnUrl != null && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
                     return View(_employee.EmployeePersonalData.SingleOrDefault());
             }
-                if ((backUrl != null) && backUrl.Value)
-            {
+            if (backUrl != null && backUrl.Value)
                 if (_employee != null) return View(_employee.EmployeePersonalData.SingleOrDefault());
-            }
             var dataBase = new ApplicationStatisticDataContext();
             var statistics = new ApplicationStatistic();
             if (institution != null) statistics.InstitutionId = institution.InstitutionId;
@@ -157,7 +158,7 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult PersonalData(EmployeePersonalData personalData, FormCollection collectedValues)
         {
             var allEmployees = _dbEmployee.EmployeePersonalDatas;
-            
+
             _employee = Session["Employee"] as Employee;
             if (_employee != null)
             {
@@ -224,7 +225,7 @@ namespace Opmas.Controllers.EmployeeManagement
                 TempData["personal"] = "The email already exists!";
                 TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
                 //return next view
-                ViewBag.State = new SelectList(_db.States, "StateId", "Name",personalData.StateId);
+                ViewBag.State = new SelectList(_db.States, "StateId", "Name", personalData.StateId);
                 return View(personalData);
             }
             var returnUrl = Convert.ToBoolean(collectedValues["returnUrl"]);
@@ -232,21 +233,25 @@ namespace Opmas.Controllers.EmployeeManagement
             if (returnUrl)
                 return View("ReviewEmployeeData");
             //return next view
-            return View("EducationalQualification");
+            return RedirectToAction("EducationalQualification");
         }
 
         // GET: EmployeeManagement/EducationalQualification
         public ActionResult EducationalQualification(bool? returnUrl)
         {
             _employee = Session["Employee"] as Employee;
-            if ((returnUrl != null) && returnUrl.Value)
+            var institution = Session["institution"] as Institution;
+            ViewBag.InstitutionQualificationId = new SelectList(_dbEmployee.InstitutionQualifications.Where(
+                n => n.InstitutionId == institution.InstitutionId
+            ), "InstitutionQualificationId", "Name");
+            if (returnUrl != null && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null)
                     return View();
             }
-        
+
             return View();
         }
 
@@ -262,57 +267,29 @@ namespace Opmas.Controllers.EmployeeManagement
             var file = Request.Files["file"];
             if (_employee != null)
             {
-                var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-                //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
-                var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                if (_employee.EmployeeEducationalQualifications != null)
-                {
-                    var checkMasters =
-                        _employee?.EmployeeEducationalQualifications.Where(
-                            n =>
-                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()));
-                    var checkPhd =
-                        _employee?.EmployeeEducationalQualifications.Where(
-                            n =>
-                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.MSc.ToString()));
-
-                    if (degree == DegreeTypeEnum.MSc.ToString())
-                        if (checkMasters.Any(item => endDate < item.StartDate))
-                        {
-                            TempData["message"] =
-                                "You cannot offer a masters degree before basic and college education!";
-                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                            return View();
-                        }
-                    if (degree == DegreeTypeEnum.Phd.ToString())
-                        if (checkPhd.Any(item => endDate < item.StartDate))
-                        {
-                            TempData["message"] =
-                                "You cannot offer a doctorate degree before basic,college and masters education!";
-                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                            return View();
-                        }
-                }
+                string degree = null;
+                string classOfDegree = null;
+                long? qualification = null;
+                if (collectedValues["DegreeAttained"] != null)
+                    degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
+                if (collectedValues["ClassOfDegree"] != null)
+                    classOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
+                if (collectedValues["InstitutionQualificationId"] != "")
+                    qualification = Convert.ToInt64(collectedValues["InstitutionQualificationId"]);
                 if (_employee.EmployeeEducationalQualifications == null)
                     _employee.EmployeeEducationalQualifications = new List<EmployeeEducationalQualification>();
                 _employee.EmployeeEducationalQualifications.Add(new EmployeeEducationalQualification
                 {
-                    ClassOfDegree = typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"])),
-                    DegreeAttained = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"])),
+                    ClassOfDegree = classOfDegree,
+                    DegreeAttained = degree,
                     InstitutionName = collectedValues["InstitutionName"],
                     Location = collectedValues["Location"],
                     StartDate = Convert.ToDateTime(collectedValues["StartDate"]),
                     EndDate = Convert.ToDateTime(collectedValues["EndDate"]),
+                    InstitutionQualificationId = qualification,
                     FakeId = _employee.EmployeeEducationalQualifications.Count + 1,
                     FileUpload =
-                        (file != null) && (file.FileName != "")
+                        file != null && file.FileName != ""
                             ? new FileUploader().UploadFile(file, UploadType.Education)
                             : null
                 });
@@ -325,14 +302,14 @@ namespace Opmas.Controllers.EmployeeManagement
             //if it is edit from review page return to the review page
             if (returnUrl)
                 return RedirectToAction("EducationalQualification", new {returnUrl = true});
-            return View("EducationalQualification");
+            return RedirectToAction("EducationalQualification");
         }
 
         // GET: EmployeeManagement/PastWorkExperience
         public ActionResult PastWorkExperience(bool? returnUrl)
         {
             _employee = Session["Employee"] as Employee;
-            if ((returnUrl != null) && returnUrl.Value)
+            if (returnUrl != null && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
@@ -377,19 +354,17 @@ namespace Opmas.Controllers.EmployeeManagement
         }
 
         // GET: EmployeeManagement/EmployeeFamilyData
-        public ActionResult EmployeeFamilyData(bool? returnUrl,bool? backUrl)
+        public ActionResult EmployeeFamilyData(bool? returnUrl, bool? backUrl)
         {
             _employee = Session["Employee"] as Employee;
-            if ((returnUrl != null) && returnUrl.Value)
+            if (returnUrl != null && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
                 if (_employee != null) return View(_employee.EmployeeFamilyDatas.SingleOrDefault());
             }
-            if ((backUrl != null) && backUrl.Value)
-            {
+            if (backUrl != null && backUrl.Value)
                 if (_employee != null) return View(_employee.EmployeeFamilyDatas.SingleOrDefault());
-            }
             return View();
         }
 
@@ -438,7 +413,7 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             _employee = Session["Employee"] as Employee;
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            if ((returnUrl != null) && returnUrl.Value)
+            if (returnUrl != null && returnUrl.Value)
             {
                 ViewBag.returnUrl = true;
                 _employee = Session["Employee"] as Employee;
@@ -490,18 +465,19 @@ namespace Opmas.Controllers.EmployeeManagement
             var institution = Session["institution"] as Institution;
 
             //view bags for dropdowns
-            ViewBag.EmploymentPositionId = new SelectList(_dbEmployeePosition.EmploymentPosition.Where(n => n.InstitutionId == institution.InstitutionId
-        ), "EmploymentPositionId", "Name");
-            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes.Where(n => n.InstitutionId == institution.InstitutionId
-        ), "EmploymentTypeId", "Name");
-            ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories.Where(n => n.InstitutionId == institution.InstitutionId
-        ), "EmploymentCategoryId", "Name");
+            ViewBag.EmploymentPositionId = new SelectList(_dbEmployeePosition.EmploymentPosition.Where(
+                n => n.InstitutionId == institution.InstitutionId
+            ), "EmploymentPositionId", "Name");
+            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes.Where(
+                n => n.InstitutionId == institution.InstitutionId
+            ), "EmploymentTypeId", "Name");
+            ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories.Where(
+                n => n.InstitutionId == institution.InstitutionId
+            ), "EmploymentCategoryId", "Name");
 
             //check if it is a back button
-            if ((backUrl != null) && backUrl.Value)
-            {
+            if (backUrl != null && backUrl.Value)
                 if (_employee != null) return View(_employee.EmployeeMedicalDatas.SingleOrDefault());
-            }
             return View();
         }
 
@@ -518,8 +494,8 @@ namespace Opmas.Controllers.EmployeeManagement
             medicalData.Genotype = typeof(Genotype).GetEnumName(int.Parse(collectedValues["Genotype"]));
 
             //work data
-            workData.EmploymentTypeId = Int64.Parse(collectedValues["EmploymentTypeId"]);
-            workData.EmploymentCategoryId = Int64.Parse(collectedValues["EmploymentCategoryId"]);
+            workData.EmploymentTypeId = long.Parse(collectedValues["EmploymentTypeId"]);
+            workData.EmploymentCategoryId = long.Parse(collectedValues["EmploymentCategoryId"]);
             workData.EmploymentPositionId = Convert.ToInt64(collectedValues["EmploymentPositionId"]);
             workData.EmploymentDate = Convert.ToDateTime(collectedValues["EmploymentDate"]);
             workData.EmploymentStatus = EmploymentStatus.Active.ToString();
@@ -528,24 +504,20 @@ namespace Opmas.Controllers.EmployeeManagement
                 var institutionStructureSession = Session["institutionstructure"] as InstitutionStructure;
                 _employee.DepartmentId = Convert.ToInt64(collectedValues["DepartmentId"]);
                 if (institutionStructureSession != null && institutionStructureSession.Faculty)
-                {
                     _employee.FacultyId = Convert.ToInt64(collectedValues["FacultyId"]);
-                }
                 else
-                {
                     _employee.FacultyId = 0;
-                }
-             
+
                 _employee.UnitId = Convert.ToInt64(collectedValues["UnitId"]);
                 _employee.RoleId = Convert.ToInt64(collectedValues["RoleId"]);
 
-               
+
                 //check to see if role is a single role and make sure two users cannot have that same role in that department
                 var role = _dbEmployee.Roles.Find(_employee.RoleId);
                 var allEmployees =
                     _dbEmployee.Employees.Where(
-                        n => (n.RoleId == role.RoleId) && (n.DepartmentId == _employee.DepartmentId));
-                if ((role.RoleType == RoleType.Single.ToString()) && (allEmployees.ToList().Count > 0))
+                        n => n.RoleId == role.RoleId && n.DepartmentId == _employee.DepartmentId);
+                if (role.RoleType == RoleType.Single.ToString() && allEmployees.ToList().Count > 0)
                 {
                     TempData["message"] =
                         "This role has been assigned to an employee cannot be assigned to more than one employee!";
@@ -708,64 +680,19 @@ namespace Opmas.Controllers.EmployeeManagement
 
         #region single employee data  
 
-        // GET: EmployeeManagement/CreateSingleEducationalQualification
-        public ActionResult CreateSingleEducationalQualification()
-        {
-            var educationalQualification = _dbEmployee.EmployeeEducationalQualifications.SingleOrDefault();
-            return View(educationalQualification);
-        }
-
         // POST: EmployeeManagement/CreateSingleEducationalQualification
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleEducationalQualification([Bind(
-                                                                      Include =
-                                                                          "EmployeeEducationalQualificationId,InstitutionName,Location"
-                                                                  )] FormCollection collectedValues,
+                Include =
+                    "EmployeeEducationalQualificationId,InstitutionName,Location,InstitutionQualificationId"
+            )] FormCollection collectedValues,
             EmployeeEducationalQualification educationalQualification)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
             {
                 var degree = typeof(DegreeTypeEnum).GetEnumName(int.Parse(collectedValues["DegreeAttained"]));
-                //var startDate = Convert.ToDateTime(collectedValues["StartDate"]);
-                var endDate = Convert.ToDateTime(collectedValues["EndDate"]);
-                if (_dbEmployee.EmployeeEducationalQualifications != null)
-                {
-                    var checkMasters =
-                        _dbEmployee?.EmployeeEducationalQualifications.Where(
-                            n =>
-                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString())).ToList();
-                    var checkPhd =
-                        _dbEmployee?.EmployeeEducationalQualifications.Where(
-                            n =>
-                                (n.DegreeAttained == DegreeTypeEnum.Basic.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.JSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.SSCE.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.BSc.ToString()) ||
-                                (n.DegreeAttained == DegreeTypeEnum.MSc.ToString())).ToList();
-
-                    if (degree == DegreeTypeEnum.MSc.ToString())
-                        if (checkMasters.Any(item => endDate < item.StartDate))
-                        {
-                            TempData["message"] =
-                                "You cannot offer a masters degree before basic and college education!";
-                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                            return RedirectToAction("ListOfEducationalQualification", "EmployeeManagement",
-                                new {id = loggedinuser.EmployeeId});
-                        }
-                    if (degree == DegreeTypeEnum.Phd.ToString())
-                        if (checkPhd.Any(item => endDate < item.StartDate))
-                        {
-                            TempData["message"] =
-                                "You cannot offer a doctorate degree before basic,college and masters education!";
-                            TempData["notificationType"] = NotificationTypeEnum.Error.ToString();
-                            return View();
-                        }
-                }
 
                 educationalQualification.ClassOfDegree =
                     typeof(ClassOfDegreeEnum).GetEnumName(int.Parse(collectedValues["ClassOfDegree"]));
@@ -795,9 +722,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleBankData([Bind(
-                                                      Include =
-                                                          "EmployeeBankDataId,BankId,AccountFirstName,AccountMiddleName,AccountLastName,AccountNumber"
-                                                  )] FormCollection collectedValues, EmployeeBankData employeeBankData)
+            Include =
+                "EmployeeBankDataId,BankId,AccountFirstName,AccountMiddleName,AccountLastName,AccountNumber"
+        )] FormCollection collectedValues, EmployeeBankData employeeBankData)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (loggedinuser != null)
@@ -820,9 +747,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSinglePastWorkExperience([Bind(
-                                                                Include =
-                                                                    "EmployeePastWorkExperienceId,EmployerName,EmployerLocation,EmployerContact,PositionHeld,ReasonForLeaving,StartDate,EndDate"
-                                                            )] FormCollection collectedValues,
+                Include =
+                    "EmployeePastWorkExperienceId,EmployerName,EmployerLocation,EmployerContact,PositionHeld,ReasonForLeaving,StartDate,EndDate"
+            )] FormCollection collectedValues,
             EmployeePastWorkExperience pastWorkExperience)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
@@ -844,9 +771,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSingleEmployeeFamilyData([Bind(
-                                                                Include =
-                                                                    "EmployeeFamilyDataId,FullName,Address,ContactNumber,Email,Relationship"
-                                                            )] FormCollection collectedValues,
+                Include =
+                    "EmployeeFamilyDataId,FullName,Address,ContactNumber,Email,Relationship"
+            )] FormCollection collectedValues,
             EmployeeFamilyData familyData)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
@@ -934,7 +861,7 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             var employeeData = Session["Employee"] as Employee;
             employeeData?.EmployeeEducationalQualifications.RemoveAll(n => n.FakeId == fakeId);
-            if ((returnUrl != null) && (returnUrl == true))
+            if (returnUrl != null && returnUrl == true)
                 return RedirectToAction("EducationalQualification", new {returnUrl = true});
             return RedirectToAction("EducationalQualification");
         }
@@ -950,7 +877,7 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeData = Session["Employee"] as Employee;
             employeeData?.EmployeeBankDatas.RemoveAll(n => n.FakeId == fakeId);
             ViewBag.Bank = new SelectList(_dbBanks.Banks, "BankId", "Name");
-            if ((returnUrl != null) && (returnUrl == true))
+            if (returnUrl != null && returnUrl == true)
                 return RedirectToAction("BankData", new {returnUrl = true});
             return RedirectToAction("BankData");
         }
@@ -965,7 +892,7 @@ namespace Opmas.Controllers.EmployeeManagement
         {
             var employeeData = Session["Employee"] as Employee;
             employeeData?.EmployeePastWorkExperiences.RemoveAll(n => n.FakeId == fakeId);
-            if ((returnUrl != null) && (returnUrl == true))
+            if (returnUrl != null && returnUrl == true)
                 return RedirectToAction("PastWorkExperience", new {returnUrl = true});
             return RedirectToAction("PastWorkExperience");
         }
@@ -989,10 +916,11 @@ namespace Opmas.Controllers.EmployeeManagement
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             var institution = Session["institution"] as Institution;
             var employeeId = Convert.ToInt64(collectedValue["EmployeeId"]);
-            var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
+            var employeePersonalData =
+                _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == employeeId);
             var employees =
                 _dbEmployee.Employees.ToList()
-                    .Where(n => (institution != null) && (n.InstitutionId == institution.InstitutionId));
+                    .Where(n => institution != null && n.InstitutionId == institution.InstitutionId);
             var employee = _dbEmployee.Employees.Find(employeeId);
             var appUser = new AppUser();
             if (employeePersonalData != null)
@@ -1041,12 +969,13 @@ namespace Opmas.Controllers.EmployeeManagement
 
             // Get DisplayAttibute on the supplied enum value
             var displayAttribute = memberInfo[0].GetCustomAttributes(typeof(DisplayAttribute), false)
-                                   as DisplayAttribute[];
+                as DisplayAttribute[];
             if (displayAttribute == null || displayAttribute.Length != 1)
                 return null;
 
             return displayAttribute[0].Name;
         }
+
         // GET: EmployeeManagement/EditPersonalData/5
         public ActionResult EditPersonalData(long? id)
         {
@@ -1055,7 +984,8 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeePersonalData = _dbEmployee.EmployeePersonalDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeePersonalData == null)
                 return HttpNotFound();
-            ViewBag.StateId = new SelectList(_db.States, "StateId", "Name",Convert.ToInt32(employeePersonalData.StateId));
+            ViewBag.StateId = new SelectList(_db.States, "StateId", "Name",
+                Convert.ToInt32(employeePersonalData.StateId));
             employeePersonalData.Title = GetSelectedEnum(employeePersonalData.Title);
             return View(employeePersonalData);
         }
@@ -1067,9 +997,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [ValidateAntiForgeryToken]
         public ActionResult EditPersonalData(
             [Bind(
-                 Include =
-                     "EmployeePersonalDataId,Firstname,Middlename,Lastname,DateOfBirth,Title,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
-             )] EmployeePersonalData employeePersonalData, FormCollection collectedValues)
+                Include =
+                    "EmployeePersonalDataId,Firstname,Middlename,Lastname,DateOfBirth,Title,PlaceOfBirth,PrimaryAddress,SecondaryAddress,Gender,StateId,LgaId,PostalCode,HomePhone,MobilePhone,WorkPhone,Email,MaritalStatus,EmployeeImage,EmployeeId"
+            )] EmployeePersonalData employeePersonalData, FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -1084,11 +1014,12 @@ namespace Opmas.Controllers.EmployeeManagement
                 _dbEmployee.Entry(employee).State = EntityState.Modified;
                 _dbEmployee.SaveChanges();
                 TempData["message"] =
-                     "You have successfully modified the employee's personal data!";
+                    "You have successfully modified the employee's personal data!";
                 TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
                 return RedirectToAction("Dashboard", "Home");
             }
-            ViewBag.StateId = new SelectList(_db.States, "StateId", "Name", Convert.ToInt32(employeePersonalData.StateId));
+            ViewBag.StateId = new SelectList(_db.States, "StateId", "Name",
+                Convert.ToInt32(employeePersonalData.StateId));
             return View(employeePersonalData);
         }
 
@@ -1108,8 +1039,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditMedicalData([Bind(
-                                                 Include =
-                                                     "EmployeeMedicalDataId,EmployeeId,RoleId,UnitId,EmploymentCategoryId,EmploymentDate,DepartmentId,FacultyId,EmploymentPositionId,EmploymentTypeId")] EmployeeMedicalData medicalData,
+                Include =
+                    "EmployeeMedicalDataId,EmployeeId,RoleId,UnitId,EmploymentCategoryId,EmploymentDate,DepartmentId,FacultyId,EmploymentPositionId,EmploymentTypeId")]
+            EmployeeMedicalData medicalData,
             FormCollection collectedValues)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
@@ -1127,7 +1059,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(medicalData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
             TempData["dashboard"] =
-                  "You have successfully modified the employee's medical data!";
+                "You have successfully modified the employee's medical data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Dashboard", "Home");
         }
@@ -1140,9 +1072,12 @@ namespace Opmas.Controllers.EmployeeManagement
             var employeeWorkData = _dbEmployee.EmployeeWorkDatas.SingleOrDefault(n => n.EmployeeId == id);
             if (employeeWorkData == null)
                 return HttpNotFound();
-            ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories, "EmploymentCategoryId", "Name", employeeWorkData.EmploymentCategoryId);
-            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes, "EmploymentTypeId", "Name", employeeWorkData.EmploymentTypeId);
-            ViewBag.EmploymentPositionId = new SelectList(_dbEmployee.EmploymentPositions, "EmploymentPositionId", "Name", employeeWorkData.EmploymentPositionId);
+            ViewBag.EmploymentCategoryId = new SelectList(_dbEmployee.EmploymentCategories, "EmploymentCategoryId",
+                "Name", employeeWorkData.EmploymentCategoryId);
+            ViewBag.EmploymentTypeId = new SelectList(_dbEmployee.EmploymentTypes, "EmploymentTypeId", "Name",
+                employeeWorkData.EmploymentTypeId);
+            ViewBag.EmploymentPositionId = new SelectList(_dbEmployee.EmploymentPositions, "EmploymentPositionId",
+                "Name", employeeWorkData.EmploymentPositionId);
             return View(employeeWorkData);
         }
 
@@ -1150,8 +1085,9 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditWorkData([Bind(
-                                              Include =
-                                                  "EmployeeWorkDataId,EmploymentDate,EmploymentPositionId,EmploymentCategoryId,EmploymentTypeId,EmployeeId,PositionHeld")] EmployeeWorkData workData,
+                Include =
+                    "EmployeeWorkDataId,EmploymentDate,EmploymentPositionId,EmploymentCategoryId,EmploymentTypeId,EmployeeId,PositionHeld")]
+            EmployeeWorkData workData,
             FormCollection collectedValues)
         {
             //medical data
@@ -1161,7 +1097,7 @@ namespace Opmas.Controllers.EmployeeManagement
             _dbEmployee.Entry(workData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
             TempData["employee"] =
-                             "You have successfully modified the employee's work data!";
+                "You have successfully modified the employee's work data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("ListOfEmployees", "EmployeeManagement");
         }
@@ -1181,19 +1117,20 @@ namespace Opmas.Controllers.EmployeeManagement
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditEmployeeFamilyData([Bind(
-                                                        Include =
-                                                            "EmployeeFamilyDataId,FullName,Address,ContactNumber,EmployeeId,Email,DateOfBirth,Relationship"
-                                                    )] EmployeeFamilyData familyData,
+                Include =
+                    "EmployeeFamilyDataId,FullName,Address,ContactNumber,EmployeeId,Email,DateOfBirth,Relationship"
+            )] EmployeeFamilyData familyData,
             FormCollection collectedValues)
         {
             //update data
             _dbEmployee.Entry(familyData).State = EntityState.Modified;
             _dbEmployee.SaveChanges();
             TempData["dashboard"] =
-                  "You have successfully modified the employee's next of kin data!";
+                "You have successfully modified the employee's next of kin data!";
             TempData["notificationType"] = NotificationTypeEnum.Success.ToString();
             return RedirectToAction("Dashboard", "Home");
         }
+
         #endregion
 
         #region List of employee data
@@ -1243,7 +1180,7 @@ namespace Opmas.Controllers.EmployeeManagement
         public ActionResult AllEmployeePaymentData(long? id)
         {
             var loggedinuser = Session["opmasloggedinuser"] as AppUser;
-            var employees = _dbEmployee.Employees.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).ToList();
+            var employees = _dbEmployee.Employees.Where(n => n.InstitutionId == loggedinuser.InstitutionId).ToList();
             return View(employees);
         }
     }

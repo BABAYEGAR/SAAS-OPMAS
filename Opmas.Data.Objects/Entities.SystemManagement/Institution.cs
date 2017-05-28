@@ -68,6 +68,7 @@ namespace Opmas.Data.Objects.Entities.SystemManagement
         public IEnumerable<Responsibility> Responsibilities { get; set; }
         public IEnumerable<EmployeeResponsibilityMapping> EmployeeResponsibilityMappings { get; set; }
         public IEnumerable<PositionChange> PositionChanges { get; set; }
+        public IEnumerable<InstitutionQualification> InstitutionQualifications { get; set; }
 
         [DisplayName("Package")]
         public long PackageId { get; set; }
