@@ -163,26 +163,9 @@ namespace Opmas.Controllers.EmployeeManagement
             if (_employee != null)
             {
                 //collect data from form using form collection
-                personalData.Firstname = collectedValues["Firstname"];
-                personalData.Lastname = collectedValues["Lastname"];
-                personalData.Middlename = collectedValues["Middlename"];
-                personalData.Gender = collectedValues["Gender"];
-                personalData.Email = collectedValues["Email"];
-                personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
-                personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
                 personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
-                personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
-                personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
-                personalData.HomePhone = collectedValues["HomePhone"];
-                personalData.WorkPhone = collectedValues["WorkPhone"];
-                personalData.MobilePhone = collectedValues["MobilePhone"];
-                personalData.MaritalStatus = collectedValues["MaritalStatus"];
-                personalData.PostalCode = collectedValues["PostalCode"];
-                personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
-                personalData.Gender = collectedValues["Gender"];
-                personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
+                personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(personalData.Title));
                 personalData.EmployeeImage = "131262294730509246.jpg";
-
 
                 //store data in a session
                 //Session["EmployeePersonalData"] = personalData;
@@ -193,24 +176,8 @@ namespace Opmas.Controllers.EmployeeManagement
             {
                 var employeePersonalData = new Employee();
                 //collect data from form using form collection
-                personalData.Firstname = collectedValues["Firstname"];
-                personalData.Lastname = collectedValues["Lastname"];
-                personalData.Middlename = collectedValues["Middlename"];
-                personalData.Gender = collectedValues["Gender"];
-                personalData.Email = collectedValues["Email"];
-                personalData.PrimaryAddress = collectedValues["PrimaryAddress"];
-                personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(collectedValues["Title"]));
-                personalData.SecondaryAddress = collectedValues["SecondaryAddress"];
                 personalData.DateOfBirth = Convert.ToDateTime(collectedValues["DateOfBirth"]);
-                personalData.PlaceOfBirth = collectedValues["PlaceOfBirth"];
-                personalData.HomePhone = collectedValues["HomePhone"];
-                personalData.WorkPhone = collectedValues["WorkPhone"];
-                personalData.MobilePhone = collectedValues["MobilePhone"];
-                personalData.MaritalStatus = collectedValues["MaritalStatus"];
-                personalData.PostalCode = collectedValues["PostalCode"];
-                personalData.LgaId = Convert.ToInt32(collectedValues["LgaId"]);
-                personalData.Gender = collectedValues["Gender"];
-                personalData.StateId = Convert.ToInt32(collectedValues["StateId"]);
+                personalData.Title = typeof(NameTitle).GetEnumName(int.Parse(personalData.Title));
                 personalData.EmployeeImage = "131262294730509246.jpg";
 
 
@@ -623,11 +590,11 @@ namespace Opmas.Controllers.EmployeeManagement
                                 employeeDataEmployeeEducationalQualification);
                     }
 
-                    var employeePersonalData = employeeData.EmployeePersonalData.FirstOrDefault();
+                    var employeePersonalData = employeeData.EmployeePersonalData.SingleOrDefault();
                     if (employeePersonalData != null)
                     {
                         employeePersonalData.EmployeeId = employeeData.EmployeeId;
-                        _dbEmployee.EmployeePersonalDatas.Add(employeeData.EmployeePersonalData.FirstOrDefault());
+                        _dbEmployee.EmployeePersonalDatas.Add(employeeData.EmployeePersonalData.SingleOrDefault());
                         //_dbe.SaveChanges();
                     }
 
@@ -641,23 +608,20 @@ namespace Opmas.Controllers.EmployeeManagement
                         foreach (var employeeDataEmployeePastWorkExperience in employeeData.EmployeePastWorkExperiences)
                             _dbEmployee.EmployeePastWorkExperiences.Add(employeeDataEmployeePastWorkExperience);
                     }
-                    var employeeFamilyData = employeeData.EmployeeFamilyDatas.FirstOrDefault();
+                    var employeeFamilyData = employeeData.EmployeeFamilyDatas?.SingleOrDefault();
                     if (employeeFamilyData != null)
                     {
                         employeeFamilyData.EmployeeId = employeeData.EmployeeId;
-                        _dbEmployee.EmployeeFamilyDatas.Add(employeeData.EmployeeFamilyDatas.FirstOrDefault());
+                        _dbEmployee.EmployeeFamilyDatas.Add(employeeData.EmployeeFamilyDatas.SingleOrDefault());
                         //_dbe.SaveChanges();
                     }
-
-
-                    var employeeWorkData = employeeData.EmployeeWorkDatas.FirstOrDefault();
+                    var employeeWorkData = employeeData.EmployeeWorkDatas?.SingleOrDefault();
                     if (employeeWorkData != null)
                     {
                         employeeWorkData.EmployeeId = employeeData.EmployeeId;
-                        _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.FirstOrDefault());
+                        _dbEmployee.EmployeeWorkDatas.Add(employeeData.EmployeeWorkDatas.SingleOrDefault());
                     }
-
-                    var employeeMedicalData = employeeData.EmployeeMedicalDatas.FirstOrDefault();
+                    var employeeMedicalData = employeeData.EmployeeMedicalDatas?.SingleOrDefault();
                     if (employeeMedicalData != null)
                     {
                         employeeMedicalData.EmployeeId = employeeData.EmployeeId;
@@ -670,7 +634,7 @@ namespace Opmas.Controllers.EmployeeManagement
                         employeeMedicalData.EmploymentDate = Convert.ToDateTime("2001-01-01 01:00:00.000");
                         employeeMedicalData.UnitId = 0;
                         employeeMedicalData.EmploymentCategoryId = 0;
-                        _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.FirstOrDefault());
+                        _dbEmployee.EmployeeMedicalDatas.Add(employeeData.EmployeeMedicalDatas.SingleOrDefault());
                     }
                     _dbEmployee.SaveChanges();
                 }

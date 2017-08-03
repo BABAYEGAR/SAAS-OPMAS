@@ -14,6 +14,35 @@
 
 </head>
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel1">Save Employee Information</h4>
+                </div>
+                @using (Html.BeginForm("ReviewEmployeeData", "EmployeeManagement", new {  }))
+                {
+                    <div class="modal-body">
+
+                        @Html.AntiForgeryToken()
+                        <p>
+                            Saving the information will not capture all the employee's data and as such provide employees with the ability to modify their information later! Agree? Then Save!
+                        </p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Save" class="btn btn-danger pull-right" />
+                        <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
 @RenderBody()
 <hr/>
 <footer>

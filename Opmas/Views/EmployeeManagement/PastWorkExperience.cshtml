@@ -192,8 +192,13 @@
                     <a href="@Url.Action("EducationalQualification", "EmployeeManagement")" class="btn btn-default">Back</a>
                     <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
                     <input type="submit" value="Add" class="btn btn-success"/>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary fa fa-check pull-right" data-toggle="modal" data-target="#myModal1">
+                        Save 
+                    </button>
                     @if ((pastWorkExperienceSession != null) && (pastWorkExperienceSession.Count > 0))
                     {
+              
                         if (returnUrl == true)
                         {
                             <a href="@Url.Action("ReviewEmployeeData", "EmployeeManagement")" class="btn btn-default pull-right">Revert to review page</a>

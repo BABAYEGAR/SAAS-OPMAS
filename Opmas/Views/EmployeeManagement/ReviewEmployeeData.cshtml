@@ -6,22 +6,31 @@
     var dbEmployeePosition = new EmploymentPositionDataContext();
     var edit = true;
     var employee = Session["Employee"] as Employee;
-    List<EmployeeEducationalQualification> educationaQualification = null;
-    List<EmployeeBankData> bankData = null;
-    List<EmployeePastWorkExperience> pastWorkExperienceSession = null;
-    EmployeePersonalData employeePersonalData = null;
-    EmployeeWorkData employeeWorkData = null;
-    EmployeeMedicalData employeeMedicalData = null;
-    EmployeeFamilyData employeeFamilyData = null;
+    List<EmployeeEducationalQualification> educationaQualification = new List<EmployeeEducationalQualification>();
+    List<EmployeeBankData> bankData = new List<EmployeeBankData>();
+    List<EmployeePastWorkExperience> pastWorkExperienceSession = new List<EmployeePastWorkExperience>();
+    EmployeePersonalData employeePersonalData = new EmployeePersonalData();
+    EmployeeWorkData employeeWorkData = new EmployeeWorkData();
+    EmployeeMedicalData employeeMedicalData = new EmployeeMedicalData();
+    EmployeeFamilyData employeeFamilyData = new EmployeeFamilyData();
     if (employee != null)
     {
         educationaQualification = employee.EmployeeEducationalQualifications;
         bankData = employee.EmployeeBankDatas;
         pastWorkExperienceSession = employee.EmployeePastWorkExperiences;
         employeePersonalData = employee.EmployeePersonalData.SingleOrDefault();
-        employeeWorkData = employee.EmployeeWorkDatas.SingleOrDefault();
-        employeeMedicalData = employee.EmployeeMedicalDatas.SingleOrDefault();
-        employeeFamilyData = employee?.EmployeeFamilyDatas.SingleOrDefault();
+        if (employee.EmployeeWorkDatas != null)
+        {
+            employeeWorkData = employee.EmployeeWorkDatas.SingleOrDefault();
+        }
+        if (employee.EmployeeMedicalDatas != null)
+        {
+            employeeMedicalData = employee.EmployeeMedicalDatas.SingleOrDefault();
+        }
+        if (employee.EmployeeFamilyDatas != null)
+        {
+            employeeFamilyData = employee?.EmployeeFamilyDatas.SingleOrDefault();
+        }
     }
 }
 <style>
@@ -444,100 +453,108 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <!-- Simple panel -->
-    <div class="col-md-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h2>
-                    <strong>Medical & Work data</strong>
-                </h2>
-            </div>
+@if (employeeMedicalData != null && employeeWorkData != null)
+{
+    <div class="row">
+        <!-- Simple panel -->
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h2>
+                        <strong>Medical & Work data</strong>
+                    </h2>
+                </div>
 
-            <div class="panel-body">
-                <div class="row">
+                <div class="panel-body">
+                    <div class="row">
 
-                    <div class="col-md-4">
-                        @if (employeeMedicalData != null)
-                        {
-                            <h4>
-                                <strong >Blood Group</strong><br/>
-                                <label>@employeeMedicalData.BloodGroup</label>
-
-
-                            </h4>
-
-                            <h4>
-                                <strong >Genotype</strong><br/>
-                                <label>@employeeMedicalData.Genotype</label>
+                        <div class="col-md-4">
+                            @if (employee.EmployeeMedicalDatas != null)
+                            {
+                                <h4>
+                                    <strong >Blood Group</strong><br/>
+                                    <label>@employeeMedicalData.BloodGroup</label>
 
 
-                            </h4>
-                        }
-                        @if (employeeWorkData != null)
-                        {
-                            <h4>
-                                <strong >Employement Type</strong><br/>
-                                <label>@dbEmployee.EmploymentTypes.Find(employee.EmployeeMedicalDatas.SingleOrDefault().EmploymentTypeId).Name</label>
+                                </h4>
+
+                                <h4>
+                                    <strong >Genotype</strong><br/>
+                                    <label>@employeeMedicalData.Genotype</label>
 
 
-                            </h4>
+                                </h4>
+                            }
+                            @if (employee.EmployeeWorkDatas != null)
+                            {
+                                <h4>
+                                    <strong >Employement Type</strong><br/>
+                                    <label>@dbEmployee.EmploymentTypes.Find(employee.EmployeeMedicalDatas.SingleOrDefault().EmploymentTypeId).Name</label>
 
-                            <h4>
-                                <strong >Employmente Date</strong><br/>
-                                <label>@employeeWorkData.EmploymentDate</label>
+                                </h4>
 
-                            </h4>
-                            <h4>
-                                <strong >Employement Position</strong><br/>
-                                <label>@dbEmployeePosition.EmploymentPosition.Find(employeeWorkData.EmploymentPositionId).Name</label>
+                                <h4>
+                                    <strong >Employmente Date</strong><br/>
+                                    <label>@employeeWorkData.EmploymentDate</label>
 
-                            </h4>
-                            <h4>
-                                <strong>Faculty</strong><br/>
-                                <label>
-                               
-                                      @(dbEmployee.Faculties.SingleOrDefault(n=>n.FacultyId == employee.FacultyId).Name)
-                                    
-                                </label>
+                                </h4>
+                                <h4>
+                                    <strong >Employement Position</strong><br/>
+                                    <label>@dbEmployeePosition.EmploymentPosition.Find(employeeWorkData.EmploymentPositionId).Name</label>
 
-                            </h4>
-                            <h4>
-                                <strong>Department</strong><br/>
-                                <label>@dbEmployee.Departments.Find(employee.DepartmentId).Name</label>
+                                </h4>
+                                <h4>
+                                    <strong>Faculty</strong><br/>
+                                    <label>
+                                        @if (employee.FacultyId != null)
+                                        {
+                                            @(dbEmployee.Faculties.SingleOrDefault(n => n.FacultyId == employee.FacultyId).Name)
+                                        }
+                                    </label>
 
-                            </h4>
-                            <h4>
-                                <strong>Unit</strong><br/>
-                                <label>@dbEmployee.Units.Find(employee.UnitId).Name</label>
+                                </h4>
+                                <h4>
+                                    <strong>Department</strong><br/>
+                                    @if (employee.DepartmentId != null)
+                                    {
+                                        <label>@dbEmployee.Departments.Find(employee.DepartmentId).Name</label>
+                                    }
+                                </h4>
+                                <h4>
+                                    <strong>Unit</strong><br/>
+                                    @if (employee.UnitId != null)
+                                    {
+                                        <label>@dbEmployee.Units.Find(employee.UnitId).Name</label>
+                                    }
+                                </h4>
 
-                            </h4>
-                        }
+                            }
+
+                            <div class="margin-bottom-30"></div>
 
 
-                        <div class="margin-bottom-30"></div>
-
+                        </div>
 
                     </div>
 
-                </div>
-                <div class="col-md-12 ">
-                    @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil"})
+                    <div class="col-md-12 ">
+                        @Html.ActionLink("Edit", "MedicalData", new {returnUrl = true}, new {@class = "btn btn-brown pull-right fa fa-pencil"})
 
+                    </div>
                 </div>
             </div>
+            @using (Html.BeginForm("ReviewEmployeeDatas", "EmployeeManagement", FormMethod.Post, null))
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-md-12">
+                    @Html.ActionLink("Back", "MedicalData", new {backUrl = true}, new {@class = "btn btn-default btn-sm pull-left"})
+                    <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right fa fa-save"/>
+
+                </div>
+            }
         </div>
-        @using (Html.BeginForm("ReviewEmployeeDatas", "EmployeeManagement", FormMethod.Post, null))
-        {
-            @Html.AntiForgeryToken()
-            <div class="col-md-12">
-                @Html.ActionLink("Back", "MedicalData", new {backUrl = true}, new {@class = "btn btn-default btn-sm pull-left"})
-                <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right fa fa-save"/>
 
-            </div>
-        }
     </div>
-
-</div>
+}
 </div>
 </div>

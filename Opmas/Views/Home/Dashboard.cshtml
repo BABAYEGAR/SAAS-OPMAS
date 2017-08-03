@@ -44,7 +44,7 @@
         numberOfFaculties = dataContext.Faculties.Where(n=>n.InstitutionId == loggedinuser.InstitutionId).ToList().Count;
         numberOfDepartments = dataContext.Departments.Where(n => n.InstitutionId == loggedinuser.InstitutionId).ToList().Count;
         numberOfInstitutionSessions = dataContext.ApplicationStatistics.ToList().Count;
-        List<Unit> units = null;
+        List<Unit> units = new List<Unit>();
         foreach (var item in dataContext.Units)
         {
             var department = dataContext.Departments.Find(item.DepartmentId);
